@@ -2,6 +2,7 @@ load("@bazel_gazelle//:def.bzl", "gazelle")
 load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 
 # gazelle:prefix github.com/roleypoly/roleypoly
+# gazelle:exclude hack/**
 gazelle(name = "gazelle")
 
 exports_files(

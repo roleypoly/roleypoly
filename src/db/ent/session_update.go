@@ -34,14 +34,11 @@ func (su *SessionUpdate) Mutation() *SessionMutation {
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
 func (su *SessionUpdate) Save(ctx context.Context) (int, error) {
-	if _, ok := su.mutation.UpdateTime(); !ok {
-		v := session.UpdateDefaultUpdateTime()
-		su.mutation.SetUpdateTime(v)
-	}
 	var (
 		err      error
 		affected int
 	)
+	su.defaults()
 	if len(su.hooks) == 0 {
 		affected, err = su.sqlSave(ctx)
 	} else {
@@ -84,6 +81,14 @@ func (su *SessionUpdate) Exec(ctx context.Context) error {
 func (su *SessionUpdate) ExecX(ctx context.Context) {
 	if err := su.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (su *SessionUpdate) defaults() {
+	if _, ok := su.mutation.UpdateTime(); !ok {
+		v := session.UpdateDefaultUpdateTime()
+		su.mutation.SetUpdateTime(v)
 	}
 }
 
@@ -137,14 +142,11 @@ func (suo *SessionUpdateOne) Mutation() *SessionMutation {
 
 // Save executes the query and returns the updated entity.
 func (suo *SessionUpdateOne) Save(ctx context.Context) (*Session, error) {
-	if _, ok := suo.mutation.UpdateTime(); !ok {
-		v := session.UpdateDefaultUpdateTime()
-		suo.mutation.SetUpdateTime(v)
-	}
 	var (
 		err  error
 		node *Session
 	)
+	suo.defaults()
 	if len(suo.hooks) == 0 {
 		node, err = suo.sqlSave(ctx)
 	} else {
@@ -170,11 +172,11 @@ func (suo *SessionUpdateOne) Save(ctx context.Context) (*Session, error) {
 
 // SaveX is like Save, but panics if an error occurs.
 func (suo *SessionUpdateOne) SaveX(ctx context.Context) *Session {
-	s, err := suo.Save(ctx)
+	node, err := suo.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
-	return s
+	return node
 }
 
 // Exec executes the query on the entity.
@@ -190,7 +192,15 @@ func (suo *SessionUpdateOne) ExecX(ctx context.Context) {
 	}
 }
 
-func (suo *SessionUpdateOne) sqlSave(ctx context.Context) (s *Session, err error) {
+// defaults sets the default values of the builder before save.
+func (suo *SessionUpdateOne) defaults() {
+	if _, ok := suo.mutation.UpdateTime(); !ok {
+		v := session.UpdateDefaultUpdateTime()
+		suo.mutation.SetUpdateTime(v)
+	}
+}
+
+func (suo *SessionUpdateOne) sqlSave(ctx context.Context) (_node *Session, err error) {
 	_spec := &sqlgraph.UpdateSpec{
 		Node: &sqlgraph.NodeSpec{
 			Table:   session.Table,
@@ -213,9 +223,9 @@ func (suo *SessionUpdateOne) sqlSave(ctx context.Context) (s *Session, err error
 			Column: session.FieldUpdateTime,
 		})
 	}
-	s = &Session{config: suo.config}
-	_spec.Assign = s.assignValues
-	_spec.ScanValues = s.scanValues()
+	_node = &Session{config: suo.config}
+	_spec.Assign = _node.assignValues
+	_spec.ScanValues = _node.scanValues()
 	if err = sqlgraph.UpdateNode(ctx, suo.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{session.Label}
@@ -224,5 +234,5 @@ func (suo *SessionUpdateOne) sqlSave(ctx context.Context) (s *Session, err error
 		}
 		return nil, err
 	}
-	return s, nil
+	return _node, nil
 }

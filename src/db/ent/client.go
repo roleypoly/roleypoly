@@ -206,11 +206,11 @@ func (c *ChallengeClient) Get(ctx context.Context, id int) (*Challenge, error) {
 
 // GetX is like Get, but panics if an error occurs.
 func (c *ChallengeClient) GetX(ctx context.Context, id int) *Challenge {
-	ch, err := c.Get(ctx, id)
+	obj, err := c.Get(ctx, id)
 	if err != nil {
 		panic(err)
 	}
-	return ch
+	return obj
 }
 
 // Hooks returns the client hooks.
@@ -294,11 +294,11 @@ func (c *GuildClient) Get(ctx context.Context, id int) (*Guild, error) {
 
 // GetX is like Get, but panics if an error occurs.
 func (c *GuildClient) GetX(ctx context.Context, id int) *Guild {
-	gu, err := c.Get(ctx, id)
+	obj, err := c.Get(ctx, id)
 	if err != nil {
 		panic(err)
 	}
-	return gu
+	return obj
 }
 
 // Hooks returns the client hooks.
@@ -382,11 +382,11 @@ func (c *SessionClient) Get(ctx context.Context, id int) (*Session, error) {
 
 // GetX is like Get, but panics if an error occurs.
 func (c *SessionClient) GetX(ctx context.Context, id int) *Session {
-	s, err := c.Get(ctx, id)
+	obj, err := c.Get(ctx, id)
 	if err != nil {
 		panic(err)
 	}
-	return s
+	return obj
 }
 
 // Hooks returns the client hooks.

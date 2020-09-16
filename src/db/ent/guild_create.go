@@ -80,20 +80,24 @@ func (gc *GuildCreate) Mutation() *GuildMutation {
 
 // Save creates the Guild in the database.
 func (gc *GuildCreate) Save(ctx context.Context) (*Guild, error) {
-	if err := gc.preSave(); err != nil {
-		return nil, err
-	}
 	var (
 		err  error
 		node *Guild
 	)
+	gc.defaults()
 	if len(gc.hooks) == 0 {
+		if err = gc.check(); err != nil {
+			return nil, err
+		}
 		node, err = gc.sqlSave(ctx)
 	} else {
 		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 			mutation, ok := m.(*GuildMutation)
 			if !ok {
 				return nil, fmt.Errorf("unexpected mutation type %T", m)
+			}
+			if err = gc.check(); err != nil {
+				return nil, err
 			}
 			gc.mutation = mutation
 			node, err = gc.sqlSave(ctx)
@@ -119,7 +123,8 @@ func (gc *GuildCreate) SaveX(ctx context.Context) *Guild {
 	return v
 }
 
-func (gc *GuildCreate) preSave() error {
+// defaults sets the default values of the builder before save.
+func (gc *GuildCreate) defaults() {
 	if _, ok := gc.mutation.CreateTime(); !ok {
 		v := guild.DefaultCreateTime()
 		gc.mutation.SetCreateTime(v)
@@ -127,6 +132,16 @@ func (gc *GuildCreate) preSave() error {
 	if _, ok := gc.mutation.UpdateTime(); !ok {
 		v := guild.DefaultUpdateTime()
 		gc.mutation.SetUpdateTime(v)
+	}
+}
+
+// check runs all checks and user-defined validators on the builder.
+func (gc *GuildCreate) check() error {
+	if _, ok := gc.mutation.CreateTime(); !ok {
+		return &ValidationError{Name: "create_time", err: errors.New("ent: missing required field \"create_time\"")}
+	}
+	if _, ok := gc.mutation.UpdateTime(); !ok {
+		return &ValidationError{Name: "update_time", err: errors.New("ent: missing required field \"update_time\"")}
 	}
 	if _, ok := gc.mutation.Snowflake(); !ok {
 		return &ValidationError{Name: "snowflake", err: errors.New("ent: missing required field \"snowflake\"")}
@@ -144,7 +159,7 @@ func (gc *GuildCreate) preSave() error {
 }
 
 func (gc *GuildCreate) sqlSave(ctx context.Context) (*Guild, error) {
-	gu, _spec := gc.createSpec()
+	_node, _spec := gc.createSpec()
 	if err := sqlgraph.CreateNode(ctx, gc.driver, _spec); err != nil {
 		if cerr, ok := isSQLConstraintError(err); ok {
 			err = cerr
@@ -152,13 +167,13 @@ func (gc *GuildCreate) sqlSave(ctx context.Context) (*Guild, error) {
 		return nil, err
 	}
 	id := _spec.ID.Value.(int64)
-	gu.ID = int(id)
-	return gu, nil
+	_node.ID = int(id)
+	return _node, nil
 }
 
 func (gc *GuildCreate) createSpec() (*Guild, *sqlgraph.CreateSpec) {
 	var (
-		gu    = &Guild{config: gc.config}
+		_node = &Guild{config: gc.config}
 		_spec = &sqlgraph.CreateSpec{
 			Table: guild.Table,
 			ID: &sqlgraph.FieldSpec{
@@ -173,7 +188,7 @@ func (gc *GuildCreate) createSpec() (*Guild, *sqlgraph.CreateSpec) {
 			Value:  value,
 			Column: guild.FieldCreateTime,
 		})
-		gu.CreateTime = value
+		_node.CreateTime = value
 	}
 	if value, ok := gc.mutation.UpdateTime(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -181,7 +196,7 @@ func (gc *GuildCreate) createSpec() (*Guild, *sqlgraph.CreateSpec) {
 			Value:  value,
 			Column: guild.FieldUpdateTime,
 		})
-		gu.UpdateTime = value
+		_node.UpdateTime = value
 	}
 	if value, ok := gc.mutation.Snowflake(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -189,7 +204,7 @@ func (gc *GuildCreate) createSpec() (*Guild, *sqlgraph.CreateSpec) {
 			Value:  value,
 			Column: guild.FieldSnowflake,
 		})
-		gu.Snowflake = value
+		_node.Snowflake = value
 	}
 	if value, ok := gc.mutation.Message(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -197,7 +212,7 @@ func (gc *GuildCreate) createSpec() (*Guild, *sqlgraph.CreateSpec) {
 			Value:  value,
 			Column: guild.FieldMessage,
 		})
-		gu.Message = value
+		_node.Message = value
 	}
 	if value, ok := gc.mutation.Categories(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -205,7 +220,7 @@ func (gc *GuildCreate) createSpec() (*Guild, *sqlgraph.CreateSpec) {
 			Value:  value,
 			Column: guild.FieldCategories,
 		})
-		gu.Categories = value
+		_node.Categories = value
 	}
 	if value, ok := gc.mutation.Entitlements(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -213,9 +228,9 @@ func (gc *GuildCreate) createSpec() (*Guild, *sqlgraph.CreateSpec) {
 			Value:  value,
 			Column: guild.FieldEntitlements,
 		})
-		gu.Entitlements = value
+		_node.Entitlements = value
 	}
-	return gu, _spec
+	return _node, _spec
 }
 
 // GuildCreateBulk is the builder for creating a bulk of Guild entities.
@@ -232,13 +247,14 @@ func (gcb *GuildCreateBulk) Save(ctx context.Context) ([]*Guild, error) {
 	for i := range gcb.builders {
 		func(i int, root context.Context) {
 			builder := gcb.builders[i]
+			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-				if err := builder.preSave(); err != nil {
-					return nil, err
-				}
 				mutation, ok := m.(*GuildMutation)
 				if !ok {
 					return nil, fmt.Errorf("unexpected mutation type %T", m)
+				}
+				if err := builder.check(); err != nil {
+					return nil, err
 				}
 				builder.mutation = mutation
 				nodes[i], specs[i] = builder.createSpec()

@@ -10,9 +10,8 @@ require (
 	github.com/improbable-eng/grpc-web v0.13.0
 	github.com/joho/godotenv v1.3.0
 	github.com/lampjaw/discordclient v0.0.0-20200914142129-e3b4f5747970
-	github.com/lib/pq v1.8.0
 	github.com/mwitkow/go-conntrack v0.0.0-20190716064945-2f068394615f // indirect
-	github.com/roleypoly/db v0.0.0-20200815123444-57c7f8a08f84
+	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/rs/cors v1.7.0 // indirect
 	golang.org/x/crypto v0.0.0-20200820211705-5c72a883971a // indirect
 	golang.org/x/net v0.0.0-20200904194848-62affa334b73 // indirect

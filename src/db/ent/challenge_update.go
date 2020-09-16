@@ -34,14 +34,11 @@ func (cu *ChallengeUpdate) Mutation() *ChallengeMutation {
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
 func (cu *ChallengeUpdate) Save(ctx context.Context) (int, error) {
-	if _, ok := cu.mutation.UpdateTime(); !ok {
-		v := challenge.UpdateDefaultUpdateTime()
-		cu.mutation.SetUpdateTime(v)
-	}
 	var (
 		err      error
 		affected int
 	)
+	cu.defaults()
 	if len(cu.hooks) == 0 {
 		affected, err = cu.sqlSave(ctx)
 	} else {
@@ -84,6 +81,14 @@ func (cu *ChallengeUpdate) Exec(ctx context.Context) error {
 func (cu *ChallengeUpdate) ExecX(ctx context.Context) {
 	if err := cu.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (cu *ChallengeUpdate) defaults() {
+	if _, ok := cu.mutation.UpdateTime(); !ok {
+		v := challenge.UpdateDefaultUpdateTime()
+		cu.mutation.SetUpdateTime(v)
 	}
 }
 
@@ -137,14 +142,11 @@ func (cuo *ChallengeUpdateOne) Mutation() *ChallengeMutation {
 
 // Save executes the query and returns the updated entity.
 func (cuo *ChallengeUpdateOne) Save(ctx context.Context) (*Challenge, error) {
-	if _, ok := cuo.mutation.UpdateTime(); !ok {
-		v := challenge.UpdateDefaultUpdateTime()
-		cuo.mutation.SetUpdateTime(v)
-	}
 	var (
 		err  error
 		node *Challenge
 	)
+	cuo.defaults()
 	if len(cuo.hooks) == 0 {
 		node, err = cuo.sqlSave(ctx)
 	} else {
@@ -170,11 +172,11 @@ func (cuo *ChallengeUpdateOne) Save(ctx context.Context) (*Challenge, error) {
 
 // SaveX is like Save, but panics if an error occurs.
 func (cuo *ChallengeUpdateOne) SaveX(ctx context.Context) *Challenge {
-	c, err := cuo.Save(ctx)
+	node, err := cuo.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
-	return c
+	return node
 }
 
 // Exec executes the query on the entity.
@@ -190,7 +192,15 @@ func (cuo *ChallengeUpdateOne) ExecX(ctx context.Context) {
 	}
 }
 
-func (cuo *ChallengeUpdateOne) sqlSave(ctx context.Context) (c *Challenge, err error) {
+// defaults sets the default values of the builder before save.
+func (cuo *ChallengeUpdateOne) defaults() {
+	if _, ok := cuo.mutation.UpdateTime(); !ok {
+		v := challenge.UpdateDefaultUpdateTime()
+		cuo.mutation.SetUpdateTime(v)
+	}
+}
+
+func (cuo *ChallengeUpdateOne) sqlSave(ctx context.Context) (_node *Challenge, err error) {
 	_spec := &sqlgraph.UpdateSpec{
 		Node: &sqlgraph.NodeSpec{
 			Table:   challenge.Table,
@@ -213,9 +223,9 @@ func (cuo *ChallengeUpdateOne) sqlSave(ctx context.Context) (c *Challenge, err e
 			Column: challenge.FieldUpdateTime,
 		})
 	}
-	c = &Challenge{config: cuo.config}
-	_spec.Assign = c.assignValues
-	_spec.ScanValues = c.scanValues()
+	_node = &Challenge{config: cuo.config}
+	_spec.Assign = _node.assignValues
+	_spec.ScanValues = _node.scanValues()
 	if err = sqlgraph.UpdateNode(ctx, cuo.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{challenge.Label}
@@ -224,5 +234,5 @@ func (cuo *ChallengeUpdateOne) sqlSave(ctx context.Context) (c *Challenge, err e
 		}
 		return nil, err
 	}
-	return c, nil
+	return _node, nil
 }

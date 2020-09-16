@@ -93,20 +93,24 @@ func (cc *ChallengeCreate) Mutation() *ChallengeMutation {
 
 // Save creates the Challenge in the database.
 func (cc *ChallengeCreate) Save(ctx context.Context) (*Challenge, error) {
-	if err := cc.preSave(); err != nil {
-		return nil, err
-	}
 	var (
 		err  error
 		node *Challenge
 	)
+	cc.defaults()
 	if len(cc.hooks) == 0 {
+		if err = cc.check(); err != nil {
+			return nil, err
+		}
 		node, err = cc.sqlSave(ctx)
 	} else {
 		var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
 			mutation, ok := m.(*ChallengeMutation)
 			if !ok {
 				return nil, fmt.Errorf("unexpected mutation type %T", m)
+			}
+			if err = cc.check(); err != nil {
+				return nil, err
 			}
 			cc.mutation = mutation
 			node, err = cc.sqlSave(ctx)
@@ -132,7 +136,8 @@ func (cc *ChallengeCreate) SaveX(ctx context.Context) *Challenge {
 	return v
 }
 
-func (cc *ChallengeCreate) preSave() error {
+// defaults sets the default values of the builder before save.
+func (cc *ChallengeCreate) defaults() {
 	if _, ok := cc.mutation.CreateTime(); !ok {
 		v := challenge.DefaultCreateTime()
 		cc.mutation.SetCreateTime(v)
@@ -140,6 +145,20 @@ func (cc *ChallengeCreate) preSave() error {
 	if _, ok := cc.mutation.UpdateTime(); !ok {
 		v := challenge.DefaultUpdateTime()
 		cc.mutation.SetUpdateTime(v)
+	}
+	if _, ok := cc.mutation.ExpiresAt(); !ok {
+		v := challenge.DefaultExpiresAt()
+		cc.mutation.SetExpiresAt(v)
+	}
+}
+
+// check runs all checks and user-defined validators on the builder.
+func (cc *ChallengeCreate) check() error {
+	if _, ok := cc.mutation.CreateTime(); !ok {
+		return &ValidationError{Name: "create_time", err: errors.New("ent: missing required field \"create_time\"")}
+	}
+	if _, ok := cc.mutation.UpdateTime(); !ok {
+		return &ValidationError{Name: "update_time", err: errors.New("ent: missing required field \"update_time\"")}
 	}
 	if _, ok := cc.mutation.ChallengeID(); !ok {
 		return &ValidationError{Name: "challenge_id", err: errors.New("ent: missing required field \"challenge_id\"")}
@@ -154,14 +173,13 @@ func (cc *ChallengeCreate) preSave() error {
 		return &ValidationError{Name: "magic", err: errors.New("ent: missing required field \"magic\"")}
 	}
 	if _, ok := cc.mutation.ExpiresAt(); !ok {
-		v := challenge.DefaultExpiresAt()
-		cc.mutation.SetExpiresAt(v)
+		return &ValidationError{Name: "expires_at", err: errors.New("ent: missing required field \"expires_at\"")}
 	}
 	return nil
 }
 
 func (cc *ChallengeCreate) sqlSave(ctx context.Context) (*Challenge, error) {
-	c, _spec := cc.createSpec()
+	_node, _spec := cc.createSpec()
 	if err := sqlgraph.CreateNode(ctx, cc.driver, _spec); err != nil {
 		if cerr, ok := isSQLConstraintError(err); ok {
 			err = cerr
@@ -169,13 +187,13 @@ func (cc *ChallengeCreate) sqlSave(ctx context.Context) (*Challenge, error) {
 		return nil, err
 	}
 	id := _spec.ID.Value.(int64)
-	c.ID = int(id)
-	return c, nil
+	_node.ID = int(id)
+	return _node, nil
 }
 
 func (cc *ChallengeCreate) createSpec() (*Challenge, *sqlgraph.CreateSpec) {
 	var (
-		c     = &Challenge{config: cc.config}
+		_node = &Challenge{config: cc.config}
 		_spec = &sqlgraph.CreateSpec{
 			Table: challenge.Table,
 			ID: &sqlgraph.FieldSpec{
@@ -190,7 +208,7 @@ func (cc *ChallengeCreate) createSpec() (*Challenge, *sqlgraph.CreateSpec) {
 			Value:  value,
 			Column: challenge.FieldCreateTime,
 		})
-		c.CreateTime = value
+		_node.CreateTime = value
 	}
 	if value, ok := cc.mutation.UpdateTime(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -198,7 +216,7 @@ func (cc *ChallengeCreate) createSpec() (*Challenge, *sqlgraph.CreateSpec) {
 			Value:  value,
 			Column: challenge.FieldUpdateTime,
 		})
-		c.UpdateTime = value
+		_node.UpdateTime = value
 	}
 	if value, ok := cc.mutation.ChallengeID(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -206,7 +224,7 @@ func (cc *ChallengeCreate) createSpec() (*Challenge, *sqlgraph.CreateSpec) {
 			Value:  value,
 			Column: challenge.FieldChallengeID,
 		})
-		c.ChallengeID = value
+		_node.ChallengeID = value
 	}
 	if value, ok := cc.mutation.UserID(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -214,7 +232,7 @@ func (cc *ChallengeCreate) createSpec() (*Challenge, *sqlgraph.CreateSpec) {
 			Value:  value,
 			Column: challenge.FieldUserID,
 		})
-		c.UserID = value
+		_node.UserID = value
 	}
 	if value, ok := cc.mutation.Human(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -222,7 +240,7 @@ func (cc *ChallengeCreate) createSpec() (*Challenge, *sqlgraph.CreateSpec) {
 			Value:  value,
 			Column: challenge.FieldHuman,
 		})
-		c.Human = value
+		_node.Human = value
 	}
 	if value, ok := cc.mutation.Magic(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -230,7 +248,7 @@ func (cc *ChallengeCreate) createSpec() (*Challenge, *sqlgraph.CreateSpec) {
 			Value:  value,
 			Column: challenge.FieldMagic,
 		})
-		c.Magic = value
+		_node.Magic = value
 	}
 	if value, ok := cc.mutation.ExpiresAt(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -238,9 +256,9 @@ func (cc *ChallengeCreate) createSpec() (*Challenge, *sqlgraph.CreateSpec) {
 			Value:  value,
 			Column: challenge.FieldExpiresAt,
 		})
-		c.ExpiresAt = value
+		_node.ExpiresAt = value
 	}
-	return c, _spec
+	return _node, _spec
 }
 
 // ChallengeCreateBulk is the builder for creating a bulk of Challenge entities.
@@ -257,13 +275,14 @@ func (ccb *ChallengeCreateBulk) Save(ctx context.Context) ([]*Challenge, error) 
 	for i := range ccb.builders {
 		func(i int, root context.Context) {
 			builder := ccb.builders[i]
+			builder.defaults()
 			var mut Mutator = MutateFunc(func(ctx context.Context, m Mutation) (Value, error) {
-				if err := builder.preSave(); err != nil {
-					return nil, err
-				}
 				mutation, ok := m.(*ChallengeMutation)
 				if !ok {
 					return nil, fmt.Errorf("unexpected mutation type %T", m)
+				}
+				if err := builder.check(); err != nil {
+					return nil, err
 				}
 				builder.mutation = mutation
 				nodes[i], specs[i] = builder.createSpec()

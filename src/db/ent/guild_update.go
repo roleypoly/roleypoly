@@ -53,14 +53,11 @@ func (gu *GuildUpdate) Mutation() *GuildMutation {
 
 // Save executes the query and returns the number of rows/vertices matched by this operation.
 func (gu *GuildUpdate) Save(ctx context.Context) (int, error) {
-	if _, ok := gu.mutation.UpdateTime(); !ok {
-		v := guild.UpdateDefaultUpdateTime()
-		gu.mutation.SetUpdateTime(v)
-	}
 	var (
 		err      error
 		affected int
 	)
+	gu.defaults()
 	if len(gu.hooks) == 0 {
 		affected, err = gu.sqlSave(ctx)
 	} else {
@@ -103,6 +100,14 @@ func (gu *GuildUpdate) Exec(ctx context.Context) error {
 func (gu *GuildUpdate) ExecX(ctx context.Context) {
 	if err := gu.Exec(ctx); err != nil {
 		panic(err)
+	}
+}
+
+// defaults sets the default values of the builder before save.
+func (gu *GuildUpdate) defaults() {
+	if _, ok := gu.mutation.UpdateTime(); !ok {
+		v := guild.UpdateDefaultUpdateTime()
+		gu.mutation.SetUpdateTime(v)
 	}
 }
 
@@ -195,14 +200,11 @@ func (guo *GuildUpdateOne) Mutation() *GuildMutation {
 
 // Save executes the query and returns the updated entity.
 func (guo *GuildUpdateOne) Save(ctx context.Context) (*Guild, error) {
-	if _, ok := guo.mutation.UpdateTime(); !ok {
-		v := guild.UpdateDefaultUpdateTime()
-		guo.mutation.SetUpdateTime(v)
-	}
 	var (
 		err  error
 		node *Guild
 	)
+	guo.defaults()
 	if len(guo.hooks) == 0 {
 		node, err = guo.sqlSave(ctx)
 	} else {
@@ -228,11 +230,11 @@ func (guo *GuildUpdateOne) Save(ctx context.Context) (*Guild, error) {
 
 // SaveX is like Save, but panics if an error occurs.
 func (guo *GuildUpdateOne) SaveX(ctx context.Context) *Guild {
-	gu, err := guo.Save(ctx)
+	node, err := guo.Save(ctx)
 	if err != nil {
 		panic(err)
 	}
-	return gu
+	return node
 }
 
 // Exec executes the query on the entity.
@@ -248,7 +250,15 @@ func (guo *GuildUpdateOne) ExecX(ctx context.Context) {
 	}
 }
 
-func (guo *GuildUpdateOne) sqlSave(ctx context.Context) (gu *Guild, err error) {
+// defaults sets the default values of the builder before save.
+func (guo *GuildUpdateOne) defaults() {
+	if _, ok := guo.mutation.UpdateTime(); !ok {
+		v := guild.UpdateDefaultUpdateTime()
+		guo.mutation.SetUpdateTime(v)
+	}
+}
+
+func (guo *GuildUpdateOne) sqlSave(ctx context.Context) (_node *Guild, err error) {
 	_spec := &sqlgraph.UpdateSpec{
 		Node: &sqlgraph.NodeSpec{
 			Table:   guild.Table,
@@ -292,9 +302,9 @@ func (guo *GuildUpdateOne) sqlSave(ctx context.Context) (gu *Guild, err error) {
 			Column: guild.FieldEntitlements,
 		})
 	}
-	gu = &Guild{config: guo.config}
-	_spec.Assign = gu.assignValues
-	_spec.ScanValues = gu.scanValues()
+	_node = &Guild{config: guo.config}
+	_spec.Assign = _node.assignValues
+	_spec.ScanValues = _node.scanValues()
 	if err = sqlgraph.UpdateNode(ctx, guo.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
 			err = &NotFoundError{guild.Label}
@@ -303,5 +313,5 @@ func (guo *GuildUpdateOne) sqlSave(ctx context.Context) (gu *Guild, err error) {
 		}
 		return nil, err
 	}
-	return gu, nil
+	return _node, nil
 }

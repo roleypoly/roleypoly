@@ -19,12 +19,7 @@ def go_repositories():
         sum = "h1:qet1QNfXsQxTZqLG4oE62mJzwPIB8+Tee4RNCL9ulrY=",
         version = "v0.0.0-20151022065526-2efee857e7cf",
     )
-    go_repository(
-        name = "com_github_andybalholm_cascadia",
-        importpath = "github.com/andybalholm/cascadia",
-        sum = "h1:BuuO6sSfQNFRu1LppgbD25Hr2vLYW25JvxHs5zzsLTo=",
-        version = "v1.1.0",
-    )
+
     go_repository(
         name = "com_github_armon_consul_api",
         importpath = "github.com/armon/consul-api",
@@ -157,12 +152,7 @@ def go_repositories():
         sum = "h1:ds9HENceKzpGBgCRlkZNq6TqBIegwKcF3e5reuV9Z0M=",
         version = "v0.4.3",
     )
-    go_repository(
-        name = "com_github_facebookincubator_ent",
-        importpath = "github.com/facebookincubator/ent",
-        sum = "h1:Jht3vZio7eshMo7yaEZJ6LHk4oM8xUCxKNNDj/Kb4fE=",
-        version = "v0.3.0",
-    )
+
     go_repository(
         name = "com_github_fsnotify_fsnotify",
         importpath = "github.com/fsnotify/fsnotify",
@@ -523,24 +513,14 @@ def go_repositories():
         sum = "h1:YZcsG11NqnK4czYLrWd9mpEuAJIHVQLwdrleYfszMAA=",
         version = "v0.7.1",
     )
-    go_repository(
-        name = "com_github_puerkitobio_goquery",
-        importpath = "github.com/PuerkitoBio/goquery",
-        sum = "h1:PSPBGne8NIUWw+/7vFBV+kG2J/5MOjbzc7154OaKCSE=",
-        version = "v1.5.1",
-    )
+
     go_repository(
         name = "com_github_rogpeppe_fastuuid",
         importpath = "github.com/rogpeppe/fastuuid",
         sum = "h1:gu+uRPtBe88sKxUCEXRoeCvVG90TJmwhiqRpvdhQFng=",
         version = "v0.0.0-20150106093220-6724a57986af",
     )
-    go_repository(
-        name = "com_github_roleypoly_db",
-        importpath = "github.com/roleypoly/db",
-        sum = "h1:6As+Zl6a+YeIvpJXWOyDtxHTIP/kZdcYvSDrVkeJRLs=",
-        version = "v0.0.0-20200815123444-57c7f8a08f84",
-    )
+
     go_repository(
         name = "com_github_rs_cors",
         importpath = "github.com/rs/cors",

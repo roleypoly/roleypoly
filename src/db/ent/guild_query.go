@@ -54,23 +54,23 @@ func (gq *GuildQuery) Order(o ...OrderFunc) *GuildQuery {
 
 // First returns the first Guild entity in the query. Returns *NotFoundError when no guild was found.
 func (gq *GuildQuery) First(ctx context.Context) (*Guild, error) {
-	gus, err := gq.Limit(1).All(ctx)
+	nodes, err := gq.Limit(1).All(ctx)
 	if err != nil {
 		return nil, err
 	}
-	if len(gus) == 0 {
+	if len(nodes) == 0 {
 		return nil, &NotFoundError{guild.Label}
 	}
-	return gus[0], nil
+	return nodes[0], nil
 }
 
 // FirstX is like First, but panics if an error occurs.
 func (gq *GuildQuery) FirstX(ctx context.Context) *Guild {
-	gu, err := gq.First(ctx)
+	node, err := gq.First(ctx)
 	if err != nil && !IsNotFound(err) {
 		panic(err)
 	}
-	return gu
+	return node
 }
 
 // FirstID returns the first Guild id in the query. Returns *NotFoundError when no id was found.
@@ -97,13 +97,13 @@ func (gq *GuildQuery) FirstXID(ctx context.Context) int {
 
 // Only returns the only Guild entity in the query, returns an error if not exactly one entity was returned.
 func (gq *GuildQuery) Only(ctx context.Context) (*Guild, error) {
-	gus, err := gq.Limit(2).All(ctx)
+	nodes, err := gq.Limit(2).All(ctx)
 	if err != nil {
 		return nil, err
 	}
-	switch len(gus) {
+	switch len(nodes) {
 	case 1:
-		return gus[0], nil
+		return nodes[0], nil
 	case 0:
 		return nil, &NotFoundError{guild.Label}
 	default:
@@ -113,11 +113,11 @@ func (gq *GuildQuery) Only(ctx context.Context) (*Guild, error) {
 
 // OnlyX is like Only, but panics if an error occurs.
 func (gq *GuildQuery) OnlyX(ctx context.Context) *Guild {
-	gu, err := gq.Only(ctx)
+	node, err := gq.Only(ctx)
 	if err != nil {
 		panic(err)
 	}
-	return gu
+	return node
 }
 
 // OnlyID returns the only Guild id in the query, returns an error if not exactly one id was returned.
@@ -156,11 +156,11 @@ func (gq *GuildQuery) All(ctx context.Context) ([]*Guild, error) {
 
 // AllX is like All, but panics if an error occurs.
 func (gq *GuildQuery) AllX(ctx context.Context) []*Guild {
-	gus, err := gq.All(ctx)
+	nodes, err := gq.All(ctx)
 	if err != nil {
 		panic(err)
 	}
-	return gus
+	return nodes
 }
 
 // IDs executes the query and returns a list of Guild ids.
@@ -362,7 +362,7 @@ func (gq *GuildQuery) querySpec() *sqlgraph.QuerySpec {
 	if ps := gq.order; len(ps) > 0 {
 		_spec.Order = func(selector *sql.Selector) {
 			for i := range ps {
-				ps[i](selector)
+				ps[i](selector, guild.ValidColumn)
 			}
 		}
 	}
@@ -381,7 +381,7 @@ func (gq *GuildQuery) sqlQuery() *sql.Selector {
 		p(selector)
 	}
 	for _, p := range gq.order {
-		p(selector)
+		p(selector, guild.ValidColumn)
 	}
 	if offset := gq.offset; offset != nil {
 		// limit is mandatory for offset clause. We start
@@ -616,8 +616,17 @@ func (ggb *GuildGroupBy) BoolX(ctx context.Context) bool {
 }
 
 func (ggb *GuildGroupBy) sqlScan(ctx context.Context, v interface{}) error {
+	for _, f := range ggb.fields {
+		if !guild.ValidColumn(f) {
+			return &ValidationError{Name: f, err: fmt.Errorf("invalid field %q for group-by", f)}
+		}
+	}
+	selector := ggb.sqlQuery()
+	if err := selector.Err(); err != nil {
+		return err
+	}
 	rows := &sql.Rows{}
-	query, args := ggb.sqlQuery().Query()
+	query, args := selector.Query()
 	if err := ggb.driver.Query(ctx, query, args, rows); err != nil {
 		return err
 	}
@@ -630,7 +639,7 @@ func (ggb *GuildGroupBy) sqlQuery() *sql.Selector {
 	columns := make([]string, 0, len(ggb.fields)+len(ggb.fns))
 	columns = append(columns, ggb.fields...)
 	for _, fn := range ggb.fns {
-		columns = append(columns, fn(selector))
+		columns = append(columns, fn(selector, guild.ValidColumn))
 	}
 	return selector.Select(columns...).GroupBy(ggb.fields...)
 }
@@ -850,6 +859,11 @@ func (gs *GuildSelect) BoolX(ctx context.Context) bool {
 }
 
 func (gs *GuildSelect) sqlScan(ctx context.Context, v interface{}) error {
+	for _, f := range gs.fields {
+		if !guild.ValidColumn(f) {
+			return &ValidationError{Name: f, err: fmt.Errorf("invalid field %q for selection", f)}
+		}
+	}
 	rows := &sql.Rows{}
 	query, args := gs.sqlQuery().Query()
 	if err := gs.driver.Query(ctx, query, args, rows); err != nil {
