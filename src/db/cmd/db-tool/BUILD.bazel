@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "db-tool_lib",
+    srcs = [
+        "import.go",
+        "migrate.go",
+    ],
+    importpath = "github.com/roleypoly/roleypoly/src/db/cmd/db-tool",
+    visibility = ["//visibility:private"],
+    deps = [
+        "@com_github_lib_pq//:pq",
+        "@com_github_roleypoly_db//ent",
+        "@com_github_roleypoly_db//ent/migrate",
+        "@com_github_roleypoly_db//ent/schema",
+    ],
+)
+
+go_binary(
+    name = "db-tool",
+    embed = [":db-tool_lib"],
+    visibility = ["//visibility:public"],
+)

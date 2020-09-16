@@ -1,0 +1,15 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "challenge",
+    srcs = [
+        "challenge.go",
+        "where.go",
+    ],
+    importpath = "github.com/roleypoly/roleypoly/src/db/ent/challenge",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//src/db/ent/predicate",
+        "@com_github_facebook_ent//dialect/sql",
+    ],
+)

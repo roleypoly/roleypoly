@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+	pg:
+		image: postgres:11-alpine
+		ports:
+			- 5432
+		volumes:
+			- './.data/pg:/var/lib/postgresql/data'
+		environment:
+			POSTGRES_PASSWORD: 19216801
+			POSTGRES_DB: roleypoly
+			POSTGRES_USER: roleypoly
+			POSTGRES_INITDB_ARGS: -A trust

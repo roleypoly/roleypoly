@@ -1,0 +1,9 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "predicate",
+    srcs = ["predicate.go"],
+    importpath = "github.com/roleypoly/roleypoly/src/db/ent/predicate",
+    visibility = ["//visibility:public"],
+    deps = ["@com_github_facebook_ent//dialect/sql"],
+)

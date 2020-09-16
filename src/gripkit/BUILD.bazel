@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "gripkit",
+    srcs = [
+        "gripkit.go",
+        "options.go",
+    ],
+    importpath = "github.com/roleypoly/roleypoly/src/gripkit",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_github_improbable_eng_grpc_web//go/grpcweb",
+        "@io_k8s_klog//:klog",
+        "@org_golang_google_grpc//:go_default_library",
+    ],
+)

@@ -1,0 +1,29 @@
+{
+  "name": "roleypoly",
+  "version": "1.0.0",
+  "description": "https://roleypoly.com",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roleypoly/roleypoly.git"
+  },
+  "author": "Katalina Okano <git@kat.cafe>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roleypoly/roleypoly/issues"
+  },
+  "homepage": "https://github.com/roleypoly/roleypoly#readme",
+  "dependencies": {
+    "@improbable-eng/grpc-web": "0.13.0",
+    "google-protobuf": "3.13.0"
+  },
+  "devDependencies": {
+    "@bazel/typescript": "^2.2.0",
+    "prettier": "^2.1.1",
+    "typescript": "^4.0.2",
+    "@roleypoly/ts-protoc-gen": "^1.0.1-promises.1",
+    "@types/google-protobuf": "3.7.3"
+  }
+}

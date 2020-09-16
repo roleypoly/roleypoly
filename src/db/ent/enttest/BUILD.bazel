@@ -1,0 +1,13 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "enttest",
+    srcs = ["enttest.go"],
+    importpath = "github.com/roleypoly/roleypoly/src/db/ent/enttest",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//src/db/ent",
+        "//src/db/ent/runtime",
+        "@com_github_facebook_ent//dialect/sql/schema",
+    ],
+)
