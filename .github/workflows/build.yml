@@ -31,7 +31,7 @@ jobs:
 
       - name: Docker Login
         run: |
-          echo ${{github.token}} | docker login -u ${{github.actor}} --password-stdin
+          echo ${{github.token}} | docker login -u ${{github.actor}} --password-stdin docker.pkg.github.com
 
       - name: Publish Artifacts
         run: |
