@@ -22,10 +22,6 @@ jobs:
           mv bazelisk-linux-amd64 "${GITHUB_WORKSPACE}/bin/bazel"
           chmod +x "${GITHUB_WORKSPACE}/bin/bazel"
 
-      - name: Sync
-        run: |
-          "${GITHUB_WORKSPACE}/bin/bazel" sync
-
       - name: Test
         run: |
           "${GITHUB_WORKSPACE}/bin/bazel" test //src/...
