@@ -92,8 +92,6 @@ github.com/joho/godotenv v1.3.0/go.mod h1:7hK45KPybAkOC6peb+G5yklZfMxEjkZhHbwpqx
 github.com/jonboulle/clockwork v0.1.0/go.mod h1:Ii8DK3G1RaLaWxj9trq07+26W01tbo22gdxWY5EU2bo=
 github.com/json-iterator/go v1.1.10/go.mod h1:KdQUCv79m/52Kvf8AW2vK1V8akMuk1QjK/uOdHXbAo4=
 github.com/julienschmidt/httprouter v1.2.0/go.mod h1:SYymIcj16QtmaHHD7aYtjjsJG7VTCxuUUipMqKk8s4w=
-github.com/kayteh/discordclient v0.0.0-20200923010449-4b45cd745b2b h1:P/u6dpl89r9O7pDVkd4pCo57Bg/wfZD0VReSJh+JhqM=
-github.com/kayteh/discordclient v0.0.0-20200923010449-4b45cd745b2b/go.mod h1:lOfqvGl1HcXws86Sczusw1DyV5d0KHPtTTtdjneekto=
 github.com/kisielk/errcheck v1.1.0/go.mod h1:EZBBE59ingxPouuu3KfxchcWSUPOHkagtvWXihfKN4Q=
 github.com/kisielk/errcheck v1.2.0/go.mod h1:/BMXB+zMLi60iA8Vv6Ksmxu/1UDYcXs4uQLJ+jE2L00=
 github.com/kisielk/gotool v1.0.0/go.mod h1:XhKaO+MFFWcvkIS/tQcRk01m1F5IRFswLeQ+oQHNcck=
@@ -103,8 +101,6 @@ github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORN
 github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
 github.com/kr/text v0.1.0 h1:45sCR5RtlFHMR4UwH9sdQ5TC8v0qDQCHnXt+kaKSTVE=
 github.com/kr/text v0.1.0/go.mod h1:4Jbv+DJW3UT/LiOwJeYQe1efqtUx/iVham/4vfdArNI=
-github.com/lampjaw/discordclient v0.0.0-20200914142129-e3b4f5747970 h1:jrRFvccla3/+7EMUrQxpdwy0Jy1O3b0IK/k3KqJKoec=
-github.com/lampjaw/discordclient v0.0.0-20200914142129-e3b4f5747970/go.mod h1:lOfqvGl1HcXws86Sczusw1DyV5d0KHPtTTtdjneekto=
 github.com/lampjaw/discordclient v0.0.0-20200923011548-6558fc9e89df h1:Y2o9fEOoAYjCw8IDyxUVaBq44AUbOLyPnYSPpM6Ef3M=
 github.com/lampjaw/discordclient v0.0.0-20200923011548-6558fc9e89df/go.mod h1:lOfqvGl1HcXws86Sczusw1DyV5d0KHPtTTtdjneekto=
 github.com/lib/pq v1.8.0 h1:9xohqzkUwzR4Ga4ivdTcawVS89YSDVxXMa3xJX3cGzg=
