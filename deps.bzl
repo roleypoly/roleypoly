@@ -376,8 +376,8 @@ def go_repositories():
     go_repository(
         name = "com_github_lampjaw_discordclient",
         importpath = "github.com/lampjaw/discordclient",
-        sum = "h1:jrRFvccla3/+7EMUrQxpdwy0Jy1O3b0IK/k3KqJKoec=",
-        version = "v0.0.0-20200914142129-e3b4f5747970",
+        sum = "h1:Y2o9fEOoAYjCw8IDyxUVaBq44AUbOLyPnYSPpM6Ef3M=",
+        version = "v0.0.0-20200923011548-6558fc9e89df",
     )
     go_repository(
         name = "com_github_lib_pq",

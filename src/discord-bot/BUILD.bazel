@@ -3,11 +3,15 @@ load("@io_bazel_rules_docker//go:image.bzl", "go_image")
 
 go_library(
     name = "discord-bot_lib",
-    srcs = ["discordbot.go"],
+    srcs = [
+        "discordbot.go",
+        "listener.go",
+    ],
     importpath = "github.com/roleypoly/roleypoly/src/discord-bot",
     visibility = ["//visibility:private"],
     deps = [
         "//src/common/version",
+        "//src/discord-bot/internal/strings",
         "@com_github_bwmarrin_discordgo//:discordgo",
         "@com_github_joho_godotenv//autoload",
         "@com_github_lampjaw_discordclient//:discordclient",
@@ -16,13 +20,13 @@ go_library(
 )
 
 go_binary(
-    name = "discord-bot_bin",
+    name = "discord-bot",
     embed = [":discord-bot_lib"],
     visibility = ["//visibility:private"],
 )
 
 go_image(
-    name = "discord-bot",
+    name = "image",
     embed = [":discord-bot_lib"],
-    visibility = ["//visibility:public"],
+    visibility = ["//visibility:private"],
 )

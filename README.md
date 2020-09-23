@@ -10,53 +10,23 @@ Tame your Discord roles.
 
 ## Developing
 
-This is a meta-package for all of the sub-repos under Roleypoly. Because this is a distributed system, you might not need to develop on all of these at once to get something done. *Docs in future.*
+Roleypoly is a distributed system built with Go, React, Terraform, and Bazel.
 
 ### Prerequisites
 
-- [Discord OAuth/Bot Application](https://discordapp.com/developers)
-- Go 1.12+ w/ `GO111MODULES=on`
-- Node 12+
-- Yarn
-- [mkcert](https://github.com/FiloSottile/mkcert) for self-signing certs for `roleypoly.local *.roleypoly.local`
-- /etc/hosts entry for the above
+This app is known to work on Mac, Linux, and on WSL. Maintainer is typically using WSL.
 
-Some parts of development can be done online or integrated into the online systems hosted on roleypoly.com or canary.roleypoly.com.
+- **Required Tools**
+  - Bazel
+  - Python (required for Bazel)
+  - Docker
+  - Docker Compose
+  - mkcert
+- **Optional Tools**
+  - _Not having these isn't going to stop you from working on the app. Bazel is magic._
+  - ibazel
+  - Go 1.15+
+  - Node 14+
+  - Yarn
 
-### Repos
-
-- [**Aoi 青い**](https://github.com/roleypoly/aoi)
-  - https://aoi.roleypoly.com
-  - admin & devops dashboard
-  - go, typescript, react
-- [**Auth**](https://github.com/roleypoly/auth) 
-  - authentication, authorization, and session server. 
-  - go
-- [**Discord**](https://github.com/roleypoly/discord) 
-  - discord api client, and bot responder
-  - go
-- [**Design**](https://github.com/roleypoly/design)
-  - https://ui.roleypoly.com
-  - branding, ui kit, storybooks
-  - typescript, react
-- [**DevOps**](https://github.com/roleypoly/devops) 
-  - docker wiring and other tooling
-- [**Gripkit**](https://github.com/roleypoly/gripkit)
-  - gRPC wiring toolkit
-  - go
-- [**Platform**](https://github.com/roleypoly/platform) 
-  - main business logic, data & presentation layer
-  - go
-- [**RPC**](https://github.com/roleypoly/rpc) 
-  - protobuf definitions, grpc-go and grpc-web libraries
-- [**UI**](https://github.com/roleypoly/ui)
-  - https://roleypoly.com, https://canary.roleypoly.com
-  - frontend component
-  - node, express, typescript, react, next.js
-
-### Other Repos
-
-- [Docker Hub](https://hub.docker.com/u/roleypoly)
-- [npm](https://www.npmjs.com/org/roleypoly)
-- [GitHub](https://github.com/roleypoly)
-- [Original Repo](https://github.com/kayteh/roleypoly)
+Setup a `.env` file copied from `.env.example`.

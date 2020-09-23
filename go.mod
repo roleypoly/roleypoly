@@ -9,7 +9,7 @@ require (
 	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/improbable-eng/grpc-web v0.13.0
 	github.com/joho/godotenv v1.3.0
-	github.com/lampjaw/discordclient v0.0.0-20200914142129-e3b4f5747970
+	github.com/lampjaw/discordclient v0.0.0-20200923011548-6558fc9e89df
 	github.com/mwitkow/go-conntrack v0.0.0-20190716064945-2f068394615f // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/rs/cors v1.7.0 // indirect

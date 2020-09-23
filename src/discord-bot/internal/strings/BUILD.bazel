@@ -1,0 +1,11 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "strings",
+    srcs = [
+        "renderer.go",
+        "strings.go",
+    ],
+    importpath = "github.com/roleypoly/roleypoly/src/discord-bot/internal/strings",
+    visibility = ["//src/discord-bot:__subpackages__"],
+)

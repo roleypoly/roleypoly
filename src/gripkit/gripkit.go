@@ -1,5 +1,5 @@
 // Package gripkit provides wrappers and helpers for
-package gripkit // import "github.com/roleypoly/gripkit"
+package gripkit
 
 import (
 	"net/http"

@@ -3,3 +3,4 @@ bazel-out
 bazel-roleypoly
 bazel-testlogs
 node_modules
+.env

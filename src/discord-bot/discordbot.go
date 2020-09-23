@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"os/signal"
+	"regexp"
 	"strings"
 	"syscall"
 
@@ -13,15 +14,21 @@ import (
 	"k8s.io/klog"
 )
 
+var (
+	botToken    = os.Getenv("DISCORD_BOT_TOKEN")
+	botClientID = os.Getenv("DISCORD_CLIENT_ID")
+	rootUsers   = strings.Split(os.Getenv("ROOT_USERS"), ",")
+	allowedBots = strings.Split(os.Getenv("ALLOWED_BOTS"), ",")
+	appURL      = os.Getenv("PUBLIC_URL")
+
+	selfMention = regexp.MustCompile("<@!?" + botClientID + ">")
+)
+
 func main() {
 	klog.Info(version.StartupInfo("discord-bot"))
 
-	botToken := os.Getenv("DISCORD_BOT_TOKEN")
-	botClientID := os.Getenv("DISCORD_CLIENT_ID")
-	rootUsers := strings.Split(os.Getenv("ROOT_USERS"), ",")
-
 	discordClient := discordclient.NewDiscordClient(botToken, rootUsers[0], botClientID)
-	discordClient.GatewayIntents = discordgo.IntentsNone
+	discordClient.GatewayIntents = discordgo.IntentsGuildMessages
 
 	messageChannel, err := discordClient.Listen(-1)
 	if err != nil {
@@ -30,14 +37,21 @@ func main() {
 
 	defer awaitExit()
 
-	go processMessages(messageChannel)
+	l := listener{
+		client: discordClient,
+	}
+
+	go l.processMessages(messageChannel)
 }
 
-func processMessages(messageChannel <-chan discordclient.Message) {
-	for {
-		message := <-messageChannel
-		klog.Infoln("message: ", message.Message())
+func isBotAllowlisted(userID string) bool {
+	for _, id := range allowedBots {
+		if id == userID {
+			return true
+		}
 	}
+
+	return false
 }
 
 func awaitExit() {
