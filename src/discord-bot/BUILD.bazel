@@ -36,16 +36,7 @@ container_push(
     name = "+publish",
     format = "Docker",
     image = ":image",
-    registry = "docker.io",
-    repository = "roleypoly/discord-bot",
-    tag = "dev2",
-)
-
-container_push(
-    name = "+publish-2",
-    format = "Docker",
-    image = ":image",
-    registry = "docker.io",
-    repository = "roleypoly/discord-bot",
-    tag = "dev",
+    registry = "docker.pkg.github.com",
+    repository = "roleypoly/roleypoly/discord-bot",
+    tag = "{STABLE_GIT_BRANCH}",
 )
