@@ -42,7 +42,7 @@ jobs:
             --workspace_status_command hack/workspace_status.sh
 
       - name: Publish Dev Container Image
-        if: github.ref == "refs/heads/main"
+        if: github.ref == 'refs/heads/main'
         run: |
           "${GITHUB_WORKSPACE}/bin/bazel" run \
             --stamp \
