@@ -4,29 +4,26 @@ https://roleypoly.com
 
 Tame your Discord roles.
 
-### Need Help with the App?
+### Need Help with Roleypoly?
 
 📚 [Please read through our community documentation.](https://github.com/roleypoly/community-docs)
+😕 [Still confused? Talk to us on Discord!](https://discord.gg/PWQUVsd)
 
 ## Developing
 
 Roleypoly is a distributed system built with Go, React, Terraform, and Bazel.
 
-### Prerequisites
+This repo is currently being re-architected into a monorepo, so most processes might not be documented.
 
-This app is known to work on Mac, Linux, and on WSL. Maintainer is typically using WSL.
+### Quickstart
 
-- **Required Tools**
-  - Bazel
-  - Python (required for Bazel)
-  - Docker
-  - Docker Compose
-  - mkcert
-- **Optional Tools**
-  - _Not having these isn't going to stop you from working on the app. Bazel is magic._
-  - ibazel
-  - Go 1.15+
-  - Node 14+
-  - Yarn
+This repo can be quickly setup with [VSCode Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) or [GitHub Codespaces](https://github.com/codespaces). This will setup a fully featured Docker container for developing VSCode, including extensions.
 
-Setup a `.env` file copied from `.env.example`.
+If you'd like to not use either of those, a docker image can be built from `.devcontainers/Dockerfile`, or used normally via `docker.pkg.github.com/roleypoly/roleypoly/dev-container`. This use case is not actively investigated, but with tinkering, will work. Feel free to document this process and open a PR :)
+
+### Things to Know
+
+Bazel can make some tasks far harder normal. Ideally, these are automated over.
+
+- **Updating `go.mod`?**
+  - Run `hack/gazelle.sh` to regenerate `deps.bzl`.
