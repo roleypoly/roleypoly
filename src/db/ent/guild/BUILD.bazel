@@ -10,6 +10,6 @@ go_library(
     visibility = ["//visibility:public"],
     deps = [
         "//src/db/ent/predicate",
-        "@com_github_facebook_ent//dialect/sql:go_default_library",
+        "@com_github_facebook_ent//dialect/sql",
     ],
 )

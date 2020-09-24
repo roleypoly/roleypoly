@@ -500,6 +500,12 @@ def go_repositories():
         version = "v2.0.1",
     )
     go_repository(
+        name = "com_github_segmentio_ksuid",
+        importpath = "github.com/segmentio/ksuid",
+        sum = "h1:FoResxvleQwYiPAVKe1tMUlEirodZqlqglIuFsdDntY=",
+        version = "v1.0.3",
+    )
+    go_repository(
         name = "com_github_shurcool_sanitized_anchor_name",
         importpath = "github.com/shurcooL/sanitized_anchor_name",
         sum = "h1:PdmoCO6wvbs+7yrJyMORt4/BmY5IYyJwS/kOiWx8mHo=",

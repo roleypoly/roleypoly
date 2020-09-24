@@ -5,5 +5,5 @@ go_library(
     srcs = ["predicate.go"],
     importpath = "github.com/roleypoly/roleypoly/src/db/ent/predicate",
     visibility = ["//visibility:public"],
-    deps = ["@com_github_facebook_ent//dialect/sql:go_default_library"],
+    deps = ["@com_github_facebook_ent//dialect/sql"],
 )
