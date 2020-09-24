@@ -13,10 +13,10 @@ go_library(
     deps = [
         "//src/common/version",
         "//src/discord-bot/internal/strings",
-        "@com_github_bwmarrin_discordgo//:discordgo",
-        "@com_github_joho_godotenv//autoload",
-        "@com_github_lampjaw_discordclient//:discordclient",
-        "@io_k8s_klog//:klog",
+        "@com_github_bwmarrin_discordgo//:go_default_library",
+        "@com_github_joho_godotenv//autoload:go_default_library",
+        "@com_github_lampjaw_discordclient//:go_default_library",
+        "@io_k8s_klog//:go_default_library",
     ],
 )
 

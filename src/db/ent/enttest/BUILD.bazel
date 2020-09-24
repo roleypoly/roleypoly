@@ -8,6 +8,6 @@ go_library(
     deps = [
         "//src/db/ent",
         "//src/db/ent/runtime",
-        "@com_github_facebook_ent//dialect/sql/schema",
+        "@com_github_facebook_ent//dialect/sql/schema:go_default_library",
     ],
 )

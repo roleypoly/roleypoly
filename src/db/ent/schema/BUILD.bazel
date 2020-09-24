@@ -10,8 +10,8 @@ go_library(
     importpath = "github.com/roleypoly/roleypoly/src/db/ent/schema",
     visibility = ["//visibility:public"],
     deps = [
-        "@com_github_facebook_ent//:ent",
-        "@com_github_facebook_ent//schema/field",
-        "@com_github_facebook_ent//schema/mixin",
+        "@com_github_facebook_ent//:go_default_library",
+        "@com_github_facebook_ent//schema/field:go_default_library",
+        "@com_github_facebook_ent//schema/mixin:go_default_library",
     ],
 )

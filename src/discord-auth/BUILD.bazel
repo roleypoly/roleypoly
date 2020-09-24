@@ -7,7 +7,7 @@ go_library(
     srcs = ["discord-auth.go"],
     importpath = "github.com/roleypoly/roleypoly/src/discord-auth",
     visibility = ["//visibility:private"],
-    deps = ["@org_uber_go_fx//:fx"],
+    deps = ["@org_uber_go_fx//:go_default_library"],
 )
 
 go_binary(
