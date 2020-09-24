@@ -40,3 +40,11 @@ jobs:
           xargs -l1 "${GITHUB_WORKSPACE}/bin/bazel" run \
             --stamp \
             --workspace_status_command hack/workspace_status.sh
+
+      - name: Publish Dev Container Image
+        when: github.ref == refs/heads/main
+        run: |
+          "${GITHUB_WORKSPACE}/bin/bazel" run \
+            --stamp \
+            --workspace_status_command hack/workspace_status.sh\
+              //.devcontainer:publish-dev-container

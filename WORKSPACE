@@ -82,3 +82,19 @@ container_deps()
 load("@io_bazel_rules_docker//repositories:pip_repositories.bzl", "pip_deps")
 
 pip_deps()
+
+# Dev Container stuff
+load("@io_bazel_rules_docker//contrib:dockerfile_build.bzl", "dockerfile_image")
+load("@io_bazel_rules_docker//container:container.bzl", "container_pull")
+
+container_pull(
+    name = "devcontainergo",
+    registry = "mcr.microsoft.com",
+    repository = "vscode/devcontainers/go",
+    tag = "1.15",
+)
+
+dockerfile_image(
+    name = "dev-container",
+    dockerfile = "//.devcontainer:Dockerfile",
+)

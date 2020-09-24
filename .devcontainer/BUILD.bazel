@@ -1,0 +1,10 @@
+load("@io_bazel_rules_docker//container:container.bzl", "container_push")
+
+container_push(
+    name = "publish-dev-container",
+    format = "Docker",
+    image = "@dev-container//image:dockerfile_image.tar",
+    registry = "docker.pkg.github.com",
+    repository = "roleypoly/roleypoly/dev-container",
+    tag = "{STABLE_GIT_BRANCH}",
+)
