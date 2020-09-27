@@ -46,7 +46,7 @@ jobs:
           bash hack/generate_versions.sh > manifest.json
 
       - name: Upload Artifact Manifest
-        uses: actions/upload-artifact
+        uses: actions/upload-artifact@v2
         with:
           name: manifest.json
           path: manifest.json
