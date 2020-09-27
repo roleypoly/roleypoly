@@ -57,11 +57,3 @@ jobs:
         with:
           name: manifest.json
           path: manifest.json
-
-      - name: Publish Dev Container Image
-        if: github.ref == 'refs/heads/main'
-        run: |
-          "${GITHUB_WORKSPACE}/bin/bazel" run \
-            --stamp \
-            --workspace_status_command hack/workspace_status.sh\
-              //.devcontainer:publish-dev-container

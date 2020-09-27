@@ -6,5 +6,5 @@ container_push(
     image = "@dev-container//image:dockerfile_image.tar",
     registry = "docker.pkg.github.com",
     repository = "roleypoly/roleypoly/dev-container",
-    tag = "{STABLE_GIT_BRANCH}" if "{STABLE_GIT_BRANCH}" != "main" else "latest",
+    tag = "{STABLE_GIT_BRANCH}",
 )
