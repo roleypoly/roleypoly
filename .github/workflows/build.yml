@@ -43,7 +43,14 @@ jobs:
 
       - name: Write Artifact Manifest
         run: |
-          bash hack/generate_versions.sh > manifest.json
+          artifacts=$(${GITHUB_WORKSPACE}/bin/bazel query //src/... | grep +publish)
+          publishedServices=${artifacts//$'//src/'/}
+          publishedServices=${publishedServices//$':+publish'/}
+          manifestJSON='{"services": {}}'
+          for svc in $publishedServices; do 
+            manifestJSON=$(echo $manifestJSON | jq ".services+={\"$svc\":\"$(cat bazel-bin/src/$svc/+publish.digest)\"}")
+          done
+          echo $manifestJSON > manifest.json
 
       - name: Upload Artifact Manifest
         uses: actions/upload-artifact@v2
