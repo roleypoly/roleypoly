@@ -1,6 +1,7 @@
 #!/bin/bash
 
-artifacts=$(bazel query //src/... 2>/dev/null | grep +publish)
+BAZEL=${BAZEL:-bazel}
+artifacts=$($BAZEL query //src/... 2>/dev/null | grep +publish)
 publishedServices=${artifacts//$'//src/'/}
 publishedServices=${publishedServices//$':+publish'/}
 
@@ -19,7 +20,7 @@ addShaToServiceList() {
 
 for service in $publishedServices; do
   shaSum=$(getSha $service)
-  addShaToServiceList $service $shaSum
+  test $shaSum && addShaToServiceList $service $shaSum
 done
 
 echo $artifactList | jq
