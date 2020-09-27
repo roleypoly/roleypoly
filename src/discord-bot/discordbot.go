@@ -1,47 +1,37 @@
 package main
 
 import (
-	"os"
-	"os/signal"
-	"regexp"
-	"strings"
-	"syscall"
-
 	"github.com/bwmarrin/discordgo"
 	_ "github.com/joho/godotenv/autoload"
-	"github.com/lampjaw/discordclient"
+	"github.com/roleypoly/roleypoly/src/common"
+	"github.com/roleypoly/roleypoly/src/common/bot"
 	"github.com/roleypoly/roleypoly/src/common/version"
 	"k8s.io/klog"
 )
 
 var (
-	botToken    = os.Getenv("DISCORD_BOT_TOKEN")
-	botClientID = os.Getenv("DISCORD_CLIENT_ID")
-	rootUsers   = strings.Split(os.Getenv("ROOT_USERS"), ",")
-	allowedBots = strings.Split(os.Getenv("ALLOWED_BOTS"), ",")
-	appURL      = os.Getenv("PUBLIC_URL")
-
-	selfMention = regexp.MustCompile("<@!?" + botClientID + ">")
+	botToken    = common.Getenv("DISCORD_BOT_TOKEN").String()
+	botClientID = common.Getenv("DISCORD_CLIENT_ID").String()
+	rootUsers   = common.Getenv("ROOT_USERS").StringSlice()
+	allowedBots = common.Getenv("ALLOWED_BOTS").StringSlice()
+	appURL      = common.Getenv("PUBLIC_URL").String()
+	selfMention = bot.MentionMatcher(botClientID)
 )
 
 func main() {
 	klog.Info(version.StartupInfo("discord-bot"))
 
-	discordClient := discordclient.NewDiscordClient(botToken, rootUsers[0], botClientID)
-	discordClient.GatewayIntents = discordgo.IntentsGuildMessages
-
-	messageChannel, err := discordClient.Listen(-1)
+	err := bot.ScaffoldBot(bot.BotScaffolding{
+		RootUsers:      rootUsers,
+		AllowBots:      true,
+		BotClientID:    botClientID,
+		BotToken:       botToken,
+		GatewayIntents: discordgo.IntentsGuildMessages,
+		Handler:        handle,
+	})
 	if err != nil {
 		klog.Fatal(err)
 	}
-
-	defer awaitExit()
-
-	l := listener{
-		client: discordClient,
-	}
-
-	go l.processMessages(messageChannel)
 }
 
 func isBotAllowlisted(userID string) bool {
@@ -52,16 +42,4 @@ func isBotAllowlisted(userID string) bool {
 	}
 
 	return false
-}
-
-func awaitExit() {
-	syscallExit := make(chan os.Signal, 1)
-	signal.Notify(
-		syscallExit,
-		syscall.SIGINT,
-		syscall.SIGTERM,
-		os.Interrupt,
-		os.Kill,
-	)
-	<-syscallExit
 }

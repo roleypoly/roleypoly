@@ -1,0 +1,16 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "gh",
+    srcs = ["gh.go"],
+    importpath = "github.com/roleypoly/roleypoly/src/midori/internal/commands/gh",
+    visibility = ["//src/midori:__subpackages__"],
+    deps = [
+        "//src/common/bot",
+        "//src/midori/internal/commands/helpers",
+        "//src/midori/internal/config",
+        "@com_github_google_go_github_v32//github:go_default_library",
+        "@com_github_lampjaw_discordclient//:discordclient",
+        "@org_golang_x_oauth2//:oauth2",
+    ],
+)

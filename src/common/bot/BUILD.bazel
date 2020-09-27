@@ -1,0 +1,18 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "bot",
+    srcs = [
+        "commandmux.go",
+        "scaffolding.go",
+    ],
+    importpath = "github.com/roleypoly/roleypoly/src/common/bot",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//src/common",
+        "@com_github_bwmarrin_discordgo//:discordgo",
+        "@com_github_dghubble_trie//:trie",
+        "@com_github_lampjaw_discordclient//:discordclient",
+        "@io_k8s_klog//:klog",
+    ],
+)

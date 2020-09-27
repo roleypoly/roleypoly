@@ -1,0 +1,14 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "helpers",
+    srcs = ["permissions.go"],
+    importpath = "github.com/roleypoly/roleypoly/src/midori/internal/commands/helpers",
+    visibility = ["//src/midori:__subpackages__"],
+    deps = [
+        "//src/common",
+        "//src/common/bot",
+        "//src/midori/internal/config",
+        "@com_github_lampjaw_discordclient//:discordclient",
+    ],
+)

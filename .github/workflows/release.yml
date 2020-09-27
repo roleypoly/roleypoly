@@ -1,0 +1,27 @@
+name: Release Workflow
+
+on: workflow_dispatch
+
+jobs:
+  commit_release_tag:
+    name: Commit Roleypoly Release Tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+        with:
+          ssh-key: ${{secrets.DEPLOY_KEY}}
+
+      # - name: Setup Git
+      #   uses: webfactory/ssh-agent@v0.2.0
+      #   with:
+      #     ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Push changes
+        id: push
+        run: |
+          TAG=$(date +v%Y%m%d-%H%M%S)
+          git config --local user.email "gh-automation@roleypoly.com"
+          git config --local user.name "Roleypoly Release Automation"
+          git tag $TAG
+          git push origin $TAG
+          echo "::set-output release_tag=${TAG}"

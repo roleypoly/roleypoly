@@ -41,6 +41,16 @@ jobs:
             --stamp \
             --workspace_status_command hack/workspace_status.sh
 
+      - name: Write Artifact Manifest
+        run: |
+          bash hack/generate_versions.sh > manifest.json
+
+      - name: Upload Artifact Manifest
+        uses: actions/upload-artifact
+        with:
+          name: manifest.json
+          path: manifest.json
+
       - name: Publish Dev Container Image
         if: github.ref == 'refs/heads/main'
         run: |
