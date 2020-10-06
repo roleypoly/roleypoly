@@ -5,6 +5,7 @@ cd ..
 
 bazel run //:gazelle
 bazel run //:gazelle -- update-repos -from_file=./go.mod --to_macro=go_dependencies.bzl%go_repositories -prune=true
+bazel run //:gazelle
 
 sleep 0.5
 echo "Fixing go_dependencies.bzl..."
