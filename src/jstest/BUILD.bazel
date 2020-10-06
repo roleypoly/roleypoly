@@ -1,0 +1,32 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+load("@io_bazel_rules_docker//nodejs:image.bzl", "nodejs_image")
+load("@io_bazel_rules_docker//container:container.bzl", "container_push")
+
+package(default_visibility = ["//visibility:public"])
+
+ts_library(
+    name = "lib",
+    srcs = glob(["*.ts"]),
+)
+
+nodejs_binary(
+    name = "jstest",
+    data = [":lib"],
+    entry_point = "index.ts",
+)
+
+nodejs_image(
+    name = "image",
+    data = [":lib"],
+    entry_point = "index.ts",
+)
+
+container_push(
+    name = "+publish",
+    format = "Docker",
+    image = ":image",
+    registry = "docker.pkg.github.com",
+    repository = "roleypoly/roleypoly/jstest",
+    tag = "{STABLE_GIT_BRANCH}",
+)

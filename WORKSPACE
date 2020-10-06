@@ -1,8 +1,5 @@
 workspace(
     name = "roleypoly",
-    managed_directories = {
-        "@npm": ["node_modules"],
-    },
 )
 
 ### BAZEL
@@ -28,8 +25,8 @@ http_archive(
 
 http_archive(
     name = "build_bazel_rules_nodejs",
-    sha256 = "b16a03bf63952ae436185c74a5c63bec03c010ed422e230db526af55441a02dd",
-    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/2.1.0/rules_nodejs-2.1.0.tar.gz"],
+    sha256 = "4952ef879704ab4ad6729a29007e7094aef213ea79e9f2e94cbe1c9a753e63ef",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/2.2.0/rules_nodejs-2.2.0.tar.gz"],
 )
 
 http_archive(
@@ -39,12 +36,24 @@ http_archive(
     urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.14.4/rules_docker-v0.14.4.tar.gz"],
 )
 
+### NODE
+
+load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install")
+
+node_repositories(package_json = ["//:package.json"])
+
+yarn_install(
+    name = "npm",
+    package_json = "//:package.json",
+    yarn_lock = "//:yarn.lock",
+)
+
 ### GO
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
-load("//:deps.bzl", "go_repositories")
+load("//:go_dependencies.bzl", "go_repositories")
 
-# gazelle:repository_macro deps.bzl%go_repositories
+# gazelle:repository_macro go_dependencies.bzl%go_repositories
 go_repositories()
 
 go_rules_dependencies()
@@ -53,14 +62,8 @@ go_register_toolchains()
 
 gazelle_dependencies()
 
-### NODE
-load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories")
-
-node_repositories(
-    package_json = ["//:package.json"],
-)
-
 ### DOCKER/CONTAINER
+# Must be last
 load(
     "@io_bazel_rules_docker//repositories:repositories.bzl",
     container_repositories = "repositories",
@@ -74,6 +77,13 @@ load(
 )
 
 _go_image_repos()
+
+load(
+    "@io_bazel_rules_docker//nodejs:image.bzl",
+    _nodejs_image_repos = "repositories",
+)
+
+_nodejs_image_repos()
 
 load("@io_bazel_rules_docker//repositories:deps.bzl", container_deps = "deps")
 

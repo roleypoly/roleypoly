@@ -1,1 +1,1 @@
-export const aaa = "aa";
+console.log("hello world");
