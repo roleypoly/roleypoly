@@ -22,7 +22,7 @@
   "devDependencies": {
     "@bazel/typescript": "^2.2.1",
     "prettier": "^2.1.2",
-    "typescript": "^4.0.2",
+    "typescript": "^4.0.3",
     "@roleypoly/ts-protoc-gen": "^1.0.1-promises.1",
     "@types/google-protobuf": "3.7.3"
   }
