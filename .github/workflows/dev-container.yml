@@ -41,4 +41,5 @@ jobs:
               //src/dev-container:publish-dev-container
           "${GITHUB_WORKSPACE}/bin/bazel" run \
             --stamp \
+            --workspace_status_command hack/workspace_status.sh \
               //src/dev-container:publish-dev-container-dockerhub
