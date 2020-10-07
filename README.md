@@ -19,7 +19,7 @@ This repo is currently being re-architected into a monorepo, so most processes m
 
 This repo can be quickly setup with [VSCode Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) or [GitHub Codespaces](https://github.com/codespaces). This will setup a fully featured Docker container for developing VSCode, including extensions.
 
-If you'd like to not use either of those, a docker image can be built from `.devcontainers/Dockerfile`, or used normally via `docker.pkg.github.com/roleypoly/roleypoly/dev-container`. This use case is not actively investigated, but with tinkering, will work. Feel free to document this process and open a PR :)
+If you'd like to not use either of those, it can be imported into your Docker host with `bazel run //src/dev-container`, or pulled from either `roleypoly/dev-container:main` or `docker.pkg.github.com/roleypoly/roleypoly/dev-container:main`. This use case is not actively investigated, but with tinkering, will work. Feel free to document this process and open a PR :)
 
 ### Things to Know
 

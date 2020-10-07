@@ -1,5 +1,6 @@
 {
   "name": "Roleypoly (Bazel, Go, Node)",
+  // Docker Hub because easier to go fast
   "image": "roleypoly/dev-container:main",
   "settings": {
     "terminal.integrated.shell.linux": "/bin/bash"
