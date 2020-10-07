@@ -4,6 +4,7 @@ workspace(
 
 ### BAZEL
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 http_archive(
     name = "io_bazel_rules_go",
@@ -29,11 +30,11 @@ http_archive(
     urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/2.2.0/rules_nodejs-2.2.0.tar.gz"],
 )
 
-http_archive(
+git_repository(
     name = "io_bazel_rules_docker",
-    sha256 = "4521794f0fba2e20f3bf15846ab5e01d5332e587e9ce81629c7f96c793bb7036",
-    strip_prefix = "rules_docker-0.14.4",
-    urls = ["https://github.com/bazelbuild/rules_docker/releases/download/v0.14.4/rules_docker-v0.14.4.tar.gz"],
+    commit = "2083be6214ac15afbabe397726f685b61bec746b",
+    remote = "https://github.com/bazelbuild/rules_docker.git",
+    shallow_since = "1601573082 -0400",
 )
 
 ### NODE
@@ -93,18 +94,12 @@ load("@io_bazel_rules_docker//repositories:pip_repositories.bzl", "pip_deps")
 
 pip_deps()
 
-# Dev Container stuff
-load("@io_bazel_rules_docker//contrib:dockerfile_build.bzl", "dockerfile_image")
 load("@io_bazel_rules_docker//container:container.bzl", "container_pull")
 
 container_pull(
     name = "devcontainergo",
+    digest = "sha256:3bd4b61c8a763e825a8dfe1301cc02705106daa4c1a5b50a471b82cff1f269ad",
     registry = "mcr.microsoft.com",
     repository = "vscode/devcontainers/go",
     tag = "1.15",
-)
-
-dockerfile_image(
-    name = "dev-container",
-    dockerfile = "//.devcontainer:Dockerfile",
 )

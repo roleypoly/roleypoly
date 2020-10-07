@@ -3,7 +3,9 @@ name: Build Dev Container
 on:
   push:
     paths:
-      - .devcontainer/Dockerfile
+      - .devcontainer/*
+      - src/dev-container/*
+      - .github/workflows/dev-container.yml
   schedule:
     - cron: "0 12 * * 2" # 12 noon every tuesday
 
@@ -26,9 +28,17 @@ jobs:
           mv bazelisk-linux-amd64 "${GITHUB_WORKSPACE}/bin/bazel"
           chmod +x "${GITHUB_WORKSPACE}/bin/bazel"
 
+      - name: Docker Login
+        run: |
+          echo ${{secret.DOCKER_PASSWORD}} | docker login -u ${{secret.DOCKER_USERNAME}} --password-stdin
+          echo ${{github.token}} | docker login -u ${{github.actor}} --password-stdin docker.pkg.github.com
+
       - name: Build & Publish Dev Container
         run: |
           "${GITHUB_WORKSPACE}/bin/bazel" run \
             --stamp \
-            --workspace_status_command hack/workspace_status.sh\
-              //.devcontainer:publish-dev-container
+            --workspace_status_command hack/workspace_status.sh \
+              //src/dev-container:publish-dev-container
+          "${GITHUB_WORKSPACE}/bin/bazel" run \
+            --stamp \
+              //src/dev-container:publish-dev-container-dockerhub

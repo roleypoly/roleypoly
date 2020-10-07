@@ -1,16 +1,9 @@
 {
   "name": "Roleypoly (Bazel, Go, Node)",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "args": {
-      "BAZEL_VERSION": "3.5.0",
-    }
-  },
-  // Set *default* container specific settings.json values on container create.
+  "image": "roleypoly/dev-container:main",
   "settings": {
     "terminal.integrated.shell.linux": "/bin/bash"
   },
-  // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
     "bazelbuild.vscode-bazel",
     "dbaeumer.vscode-eslint",
@@ -23,12 +16,4 @@
     "eg2.vscode-npm-script",
     "christian-kohler.npm-intellisense"
   ]
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  // "forwardPorts": [],
-  // Use 'postCreateCommand' to run commands after the container is created.
-  // "postCreateCommand": "uname -a",
-  // Uncomment when using a ptrace-based debugger like C++, Go, and Rust
-  // "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
-  // Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
-  // "remoteUser": "vscode"
 }

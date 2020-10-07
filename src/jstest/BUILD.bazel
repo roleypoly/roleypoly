@@ -1,7 +1,7 @@
 load("@npm//@bazel/typescript:index.bzl", "ts_library")
 load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 load("@io_bazel_rules_docker//nodejs:image.bzl", "nodejs_image")
-load("@io_bazel_rules_docker//container:container.bzl", "container_push")
+load("//:hack/publish.bzl", "publish")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -22,11 +22,6 @@ nodejs_image(
     entry_point = "index.ts",
 )
 
-container_push(
-    name = "+publish",
-    format = "Docker",
-    image = ":image",
-    registry = "docker.pkg.github.com",
-    repository = "roleypoly/roleypoly/jstest",
-    tag = "{STABLE_GIT_BRANCH}",
+publish(
+    service = "jstest",
 )

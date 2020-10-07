@@ -1,6 +1,4 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
-load("@io_bazel_rules_docker//go:image.bzl", "go_image")
-load("@io_bazel_rules_docker//container:container.bzl", "container_push")
 
 go_library(
     name = "discord-bot_lib",
@@ -25,20 +23,5 @@ go_library(
 go_binary(
     name = "discord-bot",
     embed = [":discord-bot_lib"],
-    visibility = ["//visibility:private"],
-)
-
-go_image(
-    name = "image",
-    embed = [":discord-bot_lib"],
-    visibility = ["//visibility:private"],
-)
-
-container_push(
-    name = "+publish",
-    format = "Docker",
-    image = ":image",
-    registry = "docker.pkg.github.com",
-    repository = "roleypoly/roleypoly/discord-bot",
-    tag = "{STABLE_GIT_BRANCH}",
+    visibility = ["//visibility:public"],
 )
