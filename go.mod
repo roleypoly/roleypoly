@@ -12,6 +12,6 @@ require (
 	github.com/lampjaw/discordclient v0.0.0-20200923011548-6558fc9e89df
 	github.com/segmentio/ksuid v1.0.3
 	go.uber.org/fx v1.13.1
-	golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be
+	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43
 	k8s.io/klog v1.0.0
 )
