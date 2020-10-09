@@ -20,3 +20,5 @@ jobs:
           git tag $TAG
           git push origin $TAG
           echo "::set-output release_tag=${TAG}"
+
+      - name: Retag images
