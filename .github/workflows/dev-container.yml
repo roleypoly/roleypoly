@@ -19,7 +19,7 @@ jobs:
         uses: actions/cache@v2.1.1
         with:
           path: "/home/runner/.cache/bazel"
-          key: bazel
+          key: bazel_dev_container
 
       - name: Install bazelisk
         run: |
