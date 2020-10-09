@@ -1,0 +1,12 @@
+load("//:hack/react.bzl", "react_library")
+
+package(default_visibility = ["//visibility:public"])
+
+react_library(
+    name = "branding",
+    deps = [
+        "react",
+        "//src/design-system/atoms/colors",
+        "@types/react",
+    ],
+)

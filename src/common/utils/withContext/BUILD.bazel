@@ -1,0 +1,11 @@
+load("//:hack/react.bzl", "react_library")
+
+package(default_visibility = ["//visibility:public"])
+
+react_library(
+    name = "withContext",
+    deps = [
+        "react",
+        "@types/react",
+    ],
+)

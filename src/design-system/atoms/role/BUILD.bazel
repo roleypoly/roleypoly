@@ -1,0 +1,18 @@
+load("//:hack/react.bzl", "react_library")
+
+package(default_visibility = ["//visibility:public"])
+
+react_library(
+    name = "role",
+    deps = [
+        "chroma-js",
+        "react",
+        "react-icons",
+        "styled-components",
+        "//src/design-system/atoms/colors",
+        "//src/design-system/atoms/timings",
+        "@types/chroma-js",
+        "@types/react",
+        "@types/styled-components",
+    ],
+)

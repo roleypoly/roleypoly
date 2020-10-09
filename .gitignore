@@ -16,3 +16,5 @@ docker-compose.yaml
 #already existing elements were commented out
 
 #/target
+
+*.log

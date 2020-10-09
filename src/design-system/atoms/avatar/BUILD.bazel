@@ -1,0 +1,14 @@
+load("//:hack/react.bzl", "react_library")
+
+package(default_visibility = ["//visibility:public"])
+
+react_library(
+    name = "avatar",
+    deps = [
+        "react",
+        "styled-components",
+        "//src/design-system/atoms/colors",
+        "@types/react",
+        "@types/styled-components",
+    ],
+)
