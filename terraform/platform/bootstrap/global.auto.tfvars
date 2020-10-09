@@ -1,0 +1,1 @@
+gcs_region = "us-east1-d"
