@@ -1,7 +1,6 @@
 name: Bazel Build
 
-on: 
-  push: [branch]
+on: push
 
 jobs:
   bazel_build:
