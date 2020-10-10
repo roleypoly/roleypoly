@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package roleypoly.ctf;
+option go_package = "github.com/roleypoly/roleypoly/src/rpc/ctf";
+
+import "google/protobuf/empty.proto";
+
+service CTF {
+  rpc GetRingFlags (Ring) returns (Flags) {}
+  rpc CreateFlag (Flag) returns (Flag) {}
+  rpc PromoteFlag (Flag) returns (Flag) {}
+  rpc RemoveFlag (Flag) returns (google.protobuf.Empty) {}
+}
+
+message Flags { 
+  repeated Flag flags = 1;
+}
+
+message Flag {
+  string name = 1;
+  int32 ring = 2;
+}
+
+message Ring {
+  int32 ring = 1;
+}

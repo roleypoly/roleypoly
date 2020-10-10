@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package roleypoly.auth.backend;
+option go_package = "github.com/roleypoly/roleypoly/src/rpc/auth/backend";
+
+import "src/rpc/shared/internal.proto";
+import "src/rpc/shared/shared.proto";
+import "src/rpc/auth/shared.proto";
+
+service AuthBackend {
+    rpc GetNewAuthChallenge(roleypoly.IDQuery) returns (roleypoly.auth.AuthChallenge) {}
+    rpc GetSession(roleypoly.auth.Token) returns (roleypoly.RoleypolySession) {}
+}

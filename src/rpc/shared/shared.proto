@@ -1,0 +1,47 @@
+syntax = "proto3";
+package roleypoly;
+option go_package = "github.com/roleypoly/roleypoly/src/rpc/shared";
+
+message IDQuery {
+  string MemberID = 1;
+  string GuildID = 2;
+}
+
+message GuildList { repeated Guild guilds = 1; }
+
+message Guild {
+  string ID = 1;
+  string name = 2;
+  string icon = 3;
+  string ownerID = 4;
+  int32 memberCount = 5;
+  string splash = 6;
+}
+
+message GuildRoles {
+  string ID = 1;
+  repeated Role roles = 2;
+}
+
+message Role {
+    string ID = 1;
+    string name = 2;
+    int64 permissions = 3;
+    int32 color = 4;
+    int32 position = 5;
+    bool managed = 6;
+    RoleSafety safety = 7;
+    enum RoleSafety {
+      safe = 0;
+      higherThanBot = 1;
+      dangerousPermissions = 2;
+    }
+}
+
+message DiscordUser {
+  string ID = 1;
+  string username = 2;
+  string discriminator = 3;
+  string avatar = 4;
+  bool bot = 5;
+}
