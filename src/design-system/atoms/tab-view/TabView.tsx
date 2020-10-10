@@ -2,8 +2,8 @@ import * as React from 'react';
 import { TabTitleRow, TabContent, TabViewStyled, TabTitle } from './TabView.styled';
 
 export type TabViewProps = {
-    children: { [title: string]: React.ReactNode };
-    initialTab?: string;
+    children: React.ReactNode[];
+    initialTab?: number;
 };
 
 type TabProps = {
@@ -12,15 +12,19 @@ type TabProps = {
 };
 
 export const TabView = (props: TabViewProps) => {
-    const tabNames = Object.keys(props.children);
+    const tabNames = React.Children.map(props.children, (child) => {
+        if (!React.isValidElement(child)) {
+            return null;
+        }
+
+        return child.props.title;
+    });
 
     if (tabNames.length === 0) {
         return null;
     }
 
-    const [currentTab, setCurrentTab] = React.useState<keyof TabViewProps['children']>(
-        props.initialTab ?? tabNames[0]
-    );
+    const [currentTab, setCurrentTab] = React.useState<number>(props.initialTab ?? 0);
 
     return (
         <TabViewStyled>
@@ -28,7 +32,7 @@ export const TabView = (props: TabViewProps) => {
                 {tabNames.map((tabName, idx) => (
                     <TabTitle
                         selected={currentTab === tabName}
-                        onClick={() => setCurrentTab(tabName)}
+                        onClick={() => setCurrentTab(idx)}
                         key={`tab${tabName}${idx}`}
                     >
                         {tabName}
@@ -37,7 +41,7 @@ export const TabView = (props: TabViewProps) => {
             </TabTitleRow>
             <TabContent>
                 {props.children[currentTab] || (
-                    <i onLoad={() => setCurrentTab(tabNames[0])}>
+                    <i onLoad={() => setCurrentTab(0)}>
                         Tabs were misconfigured, resetting to zero.
                     </i>
                 )}

@@ -12,13 +12,16 @@ export default {
 };
 
 export const ManyTabs = ({ tabCount }) => {
-    const tabs = [...'0'.repeat(tabCount)].reduce(
-        (acc, _, idx) => ({
-            ...acc,
-            [`Tab ${idx + 1}`]: <Tab>{() => <div>tab {idx + 1}</div>}</Tab>,
-        }),
-        {}
-    );
+    const tabs = [...'0'.repeat(tabCount)].map((_, i) => (
+        <Tab title={`tab ${i}`}>
+            {() => (
+                <>
+                    <h1>tab {i}</h1>
+                    <p>hello!!!!!</p>
+                </>
+            )}
+        </Tab>
+    ));
 
     return <TabView>{tabs}</TabView>;
 };
