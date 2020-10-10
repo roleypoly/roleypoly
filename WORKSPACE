@@ -37,6 +37,29 @@ git_repository(
     shallow_since = "1601573082 -0400",
 )
 
+http_archive(
+    name = "rules_proto",
+    sha256 = "4d421d51f9ecfe9bf96ab23b55c6f2b809cbaf0eea24952683e397decfbd0dd0",
+    strip_prefix = "rules_proto-f6b8d89b90a7956f6782a4a3609b2f0eee3ce965",
+    urls = [
+        "https://github.com/bazelbuild/rules_proto/archive/f6b8d89b90a7956f6782a4a3609b2f0eee3ce965.tar.gz",
+    ],
+)
+
+git_repository(
+    name = "rules_typescript_proto",
+    commit = "692cbfb909c8972250bc6b378a3c1f14f36b9c54",
+    remote = "https://github.com/Dig-Doug/rules_typescript_proto",
+    shallow_since = "1599865339 -0400",
+)
+
+### PROTO
+load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
+
+rules_proto_dependencies()
+
+rules_proto_toolchains()
+
 ### NODE
 
 load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install")
@@ -50,6 +73,10 @@ yarn_install(
     package_json = "//:package.json",
     yarn_lock = "//:yarn.lock",
 )
+
+load("@rules_typescript_proto//:index.bzl", "rules_typescript_proto_dependencies")
+
+rules_typescript_proto_dependencies()
 
 ### GO
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
