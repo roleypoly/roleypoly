@@ -7,6 +7,7 @@ export type TabViewProps = {
 };
 
 type TabProps = {
+    title: string;
     children: () => React.ReactNode;
 };
 

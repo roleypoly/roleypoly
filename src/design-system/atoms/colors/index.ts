@@ -1,2 +1,2 @@
-export * from "./colors";
-export * as utils from "./withColors";
+export * from './colors';
+export * as utils from './withColors';

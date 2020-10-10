@@ -1,34 +1,34 @@
-import { create } from "@storybook/theming";
-import { palette } from "../src/design-system/atoms/colors";
+import { create } from '@storybook/theming';
+import { palette } from '../src/design-system/atoms/colors';
 
 export const roleypolyTheme = create({
-  base: "dark",
+    base: 'dark',
 
-  colorPrimary: palette.green400,
-  colorSecondary: palette.taupe200,
+    colorPrimary: palette.green400,
+    colorSecondary: palette.taupe200,
 
-  // UI
-  appBg: palette.taupe300,
-  appContentBg: palette.taupe300,
-  appBorderColor: palette.taupe100,
-  appBorderRadius: 0,
+    // UI
+    appBg: palette.taupe300,
+    appContentBg: palette.taupe300,
+    appBorderColor: palette.taupe100,
+    appBorderRadius: 0,
 
-  // Typography
-  fontBase: "system-ui, sans-serif",
-  fontCode: "monospace",
+    // Typography
+    fontBase: 'system-ui, sans-serif',
+    fontCode: 'monospace',
 
-  // Text colors
-  textColor: palette.grey600,
-  textInverseColor: palette.grey100,
+    // Text colors
+    textColor: palette.grey600,
+    textInverseColor: palette.grey100,
 
-  // Toolbar default and active colors
-  barTextColor: palette.taupe500,
-  barSelectedColor: palette.taupe600,
-  barBg: palette.taupe100,
+    // Toolbar default and active colors
+    barTextColor: palette.taupe500,
+    barSelectedColor: palette.taupe600,
+    barBg: palette.taupe100,
 
-  // Form colors
-  inputBg: "rgba(0,0,0,0.24)",
-  inputBorder: palette.taupe100,
-  inputTextColor: palette.grey600,
-  inputBorderRadius: 0,
+    // Form colors
+    inputBg: 'rgba(0,0,0,0.24)',
+    inputBorder: palette.taupe100,
+    inputTextColor: palette.grey600,
+    inputBorderRadius: 0,
 });

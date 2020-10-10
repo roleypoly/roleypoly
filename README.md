@@ -25,5 +25,5 @@ If you'd like to not use either of those, it can be imported into your Docker ho
 
 Bazel can make some tasks far harder normal. Ideally, these are automated over.
 
-- **Updating `go.mod`?**
-  - Run `hack/gazelle.sh` to regenerate `deps.bzl`.
+-   **Updating `go.mod`?**
+    -   Run `hack/gazelle.sh` to regenerate `deps.bzl`.

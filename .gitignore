@@ -5,16 +5,6 @@ bazel-testlogs
 node_modules
 .env
 docker-compose.yaml
-
-#Added by cargo
-
 /target
-
-
-#Added by cargo
-#
-#already existing elements were commented out
-
-#/target
-
 *.log
+storybook-static
