@@ -10,6 +10,7 @@ export type ButtonProps = Partial<ButtonComposerOptions> & {
     icon?: React.ReactNode;
     loading?: boolean;
     onClick?: () => void;
+    disabled?: boolean;
 };
 
 export const Button = (props: ButtonProps) => {
@@ -28,6 +29,7 @@ export const Button = (props: ButtonProps) => {
             color={props.color || 'primary'}
             modifiers={modifiers}
             onClick={props.onClick}
+            disabled={props.disabled}
         >
             {props.icon && <IconContainer>{props.icon}</IconContainer>}
             <div>{props.children}</div>
