@@ -1,4 +1,4 @@
-import { Role } from '@roleypoly/rpc/shared';
+import { Role } from 'roleypoly/src/rpc/shared';
 
 export const demoData: Role.AsObject[] = [
     {

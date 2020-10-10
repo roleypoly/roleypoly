@@ -11,7 +11,7 @@ react_library(
         "styled-components",
         "//src/design-system/atoms/colors",
         "//src/design-system/atoms/timings",
-        "@roleypoly/rpc",
+        "//src/rpc/shared",
         "@types/chroma-js",
         "@types/react",
         "@types/styled-components",

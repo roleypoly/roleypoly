@@ -1,12 +1,12 @@
-import { Member } from '@roleypoly/rpc/discord';
-import { Category, GuildData, GuildEnumeration } from '@roleypoly/rpc/platform';
+import { Member } from 'roleypoly/src/rpc/discord';
+import { Category, GuildData, GuildEnumeration } from 'roleypoly/src/rpc/platform';
 import {
     DiscordUser,
     Guild,
     GuildRoles,
     Role,
     RoleypolyUser,
-} from '@roleypoly/rpc/shared';
+} from 'roleypoly/src/rpc/shared';
 
 export const roleCategory: Role.AsObject[] = [
     {

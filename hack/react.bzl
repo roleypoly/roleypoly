@@ -4,7 +4,9 @@ def _render_deps(deps = []):
     output_deps = []
 
     for dep in deps:
-        if dep.startswith("//"):
+        if dep.startswith("//src/rpc"):
+            output_deps.append(dep + ":ts")
+        elif dep.startswith("//"):
             output_deps.append(dep)
         else:
             output_deps.append("@npm//" + dep)

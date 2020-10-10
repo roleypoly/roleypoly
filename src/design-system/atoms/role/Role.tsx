@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Role as RPCRole } from '@roleypoly/rpc/shared';
+import { Role as RPCRole } from 'roleypoly/src/rpc/shared';
 import * as styled from './Role.styled';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { numberToChroma } from 'roleypoly/src/design-system/atoms/colors';

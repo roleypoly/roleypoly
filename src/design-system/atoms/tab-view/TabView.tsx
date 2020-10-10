@@ -14,11 +14,11 @@ type TabProps = {
 export const TabView = (props: TabViewProps) => {
     const tabNames = React.Children.map(props.children, (child) => {
         if (!React.isValidElement(child)) {
-            return null;
+            return '(Oops)';
         }
 
         return child.props.title;
-    });
+    }) as string[];
 
     if (tabNames.length === 0) {
         return null;
