@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/roleypoly/roleypoly#readme",
   "dependencies": {
+    "@roleypoly/rpc": "^1.9.3",
     "chroma-js": "2.1.0",
     "next": "^9.5.4",
     "react": "16.13.1",

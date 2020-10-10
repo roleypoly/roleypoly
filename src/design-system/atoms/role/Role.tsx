@@ -1,11 +1,12 @@
 import * as React from "react";
+import { Role as RPCRole } from "@roleypoly/rpc/shared";
 import * as styled from "./Role.styled";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { numberToChroma } from "roleypoly/src/design-system/atoms/colors";
 import chroma from "chroma-js";
 
 type Props = {
-  role: any; // TODO: rpc types
+  role: RPCRole.AsObject;
   selected: boolean;
   disabled?: boolean;
   onClick?: (newState: boolean) => void;
@@ -59,11 +60,11 @@ export const Role = (props: Props) => {
   );
 };
 
-const disabledReason = (role: any) => {
+const disabledReason = (role: RPCRole.AsObject) => {
   switch (role.safety) {
-    case 1:
+    case RPCRole.RoleSafety.HIGHERTHANBOT:
       return `This role is above Roleypoly's own role.`;
-    case 2:
+    case RPCRole.RoleSafety.DANGEROUSPERMISSIONS:
       const { permissions } = role;
       let permissionHits: string[] = [];
 
