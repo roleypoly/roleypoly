@@ -33,5 +33,6 @@ go_library(
 )
 
 ts_proto(
+    grpc = True,
     proto = ":platform_proto",
 )

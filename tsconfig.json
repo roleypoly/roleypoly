@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "target": "es2020" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */,
-        "module": "esnext" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */,
+        "target": "es2019",
+        "module": "commonjs",
         "lib": [
             "dom",
             "dom.iterable",
@@ -19,10 +19,7 @@
         "declaration": true,
         "moduleResolution": "node",
         "paths": {
-            "roleypoly/*": [
-                "*", // Enables absolute paths for src files in your project
-                "bazel-bin/*" // Enables referencing generate protos with absolute paths
-            ]
+            "roleypoly/*": ["*", "bazel-bin/*"]
         }
     }
 }

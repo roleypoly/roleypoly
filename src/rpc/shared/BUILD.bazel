@@ -3,11 +3,6 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
 load("//:hack/tsproto.bzl", "ts_proto")
 
-package(default_visibility = [
-    "//hack/fixtures:__subpackages__",
-    "//src/design-system/atoms/role:__subpackages__",
-])
-
 proto_library(
     name = "shared_proto",
     srcs = [

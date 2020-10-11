@@ -31,5 +31,6 @@ go_library(
 )
 
 ts_proto(
+    grpc = True,
     proto = ":discord_proto",
 )

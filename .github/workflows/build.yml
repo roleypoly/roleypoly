@@ -39,6 +39,7 @@ jobs:
                   "${GITHUB_WORKSPACE}/bin/bazel" query //src/... |\
                   grep +publish |\
                   xargs -l1 "${GITHUB_WORKSPACE}/bin/bazel" run \
+                    -c opt \
                     --stamp \
                     --workspace_status_command hack/workspace_status.sh
 

@@ -5,6 +5,10 @@ load("@bazel_gazelle//:def.bzl", "gazelle")
 gazelle(name = "gazelle")
 
 exports_files(
-    ["tsconfig.json"],
+    [
+        "tsconfig.json",
+        "jest.config.js",
+        "jest-reporter.js",
+    ],
     visibility = ["//visibility:public"],
 )

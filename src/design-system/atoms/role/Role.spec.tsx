@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import { roleCategory } from 'hack/fixtures/storyData';
+import { roleCategory } from 'roleypoly/hack/fixtures/storyData';
 import * as React from 'react';
 import { Role } from './Role';
 

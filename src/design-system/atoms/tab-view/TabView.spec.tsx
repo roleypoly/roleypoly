@@ -6,10 +6,8 @@ import { TabTitle, TabContent } from './TabView.styled';
 const makeView = (props: Partial<TabViewProps> = {}) =>
     shallow(
         <TabView {...props}>
-            {{
-                'Tab 1': <Tab>{() => <div>tab 1</div>}</Tab>,
-                'Tab 2': <Tab>{() => <div>tab 2</div>}</Tab>,
-            }}
+            <Tab title="Tab 1">{() => <div>tab 1</div>}</Tab>
+            <Tab title="Tab 2">{() => <div>tab 2</div>}</Tab>,
         </TabView>
     );
 
@@ -20,13 +18,13 @@ it('renders tab content correctly', () => {
 });
 
 it('automatically picks preselected tab content', () => {
-    const view = makeView({ initialTab: 'Tab 2' });
+    const view = makeView({ initialTab: 1 });
 
     expect(view.find(Tab).renderProp('children')().text()).toBe('tab 2');
 });
 
 it('automatically uses the first tab when preselected tab is not present', () => {
-    const view = makeView({ initialTab: 'Not a Tab' });
+    const view = makeView({ initialTab: -1 });
 
     view.find(TabContent).find('i').simulate('load');
     expect(view.find(Tab).renderProp('children')().text()).toBe('tab 1');
