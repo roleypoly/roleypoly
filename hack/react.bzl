@@ -11,6 +11,7 @@ def _render_deps(deps = []):
             if has_added_grpc_deps == False:
                 output_deps.extend([
                     "@npm//google-protobuf",
+                    "@npm//@types/google-protobuf",
                     "@npm//@improbable-eng/grpc-web",
                 ])
                 has_added_grpc_deps = True
