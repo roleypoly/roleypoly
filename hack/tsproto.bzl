@@ -1,4 +1,4 @@
-load("@rules_typescript_proto//:index.bzl", "typescript_proto_library")
+load("//src/ts-protoc-gen/rules:index.bzl", "typescript_proto_library")
 load("@npm//@bazel/typescript:index.bzl", "ts_library")
 
 def _generalize_pb_imports(name, srcs = [], grpc = False):

@@ -2,26 +2,26 @@
     "name": "roleypoly",
     "version": "1.0.0",
     "description": "https://roleypoly.com",
-    "scripts": {
-        "test": "jest",
-        "storybook": "start-storybook -p 6006",
-        "build-storybook": "build-storybook",
-        "now-build": "build-storybook",
-        "lint:prettier": "cross-env prettier -c '**/*.{ts,tsx,css,yml,yaml,md,json,js,jsx}'"
+    "homepage": "https://github.com/roleypoly/roleypoly#readme",
+    "bugs": {
+        "url": "https://github.com/roleypoly/roleypoly/issues"
     },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/roleypoly/roleypoly.git"
     },
-    "author": "Katalina Okano <git@kat.cafe>",
     "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/roleypoly/roleypoly/issues"
+    "author": "Katalina Okano <git@kat.cafe>",
+    "scripts": {
+        "build-storybook": "build-storybook",
+        "lint": "run-p lint:*",
+        "lint:prettier": "cross-env prettier -c '**/*.{ts,tsx,css,yml,yaml,md,json,js,jsx,sh,gitignore,mdx}'",
+        "now-build": "build-storybook",
+        "storybook": "start-storybook -p 6006",
+        "test": "jest"
     },
-    "homepage": "https://github.com/roleypoly/roleypoly#readme",
     "dependencies": {
         "@improbable-eng/grpc-web": "^0.13.0",
-        "@roleypoly/rpc": "^1.9.3",
         "browser-headers": "^0.4.1",
         "chroma-js": "2.1.0",
         "google-protobuf": "^3.13.0",
@@ -45,6 +45,8 @@
         "@types/enzyme-adapter-react-16": "^1.0.6",
         "@types/google-protobuf": "3.7.3",
         "@types/jest": "^26.0.14",
+        "@types/minimist": "^1.2.0",
+        "@types/node": "^14.11.8",
         "@types/react": "^16.9.8",
         "@types/react-dom": "^16.9.8",
         "@types/styled-components": "5.1.4",
@@ -54,14 +56,17 @@
         "enzyme-adapter-react-16": "^1.15.5",
         "enzyme-to-json": "^3.6.1",
         "jest": "^26.5.3",
-        "jest-cli": "^26.5.2",
+        "jest-cli": "^26.5.3",
         "jest-environment-enzyme": "^7.1.2",
         "jest-enzyme": "^7.1.2",
         "jest-styled-components": "^7.0.3",
+        "minimist": "^1.2.5",
+        "npm-run-all": "^4.1.5",
         "prettier": "^2.1.2",
+        "prettier-plugin-packagejson": "^2.2.6",
+        "prettier-plugin-sh": "^0.6.0",
         "react-is": "^16.13.1",
         "ts-jest": "^26.4.1",
-        "ts-protoc-gen": "^0.13.0",
         "tsconfig-paths-webpack-plugin": "^3.3.0",
         "tslint": "6.1.3",
         "tslint-config-prettier": "^1.18.0",

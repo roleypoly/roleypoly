@@ -65,20 +65,6 @@ rules_proto_dependencies()
 
 rules_proto_toolchains()
 
-### ts proto
-
-git_repository(
-    name = "rules_typescript_proto",
-    # branch = "test/ts_library",
-    commit = "34f22e81a0b1dc66de18b729bcc77e1485ded337",
-    remote = "https://github.com/roleypoly/rules_typescript_proto.git",
-    shallow_since = "1602400942 -0400",
-)
-
-load("@rules_typescript_proto//:index.bzl", "rules_typescript_proto_dependencies")
-
-rules_typescript_proto_dependencies()
-
 ### GO
 load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
