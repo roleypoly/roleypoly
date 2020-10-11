@@ -6,4 +6,12 @@ module.exports = {
     trailingComma: 'es5',
     bracketSpacing: true,
     semi: true,
+    overrides: [
+        {
+            files: '*.md',
+            options: {
+                tabWidth: 2,
+            },
+        },
+    ],
 };

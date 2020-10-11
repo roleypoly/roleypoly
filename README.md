@@ -21,9 +21,27 @@ This repo can be quickly setup with [VSCode Dev Containers](https://marketplace.
 
 If you'd like to not use either of those, it can be imported into your Docker host with `bazel run //src/dev-container`, or pulled from either `roleypoly/dev-container:main` or `docker.pkg.github.com/roleypoly/roleypoly/dev-container:main`. This use case is not actively investigated, but with tinkering, will work. Feel free to document this process and open a PR :)
 
+### Developing Design System Components
+
+For working with the [Roleypoly Design System](https://ui.roleypoly.com)...
+
+Run:
+
+- `yarn` to install deps
+- `yarn storybook` to open storybook
+- `bazel test //src/design-system/....` to test
+
+### Developing Backend Components
+
+This process is currently rough and in-flux. Please bear with us as we figure it out.
+
+- `bazel run //src/<service>` to run the service
+  - note this commonly needs configuration from environment.
+- `bazel test //src/<service>` to test
+
 ### Things to Know
 
 Bazel can make some tasks far harder normal. Ideally, these are automated over.
 
--   **Updating `go.mod`?**
-    -   Run `hack/gazelle.sh` to regenerate `deps.bzl`.
+- **Updating `go.mod`?**
+  - Run `go generate ./...`.
