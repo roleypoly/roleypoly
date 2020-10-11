@@ -27,7 +27,7 @@ jobs:
                   "${GITHUB_WORKSPACE}/bin/bazel" test \
                     --stamp \
                     --workspace_status_command hack/workspace_status.sh \
-                      //src/...
+                      //src/... //hack/...
 
             - name: Docker Login
               run: |

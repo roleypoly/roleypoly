@@ -4,7 +4,6 @@ on:
     push:
         paths:
             - .devcontainer/*
-            - src/dev-container/*
             - .github/workflows/dev-container.yml
     schedule:
         - cron: '0 12 * * 2' # 12 noon every tuesday
