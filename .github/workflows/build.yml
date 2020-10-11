@@ -25,6 +25,7 @@ jobs:
             - name: Test
               run: |
                   "${GITHUB_WORKSPACE}/bin/bazel" test \
+                    -c opt \
                     --stamp \
                     --workspace_status_command hack/workspace_status.sh \
                       //src/... //hack/...
