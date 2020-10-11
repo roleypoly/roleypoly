@@ -1,0 +1,24 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+
+package(default_visibility = ["//visibility:public"])
+
+ts_library(
+    name = "src",
+    srcs = glob([
+        "*.ts",
+        "service/*.ts",
+        "ts/*.ts",
+    ]),
+    deps = [
+        "@npm//@types/google-protobuf",
+        "@npm//@types/node",
+        "@npm//google-protobuf",
+    ],
+)
+
+nodejs_binary(
+    name = "protoc-gen-ts",
+    data = [":src"],
+    entry_point = ":index.ts",
+)
