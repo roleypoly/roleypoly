@@ -1,5 +1,6 @@
 workspace(
     name = "roleypoly",
+    managed_directories = {"@npm": ["node_modules"]},
 )
 
 ### BAZEL
@@ -39,18 +40,22 @@ git_repository(
 
 http_archive(
     name = "rules_proto",
-    sha256 = "4d421d51f9ecfe9bf96ab23b55c6f2b809cbaf0eea24952683e397decfbd0dd0",
-    strip_prefix = "rules_proto-f6b8d89b90a7956f6782a4a3609b2f0eee3ce965",
+    sha256 = "602e7161d9195e50246177e7c55b2f39950a9cf7366f74ed5f22fd45750cd208",
+    strip_prefix = "rules_proto-97d8af4dc474595af3900dd85cb3a29ad28cc313",
     urls = [
-        "https://github.com/bazelbuild/rules_proto/archive/f6b8d89b90a7956f6782a4a3609b2f0eee3ce965.tar.gz",
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/97d8af4dc474595af3900dd85cb3a29ad28cc313.tar.gz",
+        "https://github.com/bazelbuild/rules_proto/archive/97d8af4dc474595af3900dd85cb3a29ad28cc313.tar.gz",
     ],
 )
 
-git_repository(
-    name = "rules_typescript_proto",
-    commit = "692cbfb909c8972250bc6b378a3c1f14f36b9c54",
-    remote = "https://github.com/Dig-Doug/rules_typescript_proto",
-    shallow_since = "1599865339 -0400",
+### NODE
+
+load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
+
+yarn_install(
+    name = "npm",
+    package_json = "//:package.json",
+    yarn_lock = "//:yarn.lock",
 )
 
 ### PROTO
@@ -60,18 +65,14 @@ rules_proto_dependencies()
 
 rules_proto_toolchains()
 
-### NODE
+### ts proto
 
-load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories", "yarn_install")
-
-node_repositories(
-    package_json = ["//:package.json"],
-)
-
-yarn_install(
-    name = "npm",
-    package_json = "//:package.json",
-    yarn_lock = "//:yarn.lock",
+git_repository(
+    name = "rules_typescript_proto",
+    # branch = "test/ts_library",
+    commit = "34f22e81a0b1dc66de18b729bcc77e1485ded337",
+    remote = "https://github.com/roleypoly/rules_typescript_proto.git",
+    shallow_since = "1602400942 -0400",
 )
 
 load("@rules_typescript_proto//:index.bzl", "rules_typescript_proto_dependencies")

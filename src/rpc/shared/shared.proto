@@ -2,6 +2,8 @@ syntax = "proto3";
 package roleypoly;
 option go_package = "github.com/roleypoly/roleypoly/src/rpc/shared";
 
+message Empty {}
+
 message IDQuery {
   string MemberID = 1;
   string GuildID = 2;

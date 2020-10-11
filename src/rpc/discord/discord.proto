@@ -3,11 +3,10 @@ syntax = "proto3";
 package roleypoly.discord;
 option go_package = "github.com/roleypoly/roleypoly/src/rpc/discord";
 
-import "google/protobuf/empty.proto";
 import "src/rpc/shared/shared.proto";
 
 service Discord {
-  rpc ListGuilds(google.protobuf.Empty) returns (GuildList) {}
+  rpc ListGuilds(roleypoly.Empty) returns (GuildList) {}
   rpc GetGuild(roleypoly.IDQuery) returns (Guild) {}
   rpc GetGuildRoles(roleypoly.IDQuery) returns (GuildRoles) {}
   rpc GetGuildsByMember(roleypoly.IDQuery) returns (GuildList) {}
@@ -17,7 +16,7 @@ service Discord {
   rpc UpdateMember(Member) returns (Member) {} // deprecated 4 MAR 2020
   rpc UpdateMemberRoles(RoleTransaction) returns (RoleTransactionResult) {}
 
-  rpc OwnUser(google.protobuf.Empty) returns (roleypoly.DiscordUser) {}
+  rpc OwnUser(roleypoly.Empty) returns (roleypoly.DiscordUser) {}
 }
 
 message GuildMembers {

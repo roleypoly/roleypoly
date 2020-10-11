@@ -1,13 +1,13 @@
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("@io_bazel_rules_go//go:def.bzl", "go_library")
 load("@io_bazel_rules_go//proto:def.bzl", "go_proto_library")
-load("@rules_typescript_proto//:index.bzl", "typescript_proto_library")
+load("//:hack/tsproto.bzl", "ts_proto")
 
 proto_library(
     name = "ctf_proto",
     srcs = ["ctf.proto"],
     visibility = ["//visibility:public"],
-    deps = ["@com_google_protobuf//:empty_proto"],
+    deps = ["//src/rpc/shared:shared_proto"],
 )
 
 go_proto_library(
@@ -16,6 +16,7 @@ go_proto_library(
     importpath = "github.com/roleypoly/roleypoly/src/rpc/ctf",
     proto = ":ctf_proto",
     visibility = ["//visibility:public"],
+    deps = ["//src/rpc/shared"],
 )
 
 go_library(
@@ -25,7 +26,6 @@ go_library(
     visibility = ["//visibility:public"],
 )
 
-typescript_proto_library(
-    name = "ts",
+ts_proto(
     proto = ":ctf_proto",
 )

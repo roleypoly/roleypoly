@@ -3,13 +3,13 @@ syntax = "proto3";
 package roleypoly.ctf;
 option go_package = "github.com/roleypoly/roleypoly/src/rpc/ctf";
 
-import "google/protobuf/empty.proto";
+import "src/rpc/shared/shared.proto";
 
 service CTF {
   rpc GetRingFlags (Ring) returns (Flags) {}
   rpc CreateFlag (Flag) returns (Flag) {}
   rpc PromoteFlag (Flag) returns (Flag) {}
-  rpc RemoveFlag (Flag) returns (google.protobuf.Empty) {}
+  rpc RemoveFlag (Flag) returns (roleypoly.Empty) {}
 }
 
 message Flags { 

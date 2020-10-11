@@ -5,15 +5,14 @@ option go_package = "github.com/roleypoly/roleypoly/src/rpc/platform";
 
 import "src/rpc/shared/shared.proto";
 import "src/rpc/discord/discord.proto";
-import "google/protobuf/empty.proto";
 
 service Platform {
-  rpc EnumerateMyGuilds(google.protobuf.Empty) returns (GuildEnumeration) {}
+  rpc EnumerateMyGuilds(roleypoly.Empty) returns (GuildEnumeration) {}
   rpc GetGuildSlug(roleypoly.IDQuery) returns (roleypoly.Guild) {}
   rpc GetGuild(roleypoly.IDQuery) returns (PresentableGuild) {}
 
-  rpc UpdateMyRoles(UpdateRoles) returns (google.protobuf.Empty) {}
-  rpc UpdateGuildData(GuildData) returns (google.protobuf.Empty) {}
+  rpc UpdateMyRoles(UpdateRoles) returns (roleypoly.Empty) {}
+  rpc UpdateGuildData(GuildData) returns (roleypoly.Empty) {}
 }
 
 message GuildEnumeration { repeated PresentableGuild guilds = 1; }
