@@ -226,14 +226,10 @@ function printServiceStub(methodPrinter: Printer, service: RPCDescriptor) {
 function printUnaryStubMethod(printer: CodePrinter, method: RPCMethodDescriptor) {
     printer
         .printLn(
-            `${method.serviceName}Client.prototype.${method.nameAsCamelCase} = function ${method.functionName}(requestMessage, metadata, callback) {`
+            `${method.serviceName}Client.prototype.${method.nameAsCamelCase} = function ${method.functionName}(requestMessage, metadata) {`
         )
         .indent()
-        .printLn(`if (arguments.length === 2) {`)
-        .indent()
-        .printLn(`callback = arguments[1];`)
-        .dedent()
-        .printLn('}')
+        .printLn(`let cancelled = false;`)
         .printLn(
             `var client = grpc.unary(${method.serviceName}.${method.nameAsPascalCase}, {`
         )
@@ -245,18 +241,18 @@ function printUnaryStubMethod(printer: CodePrinter, method: RPCMethodDescriptor)
         .printLn(`debug: this.options.debug,`)
         .printLn(`onEnd: function (response) {`)
         .indent()
-        .printLn(`if (callback) {`)
+        .printLn(`if (cancelled === false) {`)
         .indent()
         .printLn(`if (response.status !== grpc.Code.OK) {`)
         .indent()
         .printLn(`var err = new Error(response.statusMessage);`)
         .printLn(`err.code = response.status;`)
         .printLn(`err.metadata = response.trailers;`)
-        .printLn(`callback(err, null);`)
+        .printLn(`Promise.reject(err);`)
         .dedent()
         .printLn(`} else {`)
         .indent()
-        .printLn(`callback(null, response.message);`)
+        .printLn(`Promise.resolve(response.message);`)
         .dedent()
         .printLn(`}`)
         .dedent()
@@ -269,8 +265,8 @@ function printUnaryStubMethod(printer: CodePrinter, method: RPCMethodDescriptor)
         .indent()
         .printLn(`cancel: function () {`)
         .indent()
-        .printLn(`callback = null;`)
-        .printLn(`client.close();`)
+        .printLn(`cancelled = true;`)
+        .printLn(`Promise.reject(null);`)
         .dedent()
         .printLn(`}`)
         .dedent()
@@ -527,19 +523,13 @@ function printUnaryStubMethodTypes(printer: CodePrinter, method: RPCMethodDescri
         .indent()
         .printLn(`requestMessage: ${method.requestType},`)
         .printLn(`metadata: grpc.Metadata,`)
-        .printLn(
-            `callback: (error: ServiceError|null, responseMessage: ${method.responseType}|null) => void`
-        )
         .dedent()
-        .printLn(`): UnaryResponse;`)
+        .printLn(`): Promise<UnaryResponse>;`)
         .printLn(`${method.nameAsCamelCase}(`)
         .indent()
         .printLn(`requestMessage: ${method.requestType},`)
-        .printLn(
-            `callback: (error: ServiceError|null, responseMessage: ${method.responseType}|null) => void`
-        )
         .dedent()
-        .printLn(`): UnaryResponse;`);
+        .printLn(`): Promise<UnaryResponse>;`);
 }
 
 function printServerStreamStubMethodTypes(
