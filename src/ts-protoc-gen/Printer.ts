@@ -1,30 +1,30 @@
-import {generateIndent} from "./util";
+import { generateIndent } from './util';
 
 export class Printer {
-  indentStr: string;
-  output: string = "";
+    indentStr: string;
+    output: string = '';
 
-  constructor(indentLevel: number) {
-    this.indentStr = generateIndent(indentLevel);
-  }
+    constructor(indentLevel: number) {
+        this.indentStr = generateIndent(indentLevel);
+    }
 
-  printLn(str: string) {
-    this.output += this.indentStr + str + "\n";
-  }
+    printLn(str: string) {
+        this.output += this.indentStr + str + '\n';
+    }
 
-  print(str: string) {
-    this.output += str;
-  }
+    print(str: string) {
+        this.output += str;
+    }
 
-  printEmptyLn() {
-    this.output += "\n";
-  }
+    printEmptyLn() {
+        this.output += '\n';
+    }
 
-  printIndentedLn(str: string) {
-    this.output += this.indentStr + "  " + str + "\n";
-  }
+    printIndentedLn(str: string) {
+        this.output += this.indentStr + '  ' + str + '\n';
+    }
 
-  getOutput(): string {
-    return this.output;
-  }
+    getOutput(): string {
+        return this.output;
+    }
 }
