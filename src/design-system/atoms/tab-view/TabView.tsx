@@ -31,7 +31,7 @@ export const TabView = (props: TabViewProps) => {
             <TabTitleRow>
                 {tabNames.map((tabName, idx) => (
                     <TabTitle
-                        selected={currentTab === tabName}
+                        selected={currentTab === idx}
                         onClick={() => setCurrentTab(idx)}
                         key={`tab${tabName}${idx}`}
                     >
