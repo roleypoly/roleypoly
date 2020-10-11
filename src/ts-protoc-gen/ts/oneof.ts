@@ -12,11 +12,15 @@ export function printOneOfDecl(
 ) {
     const printer = new Printer(indentLevel);
     printer.printEmptyLn();
-    printer.printLn(`export enum ${oneOfName(oneOfDecl.getName())}Case {`);
-    printer.printIndentedLn(`${oneOfDecl.getName().toUpperCase()}_NOT_SET = 0,`);
+    printer.printLn(`export enum ${oneOfName(oneOfDecl.getName() as string)}Case {`);
+    printer.printIndentedLn(
+        `${(oneOfDecl.getName() as string).toUpperCase()}_NOT_SET = 0,`
+    );
     oneOfFields.forEach((field) => {
         printer.printIndentedLn(
-            `${field.getName().toUpperCase()} = ${field.getNumber()},`
+            `${(field.getName() as string).toUpperCase()} = ${
+                field.getNumber() as number
+            },`
         );
     });
     printer.printLn('}');

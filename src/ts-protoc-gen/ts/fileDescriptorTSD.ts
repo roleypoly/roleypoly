@@ -11,8 +11,8 @@ export function printFileDescriptorTSD(
     fileDescriptor: FileDescriptorProto,
     exportMap: ExportMap
 ) {
-    const fileName = fileDescriptor.getName();
-    const packageName = fileDescriptor.getPackage();
+    const fileName = fileDescriptor.getName() as string;
+    const packageName = fileDescriptor.getPackage() as string;
 
     const printer = new Printer(0);
 

@@ -12,10 +12,10 @@ export function printExtension(
 ): string {
     const printer = new Printer(indentLevel + 1);
     printer.printEmptyLn();
-    const extensionName = snakeToCamel(extension.getName());
+    const extensionName = snakeToCamel(extension.getName() as string);
     const fieldType = getFieldType(
-        extension.getType(),
-        extension.getTypeName().slice(1),
+        extension.getType() as FieldDescriptorProto.Type,
+        (extension.getTypeName() as string).slice(1),
         fileName,
         exportMap
     );

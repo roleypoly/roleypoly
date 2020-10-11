@@ -30,13 +30,15 @@ withAllStdIn((inputBuff: Buffer) => {
         const fileNameToDescriptor: { [key: string]: FileDescriptorProto } = {};
 
         const parameter = codeGenRequest.getParameter();
-        const { service, mode } = getParameterEnums(parameter);
+        const { service, mode } = getParameterEnums(parameter as string);
 
         const generateGrpcWebServices = service === ServiceParameter.GrpcWeb;
         const generateGrpcNodeServices = service === ServiceParameter.GrpcNode;
 
         codeGenRequest.getProtoFileList().forEach((protoFileDescriptor) => {
-            fileNameToDescriptor[protoFileDescriptor.getName()] = protoFileDescriptor;
+            fileNameToDescriptor[
+                protoFileDescriptor.getName() as string
+            ] = protoFileDescriptor;
             exportMap.addFileDescriptor(protoFileDescriptor);
         });
 

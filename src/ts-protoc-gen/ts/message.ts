@@ -77,7 +77,7 @@ export function printMessage(
 
     messageDescriptor.getFieldList().forEach((field) => {
         if (field.hasOneofIndex()) {
-            const oneOfIndex = field.getOneofIndex();
+            const oneOfIndex = field.getOneofIndex() as number;
             let existing = oneOfGroups[oneOfIndex];
             if (existing === undefined) {
                 existing = [];
@@ -85,13 +85,13 @@ export function printMessage(
             }
             existing.push(field);
         }
-        const snakeCaseName = stripPrefix(field.getName().toLowerCase(), '_');
+        const snakeCaseName = stripPrefix((field.getName() as string).toLowerCase(), '_');
         const camelCaseName = snakeToCamel(snakeCaseName);
         const withUppercase = uppercaseFirst(camelCaseName);
         const type = field.getType();
 
         let exportType;
-        const fullTypeName = field.getTypeName().slice(1);
+        const fullTypeName = (field.getTypeName() as string).slice(1);
         if (type === MESSAGE_TYPE) {
             const fieldMessageType = exportMap.getMessage(fullTypeName);
             if (fieldMessageType === undefined) {
@@ -168,8 +168,9 @@ export function printMessage(
             }
             exportType = `${exportType}Map[keyof ${exportType}Map]`;
         } else {
-            if (field.getOptions() && field.getOptions().hasJstype()) {
-                switch (field.getOptions().getJstype()) {
+            const options = field.getOptions() as FieldOptions;
+            if (options && options.hasJstype()) {
+                switch (options.getJstype()) {
                     case JSType.JS_NUMBER:
                         exportType = 'number';
                         break;
@@ -177,10 +178,10 @@ export function printMessage(
                         exportType = 'string';
                         break;
                     default:
-                        exportType = getTypeName(type);
+                        exportType = getTypeName((type as unknown) as number);
                 }
             } else {
-                exportType = getTypeName(type);
+                exportType = getTypeName((type as unknown) as number);
             }
         }
 
@@ -293,10 +294,9 @@ export function printMessage(
     toObjectType.printLn(`}`);
 
     messageDescriptor.getOneofDeclList().forEach((oneOfDecl) => {
+        const name = oneOfDecl.getName() as string;
         printer.printIndentedLn(
-            `get${oneOfName(oneOfDecl.getName())}Case(): ${messageName}.${oneOfName(
-                oneOfDecl.getName()
-            )}Case;`
+            `get${oneOfName(name)}Case(): ${messageName}.${oneOfName(name)}Case;`
         );
     });
 

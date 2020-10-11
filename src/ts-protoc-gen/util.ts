@@ -76,12 +76,13 @@ export function withAllStdIn(callback: (buffer: Buffer) => void): void {
 
     const stdin = process.stdin;
     stdin.on('readable', function () {
-        let chunk;
+        let chunk = stdin.read();
 
-        while ((chunk = stdin.read())) {
+        while (chunk) {
             if (!(chunk instanceof Buffer)) throw new Error('Did not receive buffer');
             ret.push(chunk);
             len += chunk.length;
+            chunk = stdin.read();
         }
     });
 
@@ -194,7 +195,7 @@ export function getParameterEnums(
 } {
     const { service, mode } = parse(parameter, ',');
     return {
-        service: getServiceParameter(service),
-        mode: getModeParameter(mode),
+        service: getServiceParameter(service as string),
+        mode: getModeParameter(mode as string),
     };
 }

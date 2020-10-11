@@ -34,22 +34,21 @@ export class ExportMap {
         message: DescriptorProto
     ) {
         const messageEntry: ExportMessageEntry = {
-            pkg: fileDescriptor.getPackage(),
-            fileName: fileDescriptor.getName(),
-            messageOptions: message.getOptions(),
-            mapFieldOptions:
-                message.getOptions() && message.getOptions().getMapEntry()
-                    ? {
-                          key: [
-                              message.getFieldList()[0].getType(),
-                              message.getFieldList()[0].getTypeName().slice(1),
-                          ],
-                          value: [
-                              message.getFieldList()[1].getType(),
-                              message.getFieldList()[1].getTypeName().slice(1),
-                          ],
-                      }
-                    : undefined,
+            pkg: fileDescriptor.getPackage() as string,
+            fileName: fileDescriptor.getName() as string,
+            messageOptions: message.getOptions() as MessageOptions,
+            mapFieldOptions: (message.getOptions() && message.getOptions()?.getMapEntry()
+                ? {
+                      key: [
+                          message.getFieldList()[0].getType(),
+                          (message.getFieldList()[0].getTypeName() as string).slice(1),
+                      ],
+                      value: [
+                          message.getFieldList()[1].getType(),
+                          (message.getFieldList()[1].getTypeName() as string).slice(1),
+                      ],
+                  }
+                : undefined) as any,
         };
 
         const packagePrefix = scope ? scope + '.' : '';
@@ -66,17 +65,19 @@ export class ExportMap {
         });
 
         message.getEnumTypeList().forEach((enumType) => {
-            const identifier = `${packagePrefix}${message.getName()}.${enumType.getName()}`;
+            const identifier = `${packagePrefix}${message.getName() as string}.${
+                enumType.getName() as string
+            }`;
             this.enumMap[identifier] = {
-                pkg: fileDescriptor.getPackage(),
-                fileName: fileDescriptor.getName(),
-                enumOptions: enumType.getOptions(),
+                pkg: fileDescriptor.getPackage() as string,
+                fileName: fileDescriptor.getName() as string,
+                enumOptions: enumType.getOptions() as EnumOptions,
             };
         });
     }
 
     addFileDescriptor(fileDescriptor: FileDescriptorProto) {
-        const scope = fileDescriptor.getPackage();
+        const scope = fileDescriptor.getPackage() as string;
         fileDescriptor.getMessageTypeList().forEach((messageType) => {
             this.exportNested(scope, fileDescriptor, messageType);
         });
@@ -84,9 +85,9 @@ export class ExportMap {
         fileDescriptor.getEnumTypeList().forEach((enumType) => {
             const packagePrefix = scope ? scope + '.' : '';
             this.enumMap[packagePrefix + enumType.getName()] = {
-                pkg: fileDescriptor.getPackage(),
-                fileName: fileDescriptor.getName(),
-                enumOptions: enumType.getOptions(),
+                pkg: fileDescriptor.getPackage() as string,
+                fileName: fileDescriptor.getName() as string,
+                enumOptions: enumType.getOptions() as EnumOptions,
             };
         });
     }
