@@ -1,26 +1,5 @@
 load("@npm//@bazel/typescript:index.bzl", "ts_library")
-
-def _render_deps(deps = []):
-    output_deps = []
-
-    has_added_grpc_deps = False
-
-    for dep in deps:
-        if dep.startswith("//src/rpc"):
-            output_deps.append(dep + ":ts")
-            if has_added_grpc_deps == False:
-                output_deps.extend([
-                    "@npm//google-protobuf",
-                    "@npm//@types/google-protobuf",
-                    "@npm//@improbable-eng/grpc-web",
-                ])
-                has_added_grpc_deps = True
-        elif dep.startswith("//"):
-            output_deps.append(dep)
-        else:
-            output_deps.append("@npm//" + dep)
-
-    return output_deps
+load("//:hack/utils.bzl", "render_deps")
 
 def react_library(name, deps = [], **kwargs):
     ts_library(
@@ -36,6 +15,6 @@ def react_library(name, deps = [], **kwargs):
                 "*.stories.tsx",
             ]),
         ),
-        deps = _render_deps(deps),
+        deps = render_deps(deps),
         **kwargs
     )

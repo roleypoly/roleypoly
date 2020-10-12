@@ -1,7 +1,9 @@
 # Copied from https://github.com/bazelbuild/rules_nodejs/blob/stable/examples/jest/jest.bzl
-# Licensed under Apache-2.0, not modified.
+# Licensed under Apache-2.0, modifications made:
+# - improved dependency resolution
 
 load("@npm//jest-cli:index.bzl", "jest", _jest_test = "jest_test")
+load("//:hack/utils.bzl", "render_deps")
 
 DEFAULT_DEPS = [
     "@npm//ts-jest",
@@ -25,7 +27,7 @@ def _impl_jest_test(name, srcs, deps, jest_config, **kwargs):
         "--no-cache",
         "--no-watchman",
         "--ci",
-        "--colors",
+        "--no-colors",
     ]
     templated_args.extend(["--config", "$(rootpath %s)" % jest_config])
     for src in srcs:
@@ -51,6 +53,6 @@ def jest_test(src, deps = []):
     _impl_jest_test(
         name = src[1:] + "_test",
         srcs = native.glob(["*.spec.ts", "*.spec.tsx"]),
-        deps = [src] + deps + DEFAULT_DEPS,
+        deps = [src] + render_deps(deps) + DEFAULT_DEPS,
         jest_config = "//:jest.config.js",
     )
