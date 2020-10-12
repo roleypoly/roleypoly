@@ -1,1 +1,3 @@
-common --workspace_status_command=hack/workspace_status.sh
+build --workspace_status_command=hack/workspace_status.sh
+test --workspace_status_command=hack/workspace_status.sh
+run --workspace_status_command=hack/workspace_status.sh
