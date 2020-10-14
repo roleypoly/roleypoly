@@ -19,7 +19,7 @@ react_library(
 jest_test(
     src = ":utils",
     deps = [
-        "//hack/fixtures",
+        "//src/design-system/shared-types",
         "//src/rpc/shared",
     ],
 )

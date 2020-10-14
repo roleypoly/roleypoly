@@ -1,6 +1,6 @@
 import { hasPermission, permissions, hasPermissionOrAdmin } from './hasPermission';
 import { Role } from 'roleypoly/src/rpc/shared';
-import { guildRoles } from 'roleypoly/hack/fixtures/storyData';
+import { guildRoles } from 'roleypoly/src/design-system/shared-types/storyData';
 
 const roles: Role.AsObject[] = [
     {
