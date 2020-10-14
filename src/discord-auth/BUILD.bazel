@@ -1,6 +1,6 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
 load("@io_bazel_rules_docker//go:image.bzl", "go_image")
-load("@io_bazel_rules_docker//container:container.bzl", "container_push")
+load("//:hack/publish.bzl", "publish")
 
 go_library(
     name = "discord-auth_lib",
@@ -28,11 +28,6 @@ go_image(
     visibility = ["//visibility:private"],
 )
 
-container_push(
-    name = "+publish",
-    format = "Docker",
-    image = ":image",
-    registry = "docker.pkg.github.com",
-    repository = "roleypoly/roleypoly/discord-auth",
-    tag = "{STABLE_GIT_BRANCH}",
+publish(
+    service = "midori",
 )

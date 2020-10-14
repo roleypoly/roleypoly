@@ -1,4 +1,5 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
+load("//:hack/publish.bzl", "publish")
 
 go_library(
     name = "discord-bot_lib",
@@ -24,4 +25,8 @@ go_binary(
     name = "discord-bot",
     embed = [":discord-bot_lib"],
     visibility = ["//visibility:public"],
+)
+
+publish(
+    service = "midori",
 )
