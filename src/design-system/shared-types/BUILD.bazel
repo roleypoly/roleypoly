@@ -1,0 +1,5 @@
+load("//:hack/react.bzl", "react_library")
+
+react_library(
+    name = "shared-types",
+)

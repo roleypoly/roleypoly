@@ -12,6 +12,7 @@ react_library(
         "styled-components",
         "//src/design-system/atoms/colors",
         "//src/design-system/atoms/timings",
+        "//src/design-system/shared-types",
         "//src/rpc/shared",
         "@types/chroma-js",
         "@types/react",
@@ -21,5 +22,7 @@ react_library(
 
 jest_test(
     src = ":role",
-    deps = ["//hack/fixtures"],
+    deps = [
+        "//src/design-system/shared-types",
+    ],
 )

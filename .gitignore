@@ -8,3 +8,4 @@ docker-compose.yaml
 /target
 *.log
 storybook-static
+dist

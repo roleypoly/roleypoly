@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Role as RoleComponent } from './Role';
-import { roleCategory } from 'roleypoly/hack/fixtures/storyData';
+import { roleCategory } from '../../shared-types/storyData';
 import { withColors } from 'roleypoly/src/design-system/atoms/colors/withColors';
 import styled from 'styled-components';
 

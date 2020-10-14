@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { Role as RPCRole } from 'roleypoly/src/rpc/shared';
+import { Role as RPCRole, RoleSafety } from '../../shared-types';
 import * as styled from './Role.styled';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { numberToChroma } from 'roleypoly/src/design-system/atoms/colors';
 import chroma from 'chroma-js';
 
 type Props = {
-    role: RPCRole.AsObject;
+    role: RPCRole;
     selected: boolean;
     disabled?: boolean;
     onClick?: (newState: boolean) => void;
@@ -60,11 +60,11 @@ export const Role = (props: Props) => {
     );
 };
 
-const disabledReason = (role: RPCRole.AsObject) => {
+const disabledReason = (role: RPCRole) => {
     switch (role.safety) {
-        case RPCRole.RoleSafety.HIGHERTHANBOT:
+        case RoleSafety.HIGHERTHANBOT:
             return `This role is above Roleypoly's own role.`;
-        case RPCRole.RoleSafety.DANGEROUSPERMISSIONS:
+        case RoleSafety.DANGEROUSPERMISSIONS:
             const { permissions } = role;
             let permissionHits: string[] = [];
 
