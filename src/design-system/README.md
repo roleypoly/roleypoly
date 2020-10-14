@@ -8,7 +8,7 @@ The Roleypoly Design System (rapid) is an atomic design system to help rapidly a
 
 **Please follow hermeticity considerations.**
 
-This package cannot reference RPC types, as they do not exist in the outside world. Storybook is the core component of this, and Storybook doesn't know how to find RPC types at CI build time, as Bazel is also not present.
+This package cannot reference RPC types, as they do not exist in the outside world. Storybook is the core component of this, and Storybook doesn't know how to find RPC types at CI build time, as Bazel is also not present. If you are worried about RPC types being compatible, please write a unit test and include the RPC types then.
 
 You need:
 

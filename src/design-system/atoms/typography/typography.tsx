@@ -1,4 +1,6 @@
 import styled, { css } from 'styled-components';
+import { palette } from 'roleypoly/src/design-system/atoms/colors';
+import { transitions } from 'roleypoly/src/design-system/atoms/timings';
 import * as _ from 'styled-components'; // tslint:disable-line:no-duplicate-imports
 
 const reset = css`
@@ -85,4 +87,13 @@ export const AmbientLarge = styled.span`
 
 export const AmbientSmall = styled.span`
     ${text100}
+`;
+
+export const Link = styled.a`
+    color: ${palette.taupe500};
+    text-decoration: none;
+    transition: color ${transitions.actionable}s ease-in-out;
+    &:hover {
+        color: ${palette.taupe600};
+    }
 `;
