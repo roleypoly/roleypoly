@@ -1,14 +1,14 @@
-import { Guild } from '@roleypoly/rpc/shared';
-import { Avatar, utils } from 'atoms/avatar';
-import { AccentTitle, AmbientLarge } from 'atoms/typography';
+import { Guild } from 'roleypoly/src/design-system/shared-types';
+import { Avatar, utils } from 'roleypoly/src/design-system/atoms/avatar';
+import { AccentTitle, AmbientLarge } from 'roleypoly/src/design-system/atoms/typography';
 import Link from 'next/link';
-import { guild } from 'hack/fixtures/storyData';
+import { guild } from 'roleypoly/src/design-system/shared-types/storyData';
 import * as React from 'react';
 import { GoPencil } from 'react-icons/go';
 import { Editable, Icon, Name, Wrapper } from './ServerMasthead.styled';
 
 export type ServerMastheadProps = {
-    guild: Guild.AsObject;
+    guild: Guild;
     editable: boolean;
 };
 

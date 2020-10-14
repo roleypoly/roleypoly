@@ -1,4 +1,4 @@
-import { Button } from 'atoms/button';
+import { Button } from 'roleypoly/src/design-system/atoms/button';
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import { ResetSubmit } from './ResetSubmit';

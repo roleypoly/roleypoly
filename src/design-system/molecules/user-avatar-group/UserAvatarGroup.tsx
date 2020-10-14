@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { DiscordUser } from '@roleypoly/rpc/shared';
-import { utils, Avatar } from 'atoms/avatar';
+import { DiscordUser } from 'roleypoly/src/design-system/shared-types';
+import { utils, Avatar } from 'roleypoly/src/design-system/atoms/avatar';
 import { Group, Collapse, Discriminator, GroupText } from './UserAvatarGroup.styled';
 
 type Props = {
-    user: DiscordUser.AsObject;
+    user: DiscordUser;
     preventCollapse?: boolean;
 };
 

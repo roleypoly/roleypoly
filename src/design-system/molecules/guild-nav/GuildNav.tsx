@@ -1,21 +1,25 @@
-import * as React from 'react';
-import { NavSlug } from 'molecules/nav-slug';
-import { sortBy } from 'utils/sortBy';
-import { GuildEnumeration, PresentableGuild } from '@roleypoly/rpc/platform';
-import { hasPermission, permissions } from 'utils/hasPermission';
-import { GoZap, GoStar } from 'react-icons/go';
-import { Role } from '@roleypoly/rpc/shared';
-import { GuildNavItem } from './GuildNav.styled';
-import ReactTooltip from 'react-tooltip';
 import Link from 'next/link';
+import * as React from 'react';
+import { GoStar, GoZap } from 'react-icons/go';
+import ReactTooltip from 'react-tooltip';
+import { hasPermission, permissions } from 'roleypoly/src/common/utils/hasPermission';
+import { sortBy } from 'roleypoly/src/common/utils/sortBy';
+import {
+    GuildEnumeration,
+    PresentableGuild,
+    Role,
+    Guild,
+} from 'roleypoly/src/design-system/shared-types';
+import { NavSlug } from 'roleypoly/src/design-system/molecules/nav-slug';
+import { GuildNavItem } from './GuildNav.styled';
 
 type Props = {
-    guildEnumeration: GuildEnumeration.AsObject;
+    guildEnumeration: GuildEnumeration;
 };
 
 const tooltipId = 'guildnav';
 
-const Badges = (props: { guild: PresentableGuild.AsObject }) => {
+const Badges = (props: { guild: PresentableGuild }) => {
     return React.useMemo(() => {
         if (!props.guild.member) {
             return null;
@@ -29,7 +33,7 @@ const Badges = (props: { guild: PresentableGuild.AsObject }) => {
 
                 return props.guild.roles.rolesList.find((role) => role.id === id);
             })
-            .filter((x) => !!x) as Role.AsObject[];
+            .filter((x) => !!x) as Role[];
 
         if (hasPermission(roles, permissions.ADMINISTRATOR)) {
             return <GoStar data-tip="Administrator" data-for={tooltipId} />;
@@ -45,13 +49,7 @@ const Badges = (props: { guild: PresentableGuild.AsObject }) => {
 
 export const GuildNav = (props: Props) => (
     <div>
-        {sortBy(
-            props.guildEnumeration.guildsList.map((g) => ({
-                ...g,
-                nameLower: g.guild?.name.toLowerCase(),
-            })),
-            'nameLower'
-        ).map(({ nameLower, ...guild }) => (
+        {sortBy(props.guildEnumeration.guildsList, 'id').map((guild) => (
             <Link href={`/s/${guild.id}`} passHref>
                 <GuildNavItem>
                     <NavSlug guild={guild.guild || null} key={guild.id} />

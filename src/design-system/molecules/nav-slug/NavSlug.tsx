@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Guild } from '@roleypoly/rpc/shared';
-import { Avatar, utils } from 'atoms/avatar';
+import { Guild } from 'roleypoly/src/design-system/shared-types';
+import { Avatar, utils } from 'roleypoly/src/design-system/atoms/avatar';
 import { SlugContainer, SlugName } from './NavSlug.styled';
 import { GoOrganization } from 'react-icons/go';
 
 type Props = {
-    guild: Guild.AsObject | null;
+    guild: Guild | null;
 };
 
 export const NavSlug = (props: Props) => (

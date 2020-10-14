@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { palette } from 'atoms/colors';
-import { transitions } from 'atoms/timings';
+import { palette } from 'roleypoly/src/design-system/atoms/colors';
+import { transitions } from 'roleypoly/src/design-system/atoms/timings';
 
 export const Wrapper = styled.div`
     display: flex;

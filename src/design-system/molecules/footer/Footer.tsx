@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FooterWrapper, HoverColor } from './Footer.styled';
-import { AmbientLarge } from 'atoms/typography';
+import { AmbientLarge } from 'roleypoly/src/design-system/atoms/typography';
 import { FaHeart } from 'react-icons/fa';
 import { Flags } from './Flags';
 

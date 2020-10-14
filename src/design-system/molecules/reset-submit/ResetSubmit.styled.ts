@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { onSmallScreen } from 'atoms/breakpoints';
+import * as _ from 'styled-components'; // tslint:disable-line:no-duplicate-imports
+import { onSmallScreen } from 'roleypoly/src/design-system/atoms/breakpoints';
 
 export const Buttons = styled.div`
     display: flex;

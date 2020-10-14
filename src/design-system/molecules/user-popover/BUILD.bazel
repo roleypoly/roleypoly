@@ -1,21 +1,20 @@
 load("//:hack/react.bzl", "react_library")
-load("//:hack/jest.bzl", "jest_test")
 
 package(default_visibility = ["//visibility:public"])
 
 react_library(
-    name = "tab-view",
+    name = "user-popover",
     deps = [
+        "next",
         "react",
+        "react-icons",
         "styled-components",
         "//src/design-system/atoms/breakpoints",
         "//src/design-system/atoms/colors",
         "//src/design-system/atoms/timings",
+        "//src/design-system/molecules/user-avatar-group",
+        "//src/design-system/shared-types",
         "@types/react",
         "@types/styled-components",
     ],
-)
-
-jest_test(
-    src = ":tab-view",
 )

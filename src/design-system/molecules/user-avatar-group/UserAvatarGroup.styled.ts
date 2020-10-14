@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
-import { onSmallScreen } from 'atoms/breakpoints';
-import { palette } from 'atoms/colors';
+import { onSmallScreen } from 'roleypoly/src/design-system/atoms/breakpoints';
+import { palette } from 'roleypoly/src/design-system/atoms/colors';
 
 export const Collapse = styled.div<{ preventCollapse: boolean }>`
     ${(props) =>

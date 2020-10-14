@@ -8,8 +8,8 @@ import {
     Line,
     InputTextAlignment,
 } from './DemoDiscord.styled';
-import { demoData } from 'hack/fixtures/demoData';
-import { Typist } from 'atoms/typist';
+import { demoData } from 'roleypoly/src/design-system/shared-types/demoData';
+import { Typist } from 'roleypoly/src/design-system/atoms/typist';
 
 export const DemoDiscord = () => {
     const time = new Date();

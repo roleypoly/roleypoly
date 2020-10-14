@@ -14,7 +14,7 @@ def render_deps(deps = []):
                     "@npm//@improbable-eng/grpc-web",
                 ])
                 has_added_grpc_deps = True
-        elif dep.startswith("//"):
+        elif dep.startswith("//") or dep.startswith("@npm//"):
             output_deps.append(dep)
         else:
             output_deps.append("@npm//" + dep)

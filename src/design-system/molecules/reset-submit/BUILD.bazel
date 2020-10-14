@@ -4,18 +4,21 @@ load("//:hack/jest.bzl", "jest_test")
 package(default_visibility = ["//visibility:public"])
 
 react_library(
-    name = "tab-view",
+    name = "reset-submit",
     deps = [
         "react",
+        "react-icons",
         "styled-components",
         "//src/design-system/atoms/breakpoints",
-        "//src/design-system/atoms/colors",
-        "//src/design-system/atoms/timings",
+        "//src/design-system/atoms/button",
         "@types/react",
         "@types/styled-components",
     ],
 )
 
 jest_test(
-    src = ":tab-view",
+    src = ":reset-submit",
+    deps = [
+        "//src/design-system/atoms/button",
+    ],
 )

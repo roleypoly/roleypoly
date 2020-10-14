@@ -1,16 +1,15 @@
 load("//:hack/react.bzl", "react_library")
-load("//:hack/jest.bzl", "jest_test")
 
 package(default_visibility = ["//visibility:public"])
 
 react_library(
-    name = "typist",
+    name = "demo-picker",
     deps = [
         "react",
+        "styled-components",
+        "//src/design-system/atoms/role",
+        "//src/design-system/shared-types",
         "@types/react",
+        "@types/styled-components",
     ],
-)
-
-jest_test(
-    src = ":typist",
 )

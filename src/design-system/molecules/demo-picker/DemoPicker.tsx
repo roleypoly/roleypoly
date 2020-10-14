@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Role } from 'atoms/role';
-import { Role as RPCRole } from '@roleypoly/rpc/shared';
+import { Role } from 'roleypoly/src/design-system/atoms/role';
+import { Role as RPCRole } from 'roleypoly/src/design-system/shared-types';
 import styled from 'styled-components';
-import { demoData } from 'hack/fixtures/demoData';
+import { demoData } from 'roleypoly/src/design-system/shared-types/demoData';
 
 const Container = styled.div`
     display: flex;
@@ -21,7 +21,7 @@ const RoleWrap = styled.div`
 export const DemoPicker = () => {
     const [selectedStates, setSelectedStates] = React.useState<
         {
-            [key in RPCRole.AsObject['id']]: boolean;
+            [key in RPCRole['id']]: boolean;
         }
     >(demoData.reduce((acc, role) => ({ ...acc, [role.id]: false }), {}));
 
