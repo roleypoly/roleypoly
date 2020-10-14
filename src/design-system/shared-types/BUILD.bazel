@@ -1,5 +1,7 @@
 load("//:hack/react.bzl", "react_library")
 
+package(default_visibility = ["//src/design-system:__subpackages__"])
+
 react_library(
     name = "shared-types",
 )
