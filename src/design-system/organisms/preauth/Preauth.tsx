@@ -1,8 +1,8 @@
 import { Guild } from '@roleypoly/rpc/shared';
-import { Button } from 'atoms/button';
-import { Space } from 'atoms/space';
-import { PreauthGreeting } from 'molecules/preauth-greeting';
-import { PreauthSecretCode } from 'molecules/preauth-secret-code';
+import { Button } from 'roleypoly/src/design-system/atoms/button';
+import { Space } from 'roleypoly/src/design-system/atoms/space';
+import { PreauthGreeting } from 'roleypoly/src/design-system/molecules/preauth-greeting';
+import { PreauthSecretCode } from 'roleypoly/src/design-system/molecules/preauth-secret-code';
 import * as React from 'react';
 import { FaDiscord } from 'react-icons/fa';
 import styled from 'styled-components';

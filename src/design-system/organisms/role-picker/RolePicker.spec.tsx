@@ -3,7 +3,7 @@ jest.unmock('atoms/role')
     .unmock('molecules/picker-category')
     .unmock('organisms/role-picker');
 
-import { Role } from 'atoms/role';
+import { Role } from 'roleypoly/src/design-system/atoms/role';
 import { shallow } from 'enzyme';
 import {
     guild,
@@ -11,9 +11,9 @@ import {
     guildRoles,
     member,
     mockCategorySingle,
-} from 'hack/fixtures/storyData';
-import { ResetSubmit } from 'molecules/reset-submit';
-import { PickerCategory } from 'molecules/picker-category';
+} from 'roleypoly/src/design-system/shared-types/storyData';
+import { ResetSubmit } from 'roleypoly/src/design-system/molecules/reset-submit';
+import { PickerCategory } from 'roleypoly/src/design-system/molecules/picker-category';
 import * as React from 'react';
 import { RolePicker, RolePickerProps } from './RolePicker';
 

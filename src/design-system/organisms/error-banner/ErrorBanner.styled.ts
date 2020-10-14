@@ -1,6 +1,6 @@
-import { onSmallScreen } from 'atoms/breakpoints';
-import { palette } from 'atoms/colors';
-import { text300, text500, text700 } from 'atoms/typography';
+import { onSmallScreen } from 'roleypoly/src/design-system/atoms/breakpoints';
+import { palette } from 'roleypoly/src/design-system/atoms/colors';
+import { text300, text500, text700 } from 'roleypoly/src/design-system/atoms/typography';
 import styled, { css } from 'styled-components';
 
 export const ErrorWrapper = styled.div`

@@ -1,5 +1,9 @@
-import { rpUser, guild, guildEnum } from 'hack/fixtures/storyData';
-import { organismStories } from 'organisms/organisms.story';
+import {
+    rpUser,
+    guild,
+    guildEnum,
+} from 'roleypoly/src/design-system/shared-types/storyData';
+import { organismStories } from 'roleypoly/src/design-system/organisms/organisms.story';
 import * as React from 'react';
 import { Authed } from './Authed';
 import { Guest } from './Guest';

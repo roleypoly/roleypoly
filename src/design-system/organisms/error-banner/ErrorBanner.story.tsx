@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { organismStories } from 'organisms/organisms.story';
+import { organismStories } from 'roleypoly/src/design-system/organisms/organisms.story';
 import { ErrorBanner } from './ErrorBanner';
 import { text } from '@storybook/addon-knobs';
 

@@ -1,11 +1,14 @@
-import { palette } from 'atoms/colors';
-import { Space } from 'atoms/space';
-import { LargeText, LargeTitle } from 'atoms/typography';
-import { DemoDiscord } from 'molecules/demo-discord';
-import { DemoPicker } from 'molecules/demo-picker';
+import { palette } from 'roleypoly/src/design-system/atoms/colors';
+import { Space } from 'roleypoly/src/design-system/atoms/space';
+import { LargeText, LargeTitle } from 'roleypoly/src/design-system/atoms/typography';
+import { DemoDiscord } from 'roleypoly/src/design-system/molecules/demo-discord';
+import { DemoPicker } from 'roleypoly/src/design-system/molecules/demo-picker';
 import * as React from 'react';
 import { DemoAlignment, DemoSubtitle, HeroCentering, HeroText } from './Landing.styled';
-import { HalfsiesContainer, HalfsiesItem } from 'atoms/halfsies';
+import {
+    HalfsiesContainer,
+    HalfsiesItem,
+} from 'roleypoly/src/design-system/atoms/halfsies';
 
 export const Landing = () => (
     <HeroCentering>

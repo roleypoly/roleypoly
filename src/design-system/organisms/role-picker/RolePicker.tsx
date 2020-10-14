@@ -1,11 +1,11 @@
 import { Member } from '@roleypoly/rpc/discord';
 import { Category, GuildData } from '@roleypoly/rpc/platform';
 import { Guild, GuildRoles, Role } from '@roleypoly/rpc/shared';
-import { FaderOpacity } from 'atoms/fader';
-import { Space } from 'atoms/space';
-import { ResetSubmit } from 'molecules/reset-submit';
-import { ServerMasthead } from 'molecules/server-masthead';
-import { PickerCategory } from 'molecules/picker-category';
+import { FaderOpacity } from 'roleypoly/src/design-system/atoms/fader';
+import { Space } from 'roleypoly/src/design-system/atoms/space';
+import { ResetSubmit } from 'roleypoly/src/design-system/molecules/reset-submit';
+import { ServerMasthead } from 'roleypoly/src/design-system/molecules/server-masthead';
+import { PickerCategory } from 'roleypoly/src/design-system/molecules/picker-category';
 import * as React from 'react';
 import { GoInfo } from 'react-icons/go';
 import {

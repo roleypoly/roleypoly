@@ -1,6 +1,6 @@
-import { onSmallScreen } from 'atoms/breakpoints';
-import { palette } from 'atoms/colors';
-import { transitions } from 'atoms/timings';
+import { onSmallScreen } from 'roleypoly/src/design-system/atoms/breakpoints';
+import { palette } from 'roleypoly/src/design-system/atoms/colors';
+import { transitions } from 'roleypoly/src/design-system/atoms/timings';
 import styled, { css } from 'styled-components';
 
 export const MastheadBase = styled.div`

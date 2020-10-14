@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { AppShell } from 'organisms/app-shell';
-import { HelpPageBase } from 'organisms/help-page-base';
+import { AppShell } from 'roleypoly/src/design-system/organisms/app-shell';
+import { HelpPageBase } from 'roleypoly/src/design-system/organisms/help-page-base';
 import { RoleypolyUser } from '@roleypoly/rpc/shared';
 
 type HelpPageProps = {

@@ -1,9 +1,9 @@
-import { DotOverlay } from 'atoms/dot-overlay';
-import { Hero } from 'atoms/hero';
-import { AppShell } from 'organisms/app-shell';
+import { DotOverlay } from 'roleypoly/src/design-system/atoms/dot-overlay';
+import { Hero } from 'roleypoly/src/design-system/atoms/hero';
+import { AppShell } from 'roleypoly/src/design-system/organisms/app-shell';
 import * as React from 'react';
 import { ErrorMessage, getMessageFromCode } from './errorStrings';
-import { ErrorBanner } from 'organisms/error-banner';
+import { ErrorBanner } from 'roleypoly/src/design-system/organisms/error-banner';
 import { RoleypolyUser } from '@roleypoly/rpc/shared';
 
 export type ErrorProps = {

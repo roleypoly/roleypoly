@@ -8,7 +8,7 @@ import {
     guild,
     rpUser,
     guildEnum,
-} from 'hack/fixtures/storyData';
+} from 'roleypoly/src/design-system/shared-types/storyData';
 import { action } from '@storybook/addon-actions';
 import { boolean } from '@storybook/addon-knobs';
 

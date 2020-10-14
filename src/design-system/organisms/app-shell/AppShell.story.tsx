@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { organismStories } from 'organisms/organisms.story';
+import { organismStories } from 'roleypoly/src/design-system/organisms/organisms.story';
 import { AppShell } from './AppShell';
-import { rpUser, guildEnum } from 'hack/fixtures/storyData';
+import { rpUser, guildEnum } from 'roleypoly/src/design-system/shared-types/storyData';
 
 const story = organismStories('App Shell', module);
 

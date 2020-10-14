@@ -1,5 +1,5 @@
-import { onTablet } from 'atoms/breakpoints';
-import { text400 } from 'atoms/typography';
+import { onTablet } from 'roleypoly/src/design-system/atoms/breakpoints';
+import { text400 } from 'roleypoly/src/design-system/atoms/typography';
 import styled, { css } from 'styled-components';
 
 export const HeroText = styled.div`

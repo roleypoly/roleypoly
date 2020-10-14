@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Preauth } from './Preauth';
-import { organismStories } from 'organisms/organisms.story';
-import { guild } from 'hack/fixtures/storyData';
+import { organismStories } from 'roleypoly/src/design-system/organisms/organisms.story';
+import { guild } from 'roleypoly/src/design-system/shared-types/storyData';
 import { action } from '@storybook/addon-actions';
 import styled from 'styled-components';
 

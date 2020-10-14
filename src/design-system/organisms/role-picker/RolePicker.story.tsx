@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { RolePicker, RolePickerProps } from './RolePicker';
-import { organismStories } from 'organisms/organisms.story';
-import { guildData, member, guildRoles, guild } from 'hack/fixtures/storyData';
+import { organismStories } from 'roleypoly/src/design-system/organisms/organisms.story';
+import {
+    guildData,
+    member,
+    guildRoles,
+    guild,
+} from 'roleypoly/src/design-system/shared-types/storyData';
 import { action } from '@storybook/addon-actions';
 
 const storyPublic = organismStories('Role Picker/Public', module);

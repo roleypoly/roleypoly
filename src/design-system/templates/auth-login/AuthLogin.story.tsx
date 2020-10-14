@@ -2,7 +2,7 @@ import * as React from 'react';
 import { templateStories } from 'templates/templates.story';
 import { AuthLogin } from './AuthLogin';
 import { action } from '@storybook/addon-actions';
-import { guild } from 'hack/fixtures/storyData';
+import { guild } from 'roleypoly/src/design-system/shared-types/storyData';
 
 const story = templateStories('Login', module);
 

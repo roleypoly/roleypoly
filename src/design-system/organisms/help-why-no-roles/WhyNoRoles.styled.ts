@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { palette, numberToChroma } from 'atoms/colors';
+import { palette, numberToChroma } from 'roleypoly/src/design-system/atoms/colors';
 import { Role } from '@roleypoly/rpc/shared';
 
 export const DiscordBase = styled.div`

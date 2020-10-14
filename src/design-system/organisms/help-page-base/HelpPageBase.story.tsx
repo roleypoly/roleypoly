@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { organismStories } from 'organisms/organisms.story';
+import { organismStories } from 'roleypoly/src/design-system/organisms/organisms.story';
 import { HelpPageBase } from './HelpPageBase';
-import { Content } from 'organisms/app-shell/AppShell.styled';
+import { Content } from 'roleypoly/src/design-system/organisms/app-shell/AppShell.styled';
 
 const baseStory = organismStories('Help Pages', module);
 
