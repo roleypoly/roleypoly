@@ -19,7 +19,7 @@
         "declaration": true,
         "moduleResolution": "node",
         "paths": {
-            "roleypoly/*": ["*", "bazel-bin/*"]
+            "roleypoly/*": ["./*", "./bazel-bin/*"]
         }
     }
 }
