@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { onSmallScreen } from 'roleypoly/src/design-system/atoms/breakpoints';
 import { palette } from 'roleypoly/src/design-system/atoms/colors';
+import * as _ from 'styled-components'; // tslint:disable-line:no-duplicate-imports
 
 export const Collapse = styled.div<{ preventCollapse: boolean }>`
     ${(props) =>

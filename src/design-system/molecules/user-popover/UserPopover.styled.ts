@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { palette } from 'roleypoly/src/design-system/atoms/colors';
 import { transitions } from 'roleypoly/src/design-system/atoms/timings';
+import * as _ from 'styled-components'; // tslint:disable-line:no-duplicate-imports
 
 export const Base = styled.div`
     text-align: right;
