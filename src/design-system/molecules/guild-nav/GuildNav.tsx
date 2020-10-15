@@ -8,7 +8,6 @@ import {
     GuildEnumeration,
     PresentableGuild,
     Role,
-    Guild,
 } from 'roleypoly/src/design-system/shared-types';
 import { NavSlug } from 'roleypoly/src/design-system/molecules/nav-slug';
 import { GuildNavItem } from './GuildNav.styled';

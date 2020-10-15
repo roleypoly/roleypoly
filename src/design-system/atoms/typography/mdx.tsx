@@ -1,17 +1,6 @@
 import styled from 'styled-components';
 import * as _ from 'styled-components'; // tslint:disable-line:no-duplicate-imports
-import {
-    AccentTitle,
-    LargeTitle,
-    Link,
-    MediumTitle,
-    SmallTitle,
-    Text,
-    text600,
-    text700,
-    text800,
-    text900,
-} from './typography';
+import { Link, Text, text600, text700, text800, text900 } from './typography';
 
 export const mdxComponents = {
     h1: styled.h1`
