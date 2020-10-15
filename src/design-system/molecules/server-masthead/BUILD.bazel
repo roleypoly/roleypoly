@@ -1,0 +1,28 @@
+load("//:hack/react.bzl", "react_library")
+load("//:hack/jest.bzl", "jest_test")
+
+package(default_visibility = ["//visibility:public"])
+
+react_library(
+    name = "server-masthead",
+    deps = [
+        "next",
+        "react",
+        "react-icons",
+        "styled-components",
+        "//src/design-system/atoms/avatar",
+        "//src/design-system/atoms/colors",
+        "//src/design-system/atoms/timings",
+        "//src/design-system/atoms/typography",
+        "//src/design-system/shared-types",
+        "@types/react",
+        "@types/styled-components",
+    ],
+)
+
+jest_test(
+    src = ":server-masthead",
+    deps = [
+        "//src/design-system/shared-types",
+    ],
+)

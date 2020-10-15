@@ -1,6 +1,6 @@
-import { Role } from 'roleypoly/src/rpc/shared';
+import { Role } from '.';
 
-export const demoData: Role.AsObject[] = [
+export const demoData: Role[] = [
     {
         id: '557812805546541066',
         name: 'a cute role ♡',

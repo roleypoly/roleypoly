@@ -4,7 +4,7 @@ load("//:hack/jest.bzl", "jest_test")
 package(default_visibility = ["//visibility:public"])
 
 react_library(
-    name = "timings",
+    name = "typist",
     deps = [
         "react",
         "@types/react",
@@ -12,5 +12,5 @@ react_library(
 )
 
 jest_test(
-    src = ":timings",
+    src = ":typist",
 )

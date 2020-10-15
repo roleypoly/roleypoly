@@ -107,3 +107,12 @@ export const Spacing = () => (
         })}
     </div>
 );
+
+export const Link = () => (
+    <typography.Link
+        target="_blank"
+        href="https://images.boredomfiles.com/wp-content/uploads/sites/5/2016/03/fox-door-5.png"
+    >
+        Here is a link &lt;3
+    </typography.Link>
+);

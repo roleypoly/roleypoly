@@ -23,12 +23,14 @@ export type GuildData = {
     entitlementsList: string[];
 };
 
+export type PresentableGuild = {
+    id: string;
+    guild: Guild;
+    member: Member;
+    data: GuildData;
+    roles: GuildRoles;
+};
+
 export type GuildEnumeration = {
-    guildsList: {
-        id: string;
-        guild: Guild;
-        member: Member;
-        data: GuildData;
-        roles: GuildRoles;
-    }[];
+    guildsList: PresentableGuild[];
 };

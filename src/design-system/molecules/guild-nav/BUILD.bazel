@@ -1,0 +1,21 @@
+load("//:hack/react.bzl", "react_library")
+
+package(default_visibility = ["//visibility:public"])
+
+react_library(
+    name = "guild-nav",
+    deps = [
+        "next",
+        "react",
+        "react-icons",
+        "react-tooltip",
+        "styled-components",
+        "//src/common/utils",
+        "//src/design-system/atoms/colors",
+        "//src/design-system/atoms/timings",
+        "//src/design-system/molecules/nav-slug",
+        "//src/design-system/shared-types",
+        "@types/react",
+        "@types/styled-components",
+    ],
+)
