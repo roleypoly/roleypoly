@@ -3,7 +3,7 @@
 # - improved dependency resolution
 
 load("@npm//jest-cli:index.bzl", "jest", _jest_test = "jest_test")
-load("//:hack/utils.bzl", "render_deps")
+load("//hack/bazel:utils.bzl", "render_deps")
 
 DEFAULT_DEPS = [
     "@npm//ts-jest",

@@ -146,8 +146,8 @@ def go_repositories():
     go_repository(
         name = "com_github_dghubble_trie",
         importpath = "github.com/dghubble/trie",
-        sum = "h1:euE/xPG0HIg6XiNXYrAHxX9aVwD1gw/yM2kptLOOj6k=",
-        version = "v0.0.0-20200716043226-5a94efb202d5",
+        sum = "h1:3yKntgWb7KwnHd4nCVgCIUNQs4qRdua+jitRqGMxKys=",
+        version = "v0.0.0-20201011220304-ed6d6b8add55",
     )
     go_repository(
         name = "com_github_dgrijalva_jwt_go",

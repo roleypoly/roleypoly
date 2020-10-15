@@ -1,5 +1,5 @@
 load("@npm//@bazel/typescript:index.bzl", "ts_library")
-load("//:hack/utils.bzl", "render_deps")
+load("//hack/bazel:utils.bzl", "render_deps")
 
 def react_library(name, deps = [], **kwargs):
     ts_library(

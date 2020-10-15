@@ -4,7 +4,7 @@ go 1.15
 
 require (
 	github.com/bwmarrin/discordgo v0.22.0
-	github.com/dghubble/trie v0.0.0-20200716043226-5a94efb202d5
+	github.com/dghubble/trie v0.0.0-20201011220304-ed6d6b8add55
 	github.com/facebook/ent v0.4.3
 	github.com/google/go-github/v32 v32.1.0
 	github.com/joho/godotenv v1.3.0

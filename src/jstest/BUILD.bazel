@@ -1,7 +1,7 @@
 load("@npm//@bazel/typescript:index.bzl", "ts_library")
 load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 load("@io_bazel_rules_docker//nodejs:image.bzl", "nodejs_image")
-load("//:hack/publish.bzl", "publish")
+load("//hack/bazel/docker:publish.bzl", "publish")
 
 package(default_visibility = ["//visibility:public"])
 

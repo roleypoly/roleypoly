@@ -1,5 +1,5 @@
-load("//:hack/react.bzl", "react_library")
-load("//:hack/jest.bzl", "jest_test")
+load("//hack/bazel/js:react.bzl", "react_library")
+load("//hack/bazel/js:jest.bzl", "jest_test")
 
 package(default_visibility = ["//visibility:public"])
 

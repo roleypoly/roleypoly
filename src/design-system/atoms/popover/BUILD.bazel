@@ -1,4 +1,4 @@
-load("//:hack/react.bzl", "react_library")
+load("//hack/bazel/js:react.bzl", "react_library")
 
 package(default_visibility = ["//visibility:public"])
 

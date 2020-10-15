@@ -1,5 +1,5 @@
 load("@io_bazel_rules_go//go:def.bzl", "go_binary", "go_library")
-load("//:hack/publish.bzl", "publish")
+load("//hack/bazel/docker:publish.bzl", "publish")
 load("@io_bazel_rules_docker//go:image.bzl", "go_image")
 
 go_library(
