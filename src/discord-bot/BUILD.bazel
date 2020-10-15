@@ -27,6 +27,12 @@ go_binary(
     visibility = ["//visibility:public"],
 )
 
+go_image(
+    name = "image",
+    embed = [":discord-bot_lib"],
+    visibility = ["//visibility:private"],
+)
+
 publish(
     service = "discord-bot",
 )
