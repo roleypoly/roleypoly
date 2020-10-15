@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { onTablet } from 'roleypoly/src/design-system/atoms/breakpoints';
-import * as _ from 'styled-components'; // tslint:disable-line:no-duplicate-imports
+import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 
 export const HalfsiesContainer = styled.div`
     display: flex;

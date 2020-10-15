@@ -1,10 +1,10 @@
 {
-    "go.inferGopath": false,
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.formatOnSave": true,
-    "bazel.buildifierFixOnFormat": true,
     "[starlark]": {
         "editor.tabSize": 4
-    }
+    },
+    "bazel.buildifierFixOnFormat": true,
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "go.inferGopath": false
 }

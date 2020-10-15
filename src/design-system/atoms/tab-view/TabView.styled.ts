@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { palette } from 'roleypoly/src/design-system/atoms/colors';
 import { transitions } from 'roleypoly/src/design-system/atoms/timings';
 import { onTablet } from 'roleypoly/src/design-system/atoms/breakpoints';
-import * as _ from 'styled-components'; // tslint:disable-line:no-duplicate-imports
+import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 
 export const TabViewStyled = styled.div``;
 

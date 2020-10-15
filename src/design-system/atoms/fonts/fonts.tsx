@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Head from 'next/head';
 import styled, { css } from 'styled-components';
-import * as _ from 'styled-components'; // tslint:disable-line:no-duplicate-imports
+import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 
 export const InjectTypekitFont = () => {
     React.useEffect(() => {

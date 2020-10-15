@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as _ from 'styled-components'; // tslint:disable-line:no-duplicate-imports
+import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 
 export const Head = styled.div`
     margin: 7px 5px;

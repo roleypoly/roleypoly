@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import * as React from 'react';
-import * as _ from 'styled-components'; // tslint:disable-line:no-duplicate-imports
+import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 
 const dotOverlayBase = styled.div`
     opacity: 0.6;

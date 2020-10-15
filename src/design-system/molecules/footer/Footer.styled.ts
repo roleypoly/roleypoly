@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as _ from 'styled-components'; // tslint:disable-line:no-duplicate-imports
+import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 import { palette } from 'roleypoly/src/design-system/atoms/colors';
 import { transitions } from 'roleypoly/src/design-system/atoms/timings';
 
