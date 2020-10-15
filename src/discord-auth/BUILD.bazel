@@ -29,5 +29,5 @@ go_image(
 )
 
 publish(
-    service = "midori",
+    service = "discord-auth",
 )
