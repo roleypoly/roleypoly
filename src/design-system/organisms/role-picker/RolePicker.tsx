@@ -1,13 +1,20 @@
-import { Member } from '@roleypoly/rpc/discord';
-import { Category, GuildData } from '@roleypoly/rpc/platform';
-import { Guild, GuildRoles, Role } from '@roleypoly/rpc/shared';
-import { FaderOpacity } from 'roleypoly/src/design-system/atoms/fader';
-import { Space } from 'roleypoly/src/design-system/atoms/space';
-import { ResetSubmit } from 'roleypoly/src/design-system/molecules/reset-submit';
-import { ServerMasthead } from 'roleypoly/src/design-system/molecules/server-masthead';
-import { PickerCategory } from 'roleypoly/src/design-system/molecules/picker-category';
 import * as React from 'react';
 import { GoInfo } from 'react-icons/go';
+import { FaderOpacity } from 'roleypoly/src/design-system/atoms/fader';
+import { Space } from 'roleypoly/src/design-system/atoms/space';
+import { PickerCategory } from 'roleypoly/src/design-system/molecules/picker-category';
+import { ResetSubmit } from 'roleypoly/src/design-system/molecules/reset-submit';
+import { ServerMasthead } from 'roleypoly/src/design-system/molecules/server-masthead';
+import {
+    Category,
+    Guild,
+    GuildData,
+    GuildRoles,
+    Member,
+    Role,
+    CategoryType,
+} from 'roleypoly/src/design-system/shared-types';
+import { ReactifyNewlines } from 'roleypoly/src/common/utils/ReactifyNewlines';
 import {
     CategoryContainer,
     Container,
@@ -15,13 +22,12 @@ import {
     InfoIcon,
     MessageBox,
 } from './RolePicker.styled';
-import { ReactifyNewlines } from 'utils/ReactifyNewlines';
 
 export type RolePickerProps = {
-    guild: Guild.AsObject;
-    guildData: GuildData.AsObject;
-    member: Member.AsObject;
-    roles: GuildRoles.AsObject;
+    guild: Guild;
+    guildData: GuildData;
+    member: Member;
+    roles: GuildRoles;
     onSubmit: (selectedRoles: string[]) => void;
     editable: boolean;
 };
@@ -40,10 +46,8 @@ export const RolePicker = (props: RolePickerProps) => {
         props.member.rolesList
     );
 
-    const handleChange = (category: Category.AsObject) => (role: Role.AsObject) => (
-        newState: boolean
-    ) => {
-        if (category.type === Category.CategoryType.SINGLE) {
+    const handleChange = (category: Category) => (role: Role) => (newState: boolean) => {
+        if (category.type === CategoryType.SINGLE) {
             updateSelectedRoles(
                 newState === true
                     ? [
@@ -94,14 +98,12 @@ export const RolePicker = (props: RolePickerProps) => {
                                                     (r) => r.id === role
                                                 )
                                             )
-                                            .filter(
-                                                (r) => r !== undefined
-                                            ) as Role.AsObject[]
+                                            .filter((r) => r !== undefined) as Role[]
                                     }
                                     onChange={handleChange(category)}
                                     wikiMode={false}
                                     type={
-                                        category.type === Category.CategoryType.SINGLE
+                                        category.type === CategoryType.SINGLE
                                             ? 'single'
                                             : 'multi'
                                     }

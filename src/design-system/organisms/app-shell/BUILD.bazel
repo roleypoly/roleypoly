@@ -1,0 +1,19 @@
+load("//hack/bazel/js:react.bzl", "react_library")
+
+package(default_visibility = ["//visibility:public"])
+
+react_library(
+    name = "app-shell",
+    deps = [
+        "react",
+        "react-custom-scrollbars",
+        "styled-components",
+        "//src/design-system/atoms/colors",
+        "//src/design-system/molecules/footer",
+        "//src/design-system/organisms/masthead",
+        "//src/design-system/shared-types",
+        "@types/react",
+        "@types/react-custom-scrollbars",
+        "@types/styled-components",
+    ],
+)

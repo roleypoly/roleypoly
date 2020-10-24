@@ -1,15 +1,17 @@
-import { GuildEnumeration } from '@roleypoly/rpc/platform';
-import { RoleypolyUser } from '@roleypoly/rpc/shared';
+import Link from 'next/link';
+import * as React from 'react';
+import { GoOrganization } from 'react-icons/go';
+import {
+    RoleypolyUser,
+    GuildEnumeration,
+} from 'roleypoly/src/design-system/shared-types';
 import { Logomark } from 'roleypoly/src/design-system/atoms/branding';
 import { Popover } from 'roleypoly/src/design-system/atoms/popover';
-import { guildEnum } from 'roleypoly/src/design-system/shared-types/storyData';
 import { GuildNav } from 'roleypoly/src/design-system/molecules/guild-nav';
 import { NavSlug } from 'roleypoly/src/design-system/molecules/nav-slug';
 import { UserAvatarGroup } from 'roleypoly/src/design-system/molecules/user-avatar-group';
 import { UserPopover } from 'roleypoly/src/design-system/molecules/user-popover';
-import Link from 'next/link';
-import * as React from 'react';
-import { GoOrganization } from 'react-icons/go';
+import { guildEnum } from 'roleypoly/src/design-system/shared-types/storyData';
 import {
     GuildPopoverHead,
     InteractionBase,
@@ -21,9 +23,9 @@ import {
 } from './Masthead.styled';
 
 type Props = {
-    user: RoleypolyUser.AsObject;
+    user: RoleypolyUser;
     activeGuildId: string | null;
-    guildEnumeration: GuildEnumeration.AsObject;
+    guildEnumeration: GuildEnumeration;
 };
 
 export const Authed = (props: Props) => {

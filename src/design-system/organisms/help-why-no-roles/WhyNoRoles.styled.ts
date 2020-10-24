@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { palette, numberToChroma } from 'roleypoly/src/design-system/atoms/colors';
-import { Role } from '@roleypoly/rpc/shared';
+import { Role } from 'roleypoly/src/design-system/shared-types';
+import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 
 export const DiscordBase = styled.div`
     background-color: ${palette.discord100};
@@ -18,7 +19,7 @@ const hover = (roleColor: string) => css`
 `;
 
 export const DiscordRole = styled.div<{
-    discordRole: Role.AsObject;
+    discordRole: Role;
     isRoleypoly: boolean;
 }>`
     padding: 6px 10px;

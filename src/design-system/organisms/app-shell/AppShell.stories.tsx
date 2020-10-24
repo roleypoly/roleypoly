@@ -1,18 +1,20 @@
 import * as React from 'react';
-import { organismStories } from 'roleypoly/src/design-system/organisms/organisms.story';
 import { AppShell } from './AppShell';
 import { rpUser, guildEnum } from 'roleypoly/src/design-system/shared-types/storyData';
 
-const story = organismStories('App Shell', module);
+export default {
+    title: 'Organisms/App Shell',
+    component: AppShell,
+};
 
-story.add('Guest', () => (
+export const Guest = () => (
     <AppShell showFooter user={null}>
         <h1>Hello World</h1>
     </AppShell>
-));
+);
 
-story.add('Logged In', () => (
+export const LoggedIn = () => (
     <AppShell user={rpUser} guildEnumeration={guildEnum}>
         <h1>Hello World</h1>
     </AppShell>
-));
+);

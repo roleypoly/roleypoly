@@ -3,19 +3,20 @@ import {
     guild,
     guildEnum,
 } from 'roleypoly/src/design-system/shared-types/storyData';
-import { organismStories } from 'roleypoly/src/design-system/organisms/organisms.story';
 import * as React from 'react';
 import { Authed } from './Authed';
 import { Guest } from './Guest';
 
-const rootStory = organismStories('Masthead', module);
-const userStory = organismStories('Masthead/User', module);
+export default {
+    title: 'Organisms/Masthead',
+};
 
-userStory.add('Has Guilds', () => (
+export const HasGuilds = () => (
     <Authed guildEnumeration={guildEnum} activeGuildId={guild.id} user={rpUser} />
-));
-userStory.add('No Guilds (New User)', () => (
-    <Authed guildEnumeration={{ guildsList: [] }} activeGuildId={null} user={rpUser} />
-));
+);
 
-rootStory.add('Guest', () => <Guest />);
+export const NoGuilds = () => (
+    <Authed guildEnumeration={{ guildsList: [] }} activeGuildId={null} user={rpUser} />
+);
+
+export const Guest_ = () => <Guest />;

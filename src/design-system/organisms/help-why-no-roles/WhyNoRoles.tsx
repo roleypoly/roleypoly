@@ -1,17 +1,17 @@
+import chroma from 'chroma-js';
 import * as React from 'react';
+import { FaCheck, FaTimes } from 'react-icons/fa';
+import { palette } from 'roleypoly/src/design-system/atoms/colors';
 import {
     HalfsiesContainer,
     HalfsiesItem,
 } from 'roleypoly/src/design-system/atoms/halfsies';
-import { FaCheck, FaTimes } from 'react-icons/fa';
-import { DiscordBase, DiscordRole } from './WhyNoRoles.styled';
-import { demoData } from 'roleypoly/src/design-system/shared-types/demoData';
-import { Role } from '@roleypoly/rpc/shared';
-import { palette } from 'roleypoly/src/design-system/atoms/colors';
-import chroma from 'chroma-js';
 import { SparkleOverlay } from 'roleypoly/src/design-system/atoms/sparkle';
+import { Role } from 'roleypoly/src/design-system/shared-types';
+import { demoData } from 'roleypoly/src/design-system/shared-types/demoData';
+import { DiscordBase, DiscordRole } from './WhyNoRoles.styled';
 
-const adminRoles: Role.AsObject[] = [
+const adminRoles: Role[] = [
     {
         id: 'roley2',
         name: 'Admin',
@@ -32,7 +32,7 @@ const adminRoles: Role.AsObject[] = [
     },
 ];
 
-const roleypolyRole: Role.AsObject = {
+const roleypolyRole: Role = {
     id: 'roley',
     name: 'Roleypoly',
     permissions: 0,
@@ -58,7 +58,7 @@ const MaybeWithOverlay = (props: { children: React.ReactNode; withOverlay: boole
     }
 };
 
-const Example = (props: { roles: Role.AsObject[]; isGood: boolean }) => (
+const Example = (props: { roles: Role[]; isGood: boolean }) => (
     <div>
         <DiscordBase>
             {props.roles.map((r) => (

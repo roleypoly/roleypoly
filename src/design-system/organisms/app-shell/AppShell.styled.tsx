@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import { palette } from 'roleypoly/src/design-system/atoms/colors';
+import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 
 export const Content = styled.div<{ small?: boolean }>`
     margin: 0 auto;

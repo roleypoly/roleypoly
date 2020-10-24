@@ -1,14 +1,15 @@
-import { Guild } from '@roleypoly/rpc/shared';
+import * as React from 'react';
+import { FaDiscord } from 'react-icons/fa';
 import { Button } from 'roleypoly/src/design-system/atoms/button';
 import { Space } from 'roleypoly/src/design-system/atoms/space';
 import { PreauthGreeting } from 'roleypoly/src/design-system/molecules/preauth-greeting';
 import { PreauthSecretCode } from 'roleypoly/src/design-system/molecules/preauth-secret-code';
-import * as React from 'react';
-import { FaDiscord } from 'react-icons/fa';
+import { Guild } from 'roleypoly/src/design-system/shared-types';
 import styled from 'styled-components';
+import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 
 export type PreauthProps = {
-    guildSlug?: Guild.AsObject;
+    guildSlug?: Guild;
     onSendSecretCode: (code: string) => void;
     botName?: string;
 };

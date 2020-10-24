@@ -1,6 +1,7 @@
 import { onTablet } from 'roleypoly/src/design-system/atoms/breakpoints';
 import { text400 } from 'roleypoly/src/design-system/atoms/typography';
 import styled, { css } from 'styled-components';
+import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 
 export const HeroText = styled.div`
     ${onTablet(css`

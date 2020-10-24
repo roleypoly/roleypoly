@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 import { palette } from 'roleypoly/src/design-system/atoms/colors';
 
 export const Container = styled.div``;

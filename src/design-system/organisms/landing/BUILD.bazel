@@ -1,0 +1,21 @@
+load("//hack/bazel/js:react.bzl", "react_library")
+
+package(default_visibility = ["//visibility:public"])
+
+react_library(
+    name = "landing",
+    deps = [
+        "react",
+        "react-icons",
+        "styled-components",
+        "//src/design-system/atoms/breakpoints",
+        "//src/design-system/atoms/colors",
+        "//src/design-system/atoms/halfsies",
+        "//src/design-system/atoms/space",
+        "//src/design-system/atoms/typography",
+        "//src/design-system/molecules/demo-discord",
+        "//src/design-system/molecules/demo-picker",
+        "@types/react",
+        "@types/styled-components",
+    ],
+)

@@ -1,0 +1,26 @@
+load("//hack/bazel/js:react.bzl", "react_library")
+
+package(default_visibility = ["//visibility:public"])
+
+react_library(
+    name = "masthead",
+    deps = [
+        "next",
+        "react",
+        "react-icons",
+        "styled-components",
+        "//src/design-system/atoms/branding",
+        "//src/design-system/atoms/breakpoints",
+        "//src/design-system/atoms/button",
+        "//src/design-system/atoms/colors",
+        "//src/design-system/atoms/popover",
+        "//src/design-system/atoms/timings",
+        "//src/design-system/molecules/guild-nav",
+        "//src/design-system/molecules/nav-slug",
+        "//src/design-system/molecules/user-avatar-group",
+        "//src/design-system/molecules/user-popover",
+        "//src/design-system/shared-types",
+        "@types/react",
+        "@types/styled-components",
+    ],
+)

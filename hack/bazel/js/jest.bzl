@@ -13,6 +13,7 @@ DEFAULT_DEPS = [
     "@npm//jest-environment-enzyme",
     "@npm//jsdom",
     "@npm//jest",
+    "@npm//@types/jest",
     "@npm//jest-enzyme",
     "@npm//jest-styled-components",
     "@npm//enzyme-to-json",

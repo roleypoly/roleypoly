@@ -6,7 +6,12 @@ import {
     ErrorText,
     ErrorTextLower,
 } from './ErrorBanner.styled';
-import { ErrorMessage } from 'templates/errors/errorStrings';
+
+export type ErrorMessage = {
+    english: string;
+    japanese?: string;
+    friendlyCode?: string;
+};
 
 type ErrorBannerProps = {
     message: Required<ErrorMessage>;

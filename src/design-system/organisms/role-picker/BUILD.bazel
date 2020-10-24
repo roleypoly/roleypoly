@@ -1,0 +1,33 @@
+load("//hack/bazel/js:react.bzl", "react_library")
+load("//hack/bazel/js:jest.bzl", "jest_test")
+
+package(default_visibility = ["//visibility:public"])
+
+react_library(
+    name = "role-picker",
+    deps = [
+        "react",
+        "react-icons",
+        "styled-components",
+        "//src/common/utils",
+        "//src/design-system/atoms/colors",
+        "//src/design-system/atoms/fader",
+        "//src/design-system/atoms/space",
+        "//src/design-system/molecules/picker-category",
+        "//src/design-system/molecules/reset-submit",
+        "//src/design-system/molecules/server-masthead",
+        "//src/design-system/shared-types",
+        "@types/react",
+        "@types/styled-components",
+    ],
+)
+
+jest_test(
+    src = ":role-picker",
+    deps = [
+        "//src/design-system/atoms/role",
+        "//src/design-system/molecules/picker-category",
+        "//src/design-system/molecules/reset-submit",
+        "//src/design-system/shared-types",
+    ],
+)

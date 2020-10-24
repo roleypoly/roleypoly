@@ -1,0 +1,19 @@
+load("//hack/bazel/js:react.bzl", "react_library")
+
+package(default_visibility = ["//visibility:public"])
+
+react_library(
+    name = "role-picker",
+    deps = [
+        "react",
+        "react-icons",
+        "styled-components",
+        "//src/design-system/atoms/button",
+        "//src/design-system/atoms/space",
+        "//src/design-system/molecules/preauth-greeting",
+        "//src/design-system/molecules/preauth-secret-code",
+        "//src/design-system/shared-types",
+        "@types/react",
+        "@types/styled-components",
+    ],
+)

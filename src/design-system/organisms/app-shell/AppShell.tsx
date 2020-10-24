@@ -1,19 +1,21 @@
 import * as React from 'react';
 import * as Masthead from 'roleypoly/src/design-system/organisms/masthead';
-import { RoleypolyUser } from '@roleypoly/rpc/shared';
+import {
+    RoleypolyUser,
+    GuildEnumeration,
+} from 'roleypoly/src/design-system/shared-types';
 import { Footer } from 'roleypoly/src/design-system/molecules/footer';
 import { Content, GlobalStyles } from './AppShell.styled';
 import { GlobalStyleColors } from 'roleypoly/src/design-system/atoms/colors';
-import { GuildEnumeration } from '@roleypoly/rpc/platform';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 type AppShellProps = {
     children: React.ReactNode;
-    user: RoleypolyUser.AsObject | null;
+    user: RoleypolyUser | null;
     showFooter?: boolean;
     small?: boolean;
     activeGuildId?: string | null;
-    guildEnumeration?: GuildEnumeration.AsObject;
+    guildEnumeration?: GuildEnumeration;
 };
 
 export const AppShell = (props: AppShellProps) => (

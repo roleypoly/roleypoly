@@ -1,10 +1,13 @@
-jest.unmock('atoms/role')
-    .unmock('atoms/button')
-    .unmock('molecules/picker-category')
-    .unmock('organisms/role-picker');
+jest.unmock('roleypoly/src/design-system/atoms/role')
+    .unmock('roleypoly/src/design-system/atoms/button')
+    .unmock('roleypoly/src/design-system/molecules/picker-category')
+    .unmock('roleypoly/src/design-system/organisms/role-picker');
 
-import { Role } from 'roleypoly/src/design-system/atoms/role';
 import { shallow } from 'enzyme';
+import * as React from 'react';
+import { Role } from 'roleypoly/src/design-system/atoms/role';
+import { PickerCategory } from 'roleypoly/src/design-system/molecules/picker-category';
+import { ResetSubmit } from 'roleypoly/src/design-system/molecules/reset-submit';
 import {
     guild,
     guildData,
@@ -12,9 +15,6 @@ import {
     member,
     mockCategorySingle,
 } from 'roleypoly/src/design-system/shared-types/storyData';
-import { ResetSubmit } from 'roleypoly/src/design-system/molecules/reset-submit';
-import { PickerCategory } from 'roleypoly/src/design-system/molecules/picker-category';
-import * as React from 'react';
 import { RolePicker, RolePickerProps } from './RolePicker';
 
 it('unselects the rest of a category in single mode', () => {
