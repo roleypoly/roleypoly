@@ -36,7 +36,7 @@
     },
     "devDependencies": {
         "@babel/core": "^7.12.1",
-        "@bazel/typescript": "^2.2.1",
+        "@bazel/typescript": "^2.2.2",
         "@storybook/addon-actions": "^6.0.26",
         "@storybook/addon-essentials": "^6.0.26",
         "@storybook/addon-links": "^6.0.26",
