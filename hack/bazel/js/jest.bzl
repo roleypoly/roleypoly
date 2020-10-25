@@ -19,7 +19,9 @@ DEFAULT_DEPS = [
     "@npm//enzyme-to-json",
     "@npm//react-dom",
     "@npm//@types/react-dom",
+    "@npm//jest-react-hooks-shallow",
     "//:tsconfig.json",
+    "//:hack/jestSetup.ts",
 ]
 
 def _impl_jest_test(name, srcs, deps, jest_config, **kwargs):

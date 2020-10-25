@@ -8704,6 +8704,13 @@ jest-pnp-resolver@^1.2.2:
   resolved "https://registry.yarnpkg.com/jest-pnp-resolver/-/jest-pnp-resolver-1.2.2.tgz#b704ac0ae028a89108a4d040b3f919dfddc8e33c"
   integrity sha512-olV41bKSMm8BdnuMsewT4jqlZ8+3TCARAXjZGT9jcoSnrfUnRCqnMoF9XEeoWjbzObpqF9dRhHQj0Xb9QdF6/w==
 
+jest-react-hooks-shallow@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/jest-react-hooks-shallow/-/jest-react-hooks-shallow-1.4.1.tgz#5a0082c7ef72c0434f55bd7ef4ff8fdbe4e0ab1d"
+  integrity sha512-el9oYNAp77WEUgVdBEjPMU+5koOFXfAhitlVShuBine/y2AVCL5nEF9kRDSu9iAo2mMocbwmeTEPyDsw/LAHvg==
+  dependencies:
+    react "^16.8.0"
+
 jest-regex-util@^24.9.0:
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/jest-regex-util/-/jest-regex-util-24.9.0.tgz#c13fb3380bde22bf6575432c493ea8fe37965636"
@@ -11576,6 +11583,15 @@ react-tooltip@^4.2.10:
   dependencies:
     prop-types "^15.7.2"
     uuid "^7.0.3"
+
+react@^16.8.0:
+  version "16.14.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
+  integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
 
 react@^16.8.3:
   version "16.13.1"

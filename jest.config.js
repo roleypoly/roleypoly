@@ -5,7 +5,7 @@ module.exports = {
     preset: 'ts-jest',
     testEnvironment: 'enzyme',
     reporters: ['default', './jest-reporter'],
-    setupFilesAfterEnv: ['jest-enzyme', 'jest-styled-components'],
+    setupFilesAfterEnv: ['jest-enzyme', 'jest-styled-components', './hack/jestSetup.ts'],
     moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
         prefix: '<rootDir>/',
     }),
