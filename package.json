@@ -19,7 +19,7 @@
         "lint:stylelint": "cross-env stylelint '**/*.{ts,tsx}'",
         "now-build": "run-s storybook:build",
         "storybook": "start-storybook -p 6006 --no-dll",
-        "storybook:build": "build-storybook",
+        "storybook:build": "build-storybook --no-dll",
         "test": "jest"
     },
     "dependencies": {
