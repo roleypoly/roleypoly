@@ -114,7 +114,7 @@ load("@io_bazel_rules_docker//container:container.bzl", "container_pull")
 
 container_pull(
     name = "devcontainergo",
-    digest = "sha256:3bd4b61c8a763e825a8dfe1301cc02705106daa4c1a5b50a471b82cff1f269ad",
+    digest = "sha256:040d6ace87ea63292045155b4b2c1df27ddf41f9d4d7a6afce753c8054838cab",
     registry = "mcr.microsoft.com",
     repository = "vscode/devcontainers/go",
     tag = "1.15",
