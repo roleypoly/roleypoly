@@ -6,7 +6,6 @@ import {
     member,
 } from 'roleypoly/src/design-system/shared-types/storyData';
 import { RolePicker, RolePickerProps } from './RolePicker';
-import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 
 const props: Partial<RolePickerProps> = {
     guildData: guildData,
