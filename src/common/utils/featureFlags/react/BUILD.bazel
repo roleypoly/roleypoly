@@ -3,5 +3,5 @@ load("//hack/bazel/js:react.bzl", "react_library")
 package(default_visibility = ["//visibility:public"])
 
 react_library(
-    name = "withContext",
+    name = "react",
 )

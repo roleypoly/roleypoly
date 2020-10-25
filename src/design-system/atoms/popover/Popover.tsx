@@ -10,7 +10,7 @@ import { globalOnKeyUp } from 'roleypoly/src/design-system/atoms/key-events';
 import { IoMdClose } from 'react-icons/io';
 
 type PopoverProps = {
-    children: React.ReactNode;
+    children: () => React.ReactNode;
     position: 'top left' | 'top right' | 'bottom left' | 'bottom right';
     active: boolean;
     canDefocus?: boolean;
@@ -29,7 +29,7 @@ export const Popover = (props: PopoverProps) => {
                     </PopoverHeadCloser>
                     <div>{props.headContent}</div>
                 </PopoverHead>
-                <PopoverContent>{props.children}</PopoverContent>
+                <PopoverContent>{props.children()}</PopoverContent>
             </PopoverBase>
             {props.canDefocus && (
                 <DefocusHandler

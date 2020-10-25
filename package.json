@@ -26,6 +26,7 @@
         "@improbable-eng/grpc-web": "^0.13.0",
         "browser-headers": "^0.4.1",
         "chroma-js": "^2.1.0",
+        "fuse.js": "^6.4.2",
         "google-protobuf": "^3.13.0",
         "next": "^9.5.5",
         "react": "^17.0.1",

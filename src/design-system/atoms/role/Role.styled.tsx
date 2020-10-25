@@ -7,6 +7,7 @@ export type StyledProps = {
     selected: boolean;
     defaultColor: boolean;
     disabled: boolean;
+    type?: 'delete';
 };
 
 export const Outer = styled.div<StyledProps>`
@@ -29,6 +30,9 @@ export const Outer = styled.div<StyledProps>`
                   &:hover {
                       transform: translateY(-2px);
                       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+                      ${Circle} svg {
+                          fill-opacity: 1;
+                      }
                   }
 
                   &:active {
@@ -69,6 +73,13 @@ export const Circle = styled.div<StyledProps>`
                 ? 'var(--role-color)'
                 : 'var(--role-contrast)'};
     }
+    ${(props) =>
+        props.type === 'delete' &&
+        css`
+            svg {
+                fill-opacity: 0;
+            }
+        `}
 `;
 
 export const Text = styled.div`

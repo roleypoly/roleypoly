@@ -11,6 +11,7 @@ type Props = {
     disabled?: boolean;
     onClick?: (newState: boolean) => void;
     tooltipId?: string;
+    type?: 'delete';
 };
 
 export const Role = (props: Props) => {
@@ -36,6 +37,7 @@ export const Role = (props: Props) => {
         selected: props.selected,
         defaultColor: props.role.color === 0,
         disabled: !!props.disabled,
+        type: props.type,
     };
 
     const extra = !props.disabled
@@ -53,7 +55,7 @@ export const Role = (props: Props) => {
             {...extra}
         >
             <styled.Circle {...styledProps}>
-                {!props.disabled ? <FaCheck /> : <FaTimes />}
+                {!props.disabled && props.type !== 'delete' ? <FaCheck /> : <FaTimes />}
             </styled.Circle>
             <styled.Text>{props.role.name}</styled.Text>
         </styled.Outer>
