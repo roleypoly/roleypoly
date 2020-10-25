@@ -6,15 +6,11 @@ react_library(
     name = "help-why-no-roles",
     deps = [
         "chroma-js",
-        "react",
         "react-icons",
-        "styled-components",
         "//src/design-system/atoms/colors",
         "//src/design-system/atoms/halfsies",
         "//src/design-system/atoms/sparkle",
         "//src/design-system/shared-types",
         "@types/chroma-js",
-        "@types/react",
-        "@types/styled-components",
     ],
 )

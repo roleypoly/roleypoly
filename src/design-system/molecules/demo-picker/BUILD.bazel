@@ -5,11 +5,7 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "demo-picker",
     deps = [
-        "react",
-        "styled-components",
         "//src/design-system/atoms/role",
         "//src/design-system/shared-types",
-        "@types/react",
-        "@types/styled-components",
     ],
 )

@@ -6,9 +6,5 @@ react_library(
     name = "fonts",
     deps = [
         "next",
-        "react",
-        "styled-components",
-        "@types/react",
-        "@types/styled-components",
     ],
 )

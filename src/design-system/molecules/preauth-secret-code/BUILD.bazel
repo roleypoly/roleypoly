@@ -6,16 +6,12 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "preauth-secret-code",
     deps = [
-        "react",
         "react-icons",
-        "styled-components",
         "//src/design-system/atoms/button",
         "//src/design-system/atoms/fader",
         "//src/design-system/atoms/space",
         "//src/design-system/atoms/text-input",
         "//src/design-system/shared-types",
-        "@types/react",
-        "@types/styled-components",
     ],
 )
 

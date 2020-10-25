@@ -6,13 +6,9 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "button",
     deps = [
-        "react",
-        "styled-components",
         "//src/design-system/atoms/colors",
         "//src/design-system/atoms/fonts",
         "//src/design-system/atoms/typography",
-        "@types/react",
-        "@types/styled-components",
     ],
 )
 

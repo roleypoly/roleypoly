@@ -5,13 +5,9 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "picker-category",
     deps = [
-        "react",
         "react-tooltip",
-        "styled-components",
         "//src/design-system/atoms/role",
         "//src/design-system/atoms/typography",
         "//src/design-system/shared-types",
-        "@types/react",
-        "@types/styled-components",
     ],
 )

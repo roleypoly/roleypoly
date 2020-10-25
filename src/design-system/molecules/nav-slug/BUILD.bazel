@@ -5,12 +5,8 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "nav-slug",
     deps = [
-        "react",
         "react-icons",
-        "styled-components",
         "//src/design-system/atoms/avatar",
         "//src/design-system/shared-types",
-        "@types/react",
-        "@types/styled-components",
     ],
 )

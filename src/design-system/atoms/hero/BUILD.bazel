@@ -5,9 +5,5 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "hero",
     deps = [
-        "react",
-        "styled-components",
-        "@types/react",
-        "@types/styled-components",
     ],
 )

@@ -7,12 +7,8 @@ react_library(
     name = "utils",
     deps = [
         "chroma-js",
-        "react",
-        "styled-components",
         "//src/rpc/shared",
         "@types/chroma-js",
-        "@types/react",
-        "@types/styled-components",
     ],
 )
 

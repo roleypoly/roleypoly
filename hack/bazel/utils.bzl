@@ -1,3 +1,11 @@
+def _append_once(targetList, item):
+    if item not in targetList:
+        targetList.append(item)
+
+def _extend_once(targetList, items):
+    for item in items:
+        _append_once(targetList, item)
+
 def render_deps(deps = []):
     output_deps = []
 
@@ -5,18 +13,18 @@ def render_deps(deps = []):
 
     for dep in deps:
         if dep.startswith("//src/rpc"):
-            output_deps.append(dep + ":ts")
-            output_deps.append(dep + ":ts_proto")
+            _append_once(output_deps, dep + ":ts")
+            _append_once(output_deps, dep + ":ts_proto")
             if has_added_grpc_deps == False:
-                output_deps.extend([
+                _extend_once(output_deps, [
                     "@npm//google-protobuf",
                     "@npm//@types/google-protobuf",
                     "@npm//@improbable-eng/grpc-web",
                 ])
                 has_added_grpc_deps = True
         elif dep.startswith("//") or dep.startswith("@npm//"):
-            output_deps.append(dep)
+            _append_once(output_deps, dep)
         else:
-            output_deps.append("@npm//" + dep)
+            _append_once(output_deps, "@npm//" + dep)
 
     return output_deps

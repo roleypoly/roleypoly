@@ -6,13 +6,9 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "tab-view",
     deps = [
-        "react",
-        "styled-components",
         "//src/design-system/atoms/breakpoints",
         "//src/design-system/atoms/colors",
         "//src/design-system/atoms/timings",
-        "@types/react",
-        "@types/styled-components",
     ],
 )
 

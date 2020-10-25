@@ -7,16 +7,12 @@ react_library(
     name = "role",
     deps = [
         "chroma-js",
-        "react",
         "react-icons",
-        "styled-components",
         "//src/design-system/atoms/colors",
         "//src/design-system/atoms/timings",
         "//src/design-system/shared-types",
         "//src/rpc/shared",
         "@types/chroma-js",
-        "@types/react",
-        "@types/styled-components",
     ],
 )
 

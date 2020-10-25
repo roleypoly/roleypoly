@@ -5,9 +5,7 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "typography",
     deps = [
-        "styled-components",
         "//src/design-system/atoms/colors",
         "//src/design-system/atoms/timings",
-        "@types/styled-components",
     ],
 )

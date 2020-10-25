@@ -5,10 +5,6 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "halfsies",
     deps = [
-        "react",
-        "styled-components",
         "//src/design-system/atoms/breakpoints",
-        "@types/react",
-        "@types/styled-components",
     ],
 )

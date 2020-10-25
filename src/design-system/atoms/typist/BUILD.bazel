@@ -6,8 +6,6 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "typist",
     deps = [
-        "react",
-        "@types/react",
     ],
 )
 

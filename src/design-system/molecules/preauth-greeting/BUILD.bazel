@@ -5,13 +5,9 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "preauth-greeting",
     deps = [
-        "react",
-        "styled-components",
         "//src/design-system/atoms/avatar",
         "//src/design-system/atoms/space",
         "//src/design-system/atoms/typography",
         "//src/design-system/shared-types",
-        "@types/react",
-        "@types/styled-components",
     ],
 )

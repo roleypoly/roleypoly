@@ -5,13 +5,9 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "footer",
     deps = [
-        "react",
         "react-icons",
-        "styled-components",
         "//src/design-system/atoms/colors",
         "//src/design-system/atoms/timings",
         "//src/design-system/atoms/typography",
-        "@types/react",
-        "@types/styled-components",
     ],
 )

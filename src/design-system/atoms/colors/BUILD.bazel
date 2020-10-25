@@ -6,10 +6,6 @@ react_library(
     name = "colors",
     deps = [
         "chroma-js",
-        "react",
-        "styled-components",
         "@types/chroma-js",
-        "@types/react",
-        "@types/styled-components",
     ],
 )

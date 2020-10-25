@@ -6,9 +6,7 @@ react_library(
     name = "masthead",
     deps = [
         "next",
-        "react",
         "react-icons",
-        "styled-components",
         "//src/design-system/atoms/branding",
         "//src/design-system/atoms/breakpoints",
         "//src/design-system/atoms/button",
@@ -20,7 +18,5 @@ react_library(
         "//src/design-system/molecules/user-avatar-group",
         "//src/design-system/molecules/user-popover",
         "//src/design-system/shared-types",
-        "@types/react",
-        "@types/styled-components",
     ],
 )

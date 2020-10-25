@@ -5,7 +5,5 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "withContext",
     deps = [
-        "react",
-        "@types/react",
     ],
 )

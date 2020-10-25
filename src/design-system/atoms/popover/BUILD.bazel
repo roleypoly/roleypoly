@@ -5,14 +5,10 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "popover",
     deps = [
-        "react",
         "react-icons",
-        "styled-components",
         "//src/design-system/atoms/breakpoints",
         "//src/design-system/atoms/colors",
         "//src/design-system/atoms/key-events",
         "//src/design-system/atoms/timings",
-        "@types/react",
-        "@types/styled-components",
     ],
 )

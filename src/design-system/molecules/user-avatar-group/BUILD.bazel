@@ -5,13 +5,9 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "user-avatar-group",
     deps = [
-        "react",
-        "styled-components",
         "//src/design-system/atoms/avatar",
         "//src/design-system/atoms/breakpoints",
         "//src/design-system/atoms/colors",
         "//src/design-system/shared-types",
-        "@types/react",
-        "@types/styled-components",
     ],
 )

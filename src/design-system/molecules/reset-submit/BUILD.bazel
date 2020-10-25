@@ -6,13 +6,9 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "reset-submit",
     deps = [
-        "react",
         "react-icons",
-        "styled-components",
         "//src/design-system/atoms/breakpoints",
         "//src/design-system/atoms/button",
-        "@types/react",
-        "@types/styled-components",
     ],
 )
 

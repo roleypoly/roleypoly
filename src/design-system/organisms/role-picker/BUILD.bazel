@@ -6,9 +6,7 @@ package(default_visibility = ["//visibility:public"])
 react_library(
     name = "role-picker",
     deps = [
-        "react",
         "react-icons",
-        "styled-components",
         "//src/common/utils",
         "//src/design-system/atoms/colors",
         "//src/design-system/atoms/fader",
@@ -17,8 +15,6 @@ react_library(
         "//src/design-system/molecules/reset-submit",
         "//src/design-system/molecules/server-masthead",
         "//src/design-system/shared-types",
-        "@types/react",
-        "@types/styled-components",
     ],
 )
 
