@@ -1,9 +1,6 @@
 import { Hero } from 'roleypoly/src/design-system/atoms/hero';
 import { AppShell } from 'roleypoly/src/design-system/organisms/app-shell';
-import {
-    Preauth,
-    PreauthProps,
-} from 'roleypoly/src/design-system/organisms/preauth/Preauth';
+import { Preauth, PreauthProps } from 'roleypoly/src/design-system/organisms/preauth';
 import * as React from 'react';
 
 export type AuthLoginProps = PreauthProps;

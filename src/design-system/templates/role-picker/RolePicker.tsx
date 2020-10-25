@@ -4,12 +4,14 @@ import {
     RolePicker,
     RolePickerProps,
 } from 'roleypoly/src/design-system/organisms/role-picker';
-import { RoleypolyUser } from '@roleypoly/rpc/shared';
-import { GuildEnumeration } from '@roleypoly/rpc/platform';
+import {
+    GuildEnumeration,
+    RoleypolyUser,
+} from 'roleypoly/src/design-system/shared-types';
 
 export type RolePickerTemplateProps = RolePickerProps & {
-    user: RoleypolyUser.AsObject;
-    guildEnumeration?: GuildEnumeration.AsObject;
+    user: RoleypolyUser;
+    guildEnumeration?: GuildEnumeration;
     activeGuildId?: string;
 };
 

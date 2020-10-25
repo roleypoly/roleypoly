@@ -1,0 +1,11 @@
+load("//hack/bazel/js:react.bzl", "react_library")
+
+package(default_visibility = ["//visibility:public"])
+
+react_library(
+    name = "landing",
+    deps = [
+        "//src/design-system/organisms/app-shell",
+        "//src/design-system/organisms/landing",
+    ],
+)

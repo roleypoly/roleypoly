@@ -1,8 +1,4 @@
-export type ErrorMessage = {
-    english: string;
-    japanese?: string;
-    friendlyCode?: string;
-};
+import { ErrorMessage } from 'roleypoly/src/design-system/molecules/error-banner';
 
 const defaultMessage: Required<ErrorMessage> = {
     english: `Something went bad. How could this happen?`,

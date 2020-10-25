@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { templateStories } from 'templates/templates.story';
 import { RolePickerTemplate, RolePickerTemplateProps } from './RolePicker';
 import {
     guildData,
@@ -9,10 +8,6 @@ import {
     rpUser,
     guildEnum,
 } from 'roleypoly/src/design-system/shared-types/storyData';
-import { action } from '@storybook/addon-actions';
-import { boolean } from '@storybook/addon-knobs';
-
-const story = templateStories('Role Picker', module);
 
 const props: RolePickerTemplateProps = {
     guildData: {
@@ -23,13 +18,25 @@ const props: RolePickerTemplateProps = {
     member: member,
     guild: guild,
     roles: guildRoles,
-    onSubmit: action('onSubmit'),
     editable: false,
     user: rpUser,
     guildEnumeration: guildEnum,
     activeGuildId: guild.id,
 };
 
-story.add('Role Picker', () => {
-    return <RolePickerTemplate {...props} editable={boolean('Editable', false)} />;
-});
+export default {
+    title: 'Templates/Role Picker',
+    components: RolePickerTemplate,
+    args: props,
+};
+
+export const Default = (args) => {
+    return <RolePickerTemplate {...args} />;
+};
+
+export const Editable = (args) => {
+    return <RolePickerTemplate {...args} />;
+};
+Editable.args = {
+    editable: true,
+};

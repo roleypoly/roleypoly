@@ -1,0 +1,12 @@
+load("//hack/bazel/js:react.bzl", "react_library")
+
+package(default_visibility = ["//visibility:public"])
+
+react_library(
+    name = "auth-login",
+    deps = [
+        "//src/design-system/atoms/hero",
+        "//src/design-system/organisms/app-shell",
+        "//src/design-system/organisms/preauth",
+    ],
+)

@@ -1,15 +1,18 @@
+import * as React from 'react';
 import { DotOverlay } from 'roleypoly/src/design-system/atoms/dot-overlay';
 import { Hero } from 'roleypoly/src/design-system/atoms/hero';
+import {
+    ErrorBanner,
+    ErrorMessage,
+} from 'roleypoly/src/design-system/molecules/error-banner';
 import { AppShell } from 'roleypoly/src/design-system/organisms/app-shell';
-import * as React from 'react';
-import { ErrorMessage, getMessageFromCode } from './errorStrings';
-import { ErrorBanner } from 'roleypoly/src/design-system/organisms/error-banner';
-import { RoleypolyUser } from '@roleypoly/rpc/shared';
+import { RoleypolyUser } from 'roleypoly/src/design-system/shared-types';
+import { getMessageFromCode } from './errorStrings';
 
 export type ErrorProps = {
     code: string | number;
     messageOverride?: ErrorMessage;
-    user?: RoleypolyUser.AsObject | null;
+    user?: RoleypolyUser | null;
 };
 
 export const Error = (props: ErrorProps) => {
