@@ -50,7 +50,7 @@
         "@types/google-protobuf": "^3.7.3",
         "@types/jest": "^26.0.15",
         "@types/minimist": "^1.2.0",
-        "@types/node": "^14.14.2",
+        "@types/node": "^14.14.6",
         "@types/react": "^16.9.53",
         "@types/react-custom-scrollbars": "^4.0.7",
         "@types/react-dom": "^16.9.8",
