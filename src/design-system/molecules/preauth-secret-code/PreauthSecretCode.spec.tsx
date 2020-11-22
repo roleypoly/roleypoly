@@ -1,4 +1,4 @@
-jest.unmock('roleypoly/src/design-system/atoms/text-input');
+jest.unmock('roleypoly/design-system/atoms/text-input');
 jest.unmock('./PreauthSecretCode');
 
 import { Button } from 'roleypoly/design-system/atoms/button';

@@ -1,14 +1,12 @@
-import { Role } from 'roleypoly/rpc/shared';
+import { Role } from 'roleypoly/common/types';
 
-export const hasPermission = (roles: Role.AsObject[], permission: number): boolean => {
+export const hasPermission = (roles: Role[], permission: number): boolean => {
     const aggregateRoles = roles.reduce((acc, role) => acc | role.permissions, 0);
     return (aggregateRoles & permission) === permission;
 };
 
-export const hasPermissionOrAdmin = (
-    roles: Role.AsObject[],
-    permission: number
-): boolean => hasPermission(roles, permission | permissions.ADMINISTRATOR);
+export const hasPermissionOrAdmin = (roles: Role[], permission: number): boolean =>
+    hasPermission(roles, permission | permissions.ADMINISTRATOR);
 
 export const permissions = {
     CREATE_INSTANT_INVITE: 0x1,

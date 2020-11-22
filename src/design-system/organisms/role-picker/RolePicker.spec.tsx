@@ -1,7 +1,7 @@
-jest.unmock('roleypoly/src/design-system/atoms/role')
-    .unmock('roleypoly/src/design-system/atoms/button')
-    .unmock('roleypoly/src/design-system/molecules/picker-category')
-    .unmock('roleypoly/src/design-system/organisms/role-picker');
+jest.unmock('roleypoly/design-system/atoms/role')
+    .unmock('roleypoly/design-system/atoms/button')
+    .unmock('roleypoly/design-system/molecules/picker-category')
+    .unmock('roleypoly/design-system/organisms/role-picker');
 
 import { shallow } from 'enzyme';
 import * as React from 'react';

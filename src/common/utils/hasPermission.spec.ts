@@ -1,8 +1,8 @@
 import { hasPermission, permissions, hasPermissionOrAdmin } from './hasPermission';
-import { Role } from 'roleypoly/rpc/shared';
+import { Role } from 'roleypoly/common/types';
 import { guildRoles } from 'roleypoly/common/types/storyData';
 
-const roles: Role.AsObject[] = [
+const roles: Role[] = [
     {
         ...guildRoles.rolesList[0],
         permissions: permissions.ADMINISTRATOR,
