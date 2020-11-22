@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Guild } from 'roleypoly/src/design-system/shared-types';
-import { Avatar, utils } from 'roleypoly/src/design-system/atoms/avatar';
+import { Guild } from 'roleypoly/common/types';
+import { Avatar, utils } from 'roleypoly/design-system/atoms/avatar';
 import { SlugContainer, SlugName } from './NavSlug.styled';
 import { GoOrganization } from 'react-icons/go';
 

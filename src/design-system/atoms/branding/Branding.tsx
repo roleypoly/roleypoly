@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { palette } from 'roleypoly/src/design-system/atoms/colors';
+import { palette } from 'roleypoly/design-system/atoms/colors';
 
 type LogoProps = {
     fill: string;

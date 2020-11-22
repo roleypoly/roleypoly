@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Role as RPCRole, RoleSafety } from '../../shared-types';
+import { Role as RPCRole, RoleSafety } from 'roleypoly/common/types';
 import * as styled from './Role.styled';
 import { FaCheck, FaTimes } from 'react-icons/fa';
-import { numberToChroma } from 'roleypoly/src/design-system/atoms/colors';
+import { numberToChroma } from 'roleypoly/design-system/atoms/colors';
 import chroma from 'chroma-js';
 
 type Props = {

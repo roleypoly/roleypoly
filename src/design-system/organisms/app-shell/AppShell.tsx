@@ -1,12 +1,9 @@
 import * as React from 'react';
-import * as Masthead from 'roleypoly/src/design-system/organisms/masthead';
-import {
-    RoleypolyUser,
-    GuildEnumeration,
-} from 'roleypoly/src/design-system/shared-types';
-import { Footer } from 'roleypoly/src/design-system/molecules/footer';
+import * as Masthead from 'roleypoly/design-system/organisms/masthead';
+import { RoleypolyUser, GuildEnumeration } from 'roleypoly/common/types';
+import { Footer } from 'roleypoly/design-system/molecules/footer';
 import { Content, GlobalStyles } from './AppShell.styled';
-import { GlobalStyleColors } from 'roleypoly/src/design-system/atoms/colors';
+import { GlobalStyleColors } from 'roleypoly/design-system/atoms/colors';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 type AppShellProps = {

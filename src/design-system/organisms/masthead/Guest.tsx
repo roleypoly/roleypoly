@@ -1,5 +1,5 @@
-import { Logotype } from 'roleypoly/src/design-system/atoms/branding';
-import { Button } from 'roleypoly/src/design-system/atoms/button';
+import { Logotype } from 'roleypoly/design-system/atoms/branding';
+import { Button } from 'roleypoly/design-system/atoms/button';
 import Link from 'next/link';
 import * as React from 'react';
 import { FaSignInAlt } from 'react-icons/fa';

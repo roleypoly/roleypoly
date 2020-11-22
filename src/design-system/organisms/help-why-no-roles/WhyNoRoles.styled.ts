@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
-import { palette, numberToChroma } from 'roleypoly/src/design-system/atoms/colors';
-import { Role } from 'roleypoly/src/design-system/shared-types';
-import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
+import { palette, numberToChroma } from 'roleypoly/design-system/atoms/colors';
+import { Role } from 'roleypoly/common/types';
 
 export const DiscordBase = styled.div`
     background-color: ${palette.discord100};

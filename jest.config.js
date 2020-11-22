@@ -4,7 +4,7 @@ const { compilerOptions } = require('./tsconfig.json');
 module.exports = {
     preset: 'ts-jest',
     testEnvironment: 'enzyme',
-    reporters: ['default', './jest-reporter'],
+    reporters: ['default'],
     setupFilesAfterEnv: ['jest-enzyme', 'jest-styled-components', './hack/jestSetup.ts'],
     moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
         prefix: '<rootDir>/',

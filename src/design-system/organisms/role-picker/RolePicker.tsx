@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { GoInfo } from 'react-icons/go';
-import { FaderOpacity } from 'roleypoly/src/design-system/atoms/fader';
-import { Space } from 'roleypoly/src/design-system/atoms/space';
-import { PickerCategory } from 'roleypoly/src/design-system/molecules/picker-category';
-import { ResetSubmit } from 'roleypoly/src/design-system/molecules/reset-submit';
-import { ServerMasthead } from 'roleypoly/src/design-system/molecules/server-masthead';
+import { FaderOpacity } from 'roleypoly/design-system/atoms/fader';
+import { Space } from 'roleypoly/design-system/atoms/space';
+import { PickerCategory } from 'roleypoly/design-system/molecules/picker-category';
+import { ResetSubmit } from 'roleypoly/design-system/molecules/reset-submit';
+import { ServerMasthead } from 'roleypoly/design-system/molecules/server-masthead';
 import {
     Category,
     Guild,
@@ -13,8 +13,8 @@ import {
     Member,
     Role,
     CategoryType,
-} from 'roleypoly/src/design-system/shared-types';
-import { ReactifyNewlines } from 'roleypoly/src/common/utils/ReactifyNewlines';
+} from 'roleypoly/common/types';
+import { ReactifyNewlines } from 'roleypoly/common/utils/ReactifyNewlines';
 import {
     CategoryContainer,
     Container,

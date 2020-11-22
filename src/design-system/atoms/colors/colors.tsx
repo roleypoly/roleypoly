@@ -1,5 +1,5 @@
 import { css, createGlobalStyle } from 'styled-components';
-import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
+
 import chroma from 'chroma-js';
 
 export const palette = {

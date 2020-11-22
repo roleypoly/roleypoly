@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { UseFontStyled } from './fonts';
 import styled from 'styled-components';
-import {
-    MediumTitle,
-    Text as TextBlock,
-} from 'roleypoly/src/design-system/atoms/typography';
+import { MediumTitle, Text as TextBlock } from 'roleypoly/design-system/atoms/typography';
 
 const resetFont = (storyFn: () => React.ReactNode) => <FontReset>{storyFn()}</FontReset>;
 

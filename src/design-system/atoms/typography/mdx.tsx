@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
+
 import { Link, Text, text600, text700, text800, text900 } from './typography';
 
 export const mdxComponents = {

@@ -1,4 +1,4 @@
-import { Role } from 'roleypoly/src/rpc/shared';
+import { Role } from 'roleypoly/rpc/shared';
 
 export const hasPermission = (roles: Role.AsObject[], permission: number): boolean => {
     const aggregateRoles = roles.reduce((acc, role) => acc | role.permissions, 0);

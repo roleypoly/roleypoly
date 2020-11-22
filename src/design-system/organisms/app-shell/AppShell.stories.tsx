@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { AppShell } from './AppShell';
-import { rpUser, guildEnum } from 'roleypoly/src/design-system/shared-types/storyData';
+import { rpUser, guildEnum } from 'roleypoly/common/types/storyData';
 
 export default {
     title: 'Organisms/App Shell',

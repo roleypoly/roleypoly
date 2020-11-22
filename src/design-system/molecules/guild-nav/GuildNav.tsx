@@ -2,14 +2,10 @@ import Link from 'next/link';
 import * as React from 'react';
 import { GoStar, GoZap } from 'react-icons/go';
 import ReactTooltip from 'react-tooltip';
-import { hasPermission, permissions } from 'roleypoly/src/common/utils/hasPermission';
-import { sortBy } from 'roleypoly/src/common/utils/sortBy';
-import {
-    GuildEnumeration,
-    PresentableGuild,
-    Role,
-} from 'roleypoly/src/design-system/shared-types';
-import { NavSlug } from 'roleypoly/src/design-system/molecules/nav-slug';
+import { hasPermission, permissions } from 'roleypoly/common/utils/hasPermission';
+import { sortBy } from 'roleypoly/common/utils/sortBy';
+import { GuildEnumeration, PresentableGuild, Role } from 'roleypoly/common/types';
+import { NavSlug } from 'roleypoly/design-system/molecules/nav-slug';
 import { GuildNavItem } from './GuildNav.styled';
 
 type Props = {

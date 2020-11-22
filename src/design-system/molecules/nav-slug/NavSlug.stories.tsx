@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { NavSlug } from './NavSlug';
-import { guild } from 'roleypoly/src/design-system/shared-types/storyData';
+import { guild } from 'roleypoly/common/types/storyData';
 
 export default {
     title: 'Molecules/Server Slug',

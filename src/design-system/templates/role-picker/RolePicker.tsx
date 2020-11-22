@@ -1,13 +1,10 @@
 import * as React from 'react';
-import { AppShell } from 'roleypoly/src/design-system/organisms/app-shell';
+import { GuildEnumeration, RoleypolyUser } from 'roleypoly/common/types';
+import { AppShell } from 'roleypoly/design-system/organisms/app-shell';
 import {
     RolePicker,
     RolePickerProps,
-} from 'roleypoly/src/design-system/organisms/role-picker';
-import {
-    GuildEnumeration,
-    RoleypolyUser,
-} from 'roleypoly/src/design-system/shared-types';
+} from 'roleypoly/design-system/organisms/role-picker';
 
 export type RolePickerTemplateProps = RolePickerProps & {
     user: RoleypolyUser;

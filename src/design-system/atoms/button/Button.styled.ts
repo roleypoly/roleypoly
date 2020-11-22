@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components';
-import { text400, text300 } from 'roleypoly/src/design-system/atoms/typography';
-import { fontCSS } from 'roleypoly/src/design-system/atoms/fonts';
-import { palette } from 'roleypoly/src/design-system/atoms/colors';
-import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
+import { text400, text300 } from 'roleypoly/design-system/atoms/typography';
+import { fontCSS } from 'roleypoly/design-system/atoms/fonts';
+import { palette } from 'roleypoly/design-system/atoms/colors';
 
 export const IconContainer = styled.div`
     margin-right: 0.6rem;

@@ -1,4 +1,4 @@
-import { ErrorMessage } from 'roleypoly/src/design-system/molecules/error-banner';
+import { ErrorMessage } from 'roleypoly/design-system/molecules/error-banner';
 
 const defaultMessage: Required<ErrorMessage> = {
     english: `Something went bad. How could this happen?`,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withContext } from 'roleypoly/src/common/utils/withContext';
+import { withContext } from 'roleypoly/common/utils/withContext';
 
 export type ScreenSize = {
     onSmallScreen: boolean;

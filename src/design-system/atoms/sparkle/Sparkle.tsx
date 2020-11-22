@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { palette } from 'roleypoly/src/design-system/atoms/colors';
-import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
+import { palette } from 'roleypoly/design-system/atoms/colors';
+
 import { SparklePatternAlpha, SparklePatternBeta } from './Shapes';
 
 type Props = {

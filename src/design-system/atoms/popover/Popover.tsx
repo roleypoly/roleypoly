@@ -6,7 +6,7 @@ import {
     PopoverHeadCloser,
     PopoverContent,
 } from './Popover.styled';
-import { globalOnKeyUp } from 'roleypoly/src/design-system/atoms/key-events';
+import { globalOnKeyUp } from 'roleypoly/design-system/atoms/key-events';
 import { IoMdClose } from 'react-icons/io';
 
 type PopoverProps = {

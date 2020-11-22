@@ -3,7 +3,7 @@ import {
     roleWikiData,
     roleCategory,
     mockCategory,
-} from 'roleypoly/src/design-system/shared-types/storyData';
+} from 'roleypoly/common/types/storyData';
 import { PickerCategory } from './PickerCategory';
 
 export default {

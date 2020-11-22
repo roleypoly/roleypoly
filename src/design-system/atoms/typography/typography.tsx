@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
-import { palette } from 'roleypoly/src/design-system/atoms/colors';
-import { transitions } from 'roleypoly/src/design-system/atoms/timings';
-import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
+import { palette } from 'roleypoly/design-system/atoms/colors';
+import { transitions } from 'roleypoly/design-system/atoms/timings';
 
 const reset = css`
     margin: 0;

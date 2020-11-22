@@ -1,5 +1,5 @@
-import { onSmallScreen } from 'roleypoly/src/design-system/atoms/breakpoints';
-import { Button } from 'roleypoly/src/design-system/atoms/button';
+import { onSmallScreen } from 'roleypoly/design-system/atoms/breakpoints';
+import { Button } from 'roleypoly/design-system/atoms/button';
 import * as React from 'react';
 import { MdRestore } from 'react-icons/md';
 import styled from 'styled-components';

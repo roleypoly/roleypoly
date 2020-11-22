@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { palette } from 'roleypoly/src/design-system/atoms/colors';
+import { palette } from 'roleypoly/design-system/atoms/colors';
 
 const StyledTextInput = styled.input`
     appearance: none;

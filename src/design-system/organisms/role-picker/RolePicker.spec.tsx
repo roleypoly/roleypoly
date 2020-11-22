@@ -5,16 +5,16 @@ jest.unmock('roleypoly/src/design-system/atoms/role')
 
 import { shallow } from 'enzyme';
 import * as React from 'react';
-import { Role } from 'roleypoly/src/design-system/atoms/role';
-import { PickerCategory } from 'roleypoly/src/design-system/molecules/picker-category';
-import { ResetSubmit } from 'roleypoly/src/design-system/molecules/reset-submit';
 import {
     guild,
     guildData,
     guildRoles,
     member,
     mockCategorySingle,
-} from 'roleypoly/src/design-system/shared-types/storyData';
+} from 'roleypoly/common/types/storyData';
+import { Role } from 'roleypoly/design-system/atoms/role';
+import { PickerCategory } from 'roleypoly/design-system/molecules/picker-category';
+import { ResetSubmit } from 'roleypoly/design-system/molecules/reset-submit';
 import { RolePicker, RolePickerProps } from './RolePicker';
 
 it('unselects the rest of a category in single mode', () => {

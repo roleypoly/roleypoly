@@ -7,7 +7,7 @@ import {
     guild,
     rpUser,
     guildEnum,
-} from 'roleypoly/src/design-system/shared-types/storyData';
+} from 'roleypoly/common/types/storyData';
 
 const props: RolePickerTemplateProps = {
     guildData: {
@@ -22,6 +22,7 @@ const props: RolePickerTemplateProps = {
     user: rpUser,
     guildEnumeration: guildEnum,
     activeGuildId: guild.id,
+    onSubmit: () => {},
 };
 
 export default {

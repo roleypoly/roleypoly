@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { FaDiscord } from 'react-icons/fa';
-import { Button } from 'roleypoly/src/design-system/atoms/button';
-import { Space } from 'roleypoly/src/design-system/atoms/space';
-import { PreauthGreeting } from 'roleypoly/src/design-system/molecules/preauth-greeting';
-import { PreauthSecretCode } from 'roleypoly/src/design-system/molecules/preauth-secret-code';
-import { Guild } from 'roleypoly/src/design-system/shared-types';
+import { Button } from 'roleypoly/design-system/atoms/button';
+import { Space } from 'roleypoly/design-system/atoms/space';
+import { PreauthGreeting } from 'roleypoly/design-system/molecules/preauth-greeting';
+import { PreauthSecretCode } from 'roleypoly/design-system/molecules/preauth-secret-code';
+import { Guild } from 'roleypoly/common/types';
 import styled from 'styled-components';
-import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 
 export type PreauthProps = {
     guildSlug?: Guild;
