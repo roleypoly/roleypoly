@@ -70,6 +70,7 @@ export const InteractionBase = styled.div<InteractionBaseProps>`
 export const MastheadA = styled.a`
     display: flex;
     align-items: center;
+    justify-content: center;
     color: unset;
     text-decoration: unset;
 `;

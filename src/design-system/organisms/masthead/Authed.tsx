@@ -3,7 +3,7 @@ import * as React from 'react';
 import { GoOrganization } from 'react-icons/go';
 import { GuildEnumeration, RoleypolyUser } from 'roleypoly/common/types';
 import { guildEnum } from 'roleypoly/common/types/storyData';
-import { Logomark } from 'roleypoly/design-system/atoms/branding';
+import { DynamicLogomark } from 'roleypoly/design-system/atoms/branding';
 import { Popover } from 'roleypoly/design-system/atoms/popover';
 import { GuildNav } from 'roleypoly/design-system/molecules/guild-nav';
 import { NavSlug } from 'roleypoly/design-system/molecules/nav-slug';
@@ -35,7 +35,7 @@ export const Authed = (props: Props) => {
                 <MastheadLeft>
                     <Link href="/dashboard" passHref>
                         <MastheadA>
-                            <Logomark height={40} />
+                            <DynamicLogomark height={35} />
                         </MastheadA>
                     </Link>
                     <InteractionBase
