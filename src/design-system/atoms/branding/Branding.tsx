@@ -10,6 +10,8 @@ export type LogoProps = {
     typeFill: string;
     style: object;
     className: string;
+    'data-for'?: string;
+    'data-tip'?: string;
 };
 
 export const Logotype = ({
@@ -23,11 +25,13 @@ export const Logotype = ({
         className={props.className}
         width={props.width}
         height={props.height}
-        viewBox="0 0 487 143"
+        data-for={props['data-for']}
+        data-tip={props['data-tip']}
+        viewBox="45 25 400 88"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
     >
-        <g clip-path="url(#clip0)">
+        <g clipPath="url(#clip0)">
             <path
                 d="M179.855 95.49V96H170.845L154.95 74.495H146.79V96H138.97V40.92H156.905C161.212 40.92 164.838 41.6 167.785 42.96C170.788 44.32 173.027 46.2183 174.5 48.655C176.03 51.0917 176.795 53.925 176.795 57.155C176.795 59.7617 176.285 62.17 175.265 64.38C174.302 66.59 172.828 68.5167 170.845 70.16C168.862 71.7467 166.397 72.9083 163.45 73.645L179.855 95.49ZM146.79 68.035H155.715C159.965 68.035 163.167 67.1283 165.32 65.315C167.53 63.445 168.635 60.8383 168.635 57.495C168.635 54.265 167.615 51.8 165.575 50.1C163.592 48.4 160.645 47.55 156.735 47.55H146.79V68.035Z"
                 fill={typeFill}
@@ -83,7 +87,7 @@ export const Logotype = ({
                     r="46"
                     fill={circleFill}
                     stroke={circleOuterFill}
-                    stroke-width="8"
+                    strokeWidth="8"
                 />
             </g>
         </g>
@@ -101,15 +105,17 @@ export const Logomark = ({
     ...props
 }: Partial<LogoProps>) => (
     <svg
+        data-for={props['data-for']}
+        data-tip={props['data-tip']}
         style={props.style}
         className={props.className}
         width={props.width}
         height={props.height}
-        viewBox="0 0 130 110"
+        viewBox="30 10 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
     >
-        <g clip-path="url(#clip0)">
+        <g clipPath="url(#clip0)">
             <mask
                 id="mask0"
                 mask-type="alpha"
@@ -135,7 +141,7 @@ export const Logomark = ({
                     r="46"
                     fill={circleFill}
                     stroke={circleOuterFill}
-                    stroke-width="8"
+                    strokeWidth="8"
                 />
             </g>
         </g>

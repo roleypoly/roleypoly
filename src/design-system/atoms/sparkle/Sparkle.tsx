@@ -9,6 +9,7 @@ type Props = {
     size?: number;
     opacity?: number;
     repeatCount?: number;
+    strokeColor?: string;
 };
 
 const SparkleContainer = styled.div`
@@ -33,18 +34,18 @@ const SparkleEffect = styled.div<EffectProps>`
     pointer-events: none;
 `;
 
-export const SparkleOverlay = (props: Props) => (
+export const SparkleOverlay = ({ strokeColor = palette.gold400, ...props }: Props) => (
     <SparkleContainer>
         <SparkleEffect effectSize={props.size || 0} effectOpacity={props.opacity || 1}>
             <SparklePatternAlpha
                 repeatCount={props.repeatCount}
                 height="100%"
-                strokeColor={palette.gold400}
+                strokeColor={strokeColor}
             />
             <SparklePatternBeta
                 repeatCount={props.repeatCount}
                 height="100%"
-                strokeColor={palette.gold400}
+                strokeColor={strokeColor}
             />
         </SparkleEffect>
         {props.children}

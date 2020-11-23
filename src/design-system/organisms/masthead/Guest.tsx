@@ -1,14 +1,14 @@
-import { Logotype } from 'roleypoly/src/design-system/atoms/branding';
-import { Button } from 'roleypoly/src/design-system/atoms/button';
 import Link from 'next/link';
 import * as React from 'react';
 import { FaSignInAlt } from 'react-icons/fa';
+import { DynamicLogotype } from 'roleypoly/src/design-system/atoms/branding';
+import { Button } from 'roleypoly/src/design-system/atoms/button';
 import {
+    MastheadA,
+    MastheadAlignment,
     MastheadBase,
     MastheadLeft,
     MastheadRight,
-    MastheadAlignment,
-    MastheadA,
 } from './Masthead.styled';
 
 export const Guest = () => (
@@ -17,7 +17,7 @@ export const Guest = () => (
             <MastheadLeft>
                 <Link href="/" passHref>
                     <MastheadA>
-                        <Logotype height={30} />
+                        <DynamicLogotype height={30} />
                     </MastheadA>
                 </Link>
             </MastheadLeft>
