@@ -49,7 +49,7 @@ const Animation = (props: SparkleProps) => (
 const SparkleCircle = (props: SparkleProps) => (
     <svg height={props.height} style={props.style} viewBox="-16 -16 16 16" fill="none">
         <g transform="translate(-8 -8)">
-            <circle cx="0" cy="0" r="6.5" stroke={props.strokeColor} stroke-width="2">
+            <circle cx="0" cy="0" r="6.5" stroke={props.strokeColor} strokeWidth="2">
                 <Animation {...props} />
             </circle>
         </g>
@@ -62,7 +62,7 @@ const SparkleStar = (props: SparkleProps) => (
             <path
                 d="M15.5 3.23607L18.0289 11.0193L18.2534 11.7102H18.98H27.1637L20.5429 16.5205L19.9551 16.9476L20.1796 17.6385L22.7086 25.4217L16.0878 20.6115L15.5 20.1844L14.9122 20.6115L8.29144 25.4217L10.8204 17.6385L11.0449 16.9476L10.4571 16.5205L3.83631 11.7102H12.02H12.7466L12.9711 11.0193L15.5 3.23607Z"
                 stroke={props.strokeColor}
-                stroke-width="2"
+                strokeWidth="2"
             >
                 <Animation {...props} />
                 <animateTransform
@@ -87,7 +87,7 @@ const SparkleCross = (props: SparkleProps) => (
             <path
                 d="M-3.27836e-07 7.5L5 7.5M7.5 4.99999L7.5 2.53319e-06M9.99999 7.49999L15 7.49999M7.5 15L7.5 10"
                 stroke={props.strokeColor}
-                stroke-width="2"
+                strokeWidth="2"
             >
                 <Animation {...props} />
             </path>

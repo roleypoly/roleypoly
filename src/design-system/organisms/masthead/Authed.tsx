@@ -1,16 +1,16 @@
 import Link from 'next/link';
 import * as React from 'react';
 import { GoOrganization } from 'react-icons/go';
-import {
-    RoleypolyUser,
-    GuildEnumeration,
-} from 'roleypoly/src/design-system/shared-types';
-import { Logomark } from 'roleypoly/src/design-system/atoms/branding';
+import { DynamicLogomark } from 'roleypoly/src/design-system/atoms/branding';
 import { Popover } from 'roleypoly/src/design-system/atoms/popover';
 import { GuildNav } from 'roleypoly/src/design-system/molecules/guild-nav';
 import { NavSlug } from 'roleypoly/src/design-system/molecules/nav-slug';
 import { UserAvatarGroup } from 'roleypoly/src/design-system/molecules/user-avatar-group';
 import { UserPopover } from 'roleypoly/src/design-system/molecules/user-popover';
+import {
+    GuildEnumeration,
+    RoleypolyUser,
+} from 'roleypoly/src/design-system/shared-types';
 import { guildEnum } from 'roleypoly/src/design-system/shared-types/storyData';
 import {
     GuildPopoverHead,
@@ -38,7 +38,7 @@ export const Authed = (props: Props) => {
                 <MastheadLeft>
                     <Link href="/dashboard" passHref>
                         <MastheadA>
-                            <Logomark height={40} />
+                            <DynamicLogomark height={35} />
                         </MastheadA>
                     </Link>
                     <InteractionBase
