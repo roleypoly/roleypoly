@@ -9,6 +9,8 @@ require (
 	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/joho/godotenv v1.3.0
 	github.com/lampjaw/discordclient v0.0.0-20200923011548-6558fc9e89df
+	github.com/onsi/gomega v1.8.1
+	github.com/segmentio/ksuid v1.0.3
 	golang.org/x/crypto v0.0.0-20201117144127-c1f2f97bffc9 // indirect
 	golang.org/x/sys v0.0.0-20201119102817-f84b799fce68 // indirect
 	k8s.io/klog v1.0.0

@@ -28,7 +28,7 @@ func assertAuthLevel(err error, requiredAuthLevel AuthLevel, assertedAuthLevel A
 
 // AuthMustMatch will assert the current session's authorization group/level; only can match for Guest, User, and Super.
 func AuthMustMatch(request *http.Request, authLevel AuthLevel) error {
-	authCookie, err := request.Cookie("Authorization")
+	_, err := request.Cookie("Authorization")
 	if errors.Is(err, http.ErrNoCookie) {
 		// No cookie is present, assert guest.
 		return assertAuthLevel(ErrNotAuthorized, authLevel, AuthGuest)
@@ -36,4 +36,5 @@ func AuthMustMatch(request *http.Request, authLevel AuthLevel) error {
 		return err
 	}
 
+	return nil
 }

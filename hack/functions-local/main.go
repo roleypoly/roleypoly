@@ -8,6 +8,9 @@ import (
 	"os"
 
 	"github.com/GoogleCloudPlatform/functions-framework-go/funcframework"
+	_ "github.com/joho/godotenv/autoload"
+
+	botjoin "github.com/roleypoly/roleypoly/src/functions/bot-join"
 	sessiondata "github.com/roleypoly/roleypoly/src/functions/session-data"
 	sessionprewarm "github.com/roleypoly/roleypoly/src/functions/session-prewarm"
 )
@@ -15,6 +18,7 @@ import (
 var mappings map[string]http.HandlerFunc = map[string]http.HandlerFunc{
 	"/session-prewarm": sessionprewarm.SessionPrewarm,
 	"/session-data":    sessiondata.SessionData,
+	"/bot-join":        botjoin.BotJoin,
 }
 
 var port string

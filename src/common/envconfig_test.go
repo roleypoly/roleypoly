@@ -4,6 +4,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/onsi/gomega"
 	"github.com/roleypoly/roleypoly/src/common"
 )
 
@@ -120,4 +121,18 @@ func TestEnvconfigJSON(t *testing.T) {
 	if err != nil || data.Hello != "world" || len(data.Arr) != 3 {
 		t.FailNow()
 	}
+}
+
+func TestEnvconfigFatal(t *testing.T) {
+	O := gomega.NewWithT(t)
+	O.Expect(func() {
+		_ = common.Getenv("test__thing_that_doesnt_exist").OrFatal().String()
+	}).Should(gomega.Panic(), "Getenv without a value should panic")
+}
+
+func TestEnvconfigNotFatal(t *testing.T) {
+	O := gomega.NewWithT(t)
+	O.Expect(func() {
+		_ = common.Getenv("test__string").OrFatal().String()
+	}).ShouldNot(gomega.Panic(), "Getenv with a value should not panic")
 }
