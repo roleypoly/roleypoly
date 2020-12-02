@@ -4,7 +4,6 @@ bazel-roleypoly
 bazel-testlogs
 node_modules
 .env
-docker-compose.yaml
 /target
 *.log
 storybook-static
