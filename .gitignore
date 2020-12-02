@@ -9,3 +9,5 @@ docker-compose.yaml
 *.log
 storybook-static
 dist
+.firebaserc
+.next

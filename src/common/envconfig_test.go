@@ -2,6 +2,7 @@ package common_test
 
 import (
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/onsi/gomega"
@@ -14,6 +15,8 @@ var (
 		"slice":           "hello,world",
 		"slice_no_delim":  "hello world",
 		"slice_set_delim": "hello|world",
+		"url":             "https://google.com",
+		"url_trailing":    "https://google.com/",
 		"number":          "10005",
 		"number_bad":      "abc123",
 		"bool":            "true",
@@ -57,6 +60,19 @@ func TestEnvconfigStringSliceNoDelimeter(t *testing.T) {
 func TestEnvconfigStringSliceSetDelimeter(t *testing.T) {
 	testSl := common.Getenv("test__slice_set_delim").StringSlice("|")
 	if testSl[0] != "hello" || testSl[1] != "world" {
+		t.FailNow()
+	}
+}
+
+func TestEnvconfigSafeURL(t *testing.T) {
+	testUrl := common.Getenv("test__url").SafeURL()
+	if strings.HasSuffix(testUrl, "/") {
+		t.FailNow()
+	}
+}
+func TestEnvconfigSafeURLWithTrailing(t *testing.T) {
+	testUrl := common.Getenv("test__url_trailing").SafeURL()
+	if strings.HasSuffix(testUrl, "/") {
 		t.FailNow()
 	}
 }

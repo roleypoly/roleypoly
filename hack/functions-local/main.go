@@ -9,16 +9,21 @@ import (
 
 	"github.com/GoogleCloudPlatform/functions-framework-go/funcframework"
 	_ "github.com/joho/godotenv/autoload"
+	"k8s.io/klog"
 
 	botjoin "github.com/roleypoly/roleypoly/src/functions/bot-join"
+	createsession "github.com/roleypoly/roleypoly/src/functions/create-session"
+	loginbounce "github.com/roleypoly/roleypoly/src/functions/login-bounce"
+	loginhandler "github.com/roleypoly/roleypoly/src/functions/login-handler"
 	sessiondata "github.com/roleypoly/roleypoly/src/functions/session-data"
-	sessionprewarm "github.com/roleypoly/roleypoly/src/functions/session-prewarm"
 )
 
 var mappings map[string]http.HandlerFunc = map[string]http.HandlerFunc{
-	"/session-prewarm": sessionprewarm.SessionPrewarm,
-	"/session-data":    sessiondata.SessionData,
-	"/bot-join":        botjoin.BotJoin,
+	"/session-data":   sessiondata.SessionData,
+	"/bot-join":       botjoin.BotJoin,
+	"/login-bounce":   loginbounce.LoginBounce,
+	"/login-handler":  loginhandler.LoginHandler,
+	"/create-session": createsession.CreateSession,
 }
 
 var port string
@@ -32,7 +37,7 @@ func main() {
 	}
 
 	for path, handler := range mappings {
-		err := funcframework.RegisterHTTPFunctionContext(ctx, path, handler)
+		err := funcframework.RegisterHTTPFunctionContext(ctx, path, wrapLogging(handler))
 		if err != nil {
 			log.Fatalf("funcframework.RegisterHTTPFunctionContext: %v\n", err)
 		}
@@ -61,4 +66,11 @@ func rootHandler(rw http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprintln(rw, body)
+}
+
+func wrapLogging(fn func(rw http.ResponseWriter, r *http.Request)) func(rw http.ResponseWriter, r *http.Request) {
+	return func(rw http.ResponseWriter, r *http.Request) {
+		klog.Info(r.Method, " ", r.RequestURI)
+		fn(rw, r)
+	}
 }

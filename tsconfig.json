@@ -10,7 +10,7 @@
             "es2015.iterable",
             "es2015.core"
         ],
-        "jsx": "react",
+        "jsx": "preserve",
         "baseUrl": ".",
         "strict": true,
         "esModuleInterop": true,
@@ -20,6 +20,13 @@
         "moduleResolution": "node",
         "paths": {
             "roleypoly/*": ["./src/*"]
-        }
-    }
+        },
+        "allowJs": true,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true
+    },
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "exclude": ["node_modules"]
 }

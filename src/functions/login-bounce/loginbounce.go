@@ -14,7 +14,7 @@ import (
 var (
 	redirectPathTemplate = template.Must(
 		template.New("redirect").Parse(
-			`https://discord.com/api/oauth2/authorize?client_id={{.ClientID}}&scope=identify,guilds&redirect_uri={{.RedirectURI}}&state={{.State}}`,
+			`https://discord.com/api/oauth2/authorize?client_id={{.ClientID}}&response_type=code&scope=identify%20guilds&redirect_uri={{urlquery .RedirectURI}}&state={{.State}}`,
 		),
 	)
 	clientID    = common.Getenv("BOT_CLIENT_ID").String()

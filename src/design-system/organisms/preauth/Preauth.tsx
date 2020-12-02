@@ -6,11 +6,13 @@ import { PreauthGreeting } from 'roleypoly/design-system/molecules/preauth-greet
 import { PreauthSecretCode } from 'roleypoly/design-system/molecules/preauth-secret-code';
 import { Guild } from 'roleypoly/common/types';
 import styled from 'styled-components';
+import Link from 'next/link';
 
 export type PreauthProps = {
     guildSlug?: Guild;
     onSendSecretCode: (code: string) => void;
     botName?: string;
+    discordOAuthLink?: string;
 };
 
 const Centered = styled.div`
@@ -33,16 +35,18 @@ export const Preauth = (props: PreauthProps) => {
         <Centered>
             {props.guildSlug && <PreauthGreeting guildSlug={props.guildSlug} />}
             <WidthContainer>
-                <Button
-                    color="discord"
-                    icon={
-                        <div style={{ position: 'relative', top: 3 }}>
-                            <FaDiscord />
-                        </div>
-                    }
-                >
-                    Sign in with Discord
-                </Button>
+                <Link href={props.discordOAuthLink || '#'}>
+                    <Button
+                        color="discord"
+                        icon={
+                            <div style={{ position: 'relative', top: 3 }}>
+                                <FaDiscord />
+                            </div>
+                        }
+                    >
+                        Sign in with Discord
+                    </Button>
+                </Link>
             </WidthContainer>
             <Space />
             <WidthContainer>

@@ -43,6 +43,15 @@ func (g GetenvValue) StringSlice(optionalDelimiter ...string) []string {
 	return strings.Split(g.value, delimiter)
 }
 
+// SafeURL removes any trailing slash
+func (g GetenvValue) SafeURL() string {
+	if g.value[len(g.value)-1] == '/' {
+		return g.value[:len(g.value)-1]
+	}
+
+	return g.value
+}
+
 func (g GetenvValue) Bool() bool {
 	lowercaseValue := strings.ToLower(g.value)
 	if g.value == "1" || lowercaseValue == "true" || lowercaseValue == "yes" {

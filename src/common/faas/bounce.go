@@ -62,5 +62,14 @@ func Unstash(rw http.ResponseWriter, req *http.Request, defaultURL string) {
 		redirectURL = cookie.Value
 	}
 
+	unsetter := http.Cookie{
+		Name:     "rp_stashed_url",
+		Value:    "",
+		MaxAge:   -1,
+		HttpOnly: true,
+	}
+
+	rw.Header().Set("set-cookie", unsetter.String())
+
 	Bounce(rw, redirectURL)
 }
