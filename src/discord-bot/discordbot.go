@@ -10,11 +10,11 @@ import (
 )
 
 var (
-	botToken    = common.Getenv("DISCORD_BOT_TOKEN").String()
-	botClientID = common.Getenv("DISCORD_CLIENT_ID").String()
+	botToken    = common.Getenv("BOT_TOKEN").String()
+	botClientID = common.Getenv("BOT_CLIENT_ID").String()
 	rootUsers   = common.Getenv("ROOT_USERS").StringSlice()
 	allowedBots = common.Getenv("ALLOWED_BOTS").StringSlice()
-	appURL      = common.Getenv("PUBLIC_URL").String()
+	appURL      = common.Getenv("UI_PUBLIC_URI").SafeURL()
 	selfMention = bot.MentionMatcher(botClientID)
 )
 
