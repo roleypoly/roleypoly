@@ -5,8 +5,9 @@ import {
     member,
     guildRoles,
     guild,
-    rpUser,
+    user,
     guildEnum,
+    mastheadSlugs,
 } from 'roleypoly/common/types/storyData';
 
 const props: RolePickerTemplateProps = {
@@ -17,9 +18,10 @@ const props: RolePickerTemplateProps = {
     },
     member: member,
     guild: guild,
+    guilds: mastheadSlugs,
     roles: guildRoles,
     editable: false,
-    user: rpUser,
+    user: user,
     guildEnumeration: guildEnum,
     activeGuildId: guild.id,
     onSubmit: () => {},

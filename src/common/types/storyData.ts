@@ -10,6 +10,7 @@ import {
     RoleSafety,
     RoleypolyUser,
     CategoryType,
+    GuildSlug,
 } from '.';
 
 export const roleCategory: Role[] = [
@@ -139,9 +140,8 @@ export const roleWikiData = {
 
 export const guild: Guild = {
     name: 'emoji megaporium',
-    id: 'aaa',
-    icon:
-        'https://cdn.discordapp.com/icons/421896162539470888/3372fd895ed913b55616c5e49cd50e60.png?size=256',
+    id: '421896162539470888',
+    icon: '3372fd895ed913b55616c5e49cd50e60',
     ownerid: 'bbb',
     membercount: 23453,
     splash: '',
@@ -151,9 +151,8 @@ export const guildMap: { [x: string]: Guild } = {
     'emoji megaporium': guild,
     Roleypoly: {
         name: 'Roleypoly',
-        id: 'aaa',
-        icon:
-            'https://cdn.discordapp.com/icons/203493697696956418/ff08d36f5aee1ff48f8377b65d031ab0.png?size=256',
+        id: '203493697696956418',
+        icon: 'ff08d36f5aee1ff48f8377b65d031ab0',
         ownerid: 'bbb',
         membercount: 23453,
         splash: '',
@@ -168,9 +167,8 @@ export const guildMap: { [x: string]: Guild } = {
     },
     Eclipse: {
         name: 'Eclipse',
-        id: 'aaa',
-        icon:
-            'https://cdn.discordapp.com/icons/408821059161423873/49dfdd8b2456e2977e80a8b577b19c0d.png?size=256',
+        id: '408821059161423873',
+        icon: '49dfdd8b2456e2977e80a8b577b19c0d',
         ownerid: 'bbb',
         membercount: 23453,
         splash: '',
@@ -185,11 +183,10 @@ export const guildData: GuildData = {
 };
 
 export const user: DiscordUser = {
-    id: '123',
-    username: 'okano cat',
-    discriminator: '3266',
-    avatar:
-        'https://cdn.discordapp.com/avatars/62601275618889728/b1292bb974557337702cb941fc038085.png',
+    id: '62601275618889728',
+    username: 'okano',
+    discriminator: '0001',
+    avatar: 'ca2028bab0fe30e1af4392f3fa3576e2',
     bot: false,
 };
 
@@ -239,3 +236,12 @@ export const guildEnum: GuildEnumeration = {
         },
     ],
 };
+
+export const mastheadSlugs: GuildSlug[] = guildEnum.guildsList.map<GuildSlug>(
+    (guild, idx) => ({
+        id: guild.guild.id,
+        name: guild.guild.name,
+        icon: guild.guild.icon,
+        permissionLevel: idx % 3,
+    })
+);

@@ -62,6 +62,8 @@ jobs:
                     - ui
                     - bot
         steps:
+            - uses: actions/checkout@master
+
             - uses: actions/cache@v2
               with:
                   path: /tmp/.buildx-cache

@@ -276,7 +276,7 @@ export const BicycleDay: Variant = {
 export const Christmas: Variant = {
     // Dec 20-27
     activeIf: (currentDate?: Date) =>
-        true || matchDay(new Date('2021-Dec-20'), new Date('2021-Dec-28'), currentDate),
+        matchDay(new Date('2021-Dec-20'), new Date('2021-Dec-28'), currentDate),
     sharedProps: {
         circleFill: palette.green200,
         circleOuterFill: palette.red200,

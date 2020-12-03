@@ -31,6 +31,7 @@ As for infrastructure:
 
 - CI/CD process deploys all pieces.
 - Discord Bot is deployed on a Google Cloud VM
-- UI & Backend is deployed via a Cloudflare Worker
+- Backend is deployed via a Cloudflare Worker
+- UI is deployed via Google Cloud Run
 
 Biggest thing to note: this "discord bot" is an optional piece of the system, and should always remain as such. Giving it responsibility has actual engineering and dollar cost.

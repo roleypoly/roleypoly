@@ -1,5 +1,6 @@
 const path = require('path');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const { NormalModuleReplacementPlugin } = require('webpack');
 
 module.exports = {
     stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
@@ -10,6 +11,11 @@ module.exports = {
                 configFile: path.resolve(__dirname, '../tsconfig.json'),
             }),
         ];
+
+        config.resolve.alias['next/link'] = path.resolve(
+            __dirname,
+            'mocks/next_link.tsx'
+        );
 
         return config;
     },

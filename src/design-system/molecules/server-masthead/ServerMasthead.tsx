@@ -16,7 +16,10 @@ export const ServerMasthead = (props: ServerMastheadProps) => {
     return (
         <Wrapper>
             <Icon>
-                <Avatar size={props.editable ? 60 : 48} src={guild.icon}>
+                <Avatar
+                    size={props.editable ? 60 : 48}
+                    src={utils.avatarHash(guild.id, guild.icon, 'icons', 512)}
+                >
                     {utils.initialsFromName(props.guild.name)}
                 </Avatar>
             </Icon>

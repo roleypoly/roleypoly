@@ -32,7 +32,7 @@ export const Authed = (props: Props) => {
         <MastheadBase>
             <MastheadAlignment>
                 <MastheadLeft>
-                    <Link href="/dashboard" passHref>
+                    <Link href="/dashboard" passHref prefetch={false}>
                         <MastheadA>
                             <DynamicLogomark height={35} />
                         </MastheadA>
@@ -75,7 +75,9 @@ export const Authed = (props: Props) => {
                         }}
                         hide={!userPopoverState}
                     >
-                        {props.user && <UserAvatarGroup user={props.user} />}
+                        {props.user !== undefined && (
+                            <UserAvatarGroup user={props.user} />
+                        )}
                     </InteractionBase>
                     <Popover
                         headContent={<></>}
