@@ -10,4 +10,4 @@ const WhyNoRolesPage = (props: HelpPageProps) => (
     </HelpPageTemplate>
 );
 
-export default WhyNoRolesPages;
+export default WhyNoRolesPage;
