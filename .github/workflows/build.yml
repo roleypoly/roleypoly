@@ -60,7 +60,7 @@ jobs:
             matrix:
                 dockerfile:
                     - ui
-                    # - bot -- TODO: figure out registry issue
+                    - bot
         steps:
             - uses: actions/checkout@master
 
