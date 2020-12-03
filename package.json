@@ -17,6 +17,7 @@
         "lint:eslint": "eslint",
         "lint:prettier": "cross-env prettier -c '**/*.{ts,tsx,css,yml,yaml,md,json,js,jsx,sh,gitignore,mdx}'",
         "lint:stylelint": "cross-env stylelint '**/*.{ts,tsx}'",
+        "lint:types": "tsc --noEmit",
         "now-build": "run-s storybook:build",
         "storybook": "start-storybook -p 6006",
         "storybook:build": "build-storybook",
