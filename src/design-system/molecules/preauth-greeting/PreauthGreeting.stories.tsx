@@ -1,12 +1,12 @@
 import * as React from 'react';
+import { mastheadSlugs } from 'roleypoly/common/types/storyData';
 import { PreauthGreeting } from './PreauthGreeting';
-import { guild } from 'roleypoly/common/types/storyData';
 
 export default {
     title: 'Molecules/Preauth/Greeting',
     component: PreauthGreeting,
     args: {
-        guildSlug: guild,
+        guildSlug: mastheadSlugs[0],
     },
 };
 

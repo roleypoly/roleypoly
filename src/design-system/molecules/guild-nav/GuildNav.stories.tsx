@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { GuildNav } from './GuildNav';
-import { guildEnum } from 'roleypoly/common/types/storyData';
+import { mastheadSlugs } from 'roleypoly/common/types/storyData';
 import { PopoverBase } from 'roleypoly/design-system/atoms/popover/Popover.styled';
 
 export default {
@@ -10,12 +10,12 @@ export default {
 
 export const HasGuilds = () => (
     <PopoverBase active>
-        <GuildNav guildEnumeration={guildEnum} />
+        <GuildNav guilds={mastheadSlugs} />
     </PopoverBase>
 );
 
 export const NoGuilds = () => (
     <PopoverBase active>
-        <GuildNav guildEnumeration={{ guildsList: [] }} />
+        <GuildNav guilds={[]} />
     </PopoverBase>
 );

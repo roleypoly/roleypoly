@@ -8,7 +8,7 @@ export const DiscordBase = styled.div`
     border-radius: 3px;
     padding: 10px;
     user-select: none;
-    width: 175px;
+    width: 250px;
 `;
 
 const hover = (roleColor: string) => css`

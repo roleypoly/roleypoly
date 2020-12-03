@@ -1,12 +1,12 @@
 import * as React from 'react';
+import { GuildSlug } from 'roleypoly/common/types';
 import { Avatar, utils as avatarUtils } from 'roleypoly/design-system/atoms/avatar';
-import { Guild } from 'roleypoly/common/types';
-import { AccentTitle } from 'roleypoly/design-system/atoms/typography';
 import { Space } from 'roleypoly/design-system/atoms/space';
+import { AccentTitle } from 'roleypoly/design-system/atoms/typography';
 import styled from 'styled-components';
 
 type GreetingProps = {
-    guildSlug: Guild;
+    guildSlug: GuildSlug;
 };
 
 const Center = styled.div`
@@ -19,7 +19,15 @@ const Center = styled.div`
 
 export const PreauthGreeting = (props: GreetingProps) => (
     <Center>
-        <Avatar size={64} src={props.guildSlug.icon}>
+        <Avatar
+            size={64}
+            src={avatarUtils.avatarHash(
+                props.guildSlug.id,
+                props.guildSlug.icon,
+                'icons',
+                512
+            )}
+        >
             {avatarUtils.initialsFromName(props.guildSlug.name)}
         </Avatar>
         <AccentTitle>

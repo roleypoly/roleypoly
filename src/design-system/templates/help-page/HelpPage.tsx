@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { AppShell } from 'roleypoly/design-system/organisms/app-shell';
+import { AppShell, AppShellProps } from 'roleypoly/design-system/organisms/app-shell';
 import { HelpPageBase } from 'roleypoly/design-system/molecules/help-page-base';
-import { DiscordUser } from 'roleypoly/common/types';
 
-type HelpPageProps = {
-    user: DiscordUser | null;
+export type HelpPageProps = AppShellProps & {
     children: React.ReactNode;
 };
 
 export const HelpPageTemplate = (props: HelpPageProps) => (
-    <AppShell user={props.user || undefined}>
+    <AppShell guilds={props.guilds} user={props.user || undefined}>
         <HelpPageBase>{props.children}</HelpPageBase>
     </AppShell>
 );

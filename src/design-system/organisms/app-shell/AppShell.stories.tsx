@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { AppShell } from './AppShell';
-import { rpUser, guildEnum } from 'roleypoly/common/types/storyData';
+import { user, mastheadSlugs } from 'roleypoly/common/types/storyData';
 
 export default {
     title: 'Organisms/App Shell',
@@ -14,7 +14,7 @@ export const Guest = () => (
 );
 
 export const LoggedIn = () => (
-    <AppShell user={rpUser} guildEnumeration={guildEnum}>
+    <AppShell user={user} guilds={mastheadSlugs}>
         <h1>Hello World</h1>
     </AppShell>
 );
