@@ -16,7 +16,7 @@ export const respond = (obj: Record<string, any>, init?: ResponseInit) =>
 export const resolveFailures = (
     handleWith: Response,
     handler: (request: Request) => Promise<Response> | Response
-) => async (request: Request): Promise<Response> | Response => {
+) => async (request: Request): Promise<Response> => {
     try {
         return handler(request);
     } catch (e) {

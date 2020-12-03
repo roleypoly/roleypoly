@@ -1,4 +1,5 @@
 import { Bounce } from '../utils/bounce';
+import { botClientID } from '../utils/config';
 
 const validGuildID = /^[0-9]+$/;
 
@@ -27,7 +28,7 @@ export const BotJoin = (request: Request): Response => {
 
     return Bounce(
         buildURL({
-            clientID: BOT_CLIENT_ID,
+            clientID: botClientID,
             permissions: 268435456,
             guildID,
         })

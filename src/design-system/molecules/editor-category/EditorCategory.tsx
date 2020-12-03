@@ -98,6 +98,8 @@ export const EditorCategory = (props: Props) => {
             <Space />
             <Text>Roles</Text>
             <Popover
+                position={'top left'}
+                headContent={null}
                 active={roleSearchPopoverActive}
                 onExit={() => setRoleSearchPopoverActive(false)}
             >

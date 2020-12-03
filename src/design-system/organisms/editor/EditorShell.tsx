@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const EditorShell = (props: Props) => (
-    <TabView selected={0}>
+    <TabView initialTab={0}>
         <Tab title="Roles">{() => <RolesTab {...props} />}</Tab>
         <Tab title="Server Details">{() => <div>hi2!</div>}</Tab>
     </TabView>

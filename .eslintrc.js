@@ -18,6 +18,8 @@ module.exports = {
         '@typescript-eslint/tslint',
     ],
     rules: {
+        'react/jsx-uses-react': 'off',
+        'react/react-in-jsx-scope': 'off',
         '@typescript-eslint/await-thenable': 'error',
         '@typescript-eslint/consistent-type-assertions': 'error',
         '@typescript-eslint/indent': 'off',
