@@ -13,6 +13,7 @@ import (
 
 	botjoin "github.com/roleypoly/roleypoly/src/functions/bot-join"
 	createsession "github.com/roleypoly/roleypoly/src/functions/create-session"
+	helloworld "github.com/roleypoly/roleypoly/src/functions/hello-world"
 	loginbounce "github.com/roleypoly/roleypoly/src/functions/login-bounce"
 	loginhandler "github.com/roleypoly/roleypoly/src/functions/login-handler"
 	sessiondata "github.com/roleypoly/roleypoly/src/functions/session-data"
@@ -24,6 +25,7 @@ var mappings map[string]http.HandlerFunc = map[string]http.HandlerFunc{
 	"/login-bounce":   loginbounce.LoginBounce,
 	"/login-handler":  loginhandler.LoginHandler,
 	"/create-session": createsession.CreateSession,
+	"/hello-world":    helloworld.HelloWorld,
 }
 
 var port string
