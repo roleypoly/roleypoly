@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { palette } from 'roleypoly/src/design-system/atoms/colors';
+import { palette } from 'roleypoly/design-system/atoms/colors';
 
 export const CategoryContainer = styled.div`
     background-color: ${palette.taupe100};

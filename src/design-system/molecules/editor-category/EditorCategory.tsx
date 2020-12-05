@@ -1,20 +1,13 @@
 import * as React from 'react';
-import { HorizontalSwitch } from 'roleypoly/src/design-system/atoms/horizontal-switch';
-import { Space } from 'roleypoly/src/design-system/atoms/space';
-import {
-    TextInput,
-    TextInputWithIcon,
-} from 'roleypoly/src/design-system/atoms/text-input';
-import { Text } from 'roleypoly/src/design-system/atoms/typography';
-import { Popover } from 'roleypoly/src/design-system/atoms/popover';
-import { FaderOpacity } from 'roleypoly/src/design-system/atoms/fader';
-import { RoleSearch } from 'roleypoly/src/design-system/molecules/role-search';
-import {
-    Category,
-    CategoryType,
-    Role as RoleType,
-} from 'roleypoly/src/design-system/shared-types';
-import { Role } from 'roleypoly/src/design-system/atoms/role';
+import { HorizontalSwitch } from 'roleypoly/design-system/atoms/horizontal-switch';
+import { Space } from 'roleypoly/design-system/atoms/space';
+import { TextInput, TextInputWithIcon } from 'roleypoly/design-system/atoms/text-input';
+import { Text } from 'roleypoly/design-system/atoms/typography';
+import { Popover } from 'roleypoly/design-system/atoms/popover';
+import { FaderOpacity } from 'roleypoly/design-system/atoms/fader';
+import { RoleSearch } from 'roleypoly/design-system/molecules/role-search';
+import { Category, CategoryType, Role as RoleType } from 'roleypoly/common/types';
+import { Role } from 'roleypoly/design-system/atoms/role';
 import { GoSearch } from 'react-icons/go';
 import { RoleContainer } from './EditorCategory.styled';
 

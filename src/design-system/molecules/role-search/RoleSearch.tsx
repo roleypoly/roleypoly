@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import Fuse from 'fuse.js';
 import * as React from 'react';
 import { GoSearch } from 'react-icons/go';
-import { Role } from 'roleypoly/src/design-system/atoms/role';
-import { Space } from 'roleypoly/src/design-system/atoms/space';
-import { TextInputWithIcon } from 'roleypoly/src/design-system/atoms/text-input';
-import { Role as RoleType } from 'roleypoly/src/design-system/shared-types';
+import { Role } from 'roleypoly/design-system/atoms/role';
+import { Space } from 'roleypoly/design-system/atoms/space';
+import { TextInputWithIcon } from 'roleypoly/design-system/atoms/text-input';
+import { Role as RoleType } from 'roleypoly/common/types';
 
 type Props = {
     roles: RoleType[];
