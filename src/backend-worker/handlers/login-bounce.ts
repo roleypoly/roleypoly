@@ -1,5 +1,6 @@
-import { v4 as uuidv4 } from 'uuid';
+import KSUID from 'ksuid';
 import { Bounce } from '../utils/bounce';
+import { apiPublicURI, botClientID } from '../utils/config';
 
 type URLParams = {
     clientID: string;
@@ -14,10 +15,10 @@ const buildURL = (params: URLParams) =>
         params.redirectURI
     )}&state=${params.state}`;
 
-export const LoginBounce = (request: Request): Response => {
-    const state = uuidv4();
-    const redirectURI = `${API_PUBLIC_URI}/login-callback`;
-    const clientID = BOT_CLIENT_ID;
+export const LoginBounce = async (request: Request): Promise<Response> => {
+    const state = await KSUID.random();
+    const redirectURI = `${apiPublicURI}/login-callback`;
+    const clientID = botClientID;
 
-    return Bounce(buildURL({ state, redirectURI, clientID }));
+    return Bounce(buildURL({ state: state.string, redirectURI, clientID }));
 };

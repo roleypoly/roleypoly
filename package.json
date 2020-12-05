@@ -21,21 +21,23 @@
         "storybook": "start-storybook -p 6006",
         "storybook:build": "build-storybook",
         "test": "jest",
+        "ui": "next dev -p 6601",
         "ui:build": "next build",
-        "ui:prod": "next start",
-        "ui": "next dev -p 6601"
+        "ui:prod": "next start"
     },
     "dependencies": {
         "chroma-js": "^2.1.0",
+        "isomorphic-unfetch": "^3.1.0",
+        "ksuid": "^2.0.0",
         "next": "^10.0.3",
+        "nookies": "^2.5.0",
         "react": "^17.0.1",
         "react-custom-scrollbars": "^4.2.1",
         "react-dom": "^17.0.1",
         "react-icons": "^4.1.0",
         "react-is": "^17.0.1",
         "react-tooltip": "^4.2.11",
-        "styled-components": "^5.2.1",
-        "uuid": "^8.3.1"
+        "styled-components": "^5.2.1"
     },
     "devDependencies": {
         "@babel/core": "^7.12.9",

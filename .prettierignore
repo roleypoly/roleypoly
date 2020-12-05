@@ -2,3 +2,5 @@ bazel-*
 dist
 storybook-static
 .next
+worker
+**/dist

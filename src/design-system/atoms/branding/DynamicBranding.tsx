@@ -125,8 +125,8 @@ export const Bi: Variant = {
         matchDay(new Date('2021-Sep-16'), new Date('2021-Sep-24'), currentDate),
     sharedProps: {
         circleFill: '#D60270',
-        circleOuterFill: '#9B4F96',
-        typeFill: '#0038A8',
+        circleOuterFill: '#0038A8',
+        typeFill: '#9B4F96',
     },
     tooltip: 'Being bi is a lot like a riding a bicycle since they can go both ways.',
     Logomark: (props: DynamicLogoProps) => <Logomark {...props} {...Bi.sharedProps} />,
@@ -276,7 +276,7 @@ export const BicycleDay: Variant = {
 export const Christmas: Variant = {
     // Dec 20-27
     activeIf: (currentDate?: Date) =>
-        matchDay(new Date('2021-Dec-20'), new Date('2021-Dec-28'), currentDate),
+        true || matchDay(new Date('2021-Dec-20'), new Date('2021-Dec-28'), currentDate),
     sharedProps: {
         circleFill: palette.green200,
         circleOuterFill: palette.red200,
@@ -284,10 +284,14 @@ export const Christmas: Variant = {
     },
     tooltip: 'Have yourself a merry little Christmas~',
     Logomark: (props: DynamicLogoProps) => (
-        <Logomark {...props} {...Christmas.sharedProps} />
+        <SparkleOverlay strokeColor={'white'}>
+            <Logomark {...props} {...Christmas.sharedProps} />
+        </SparkleOverlay>
     ),
     Logotype: (props: DynamicLogoProps) => (
-        <Logotype {...props} {...Christmas.sharedProps} />
+        <SparkleOverlay strokeColor={'white'}>
+            <Logotype {...props} {...Christmas.sharedProps} />
+        </SparkleOverlay>
     ),
 };
 

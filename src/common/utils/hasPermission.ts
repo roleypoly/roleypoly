@@ -1,8 +1,12 @@
-import { Role } from 'roleypoly/common/types';
+import { Role } from '../types';
+
+export const evaluatePermission = (haystack: number, needle: number): boolean => {
+    return (haystack & needle) === needle;
+};
 
 export const hasPermission = (roles: Role[], permission: number): boolean => {
     const aggregateRoles = roles.reduce((acc, role) => acc | role.permissions, 0);
-    return (aggregateRoles & permission) === permission;
+    return evaluatePermission(aggregateRoles, permission);
 };
 
 export const hasPermissionOrAdmin = (roles: Role[], permission: number): boolean =>

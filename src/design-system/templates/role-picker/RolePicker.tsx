@@ -6,11 +6,7 @@ import {
     RolePickerProps,
 } from 'roleypoly/design-system/organisms/role-picker';
 
-export type RolePickerTemplateProps = RolePickerProps & {
-    user: RoleypolyUser;
-    guildEnumeration?: GuildEnumeration;
-    activeGuildId?: string;
-};
+export type RolePickerTemplateProps = RolePickerProps & AppShellProps;
 
 export const RolePickerTemplate = (props: RolePickerTemplateProps) => {
     const { user, ...pickerProps } = props;
@@ -18,7 +14,8 @@ export const RolePickerTemplate = (props: RolePickerTemplateProps) => {
         <AppShell
             guildEnumeration={props.guildEnumeration}
             activeGuildId={props.activeGuildId}
-            user={user}
+            user={user.discorduser}
+            guilds={user.guilds}
             small
         >
             <RolePicker {...pickerProps} />

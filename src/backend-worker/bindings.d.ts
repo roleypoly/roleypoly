@@ -6,5 +6,8 @@ declare global {
     const UI_PUBLIC_URI: string;
     const API_PUBLIC_URI: string;
     const ROOT_USERS: string;
-    const KV_PREFIX: string;
+
+    const KV_SESSIONS: KVNamespace;
+    const KV_GUILDS: KVNamespace;
+    const KV_GUILD_DATA: KVNamespace;
 }

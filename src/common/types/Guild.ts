@@ -34,3 +34,16 @@ export type PresentableGuild = {
 export type GuildEnumeration = {
     guildsList: PresentableGuild[];
 };
+
+export enum UserGuildPermissions {
+    User,
+    Manager,
+    Admin,
+}
+
+export type GuildSlug = {
+    id: string;
+    name: string;
+    icon: string;
+    permissionLevel: UserGuildPermissions;
+};
