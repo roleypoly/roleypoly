@@ -9,6 +9,39 @@ export type StyledProps = {
     type?: 'delete';
 };
 
+export const Circle = styled.div<StyledProps>`
+    width: 24px;
+    height: 24px;
+    border-radius: 25px;
+    background-color: ${(props) =>
+        props.defaultColor && !props.selected ? 'transparent' : 'var(--role-color)'};
+    border: 1px solid
+        ${(props) =>
+            props.defaultColor
+                ? 'var(--role-color)'
+                : props.selected
+                ? 'var(--role-accent)'
+                : 'transparent'};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: border ${transitions.in2in}s ease-in-out,
+        background-color ${transitions.in2in}s ease-in-out;
+    flex-shrink: 0;
+
+    svg {
+        width: 10px;
+        height: 10px;
+        fill-opacity: ${(props) =>
+            props.selected || props.disabled || props.type !== 'delete' ? 1 : 0};
+        transition: fill-opacity ${transitions.in2in}s ease-in-out;
+        fill: ${(props) =>
+            props.disabled && props.defaultColor
+                ? 'var(--role-color)'
+                : 'var(--role-contrast)'};
+    }
+`;
+
 export const Outer = styled.div<StyledProps>`
     border-radius: 24px;
     background-color: ${(props) =>
@@ -40,45 +73,6 @@ export const Outer = styled.div<StyledProps>`
                   }
               `
             : null};
-`;
-
-export const Circle = styled.div<StyledProps>`
-    width: 24px;
-    height: 24px;
-    border-radius: 25px;
-    background-color: ${(props) =>
-        props.defaultColor && !props.selected ? 'transparent' : 'var(--role-color)'};
-    border: 1px solid
-        ${(props) =>
-            props.defaultColor
-                ? 'var(--role-color)'
-                : props.selected
-                ? 'var(--role-accent)'
-                : 'transparent'};
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: border ${transitions.in2in}s ease-in-out,
-        background-color ${transitions.in2in}s ease-in-out;
-    flex-shrink: 0;
-
-    svg {
-        width: 10px;
-        height: 10px;
-        fill-opacity: ${(props) => (props.selected || props.disabled ? 1 : 0)};
-        transition: fill-opacity ${transitions.in2in}s ease-in-out;
-        fill: ${(props) =>
-            props.disabled && props.defaultColor
-                ? 'var(--role-color)'
-                : 'var(--role-contrast)'};
-    }
-    ${(props) =>
-        props.type === 'delete' &&
-        css`
-            svg {
-                fill-opacity: 0;
-            }
-        `}
 `;
 
 export const Text = styled.div`
