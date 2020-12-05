@@ -1,19 +1,12 @@
 import * as React from 'react';
-import { AppShell } from 'roleypoly/src/design-system/organisms/app-shell';
+import { GuildEnumeration, RoleypolyUser } from 'roleypoly/common/types';
+import { AppShell, AppShellProps } from 'roleypoly/design-system/organisms/app-shell';
 import {
     RolePicker,
     RolePickerProps,
-} from 'roleypoly/src/design-system/organisms/role-picker';
-import {
-    GuildEnumeration,
-    RoleypolyUser,
-} from 'roleypoly/src/design-system/shared-types';
+} from 'roleypoly/design-system/organisms/role-picker';
 
-export type RolePickerTemplateProps = RolePickerProps & {
-    user: RoleypolyUser;
-    guildEnumeration?: GuildEnumeration;
-    activeGuildId?: string;
-};
+export type RolePickerTemplateProps = RolePickerProps & AppShellProps;
 
 export const RolePickerTemplate = (props: RolePickerTemplateProps) => {
     const { user, ...pickerProps } = props;
@@ -21,7 +14,8 @@ export const RolePickerTemplate = (props: RolePickerTemplateProps) => {
         <AppShell
             guildEnumeration={props.guildEnumeration}
             activeGuildId={props.activeGuildId}
-            user={user}
+            user={user.discorduser}
+            guilds={user.guilds}
             small
         >
             <RolePicker {...pickerProps} />

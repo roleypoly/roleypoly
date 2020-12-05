@@ -6,5 +6,10 @@
     "editor.formatOnSave": true,
     "editor.insertSpaces": true,
     "editor.tabSize": 2,
-    "go.inferGopath": false
+    "go.inferGopath": false,
+    "search.exclude": {
+        "**/.yarn": true,
+        "**/.pnp.*": true
+    },
+    "typescript.enablePromptUseWorkspaceTsdk": true
 }

@@ -1,12 +1,12 @@
-jest.unmock('roleypoly/src/design-system/atoms/text-input');
+jest.unmock('roleypoly/design-system/atoms/text-input');
 jest.unmock('./PreauthSecretCode');
 
-import { Button } from 'roleypoly/src/design-system/atoms/button';
-import { TextInputWithIcon } from 'roleypoly/src/design-system/atoms/text-input';
+import { Button } from 'roleypoly/design-system/atoms/button';
+import { TextInputWithIcon } from 'roleypoly/design-system/atoms/text-input';
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import { PreauthSecretCode } from './PreauthSecretCode';
-import { FaderOpacity } from 'roleypoly/src/design-system/atoms/fader';
+import { FaderOpacity } from 'roleypoly/design-system/atoms/fader';
 
 const value = 'unfathomable fishy sticks';
 const onSubmit = jest.fn();

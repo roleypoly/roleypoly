@@ -34,7 +34,6 @@ module.exports = {
                 },
             },
         ],
-        '@typescript-eslint/naming-convention': 'error',
         '@typescript-eslint/no-empty-function': 'error',
         '@typescript-eslint/no-floating-promises': 'error',
         '@typescript-eslint/no-misused-new': 'error',

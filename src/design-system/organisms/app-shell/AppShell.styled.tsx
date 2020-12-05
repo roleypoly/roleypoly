@@ -1,6 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components';
-import { palette } from 'roleypoly/src/design-system/atoms/colors';
-import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
+import { palette } from 'roleypoly/design-system/atoms/colors';
+import { fontCSS } from 'roleypoly/design-system/atoms/fonts';
 
 export const Content = styled.div<{ small?: boolean }>`
     margin: 0 auto;
@@ -16,6 +16,7 @@ export const GlobalStyles = createGlobalStyle`
         color: ${palette.grey600};
         overflow-y: hidden;
         scroll-behavior: smooth;
+        ${fontCSS}
     }
     * {
         box-sizing: border-box;

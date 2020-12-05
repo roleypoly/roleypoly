@@ -13,4 +13,9 @@ module.exports = {
 
         return config;
     },
+    typescript: {
+        checkOptions: {
+            tsconfig: path.resolve(__dirname, '../tsconfig.stories.json'),
+        },
+    },
 };

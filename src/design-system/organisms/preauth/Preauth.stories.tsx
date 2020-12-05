@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { guild } from 'roleypoly/src/design-system/shared-types/storyData';
+import { guild } from 'roleypoly/common/types/storyData';
 import styled from 'styled-components';
 import { Preauth } from './Preauth';
 

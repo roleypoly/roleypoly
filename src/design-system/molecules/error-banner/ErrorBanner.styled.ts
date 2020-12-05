@@ -1,7 +1,6 @@
-import { onSmallScreen } from 'roleypoly/src/design-system/atoms/breakpoints';
-import { palette } from 'roleypoly/src/design-system/atoms/colors';
-import { text300, text500, text700 } from 'roleypoly/src/design-system/atoms/typography';
-import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
+import { onSmallScreen } from 'roleypoly/design-system/atoms/breakpoints';
+import { palette } from 'roleypoly/design-system/atoms/colors';
+import { text300, text500, text700 } from 'roleypoly/design-system/atoms/typography';
 import styled, { css } from 'styled-components';
 
 export const ErrorWrapper = styled.div`

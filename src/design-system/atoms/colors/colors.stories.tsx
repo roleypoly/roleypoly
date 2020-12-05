@@ -2,7 +2,7 @@ import * as React from 'react';
 import { palette } from './colors';
 import styled from 'styled-components';
 import chroma from 'chroma-js';
-import { AmbientSmall } from 'roleypoly/src/design-system/atoms/typography';
+import { AmbientSmall } from 'roleypoly/design-system/atoms/typography';
 
 type RatioList = {
     color1: string[];

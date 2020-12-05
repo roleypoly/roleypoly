@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "lib": ["esnext", "webworker"],
+        "types": ["@cloudflare/workers-types"]
+    },
+    "include": [
+        "./*.ts",
+        "./**/*.ts",
+        "../../node_modules/@cloudflare/workers-types/index.d.ts"
+    ],
+    "exclude": ["./**/*.spec.ts"],
+    "extends": "../../tsconfig.json"
+}

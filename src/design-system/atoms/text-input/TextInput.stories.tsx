@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TextInput, TextInputWithIcon } from './TextInput';
-import { SmallTitle } from 'roleypoly/src/design-system/atoms/typography';
+import { SmallTitle } from 'roleypoly/design-system/atoms/typography';
 import { FiKey } from 'react-icons/fi';
 
 export default {

@@ -1,8 +1,4 @@
-import {
-    rpUser,
-    guild,
-    guildEnum,
-} from 'roleypoly/src/design-system/shared-types/storyData';
+import { rpUser, guild, guildEnum } from 'roleypoly/common/types/storyData';
 import * as React from 'react';
 import { Authed } from './Authed';
 import { Guest } from './Guest';

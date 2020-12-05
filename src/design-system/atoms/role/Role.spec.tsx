@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import { roleCategory } from 'roleypoly/src/design-system/shared-types/storyData';
+import { roleCategory } from 'roleypoly/common/types/storyData';
 import * as React from 'react';
 import { Role } from './Role';
 

@@ -1,7 +1,7 @@
-import { user } from 'roleypoly/src/design-system/shared-types/storyData';
+import { user } from 'roleypoly/common/types/storyData';
 import * as React from 'react';
 import { UserPopover as UserPopoverComponent } from './UserPopover';
-import { PopoverBase } from 'roleypoly/src/design-system/atoms/popover/Popover.styled';
+import { PopoverBase } from 'roleypoly/design-system/atoms/popover/Popover.styled';
 
 export default {
     title: 'Molecules/User Popover',

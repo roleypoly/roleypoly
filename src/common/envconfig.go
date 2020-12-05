@@ -9,6 +9,7 @@ import (
 
 // GetenvValue is a holder type for Getenv to translate any Getenv strings to real types
 type GetenvValue struct {
+	key   string
 	value string
 }
 
@@ -25,6 +26,7 @@ func Getenv(key string, defaultValue ...string) GetenvValue {
 
 	return GetenvValue{
 		value: strings.TrimSpace(value),
+		key:   key,
 	}
 }
 
@@ -39,6 +41,15 @@ func (g GetenvValue) StringSlice(optionalDelimiter ...string) []string {
 	}
 
 	return strings.Split(g.value, delimiter)
+}
+
+// SafeURL removes any trailing slash
+func (g GetenvValue) SafeURL() string {
+	if g.value[len(g.value)-1] == '/' {
+		return g.value[:len(g.value)-1]
+	}
+
+	return g.value
 }
 
 func (g GetenvValue) Bool() bool {
@@ -62,4 +73,12 @@ func (g GetenvValue) Number() int {
 
 func (g GetenvValue) JSON(target interface{}) error {
 	return json.Unmarshal([]byte(g.value), target)
+}
+
+func (g GetenvValue) OrFatal() GetenvValue {
+	if g.value == "" {
+		panic("Getenv value was empty and shouldn't be. key: " + g.key)
+	}
+
+	return g
 }

@@ -3,7 +3,7 @@ jest.unmock('./ServerMasthead');
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { ServerMasthead } from './ServerMasthead';
-import { guild } from 'roleypoly/src/design-system/shared-types/storyData';
+import { guild } from 'roleypoly/common/types/storyData';
 import { Editable } from './ServerMasthead.styled';
 
 it('shows Edit Server when editable is true', () => {

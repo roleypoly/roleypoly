@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { AppShell } from 'roleypoly/src/design-system/organisms/app-shell';
-import { Landing } from 'roleypoly/src/design-system/organisms/landing';
+import { AppShell } from 'roleypoly/design-system/organisms/app-shell';
+import { Landing } from 'roleypoly/design-system/organisms/landing';
 
 export const LandingTemplate = () => (
-    <AppShell showFooter user={null}>
+    <AppShell showFooter>
         <Landing />
     </AppShell>
 );

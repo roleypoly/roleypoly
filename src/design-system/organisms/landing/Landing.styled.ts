@@ -1,5 +1,5 @@
-import { onTablet } from 'roleypoly/src/design-system/atoms/breakpoints';
-import { text400 } from 'roleypoly/src/design-system/atoms/typography';
+import { onTablet } from 'roleypoly/design-system/atoms/breakpoints';
+import { text400 } from 'roleypoly/design-system/atoms/typography';
 import styled, { css } from 'styled-components';
 import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 

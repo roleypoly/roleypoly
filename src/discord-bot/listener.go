@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"errors"
 
 	"github.com/lampjaw/discordclient"
 	"k8s.io/klog"
@@ -35,8 +34,4 @@ func defaultResponse(message discordclient.Message) string {
 		strings.MentionResponse,
 		strings.MentionResponseData{GuildID: guild, AppURL: appURL},
 	)
-}
-
-func imLampjawAndIWriteFuckingStupidBackendCodeLikeAChumpster() error {
-	return errors.New("fuck you lol")
 }

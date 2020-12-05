@@ -1,12 +1,12 @@
 import * as React from 'react';
 import ReactTooltip from 'react-tooltip';
-import { Role } from 'roleypoly/src/design-system/atoms/role';
-import { AmbientLarge, LargeText } from 'roleypoly/src/design-system/atoms/typography';
+import { Role } from 'roleypoly/design-system/atoms/role';
+import { AmbientLarge, LargeText } from 'roleypoly/design-system/atoms/typography';
 import {
     Category as RPCCategory,
     Role as RPCRole,
     RoleSafety,
-} from 'roleypoly/src/design-system/shared-types';
+} from 'roleypoly/common/types';
 import styled from 'styled-components';
 import { Head, HeadSub, HeadTitle } from './PickerCategory.styled';
 

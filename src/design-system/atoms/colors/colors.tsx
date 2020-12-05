@@ -1,5 +1,5 @@
 import { css, createGlobalStyle } from 'styled-components';
-import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
+
 import chroma from 'chroma-js';
 
 export const palette = {
@@ -16,8 +16,10 @@ export const palette = {
     discord500: '#99AAB5',
 
     green400: '#46B646',
+    green200: '#1D8227',
 
     red400: '#E95353',
+    red200: '#F14343',
 
     gold400: '#EFCF24',
 

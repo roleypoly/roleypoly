@@ -1,17 +1,18 @@
 import * as React from 'react';
 import { FaDiscord } from 'react-icons/fa';
-import { Button } from 'roleypoly/src/design-system/atoms/button';
-import { Space } from 'roleypoly/src/design-system/atoms/space';
-import { PreauthGreeting } from 'roleypoly/src/design-system/molecules/preauth-greeting';
-import { PreauthSecretCode } from 'roleypoly/src/design-system/molecules/preauth-secret-code';
-import { Guild } from 'roleypoly/src/design-system/shared-types';
+import { Button } from 'roleypoly/design-system/atoms/button';
+import { Space } from 'roleypoly/design-system/atoms/space';
+import { PreauthGreeting } from 'roleypoly/design-system/molecules/preauth-greeting';
+import { PreauthSecretCode } from 'roleypoly/design-system/molecules/preauth-secret-code';
+import { Guild } from 'roleypoly/common/types';
 import styled from 'styled-components';
-import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
+import Link from 'next/link';
 
 export type PreauthProps = {
     guildSlug?: Guild;
     onSendSecretCode: (code: string) => void;
     botName?: string;
+    discordOAuthLink?: string;
 };
 
 const Centered = styled.div`
@@ -34,16 +35,18 @@ export const Preauth = (props: PreauthProps) => {
         <Centered>
             {props.guildSlug && <PreauthGreeting guildSlug={props.guildSlug} />}
             <WidthContainer>
-                <Button
-                    color="discord"
-                    icon={
-                        <div style={{ position: 'relative', top: 3 }}>
-                            <FaDiscord />
-                        </div>
-                    }
-                >
-                    Sign in with Discord
-                </Button>
+                <Link href={props.discordOAuthLink || '#'}>
+                    <Button
+                        color="discord"
+                        icon={
+                            <div style={{ position: 'relative', top: 3 }}>
+                                <FaDiscord />
+                            </div>
+                        }
+                    >
+                        Sign in with Discord
+                    </Button>
+                </Link>
             </WidthContainer>
             <Space />
             <WidthContainer>

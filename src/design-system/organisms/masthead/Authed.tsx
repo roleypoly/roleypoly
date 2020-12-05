@@ -1,17 +1,20 @@
 import Link from 'next/link';
 import * as React from 'react';
 import { GoOrganization } from 'react-icons/go';
+import { Guilds } from 'roleypoly/backend-worker/utils/kv';
 import {
-    RoleypolyUser,
+    DiscordUser,
     GuildEnumeration,
-} from 'roleypoly/src/design-system/shared-types';
-import { Logomark } from 'roleypoly/src/design-system/atoms/branding';
-import { Popover } from 'roleypoly/src/design-system/atoms/popover';
-import { GuildNav } from 'roleypoly/src/design-system/molecules/guild-nav';
-import { NavSlug } from 'roleypoly/src/design-system/molecules/nav-slug';
-import { UserAvatarGroup } from 'roleypoly/src/design-system/molecules/user-avatar-group';
-import { UserPopover } from 'roleypoly/src/design-system/molecules/user-popover';
-import { guildEnum } from 'roleypoly/src/design-system/shared-types/storyData';
+    GuildSlug,
+    RoleypolyUser,
+} from 'roleypoly/common/types';
+import { guildEnum } from 'roleypoly/common/types/storyData';
+import { DynamicLogomark } from 'roleypoly/design-system/atoms/branding';
+import { Popover } from 'roleypoly/design-system/atoms/popover';
+import { GuildNav } from 'roleypoly/design-system/molecules/guild-nav';
+import { NavSlug } from 'roleypoly/design-system/molecules/nav-slug';
+import { UserAvatarGroup } from 'roleypoly/design-system/molecules/user-avatar-group';
+import { UserPopover } from 'roleypoly/design-system/molecules/user-popover';
 import {
     GuildPopoverHead,
     InteractionBase,
@@ -23,9 +26,9 @@ import {
 } from './Masthead.styled';
 
 type Props = {
-    user: RoleypolyUser;
+    user?: DiscordUser;
     activeGuildId: string | null;
-    guildEnumeration: GuildEnumeration;
+    guilds: GuildSlug[];
 };
 
 export const Authed = (props: Props) => {
@@ -38,7 +41,7 @@ export const Authed = (props: Props) => {
                 <MastheadLeft>
                     <Link href="/dashboard" passHref>
                         <MastheadA>
-                            <Logomark height={40} />
+                            <DynamicLogomark height={35} />
                         </MastheadA>
                     </Link>
                     <InteractionBase
@@ -50,9 +53,9 @@ export const Authed = (props: Props) => {
                     >
                         <NavSlug
                             guild={
-                                guildEnum.guildsList.find(
-                                    (g) => g.id === props.activeGuildId
-                                )?.guild || null
+                                props.guilds.find(
+                                    (guild) => guild.id === props.activeGuildId
+                                ) || null
                             }
                         />
                     </InteractionBase>
@@ -68,7 +71,7 @@ export const Authed = (props: Props) => {
                         active={serverPopoverState}
                         onExit={() => setServerPopoverState(false)}
                     >
-                        <GuildNav guildEnumeration={props.guildEnumeration} />
+                        <GuildNav guilds={props.guilds} />
                     </Popover>
                 </MastheadLeft>
                 <MastheadRight>
@@ -79,9 +82,7 @@ export const Authed = (props: Props) => {
                         }}
                         hide={!userPopoverState}
                     >
-                        {props.user.discorduser && (
-                            <UserAvatarGroup user={props.user.discorduser} />
-                        )}
+                        {props.user && <UserAvatarGroup user={props.user} />}
                     </InteractionBase>
                     <Popover
                         headContent={<></>}
@@ -90,9 +91,7 @@ export const Authed = (props: Props) => {
                         active={userPopoverState}
                         onExit={() => setUserPopoverState(false)}
                     >
-                        {props.user.discorduser && (
-                            <UserPopover user={props.user.discorduser} />
-                        )}
+                        {props.user && <UserPopover user={props.user} />}
                     </Popover>
                 </MastheadRight>
             </MastheadAlignment>

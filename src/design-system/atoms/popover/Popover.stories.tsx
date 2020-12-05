@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from 'roleypoly/src/design-system/atoms/button';
+import { Button } from 'roleypoly/design-system/atoms/button';
 import { Popover as PopoverComponent } from './Popover';
 
 export default {

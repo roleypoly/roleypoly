@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { DiscordUser } from 'roleypoly/src/design-system/shared-types';
-import { UserAvatarGroup } from 'roleypoly/src/design-system/molecules/user-avatar-group';
+import { DiscordUser } from 'roleypoly/common/types';
+import { UserAvatarGroup } from 'roleypoly/design-system/molecules/user-avatar-group';
 import { Base, NavAction } from './UserPopover.styled';
 import { GoGear, GoSignOut } from 'react-icons/go';
 import Link from 'next/link';

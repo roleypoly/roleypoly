@@ -2,8 +2,10 @@ package common_test
 
 import (
 	"os"
+	"strings"
 	"testing"
 
+	"github.com/onsi/gomega"
 	"github.com/roleypoly/roleypoly/src/common"
 )
 
@@ -13,6 +15,8 @@ var (
 		"slice":           "hello,world",
 		"slice_no_delim":  "hello world",
 		"slice_set_delim": "hello|world",
+		"url":             "https://google.com",
+		"url_trailing":    "https://google.com/",
 		"number":          "10005",
 		"number_bad":      "abc123",
 		"bool":            "true",
@@ -56,6 +60,19 @@ func TestEnvconfigStringSliceNoDelimeter(t *testing.T) {
 func TestEnvconfigStringSliceSetDelimeter(t *testing.T) {
 	testSl := common.Getenv("test__slice_set_delim").StringSlice("|")
 	if testSl[0] != "hello" || testSl[1] != "world" {
+		t.FailNow()
+	}
+}
+
+func TestEnvconfigSafeURL(t *testing.T) {
+	testUrl := common.Getenv("test__url").SafeURL()
+	if strings.HasSuffix(testUrl, "/") {
+		t.FailNow()
+	}
+}
+func TestEnvconfigSafeURLWithTrailing(t *testing.T) {
+	testUrl := common.Getenv("test__url_trailing").SafeURL()
+	if strings.HasSuffix(testUrl, "/") {
 		t.FailNow()
 	}
 }
@@ -120,4 +137,18 @@ func TestEnvconfigJSON(t *testing.T) {
 	if err != nil || data.Hello != "world" || len(data.Arr) != 3 {
 		t.FailNow()
 	}
+}
+
+func TestEnvconfigFatal(t *testing.T) {
+	O := gomega.NewWithT(t)
+	O.Expect(func() {
+		_ = common.Getenv("test__thing_that_doesnt_exist").OrFatal().String()
+	}).Should(gomega.Panic(), "Getenv without a value should panic")
+}
+
+func TestEnvconfigNotFatal(t *testing.T) {
+	O := gomega.NewWithT(t)
+	O.Expect(func() {
+		_ = common.Getenv("test__string").OrFatal().String()
+	}).ShouldNot(gomega.Panic(), "Getenv with a value should not panic")
 }
