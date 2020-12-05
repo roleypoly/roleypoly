@@ -38,5 +38,3 @@ export const isAuthenticated = () => {
     const authCtx = useAuth();
     return authCtx.sessionKey !== null;
 };
-
-export const;

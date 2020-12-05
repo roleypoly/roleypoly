@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { EditorCategory } from './EditorCategory';
 import {
     mockCategory,
-    roleCategory2,
     roleCategory,
-    guildRoles,
-} from 'roleypoly/src/design-system/shared-types/storyData';
+    roleCategory2,
+} from 'roleypoly/common/types/storyData';
+import { EditorCategory } from './EditorCategory';
 
 export default {
     title: 'Molecules/Editor/Category',

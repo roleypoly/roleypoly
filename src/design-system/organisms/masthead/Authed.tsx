@@ -1,14 +1,7 @@
 import Link from 'next/link';
 import * as React from 'react';
 import { GoOrganization } from 'react-icons/go';
-import { Guilds } from 'roleypoly/backend-worker/utils/kv';
-import {
-    DiscordUser,
-    GuildEnumeration,
-    GuildSlug,
-    RoleypolyUser,
-} from 'roleypoly/common/types';
-import { guildEnum } from 'roleypoly/common/types/storyData';
+import { DiscordUser, GuildSlug } from 'roleypoly/common/types';
 import { DynamicLogomark } from 'roleypoly/design-system/atoms/branding';
 import { Popover } from 'roleypoly/design-system/atoms/popover';
 import { GuildNav } from 'roleypoly/design-system/molecules/guild-nav';
@@ -71,7 +64,7 @@ export const Authed = (props: Props) => {
                         active={serverPopoverState}
                         onExit={() => setServerPopoverState(false)}
                     >
-                        <GuildNav guilds={props.guilds} />
+                        {() => <GuildNav guilds={props.guilds} />}
                     </Popover>
                 </MastheadLeft>
                 <MastheadRight>
@@ -91,7 +84,7 @@ export const Authed = (props: Props) => {
                         active={userPopoverState}
                         onExit={() => setUserPopoverState(false)}
                     >
-                        {props.user && <UserPopover user={props.user} />}
+                        {() => props.user && <UserPopover user={props.user} />}
                     </Popover>
                 </MastheadRight>
             </MastheadAlignment>
