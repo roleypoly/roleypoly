@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { EditorShell } from './EditorShell';
 import { guildEnum } from 'roleypoly/common/types/storyData';
+import { EditorShell } from './EditorShell';
 
 export default {
     title: 'Organisms/Editor',

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { BreakpointDebugTool } from './DebugTool';
 import { BreakpointsProvider } from './BreakpointProvider';
+import { BreakpointDebugTool } from './DebugTool';
 
 export default {
     title: 'Atoms/Breakpoints',

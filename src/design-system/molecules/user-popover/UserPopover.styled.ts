@@ -1,6 +1,6 @@
-import styled from 'styled-components';
 import { palette } from 'roleypoly/design-system/atoms/colors';
 import { transitions } from 'roleypoly/design-system/atoms/timings';
+import styled from 'styled-components';
 
 export const Base = styled.div`
     text-align: right;

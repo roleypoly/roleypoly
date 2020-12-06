@@ -1,9 +1,9 @@
 import { NextPageContext } from 'next';
-import * as React from 'react';
 import nookies from 'nookies';
-import { AppShell } from 'roleypoly/design-system/organisms/app-shell';
+import * as React from 'react';
 import { Hero } from 'roleypoly/design-system/atoms/hero';
 import { AccentTitle } from 'roleypoly/design-system/atoms/typography';
+import { AppShell } from 'roleypoly/design-system/organisms/app-shell';
 
 type Props = {
     sessionID: string;

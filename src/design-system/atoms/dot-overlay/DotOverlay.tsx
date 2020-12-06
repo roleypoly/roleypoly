@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import * as React from 'react';
+import styled from 'styled-components';
 
 const dotOverlayBase = styled.div`
     opacity: 0.6;

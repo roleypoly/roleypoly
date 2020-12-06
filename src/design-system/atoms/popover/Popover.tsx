@@ -1,13 +1,13 @@
 import * as React from 'react';
+import { IoMdClose } from 'react-icons/io';
+import { globalOnKeyUp } from 'roleypoly/design-system/atoms/key-events';
 import {
-    PopoverBase,
     DefocusHandler,
+    PopoverBase,
+    PopoverContent,
     PopoverHead,
     PopoverHeadCloser,
-    PopoverContent,
 } from './Popover.styled';
-import { globalOnKeyUp } from 'roleypoly/design-system/atoms/key-events';
-import { IoMdClose } from 'react-icons/io';
 
 type PopoverProps = {
     children: () => React.ReactNode;

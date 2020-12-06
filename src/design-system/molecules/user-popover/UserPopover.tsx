@@ -1,9 +1,9 @@
+import Link from 'next/link';
 import * as React from 'react';
+import { GoGear, GoSignOut } from 'react-icons/go';
 import { DiscordUser } from 'roleypoly/common/types';
 import { UserAvatarGroup } from 'roleypoly/design-system/molecules/user-avatar-group';
 import { Base, NavAction } from './UserPopover.styled';
-import { GoGear, GoSignOut } from 'react-icons/go';
-import Link from 'next/link';
 
 type UserPopoverProps = {
     user: DiscordUser;

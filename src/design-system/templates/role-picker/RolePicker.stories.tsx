@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { RolePickerTemplate, RolePickerTemplateProps } from './RolePicker';
 import {
-    guildData,
-    member,
-    guildRoles,
     guild,
-    user,
+    guildData,
     guildEnum,
+    guildRoles,
     mastheadSlugs,
+    member,
+    user,
 } from 'roleypoly/common/types/storyData';
+import { RolePickerTemplate, RolePickerTemplateProps } from './RolePicker';
 
 const props: RolePickerTemplateProps = {
     guildData: {

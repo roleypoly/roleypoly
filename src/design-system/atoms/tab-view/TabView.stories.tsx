@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TabView, Tab } from './TabView';
+import { Tab, TabView } from './TabView';
 
 export default {
     title: 'Atoms/Tab View',

@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { GoInfo } from 'react-icons/go';
-import { FaderOpacity } from 'roleypoly/design-system/atoms/fader';
-import { Space } from 'roleypoly/design-system/atoms/space';
-import { PickerCategory } from 'roleypoly/design-system/molecules/picker-category';
-import { ResetSubmit } from 'roleypoly/design-system/molecules/reset-submit';
-import { ServerMasthead } from 'roleypoly/design-system/molecules/server-masthead';
 import {
     Category,
+    CategoryType,
     Guild,
     GuildData,
     GuildRoles,
     Member,
     Role,
-    CategoryType,
 } from 'roleypoly/common/types';
 import { ReactifyNewlines } from 'roleypoly/common/utils/ReactifyNewlines';
+import { FaderOpacity } from 'roleypoly/design-system/atoms/fader';
+import { Space } from 'roleypoly/design-system/atoms/space';
+import { PickerCategory } from 'roleypoly/design-system/molecules/picker-category';
+import { ResetSubmit } from 'roleypoly/design-system/molecules/reset-submit';
+import { ServerMasthead } from 'roleypoly/design-system/molecules/server-masthead';
 import {
     CategoryContainer,
     Container,

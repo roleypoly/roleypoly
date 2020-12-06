@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { HelpPageTemplate } from './HelpPage';
 import { WhyNoRoles } from '../../organisms/help-why-no-roles';
+import { HelpPageTemplate } from './HelpPage';
 
 export default {
     title: 'Templates/Help Page',

@@ -1,10 +1,10 @@
-import { Guild } from 'roleypoly/common/types';
-import { Avatar, utils } from 'roleypoly/design-system/atoms/avatar';
-import { AccentTitle, AmbientLarge } from 'roleypoly/design-system/atoms/typography';
 import Link from 'next/link';
-import { guild } from 'roleypoly/common/types/storyData';
 import * as React from 'react';
 import { GoPencil } from 'react-icons/go';
+import { Guild } from 'roleypoly/common/types';
+import { guild } from 'roleypoly/common/types/storyData';
+import { Avatar, utils } from 'roleypoly/design-system/atoms/avatar';
+import { AccentTitle, AmbientLarge } from 'roleypoly/design-system/atoms/typography';
 import { Editable, Icon, Name, Wrapper } from './ServerMasthead.styled';
 
 export type ServerMastheadProps = {

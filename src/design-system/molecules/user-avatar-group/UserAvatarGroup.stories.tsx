@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { UserAvatarGroup } from './UserAvatarGroup';
 import { user } from 'roleypoly/common/types/storyData';
 import { Hero } from 'roleypoly/design-system/atoms/hero';
+import { UserAvatarGroup } from './UserAvatarGroup';
 
 export default {
     title: 'Molecules/User Avatar Group',

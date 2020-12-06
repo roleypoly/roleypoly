@@ -1,6 +1,6 @@
-import styled, { createGlobalStyle } from 'styled-components';
 import { palette } from 'roleypoly/design-system/atoms/colors';
 import { fontCSS } from 'roleypoly/design-system/atoms/fonts';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export const Content = styled.div<{ small?: boolean }>`
     margin: 0 auto;

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import * as typography from './typography';
 import styled from 'styled-components';
+import * as typography from './typography';
 
 export default {
     title: 'Atoms/Typography',

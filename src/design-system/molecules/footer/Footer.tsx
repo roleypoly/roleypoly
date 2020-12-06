@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { FooterWrapper, HoverColor } from './Footer.styled';
-import { AmbientLarge } from 'roleypoly/design-system/atoms/typography';
 import { FaHeart } from 'react-icons/fa';
+import { AmbientLarge } from 'roleypoly/design-system/atoms/typography';
 import { Flags } from './Flags';
+import { FooterWrapper, HoverColor } from './Footer.styled';
 
 const year = new Date().getFullYear();
 

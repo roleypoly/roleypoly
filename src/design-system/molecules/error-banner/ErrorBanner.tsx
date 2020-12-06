@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {
-    ErrorWrapper,
     ErrorDivider,
     ErrorSideCode,
     ErrorText,
     ErrorTextLower,
+    ErrorWrapper,
 } from './ErrorBanner.styled';
 
 export type ErrorMessage = {

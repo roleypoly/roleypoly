@@ -1,5 +1,5 @@
-import * as React from 'react';
 import Head from 'next/head';
+import * as React from 'react';
 import styled, { css } from 'styled-components';
 
 export const InjectTypekitFont = () => {

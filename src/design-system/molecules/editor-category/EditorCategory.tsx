@@ -1,14 +1,14 @@
 import * as React from 'react';
+import { GoSearch } from 'react-icons/go';
+import { Category, CategoryType, Role as RoleType } from 'roleypoly/common/types';
+import { FaderOpacity } from 'roleypoly/design-system/atoms/fader';
 import { HorizontalSwitch } from 'roleypoly/design-system/atoms/horizontal-switch';
+import { Popover } from 'roleypoly/design-system/atoms/popover';
+import { Role } from 'roleypoly/design-system/atoms/role';
 import { Space } from 'roleypoly/design-system/atoms/space';
 import { TextInput, TextInputWithIcon } from 'roleypoly/design-system/atoms/text-input';
 import { Text } from 'roleypoly/design-system/atoms/typography';
-import { Popover } from 'roleypoly/design-system/atoms/popover';
-import { FaderOpacity } from 'roleypoly/design-system/atoms/fader';
 import { RoleSearch } from 'roleypoly/design-system/molecules/role-search';
-import { Category, CategoryType, Role as RoleType } from 'roleypoly/common/types';
-import { Role } from 'roleypoly/design-system/atoms/role';
-import { GoSearch } from 'react-icons/go';
 import { RoleContainer } from './EditorCategory.styled';
 
 type Props = {

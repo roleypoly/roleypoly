@@ -1,11 +1,11 @@
 import KSUID from 'ksuid';
 import {
+    AuthTokenResponse,
     DiscordUser,
     GuildSlug,
     SessionData,
-    AuthTokenResponse,
 } from '../../common/types';
-import { formData, resolveFailures, parsePermissions } from '../utils/api-tools';
+import { formData, parsePermissions, resolveFailures } from '../utils/api-tools';
 import { Bounce } from '../utils/bounce';
 import { apiPublicURI, botClientID, botClientSecret, uiPublicURI } from '../utils/config';
 import { Sessions } from '../utils/kv';

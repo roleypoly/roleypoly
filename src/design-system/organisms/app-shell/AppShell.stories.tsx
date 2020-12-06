@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { mastheadSlugs, user } from 'roleypoly/common/types/storyData';
 import { AppShell } from './AppShell';
-import { user, mastheadSlugs } from 'roleypoly/common/types/storyData';
 
 export default {
     title: 'Organisms/App Shell',

@@ -1,15 +1,15 @@
 import * as React from 'react';
-import {
-    Base,
-    Timestamp,
-    TextParts,
-    Username,
-    InputBox,
-    Line,
-    InputTextAlignment,
-} from './DemoDiscord.styled';
 import { demoData } from 'roleypoly/common/types/demoData';
 import { Typist } from 'roleypoly/design-system/atoms/typist';
+import {
+    Base,
+    InputBox,
+    InputTextAlignment,
+    Line,
+    TextParts,
+    Timestamp,
+    Username,
+} from './DemoDiscord.styled';
 
 export const DemoDiscord = () => {
     const time = new Date();

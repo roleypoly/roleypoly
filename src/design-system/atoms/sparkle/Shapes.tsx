@@ -1,5 +1,5 @@
-import { CSSProperties } from 'styled-components';
 import * as React from 'react';
+import { CSSProperties } from 'styled-components';
 
 type SparkleProps = {
     height: string;

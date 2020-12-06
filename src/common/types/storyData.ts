@@ -1,16 +1,16 @@
 import {
     Category,
+    CategoryType,
     DiscordUser,
     Guild,
     GuildData,
     GuildEnumeration,
     GuildRoles,
+    GuildSlug,
     Member,
     Role,
     RoleSafety,
     RoleypolyUser,
-    CategoryType,
-    GuildSlug,
 } from '.';
 
 export const roleCategory: Role[] = [

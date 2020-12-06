@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { palette } from 'roleypoly/design-system/atoms/colors';
+import styled from 'styled-components';
 
 export const Container = styled.div``;
 

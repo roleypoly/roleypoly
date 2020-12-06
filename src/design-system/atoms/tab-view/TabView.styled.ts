@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
+import { onTablet } from 'roleypoly/design-system/atoms/breakpoints';
 import { palette } from 'roleypoly/design-system/atoms/colors';
 import { transitions } from 'roleypoly/design-system/atoms/timings';
-import { onTablet } from 'roleypoly/design-system/atoms/breakpoints';
+import styled, { css } from 'styled-components';
 
 export const TabViewStyled = styled.div``;
 

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {
     Button as StyledButton,
-    IconContainer,
     ButtonComposerOptions,
+    IconContainer,
 } from './Button.styled';
 
 export type ButtonProps = Partial<ButtonComposerOptions> & {

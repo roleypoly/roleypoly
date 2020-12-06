@@ -1,6 +1,5 @@
-import { css, createGlobalStyle } from 'styled-components';
-
 import chroma from 'chroma-js';
+import { createGlobalStyle, css } from 'styled-components';
 
 export const palette = {
     taupe100: '#332D2D',

@@ -1,7 +1,7 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
-import { TabView, Tab, TabViewProps } from './TabView';
-import { TabTitle, TabContent } from './TabView.styled';
+import * as React from 'react';
+import { Tab, TabView, TabViewProps } from './TabView';
+import { TabContent, TabTitle } from './TabView.styled';
 
 const makeView = (props: Partial<TabViewProps> = {}) =>
     shallow(

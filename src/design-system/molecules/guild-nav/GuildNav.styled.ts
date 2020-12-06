@@ -1,7 +1,6 @@
-import styled from 'styled-components';
-
-import { transitions } from 'roleypoly/design-system/atoms/timings';
 import { palette } from 'roleypoly/design-system/atoms/colors';
+import { transitions } from 'roleypoly/design-system/atoms/timings';
+import styled from 'styled-components';
 
 export const GuildNavItem = styled.a`
     display: flex;

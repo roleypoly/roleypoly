@@ -1,7 +1,7 @@
 import NextApp, { AppContext, AppProps } from 'next/app';
+import nookies from 'nookies';
 import * as React from 'react';
 import { InjectTypekitFont } from 'roleypoly/design-system/atoms/fonts';
-import nookies from 'nookies';
 import { AuthProvider } from 'roleypoly/providers/auth/AuthContext';
 
 type Props = AppProps & {

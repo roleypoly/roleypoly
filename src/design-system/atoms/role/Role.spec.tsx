@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
-import { roleCategory } from 'roleypoly/common/types/storyData';
 import * as React from 'react';
+import { roleCategory } from 'roleypoly/common/types/storyData';
 import { Role } from './Role';
 
 it('fires an OnClick handler when clicked', () => {

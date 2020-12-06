@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { SparkleOverlay } from './Sparkle';
 import { Button } from 'roleypoly/design-system/atoms/button';
 import { Hero } from 'roleypoly/design-system/atoms/hero';
+import { SparkleOverlay } from './Sparkle';
 
 export default {
     title: 'Atoms/Sparkle',

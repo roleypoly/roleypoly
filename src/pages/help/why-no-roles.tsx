@@ -1,7 +1,7 @@
 import { WhyNoRoles } from 'roleypoly/design-system/organisms/help-why-no-roles';
 import {
-    HelpPageTemplate,
     HelpPageProps,
+    HelpPageTemplate,
 } from 'roleypoly/design-system/templates/help-page';
 
 const WhyNoRolesPage = (props: HelpPageProps) => (

@@ -1,5 +1,5 @@
-export * from './Role';
 export * from './Category';
 export * from './Guild';
-export * from './User';
+export * from './Role';
 export * from './Session';
+export * from './User';

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { TextInputWithIcon } from 'roleypoly/design-system/atoms/text-input';
 import { FiKey } from 'react-icons/fi';
-import { FaderOpacity } from 'roleypoly/design-system/atoms/fader';
 import { Button } from 'roleypoly/design-system/atoms/button';
+import { FaderOpacity } from 'roleypoly/design-system/atoms/fader';
 import { Space } from 'roleypoly/design-system/atoms/space';
+import { TextInputWithIcon } from 'roleypoly/design-system/atoms/text-input';
 
 type PreauthProps = {
     onSubmit: (code: string) => void;

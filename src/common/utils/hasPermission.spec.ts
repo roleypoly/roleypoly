@@ -1,6 +1,6 @@
-import { hasPermission, permissions, hasPermissionOrAdmin } from './hasPermission';
 import { Role } from 'roleypoly/common/types';
 import { guildRoles } from 'roleypoly/common/types/storyData';
+import { hasPermission, hasPermissionOrAdmin, permissions } from './hasPermission';
 
 const roles: Role[] = [
     {

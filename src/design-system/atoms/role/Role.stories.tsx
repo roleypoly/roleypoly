@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Role as RoleComponent } from './Role';
 import { roleCategory } from 'roleypoly/common/types/storyData';
 import { withColors } from 'roleypoly/design-system/atoms/colors/withColors';
 import styled from 'styled-components';
+import { Role as RoleComponent } from './Role';
 
 export default {
     title: 'Atoms/Role',

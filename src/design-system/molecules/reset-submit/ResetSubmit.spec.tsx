@@ -1,6 +1,6 @@
-import { Button } from 'roleypoly/design-system/atoms/button';
 import { shallow } from 'enzyme';
 import * as React from 'react';
+import { Button } from 'roleypoly/design-system/atoms/button';
 import { ResetSubmit } from './ResetSubmit';
 
 const onReset = jest.fn();

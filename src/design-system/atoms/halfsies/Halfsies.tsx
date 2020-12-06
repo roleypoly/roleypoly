@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components';
 import { onTablet } from 'roleypoly/design-system/atoms/breakpoints';
+import styled, { css } from 'styled-components';
 
 export const HalfsiesContainer = styled.div`
     display: flex;

@@ -2,9 +2,9 @@ FROM golang:1.15-alpine AS builder
 
 # Create the user and group files that will be used in the running container to
 # run the process as an unprivileged user.
-RUN mkdir /user && \
-  echo 'nobody:x:65534:65534:nobody:/:' > /user/passwd && \
-  echo 'nobody:x:65534:' > /user/group
+RUN mkdir /user \
+    && echo 'nobody:x:65534:65534:nobody:/:' >/user/passwd \
+    && echo 'nobody:x:65534:' >/user/group
 
 # Install the Certificate-Authority certificates for the app to be able to make
 # calls to HTTPS endpoints.
@@ -24,8 +24,8 @@ COPY ./ ./
 
 # Build the executable to `/app`. Mark the build as statically linked.
 RUN CGO_ENABLED=0 go build \
-  -installsuffix "static" \
-  -o /app ./src/discord-bot
+    -installsuffix "static" \
+    -o /app ./src/discord-bot
 
 # Final stage: the running container.
 FROM scratch AS final

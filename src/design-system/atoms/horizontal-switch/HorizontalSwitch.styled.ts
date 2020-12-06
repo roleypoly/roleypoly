@@ -1,13 +1,11 @@
-import styled, { css } from 'styled-components';
-import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 import { palette } from 'roleypoly/design-system/atoms/colors';
 import { transitions } from 'roleypoly/design-system/atoms/timings';
+import styled, { css } from 'styled-components';
 
 export const Item = styled.div<{ selected: boolean }>`
     padding: 10px;
     box-sizing: border-box;
     transition: background-color ease-in-out ${transitions.actionable}s;
-
     ${(props) =>
         props.selected &&
         css`

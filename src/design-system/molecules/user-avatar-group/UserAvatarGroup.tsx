@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DiscordUser } from 'roleypoly/common/types';
-import { utils, Avatar } from 'roleypoly/design-system/atoms/avatar';
-import { Group, Collapse, Discriminator, GroupText } from './UserAvatarGroup.styled';
+import { Avatar, utils } from 'roleypoly/design-system/atoms/avatar';
+import { Collapse, Discriminator, Group, GroupText } from './UserAvatarGroup.styled';
 
 type Props = {
     user: DiscordUser;

@@ -2,7 +2,6 @@ import { onSmallScreen } from 'roleypoly/design-system/atoms/breakpoints';
 import { palette } from 'roleypoly/design-system/atoms/colors';
 import { transitions } from 'roleypoly/design-system/atoms/timings';
 import styled, { css } from 'styled-components';
-import * as _ from 'styled-components'; // eslint-disable-line no-duplicate-imports
 
 export const MastheadBase = styled.div`
     position: fixed;

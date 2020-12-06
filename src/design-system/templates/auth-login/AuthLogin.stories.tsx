@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { AuthLogin } from './AuthLogin';
 import { guild } from 'roleypoly/common/types/storyData';
+import { AuthLogin } from './AuthLogin';
 
 export default {
     title: 'Templates/Auth: Login',

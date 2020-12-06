@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { AppShell, AppShellProps } from 'roleypoly/design-system/organisms/app-shell';
 import { HelpPageBase } from 'roleypoly/design-system/molecules/help-page-base';
+import { AppShell, AppShellProps } from 'roleypoly/design-system/organisms/app-shell';
 
 export type HelpPageProps = AppShellProps & {
     children: React.ReactNode;

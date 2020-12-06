@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Logomark as BrandingLogomark, Logotype as BrandingLogotype } from './Branding';
 import styled from 'styled-components';
+import { Logomark as BrandingLogomark, Logotype as BrandingLogotype } from './Branding';
 
 export default {
     title: 'Atoms/Branding',

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { ServerMasthead } from './ServerMasthead';
 import { guild } from 'roleypoly/common/types/storyData';
+import { ServerMasthead } from './ServerMasthead';
 
 export default {
     title: 'Molecules/Server Masthead',

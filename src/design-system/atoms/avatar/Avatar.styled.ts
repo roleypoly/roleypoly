@@ -1,7 +1,6 @@
-import { AvatarProps } from './Avatar';
-import styled, { css } from 'styled-components';
-
 import { palette } from 'roleypoly/design-system/atoms/colors';
+import styled, { css } from 'styled-components';
+import { AvatarProps } from './Avatar';
 
 type ContainerProps = Pick<AvatarProps, 'size'> & Pick<AvatarProps, 'deliberatelyEmpty'>;
 export const Container = styled.div<ContainerProps>`

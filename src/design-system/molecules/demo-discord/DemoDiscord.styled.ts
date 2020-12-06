@@ -1,6 +1,5 @@
-import styled, { keyframes } from 'styled-components';
-
 import { palette } from 'roleypoly/design-system/atoms/colors';
+import styled, { keyframes } from 'styled-components';
 
 export const Base = styled.div`
     background-color: ${palette.discord100};

@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { FaderOpacity, FaderSlide } from './Fader';
-import { Button } from 'roleypoly/design-system/atoms/button';
 import { action } from '@storybook/addon-actions';
+import * as React from 'react';
+import { Button } from 'roleypoly/design-system/atoms/button';
+import { FaderOpacity, FaderSlide } from './Fader';
 
 export default {
     title: 'Atoms/Fader',

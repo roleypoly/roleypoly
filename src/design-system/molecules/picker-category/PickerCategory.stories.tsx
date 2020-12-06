@@ -1,8 +1,8 @@
 import * as React from 'react';
 import {
-    roleWikiData,
-    roleCategory,
     mockCategory,
+    roleCategory,
+    roleWikiData,
 } from 'roleypoly/common/types/storyData';
 import { PickerCategory } from './PickerCategory';
 

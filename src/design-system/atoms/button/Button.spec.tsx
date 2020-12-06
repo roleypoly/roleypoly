@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { shallow } from 'enzyme';
+import * as React from 'react';
 import { Button } from './Button';
 
 it('fires an onClick callback when clicked', () => {

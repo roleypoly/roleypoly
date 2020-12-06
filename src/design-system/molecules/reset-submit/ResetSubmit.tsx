@@ -1,7 +1,7 @@
-import { onSmallScreen } from 'roleypoly/design-system/atoms/breakpoints';
-import { Button } from 'roleypoly/design-system/atoms/button';
 import * as React from 'react';
 import { MdRestore } from 'react-icons/md';
+import { onSmallScreen } from 'roleypoly/design-system/atoms/breakpoints';
+import { Button } from 'roleypoly/design-system/atoms/button';
 import styled from 'styled-components';
 
 type Props = {

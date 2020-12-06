@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
-import { transitions } from 'roleypoly/design-system/atoms/timings';
 import { palette } from 'roleypoly/design-system/atoms/colors';
+import { transitions } from 'roleypoly/design-system/atoms/timings';
+import styled, { css } from 'styled-components';
 
 export type StyledProps = {
     selected: boolean;

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 import { Link, Text, text600, text700, text800, text900 } from './typography';
 
 export const mdxComponents = {

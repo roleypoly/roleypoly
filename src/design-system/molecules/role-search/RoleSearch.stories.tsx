@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { RoleSearch } from './RoleSearch';
 import { roleCategory } from 'roleypoly/common/types/storyData';
+import { RoleSearch } from './RoleSearch';
 
 export default {
     title: 'Molecules/Role Search',

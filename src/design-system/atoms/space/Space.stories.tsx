@@ -1,5 +1,5 @@
-import { Space as SpaceComponent } from './Space';
 import * as React from 'react';
+import { Space as SpaceComponent } from './Space';
 
 export default {
     title: 'Atoms',

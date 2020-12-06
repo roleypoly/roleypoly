@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mediaQueryDefs } from './Breakpoints';
-import { ScreenSize, BreakpointContext } from './Context';
+import { BreakpointContext, ScreenSize } from './Context';
 
 const resetScreen: ScreenSize = {
     onSmallScreen: false,

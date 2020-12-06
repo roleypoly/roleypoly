@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { GuildNav } from './GuildNav';
 import { mastheadSlugs } from 'roleypoly/common/types/storyData';
 import { PopoverBase } from 'roleypoly/design-system/atoms/popover/Popover.styled';
+import { GuildNav } from './GuildNav';
 
 export default {
     title: 'Molecules/Guild Nav',
