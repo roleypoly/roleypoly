@@ -98,23 +98,25 @@ const matchDay = (
 };
 
 type Variant = {
+    name: string;
     activeIf: (currentDate?: Date) => boolean;
     sharedProps?: Partial<DynamicLogoProps>;
     flagStripes?: string[];
     tooltip?: string;
-    Logomark: React.FunctionComponent<DynamicLogoProps>;
-    Logotype: React.FunctionComponent<DynamicLogoProps>;
+    Logomark: React.FunctionComponent<any>;
+    Logotype: React.FunctionComponent<any>;
 };
 
 export const Trans: Variant = {
     // March 31, Nov 13-20+1
+    name: 'Trans Pride',
     activeIf: (currentDate?: Date) =>
         matchDay(new Date('2021-Mar-31'), new Date('2021-Apr-1'), currentDate) ||
         matchDay(new Date('2021-Nov-13'), new Date('2021-Nov-22'), currentDate),
     sharedProps: {
         circleFill: '#F7A8B8',
         circleOuterFill: palette.taupe200,
-        typeFill: palette.grey600,
+        typeFill: palette.grey500,
         stripes: ['#55CDFC', '#F7A8B8', palette.grey600, '#F7A8B8', '#55CDFC'],
     },
     tooltip: 'Roleypoly says trans rights!',
@@ -128,6 +130,7 @@ export const Trans: Variant = {
 
 export const Bi: Variant = {
     // Sept 16-23
+    name: 'Bi Week',
     activeIf: (currentDate?: Date) =>
         matchDay(new Date('2021-Sep-16'), new Date('2021-Sep-24'), currentDate),
     sharedProps: {
@@ -147,6 +150,7 @@ export const Bi: Variant = {
 
 export const Lesbian: Variant = {
     // Apr 26
+    name: 'Lesbian Pride',
     activeIf: (currentDate?: Date) =>
         matchDay(new Date('2021-Apr-25'), new Date('2021-Apt-27'), currentDate),
     sharedProps: {
@@ -166,6 +170,7 @@ export const Lesbian: Variant = {
 
 export const Ace: Variant = {
     // Oct 24-30
+    name: 'Ace Week',
     activeIf: (currentDate?: Date) =>
         matchDay(new Date('2021-Oct-24'), new Date('2021-Oct-31'), currentDate),
     sharedProps: {
@@ -185,6 +190,7 @@ export const Ace: Variant = {
 
 export const Birthday: Variant = {
     // Jan 15
+    name: "Roleypoly's Birthday",
     activeIf: (currentDate?: Date) =>
         matchDay(new Date('2021-Jan-15'), new Date('2021-Jan-16'), currentDate),
     sharedProps: {
@@ -255,6 +261,7 @@ export const Birthday: Variant = {
 };
 
 export const DevilsLettuce: Variant = {
+    name: 'Meme #1',
     // Apr 20
     activeIf: (currentDate?: Date) =>
         matchDay(new Date('2021-Apr-20'), new Date('2021-Apr-21'), currentDate),
@@ -273,25 +280,28 @@ export const DevilsLettuce: Variant = {
 };
 
 export const BicycleDay: Variant = {
+    name: 'Meme #2',
     // Apr 19
     // TODO: hexagon is bestagon
     activeIf: (currentDate?: Date) =>
         matchDay(new Date('2021-Apr-19'), new Date('2021-Apr-20'), currentDate),
     sharedProps: {
         circleFill: palette.gold400,
-        circleOuterFill: palette.red200,
+        circleOuterFill: palette.taupe200,
         typeFill: palette.discord400,
+        stripes: Object.values(palette),
     },
     tooltip: 'It increases brain complexity.',
     Logomark: (props: DynamicLogoProps) => (
-        <Logomark {...props} {...BicycleDay.sharedProps} />
+        <LogomarkFlag {...props} {...BicycleDay.sharedProps} />
     ),
     Logotype: (props: DynamicLogoProps) => (
-        <Logotype {...props} {...BicycleDay.sharedProps} />
+        <LogotypeFlag {...props} {...BicycleDay.sharedProps} />
     ),
 };
 
 export const Christmas: Variant = {
+    name: 'Christmas!',
     // Dec 20-27
     activeIf: (currentDate?: Date) =>
         matchDay(new Date('2021-Dec-20'), new Date('2021-Dec-28'), currentDate),
@@ -303,11 +313,11 @@ export const Christmas: Variant = {
             palette.grey600,
             palette.red400,
             palette.grey600,
-            palette.red400,
+            palette.green400,
             palette.grey600,
             palette.red400,
             palette.grey600,
-            palette.red400,
+            palette.green400,
             palette.grey600,
             palette.red400,
             palette.grey600,
@@ -327,6 +337,7 @@ export const Christmas: Variant = {
 };
 
 export const NewYear: Variant = {
+    name: "New Year's Day",
     // Dec 30 - Jan 2
     // TODO: sparkle
     activeIf: (currentDate?: Date) =>
@@ -350,6 +361,7 @@ export const NewYear: Variant = {
 };
 
 export const LunarNewYear: Variant = {
+    name: 'Lunar New Year',
     // Feb 12, 2021
     // Feb 1, 2022
     activeIf: (currentDate?: Date) =>
@@ -374,6 +386,7 @@ export const LunarNewYear: Variant = {
 };
 
 export const Pride: Variant = {
+    name: 'LGBTQPOC Pride Month',
     // June
     activeIf: (currentDate?: Date) =>
         matchDay(new Date('2021-Jun-1'), new Date('2021-Jul-1'), currentDate),

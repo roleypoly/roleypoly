@@ -1,6 +1,8 @@
 import * as React from 'react';
 import ReactTooltip from 'react-tooltip';
+import { Text } from 'roleypoly/design-system/atoms/typography';
 import styled from 'styled-components';
+import { Logomark, Logotype } from './Branding';
 import { AllVariants, DynamicLogomark, DynamicLogotype } from './DynamicBranding';
 
 export default {
@@ -20,7 +22,7 @@ const Wrapper = (props: { children: React.ReactNode }) => (
     </>
 );
 
-export const DynamicLogotype_ = (args) => {
+export const dynamicLogotype = (args) => {
     return (
         <Wrapper>
             <DynamicLogotype {...args} />
@@ -28,7 +30,7 @@ export const DynamicLogotype_ = (args) => {
     );
 };
 
-export const DynamicLogomark_ = (args) => {
+export const dynamicLogomark = (args) => {
     return (
         <Wrapper>
             <DynamicLogomark {...args} />
@@ -39,8 +41,15 @@ export const DynamicLogomark_ = (args) => {
 export const AllCustomizedLogotypes = () => {
     return (
         <Wrapper>
+            <div>
+                <Text>Base Logo</Text>
+                <br />
+                <Logotype height={50} />
+            </div>
             {AllVariants.map((variant, idx) => (
-                <div key={idx}>
+                <div key={idx} style={{ marginTop: 5 }}>
+                    <Text>{variant.name}</Text>
+                    <br />
                     <variant.Logotype height={50} />
                 </div>
             ))}
@@ -51,8 +60,17 @@ export const AllCustomizedLogotypes = () => {
 export const AllCustomizedLogomarks = () => {
     return (
         <Wrapper>
+            <div>
+                <Text>Base Logo</Text>
+                <br />
+                <Logomark height={50} />
+            </div>
             {AllVariants.map((variant, idx) => (
-                <variant.Logomark key={idx} height={50} />
+                <div key={idx}>
+                    <Text>{variant.name}</Text>
+                    <br />
+                    <variant.Logomark height={50} />
+                </div>
             ))}
         </Wrapper>
     );
