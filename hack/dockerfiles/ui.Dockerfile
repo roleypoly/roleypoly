@@ -22,5 +22,5 @@ FROM base AS output
 
 COPY --from=builder /src .
 
-EXPOSE 3000
+ENV PORT=6601
 CMD yarn ui:prod
