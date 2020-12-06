@@ -2,6 +2,7 @@ import * as React from 'react';
 import ReactTooltip from 'react-tooltip';
 import { Text } from 'roleypoly/design-system/atoms/typography';
 import styled from 'styled-components';
+import { palette } from '../colors';
 import { Logomark, Logotype } from './Branding';
 import { AllVariants, DynamicLogomark, DynamicLogotype } from './DynamicBranding';
 
@@ -11,7 +12,7 @@ export default {
 };
 
 const WrapperDiv = styled.div`
-    background-color: black;
+    background-color: ${palette.taupe100};
     padding: 2em;
 `;
 

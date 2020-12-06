@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { palette } from '../colors';
 import { Logomark as BrandingLogomark, Logotype as BrandingLogotype } from './Branding';
 
 export default {
@@ -7,7 +8,7 @@ export default {
 };
 
 const Wrapper = styled.div`
-    background-color: black;
+    background-color: ${palette.taupe100};
     padding: 2em;
 `;
 
