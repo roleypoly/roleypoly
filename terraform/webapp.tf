@@ -28,7 +28,15 @@ resource "google_cloud_run_service" "web" {
         }
       }
     }
+
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "10"
+      }
+    }
   }
+
+
 
   traffic {
     percent         = 100

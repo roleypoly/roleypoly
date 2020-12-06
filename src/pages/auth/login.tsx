@@ -1,5 +1,8 @@
+import getConfig from 'next/config';
 import * as React from 'react';
 import { AuthLogin } from 'roleypoly/design-system/templates/auth-login';
+
+const { publicRuntimeConfig } = getConfig();
 
 const loginPage = () => {
     const onSendSecretCode = (code: string) => {
@@ -8,7 +11,7 @@ const loginPage = () => {
     return (
         <AuthLogin
             onSendSecretCode={onSendSecretCode}
-            discordOAuthLink="http://localhost:6600/login-bounce"
+            discordOAuthLink={`${publicRuntimeConfig.apiPublicURI}/login-bounce`}
         />
     );
 };
