@@ -15,6 +15,7 @@
     "scripts": {
         "lint": "run-p -c lint:* --",
         "lint:eslint": "eslint",
+        "lint:go": "go fmt ./...",
         "lint:prettier": "cross-env prettier -c '**/*.{ts,tsx,css,yml,yaml,md,json,js,jsx,sh,gitignore,mdx,Dockerfile}'",
         "lint:stylelint": "cross-env stylelint '**/*.{ts,tsx}'",
         "lint:types": "tsc --noEmit",
