@@ -65,6 +65,10 @@ resource "google_compute_region_network_endpoint_group" "web_lb" {
   provider = google-beta
   for_each = toset(var.ui_regions)
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   name                  = "lb-fr-neg-${each.key}-${var.environment_tag}"
   region                = google_cloud_run_service.web[each.key].location
   network_endpoint_type = "SERVERLESS"

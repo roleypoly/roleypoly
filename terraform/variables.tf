@@ -16,7 +16,7 @@ variable "ui_regions" {
 variable "ui_tag" {
   type        = string
   description = "Specific tag to deploy"
-  default     = "main"
+  default     = ":main"
 }
 
 variable "bot_client_id" {
