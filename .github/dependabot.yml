@@ -14,22 +14,8 @@ updates:
       directory: '/'
       schedule:
           interval: 'daily'
-# - package-ecosystem: "terraform"
-#   directory: "/terraform/platform/bootstrap"
-#   schedule:
-#     interval: "daily"
 
-# - package-ecosystem: "terraform"
-#   directory: "/terraform/platform/app"
-#   schedule:
-#     interval: "daily"
-
-# - package-ecosystem: "terraform"
-#   directory: "/terraform/platform/service"
-#   schedule:
-#     interval: "daily"
-
-# - package-ecosystem: "terraform"
-#   directory: "/terraform/app"
-#   schedule:
-#     interval: "daily"
+    - package-ecosystem: 'terraform'
+      directory: '/terraform'
+      schedule:
+          interval: 'daily'
