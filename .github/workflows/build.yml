@@ -77,7 +77,7 @@ jobs:
               with:
                   images: |
                       ghcr.io/roleypoly/${{matrix.dockerfile}}
-                      us-docker.pkg.dev/roleypoly-${{matrix.dockerfile}}
+                      us-docker.pkg.dev/roleypoly/roleypoly/${{matrix.dockerfile}}
 
             - name: Set up Docker Buildx
               id: buildx
