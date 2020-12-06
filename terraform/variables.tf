@@ -40,6 +40,12 @@ variable "api_public_uri" {
   description = "API Public Base Path"
 }
 
+variable "api_path_to_worker" {
+  type = string
+  description = "Path to worker JS, relative to this file/terraform folder."
+  default = "../worker/script.js"
+}
+
 variable "root_users" {
   type        = list(string)
   description = "Root users to use for role elevation calculations"

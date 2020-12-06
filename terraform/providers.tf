@@ -26,6 +26,10 @@ terraform {
       source  = "hashicorp/null"
     }
   }
+
+  backend "gcs" {
+    bucket  = "roleypoly-tfstate"
+  }
 }
 
 variable "cloudflare_email" {

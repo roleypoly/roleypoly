@@ -12,7 +12,7 @@ resource "cloudflare_workers_kv_namespace" "guild_data" {
 
 resource "cloudflare_worker_script" "backend" {
   name    = "roleypoly-backend-${var.environment_tag}"
-  content = file("${path.module}/../worker/script.js")
+  content = file("${path.module}/${var.api_path_to_worker}")
 
   kv_namespace_binding {
     name         = "KV_SESSIONS"
