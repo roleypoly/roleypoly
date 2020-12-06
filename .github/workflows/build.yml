@@ -93,9 +93,6 @@ jobs:
         needs:
             - go_test
             - node_test
-        outputs:
-            ui_digest: ${{steps.docker_push_ui.outputs.digest}}
-            bot_digest: ${{steps.docker_push_bot.outputs.digest}}
         strategy:
             matrix:
                 dockerfile:
@@ -134,7 +131,6 @@ jobs:
 
             - name: Build and push
               uses: docker/build-push-action@v2
-              id: docker_push_${{ matrix.dockerfile }}
               with:
                   context: .
                   file: ./hack/dockerfiles/${{matrix.dockerfile}}.Dockerfile
