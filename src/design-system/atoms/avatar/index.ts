@@ -1,4 +1,2 @@
 export * from './Avatar';
-export { utils };
-
-import * as utils from './avatarUtils';
+export * as utils from './avatarUtils';
