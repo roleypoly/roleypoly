@@ -2,22 +2,23 @@
     "name": "roleypoly",
     "version": "1.0.0",
     "description": "https://roleypoly.com",
-    "homepage": "https://github.com/roleypoly/roleypoly#readme",
-    "bugs": {
-        "url": "https://github.com/roleypoly/roleypoly/issues"
-    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/roleypoly/roleypoly.git"
     },
-    "license": "MIT",
+    "homepage": "https://github.com/roleypoly/roleypoly#readme",
+    "bugs": {
+        "url": "https://github.com/roleypoly/roleypoly/issues"
+    },
     "author": "Katalina Okano <git@kat.cafe>",
+    "license": "MIT",
     "scripts": {
         "lint": "run-p -c lint:* --",
         "lint:eslint": "eslint",
         "lint:go": "go fmt ./...",
         "lint:prettier": "cross-env prettier -c '**/*.{ts,tsx,css,yml,yaml,md,json,js,jsx,sh,gitignore,mdx,Dockerfile}'",
         "lint:stylelint": "cross-env stylelint '**/*.{ts,tsx}'",
+        "lint:terraform": "terraform fmt -recursive -check ./terraform",
         "lint:types": "tsc --noEmit",
         "now-build": "run-s storybook:build",
         "storybook": "start-storybook -p 6006",
@@ -88,7 +89,7 @@
         "npm-run-all": "^4.1.5",
         "prettier": "^2.2.1",
         "prettier-plugin-organize-imports": "^1.1.1",
-        "prettier-plugin-packagejson": "^2.2.8",
+        "prettier-plugin-pkg": "^0.8.0",
         "prettier-plugin-sh": "^0.6.0",
         "stylelint": "^13.8.0",
         "stylelint-config-prettier": "^8.0.2",

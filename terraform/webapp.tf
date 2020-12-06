@@ -15,7 +15,7 @@ resource "google_cloud_run_service" "web" {
   template {
     spec {
       containers {
-        image = "ghcr.io/roleypoly/ui:${var.ui_tag}"
+        image = "us-docker.pkg.dev/roleypoly/roleypoly/ui:${var.ui_tag}"
 
         env {
           name  = "API_PUBLIC_URI"
