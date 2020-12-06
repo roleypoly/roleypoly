@@ -41,9 +41,9 @@ variable "api_public_uri" {
 }
 
 variable "api_path_to_worker" {
-  type = string
+  type        = string
   description = "Path to worker JS, relative to this file/terraform folder."
-  default = "../worker/script.js"
+  default     = "../worker/script.js"
 }
 
 variable "root_users" {

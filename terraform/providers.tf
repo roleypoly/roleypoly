@@ -28,7 +28,7 @@ terraform {
   }
 
   backend "gcs" {
-    bucket  = "roleypoly-tfstate"
+    bucket = "roleypoly-tfstate"
   }
 }
 
