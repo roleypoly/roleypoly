@@ -1,0 +1,58 @@
+resource "cloudflare_record" "web" {
+  zone_id = var.cloudflare_zone_id
+  name    = "web-${var.environment_tag}"
+  type    = "A"
+  value   = google_compute_address.web_lb.address
+  proxied = true
+}
+
+resource "google_cloud_run_service" "web" {
+  for_each = toset(var.ui_regions)
+
+  name     = "roleypoly-web-${var.environment_tag}-${each.key}"
+  location = each.key
+
+  template {
+    spec {
+      containers {
+        image = "ghcr.io/roleypoly/ui:${var.ui_tag}"
+
+        env {
+          name  = "API_PUBLIC_URI"
+          value = var.api_public_uri
+        }
+
+        env {
+          name  = "UI_PUBLIC_URI"
+          value = var.ui_public_uri
+        }
+      }
+    }
+  }
+
+  traffic {
+    percent         = 100
+    latest_revision = true
+  }
+}
+
+
+
+data "google_iam_policy" "noauth" {
+  binding {
+    role = "roles/run.invoker"
+    members = [
+      "allUsers",
+    ]
+  }
+}
+
+resource "google_cloud_run_service_iam_policy" "noauth" {
+  for_each = toset(var.ui_regions)
+
+  location = google_cloud_run_service.web[each.key].location
+  project  = google_cloud_run_service.web[each.key].project
+  service  = google_cloud_run_service.web[each.key].name
+
+  policy_data = data.google_iam_policy.noauth.policy_data
+}

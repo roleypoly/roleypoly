@@ -13,6 +13,12 @@ variable "ui_regions" {
   description = "Cloud Run regions to deploy UI to"
 }
 
+variable "ui_tag" {
+  type        = string
+  description = "Specific tag to deploy"
+  default     = "main"
+}
+
 variable "bot_client_id" {
   type        = string
   description = "Bot Client ID"

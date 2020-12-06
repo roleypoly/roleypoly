@@ -6,6 +6,11 @@ terraform {
       source  = "hashicorp/google"
     }
 
+    google-beta = {
+      version = ">=3.49.0"
+      source  = "hashicorp/google"
+    }
+
     cloudflare = {
       version = ">=2.14.0"
       source  = "cloudflare/cloudflare"
@@ -49,4 +54,23 @@ provider "cloudflare" {
   account_id = var.cloudflare_account_id
 }
 
+variable "gcp_project" {
+  type      = string
+  sensitive = true
+}
+
+variable "gcp_region" {
+  type    = string
+  default = "us-east4"
+}
+
+provider "google" {
+  project = var.gcp_project
+  region  = var.gcp_region
+}
+
+provider "google-beta" {
+  project = var.gcp_project
+  region  = var.gcp_region
+}
 
