@@ -45,6 +45,7 @@
     "devDependencies": {
         "@babel/core": "^7.12.9",
         "@cloudflare/workers-types": "^2.1.0",
+        "@cloudflare/wrangler": "^1.12.2",
         "@icons/material": "^0.4.1",
         "@storybook/addon-actions": "^6.1.10",
         "@storybook/addon-essentials": "^6.1.10",
