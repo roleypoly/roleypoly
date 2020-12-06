@@ -1,11 +1,3 @@
-resource "cloudflare_record" "web" {
-  zone_id = var.cloudflare_zone_id
-  name    = "web-${var.environment_tag}"
-  type    = "A"
-  value   = google_compute_address.web_lb.address
-  proxied = true
-}
-
 resource "google_cloud_run_service" "web" {
   for_each = toset(var.ui_regions)
 
@@ -35,8 +27,6 @@ resource "google_cloud_run_service" "web" {
       }
     }
   }
-
-
 
   traffic {
     percent         = 100
