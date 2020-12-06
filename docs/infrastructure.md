@@ -10,8 +10,8 @@ Backend is a Cloudflare Worker deployment. Edge computing, fuck yeah!
 
 Hosts:
 
-- `api.${env}.roleypoly.com/*`
-  - ex. for stage: `api.stage.roleypoly.com/*`
+- `api-${env}.roleypoly.com/*`
+  - ex. for stage: `api-stage.roleypoly.com/*`
 - `api.roleypoly.com/*` (only in prod)
 
 It uses 3 KV namespaces per environment:
@@ -49,8 +49,8 @@ Staging is only deployed to `us-east4`.
 
 Hosts:
 
-- `web.${env}.roleypoly.com`
-  - ex. for stage: `web.stage.roleypoly.com`
+- `web-${env}.roleypoly.com`
+  - ex. for stage: `web-stage.roleypoly.com`
 - `roleypoly.com` (only in prod, after release)
 - `next.roleypoly.com` (only in prod, pre-release)
 - `beta.roleypoly.com` (only in stage)
@@ -81,6 +81,4 @@ Not end user applications. These will never be considered an "outage" if they ar
 
 Design system is a Vercel deployment
 
-Host:
-
-- `ui.roleypoly.com`
+Host: `ui.roleypoly.com`
