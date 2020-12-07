@@ -40,6 +40,6 @@ jobs:
                         continue
                       fi
 
-                      gcloud artifacts versions delete $version --package=$package $flags
+                      gcloud artifacts versions delete $version --package=$package $flags --quiet
                     done
                   done
