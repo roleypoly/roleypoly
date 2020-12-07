@@ -28,17 +28,17 @@ jobs:
               run: |
                   flags="--format=json --location=${{matrix.region}} --repository=roleypoly"
 
-                  packagesToPrune=$(gcloud artifacts packages list $flags 2>/dev/null | jq -r '.[].name')
+                  packagesToPrune=$(gcloud artifacts packages list $flags | jq -r '.[].name')
 
                   for package in $packagesToPrune; do
-                    tagsToKeep=$(gcloud artifacts tags list --package=$package $flags 2>/dev/null | jq -r '.[].version')
-                    versionsToCheck=$(gcloud artifacts versions list --package=$package $flags 2>/dev/null | jq -r '.[].name')
+                    tagsToKeep=$(gcloud artifacts tags list --package=$package $flags | jq -r '.[].version')
+                    versionsToCheck=$(gcloud artifacts versions list --package=$package $flags | jq -r '.[].name')
 
                     for version in $versionsToCheck; do
                       if [[ "$tagsToKeep" =~ .*"$version".* ]]; then
                         continue
                       fi
 
-                      gcloud artifacts versions delete $version --package=$package $flags 2>/dev/null
+                      gcloud artifacts versions delete $version --package=$package $flags
                     done
                   done
