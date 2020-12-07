@@ -129,7 +129,11 @@ jobs:
             - name: Write *.auto.tfvars.json files
               working-directory: ./terraform
               run: |
-                  echo '{"ui_tag": "${{needs.docker_sync.outputs.ui_tag}}", "bot_tag": "${{needs.docker_sync.outputs.bot_tag}}", "api_path_to_worker": "./worker-dist/backend-worker.js"}' | jq . | tee tags.tfvars.auto.json
+                  echo \
+                    '{"ui_tag": "${{needs.docker_sync.outputs.ui_tag}}", "bot_tag": "${{needs.docker_sync.outputs.bot_tag}}", "api_path_to_worker": "./worker-dist/backend-worker.js"}' \
+                    | jq . \
+                    | tee tags.auto.tfvars.json
+
                   echo ${SECRET_TFVARS} > secrets.auto.tfvars.json
               env:
                   SECRET_TFVARS: ${{ steps.secrets.outputs.secretJSON }}
