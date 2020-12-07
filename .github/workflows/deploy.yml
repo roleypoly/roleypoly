@@ -24,8 +24,8 @@ jobs:
     docker_sync:
         runs-on: ubuntu-latest
         outputs:
-            ui_tag: steps.tags.ui_tag
-            bot_tag: steps.tags.bot_tag
+            ui_tag: ${{ steps.tags.ui_tag }}
+            bot_tag: ${{ steps.tags.bot_tag }}
         steps:
             - uses: actions/checkout@master
 
