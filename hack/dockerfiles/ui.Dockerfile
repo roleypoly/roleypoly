@@ -14,6 +14,7 @@ COPY tsconfig.json .babelrc.js next.config.js next-env.d.ts ./
 COPY src src
 
 RUN yarn ui:build
+RUN yarn install --frozen-lockfile --prod
 
 #
 # Output layer
