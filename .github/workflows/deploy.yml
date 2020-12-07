@@ -70,8 +70,8 @@ jobs:
                     docker push $2
                   }
 
-                  UI_IMAGE_SRC=ghcr.io/roleypoly/ui${{event.inputs.ui_tag}}
-                  UI_IMAGE_DEST_BASE=docker.pkg.dev/roleypoly/roleypoly/ui:${{event.inputs.environment}}
+                  UI_IMAGE_SRC=ghcr.io/roleypoly/ui${{github.event.inputs.ui_tag}}
+                  UI_IMAGE_DEST_BASE=docker.pkg.dev/roleypoly/roleypoly/ui:${{github.event.inputs.environment}}
 
                   docker pull $UI_IMAGE_SRC
                   retag_push $UI_IMAGE_SRC us-$UI_IMAGE_DEST_BASE
@@ -79,8 +79,8 @@ jobs:
                   retag_push $UI_IMAGE_SRC asia-$UI_IMAGE_DEST_BASE
                   echo ::set-output name=ui_tag::@$(docker inspect $UI_IMAGE_SRC -f '{{.Id}}')
 
-                  BOT_IMAGE_SRC=ghcr.io/roleypoly/bot${{event.inputs.bot_tag}}
-                  BOT_IMAGE_DEST_BASE=docker.pkg.dev/roleypoly/roleypoly/bot:${{event.inputs.environment}}
+                  BOT_IMAGE_SRC=ghcr.io/roleypoly/bot${{github.event.inputs.bot_tag}}
+                  BOT_IMAGE_DEST_BASE=docker.pkg.dev/roleypoly/roleypoly/bot:${{github.event.inputs.environment}}
 
                   docker pull $BOT_IMAGE_SRC
                   retag_push $BOT_IMAGE_SRC us-$BOT_IMAGE_DEST_BASE
@@ -109,31 +109,31 @@ jobs:
             - name: Pull necessary artifacts
               run: |
                   currentHash=${{ github.sha }}
-                  selectedTargetArtifact=${${{ event.inputs.worker_tag }}:-$currentHash}
+                  selectedTargetArtifact=${${{ github.event.inputs.worker_tag }}:-$currentHash}
 
                   mkdir worker-dist
                   gsutil cp gs://roleypoly-artifacts/backend-worker/$selectedTargetArtifact/script.js worker-dist/backend-worker.js
 
-            - run: terraform init --backend-config "prefix=${{event.inputs.environment}}"
+            - run: terraform init --backend-config "prefix=${{github.event.inputs.environment}}"
 
             - name: Write tags to tags.tfvars.auto.json
               run: |
                   echo '{"ui_tag": "${{needs.docker_sync.outputs.ui_tag}}", "bot_tag": "${{needs.docker_sync.outputs.bot_tag}}", "worker_path": "./worker-dist/backend-worker.js"}' | jq | tee tags.tfvars.auto.json
 
-            - name: Write TF_DATA_${{event.inputs.environment}} to actions.tfvars.auto.json
+            - name: Write TF_DATA_${{github.event.inputs.environment}} to actions.tfvars.auto.json
               run: |
                   sh -c 'echo '$TF_DATA' | jq > actions.tfvars.auto.json' >/dev/null 2>&1
               env:
-                  TF_DATA: ${{ secrets['TF_DATA_'+event.inputs.environment] }}
+                  TF_DATA: ${{ secrets['TF_DATA_'+github.event.inputs.environment] }}
 
             - run: |
                   terraform plan \
                     --var-file variables/global.tfvars \
-                    --var-file variables/${{event.inputs.environment}}.tfvars \
+                    --var-file variables/${{github.event.inputs.environment}}.tfvars \
                     -out=./deployment.tfplan
 
             - run: |
                   terraform apply \
                     --var-file variables/global.tfvars \
-                    --var-file variables/${{event.inputs.environment}}.tfvars \
+                    --var-file variables/${{github.event.inputs.environment}}.tfvars \
                     deployment.tfplan
