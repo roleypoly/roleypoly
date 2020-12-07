@@ -97,8 +97,6 @@ jobs:
               with:
                   terraform_version: ^0.14.0
 
-            - run: cd terraform
-
             - name: Set up Cloud SDK
               uses: google-github-actions/setup-gcloud@master
               with:
@@ -107,6 +105,7 @@ jobs:
                   export_default_credentials: true
 
             - name: Pull necessary artifacts
+              working-directory: ./terraform
               run: |
                   currentHash=${{ github.sha }}
                   targetArtifact=${{ github.event.inputs.worker_tag }}
@@ -115,25 +114,27 @@ jobs:
                   mkdir worker-dist
                   gsutil cp gs://roleypoly-artifacts/backend-worker/$selected/script.js worker-dist/backend-worker.js
 
-            - run: terraform init --backend-config "prefix=${{github.event.inputs.environment}}"
+            - name: Terraform init
+              working-directory: ./terraform
+              run: |
+                  terraform init --backend-config "prefix=${{github.event.inputs.environment}}"
 
             - name: Write tags to tags.tfvars.auto.json
+              working-directory: ./terraform
               run: |
                   echo '{"ui_tag": "${{needs.docker_sync.outputs.ui_tag}}", "bot_tag": "${{needs.docker_sync.outputs.bot_tag}}", "worker_path": "./worker-dist/backend-worker.js"}' | jq . | tee tags.tfvars.auto.json
 
-            - name: Write TF_DATA_${{github.event.inputs.environment}} to actions.tfvars.auto.json
+            - name: Terraform plan
+              working-directory: ./terraform
               run: |
-                  echo $TF_DATA > actions.tfvars.auto.json
-              env:
-                  TF_DATA: ${{ secrets[format('TF_DATA_{0}', github.event.inputs.environment)] }}
-
-            - run: |
                   terraform plan \
                     --var-file variables/global.tfvars \
                     --var-file variables/${{github.event.inputs.environment}}.tfvars \
                     -out=./deployment.tfplan
 
-            - run: |
+            - name: Terraform apply
+              working-directory: ./terraform
+              run: |
                   terraform apply \
                     --var-file variables/global.tfvars \
                     --var-file variables/${{github.event.inputs.environment}}.tfvars \
