@@ -123,7 +123,7 @@ jobs:
 
             - name: Write TF_DATA_${{github.event.inputs.environment}} to actions.tfvars.auto.json
               run: |
-                  sh -c 'echo \'$TF_DATA\' > actions.tfvars.auto.json'
+                  echo $TF_DATA > actions.tfvars.auto.json
               env:
                   TF_DATA: ${{ secrets[format('TF_DATA_{0}', github.event.inputs.environment)] }}
 
