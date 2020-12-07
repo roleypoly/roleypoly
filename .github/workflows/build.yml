@@ -83,16 +83,12 @@ jobs:
                   echo 'webpack_config = "src/backend-worker/webpack.config.js"' | tee -a wrangler.toml
                   wrangler build
 
-            - name: Set up Cloud SDK
-              uses: google-github-actions/setup-gcloud@master
+            - id: upload-file
+              uses: google-github-actions/upload-cloud-storage@main
               with:
-                  project_id: ${{ secrets.GCP_PROJECT_ID }}
-                  service_account_key: ${{ secrets.GCP_TF_KEY }}
-                  export_default_credentials: true
-
-            - name: Publish to GCS
-              run: |
-                  gsutil cp worker/script.js gs://roleypoly-artifacts/backend-worker/${{ github.sha }}
+                  path: worker/script.js
+                  destination: roleypoly-artifacts/backend-worker/${{ github.sha }}
+                  credentials: ${{ secrets.GCP_TF_KEY }}
 
     docker_build:
         name: Docker Build & Publish
