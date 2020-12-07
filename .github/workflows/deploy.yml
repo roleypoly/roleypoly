@@ -102,8 +102,8 @@ jobs:
             - name: Set up Cloud SDK
               uses: google-github-actions/setup-gcloud@master
               with:
-                  project_id: ${{ secrets.GCP_PROJECT_ID }}
-                  service_account_key: ${{ secrets.GCP_TF_KEY }}
+                  project_id: ${{ secrets.GCS_PROJECT_ID }}
+                  service_account_key: ${{ secrets.GCS_TF_KEY }}
                   export_default_credentials: true
 
             - name: Pull necessary artifacts
@@ -112,7 +112,7 @@ jobs:
                   selectedTargetArtifact=${${{ event.inputs.worker_tag }}:-$currentHash}
 
                   mkdir worker-dist
-                  gsutil cp gs://roleypoly-artifacts/backend-worker/$selectedTargetArtifact worker-dist/backend-worker.js
+                  gsutil cp gs://roleypoly-artifacts/backend-worker/$selectedTargetArtifact/script.js worker-dist/backend-worker.js
 
             - run: terraform init --backend-config "prefix=${{event.inputs.environment}}"
 
@@ -122,11 +122,18 @@ jobs:
 
             - name: Write TF_DATA_${{event.inputs.environment}} to actions.tfvars.auto.json
               run: |
-                  sh -c 'echo $TF_DATA | jq > actions.tfvars.auto.json' >/dev/null 2>&1
+                  sh -c 'echo '$TF_DATA' | jq > actions.tfvars.auto.json' >/dev/null 2>&1
               env:
                   TF_DATA: ${{ secrets['TF_DATA_'+event.inputs.environment] }}
 
             - run: |
                   terraform plan \
                     --var-file variables/global.tfvars \
-                    --var-file variables/${{event.inputs.environment}}.tfvars
+                    --var-file variables/${{event.inputs.environment}}.tfvars \
+                    -out=./deployment.tfplan
+
+            - run: |
+                  terraform apply \
+                    --var-file variables/global.tfvars \
+                    --var-file variables/${{event.inputs.environment}}.tfvars \
+                    deployment.tfplan
