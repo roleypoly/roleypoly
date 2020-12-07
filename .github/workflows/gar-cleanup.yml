@@ -16,6 +16,7 @@ jobs:
         strategy:
             matrix:
                 region: [us, europe, asia]
+            fail-fast: false
         steps:
             - name: Set up Cloud SDK
               uses: google-github-actions/setup-gcloud@master
