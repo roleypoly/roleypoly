@@ -109,10 +109,11 @@ jobs:
             - name: Pull necessary artifacts
               run: |
                   currentHash=${{ github.sha }}
-                  selectedTargetArtifact=${${{ github.event.inputs.worker_tag }}:-$currentHash}
+                  targetArtifact=${{ github.event.inputs.worker_tag }}
+                  selected="${targetArtifact:-$currentHash}"
 
                   mkdir worker-dist
-                  gsutil cp gs://roleypoly-artifacts/backend-worker/$selectedTargetArtifact/script.js worker-dist/backend-worker.js
+                  gsutil cp gs://roleypoly-artifacts/backend-worker/$selected/script.js worker-dist/backend-worker.js
 
             - run: terraform init --backend-config "prefix=${{github.event.inputs.environment}}"
 
