@@ -1,11 +1,8 @@
-FROM node:14-alpine AS base
-WORKDIR /src
-ENTRYPOINT []
-
 #
 # Builder
 #
-FROM base AS builder
+FROM mhart/alpine-node:14 AS builder
+WORKDIR /src
 
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
@@ -19,9 +16,10 @@ RUN yarn install --frozen-lockfile --prod
 #
 # Output layer
 #
-FROM base AS output
+FROM mhart/alpine-node:slim-14 AS output
+ENTRYPOINT []
 
 COPY --from=builder /src .
 
 ENV PORT=6601
-CMD yarn ui:prod
+CMD sh -c 'node node_modules/.bin/next start -p $PORT'
