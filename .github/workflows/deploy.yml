@@ -84,7 +84,7 @@ jobs:
 
                   docker pull $BOT_IMAGE_SRC
                   retag_push $BOT_IMAGE_SRC us-$BOT_IMAGE_DEST_BASE
-                  echo ::set-output name=bot_tag::@$(docker inspect $BOT_IMAGE_SRC -f '{{.Id}}'
+                  echo ::set-output name=bot_tag::@$(docker inspect $BOT_IMAGE_SRC -f '{{.Id}}')
 
     deploy_terraform:
         runs-on: ubuntu-latest
