@@ -1,6 +1,9 @@
 name: Roleypoly CI
 
-on: push
+on:
+    push:
+        paths-ignore:
+            - '.github/workflows/deploy.yml'
 
 jobs:
     go_test:
