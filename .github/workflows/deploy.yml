@@ -124,7 +124,7 @@ jobs:
               run: |
                   sh -c 'echo '$TF_DATA' | jq > actions.tfvars.auto.json' >/dev/null 2>&1
               env:
-                  TF_DATA: ${{ secrets['TF_DATA_'+github.event.inputs.environment] }}
+                  TF_DATA: ${{ secrets[format('TF_DATA_{0}', github.event.inputs.environment)] }}
 
             - run: |
                   terraform plan \
@@ -136,4 +136,5 @@ jobs:
                   terraform apply \
                     --var-file variables/global.tfvars \
                     --var-file variables/${{github.event.inputs.environment}}.tfvars \
-                    deployment.tfplan
+                    -auto-approve \
+                        deployment.tfplan
