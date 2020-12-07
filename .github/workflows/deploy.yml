@@ -44,21 +44,21 @@ jobs:
             - name: Login to GAR US
               uses: docker/login-action@v1
               with:
-                  registry: us-docker.pkg.io
+                  registry: us-docker.pkg.dev
                   username: _json_key
                   password: ${{ secrets.GAR_JSON_KEY }}
 
             - name: Login to GAR Europe
               uses: docker/login-action@v1
               with:
-                  registry: europe-docker.pkg.io
+                  registry: europe-docker.pkg.dev
                   username: _json_key
                   password: ${{ secrets.GAR_JSON_KEY }}
 
             - name: Login to GAR Asia
               uses: docker/login-action@v1
               with:
-                  registry: asia-docker.pkg.io
+                  registry: asia-docker.pkg.dev
                   username: _json_key
                   password: ${{ secrets.GAR_JSON_KEY }}
 
