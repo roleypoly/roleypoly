@@ -119,11 +119,11 @@ jobs:
 
             - name: Write tags to tags.tfvars.auto.json
               run: |
-                  echo '{"ui_tag": "${{needs.docker_sync.outputs.ui_tag}}", "bot_tag": "${{needs.docker_sync.outputs.bot_tag}}", "worker_path": "./worker-dist/backend-worker.js"}' | jq | tee tags.tfvars.auto.json
+                  echo '{"ui_tag": "${{needs.docker_sync.outputs.ui_tag}}", "bot_tag": "${{needs.docker_sync.outputs.bot_tag}}", "worker_path": "./worker-dist/backend-worker.js"}' | jq . | tee tags.tfvars.auto.json
 
             - name: Write TF_DATA_${{github.event.inputs.environment}} to actions.tfvars.auto.json
               run: |
-                  sh -c 'echo '$TF_DATA' | jq > actions.tfvars.auto.json' >/dev/null 2>&1
+                  sh -c 'echo \'$TF_DATA\' > actions.tfvars.auto.json'
               env:
                   TF_DATA: ${{ secrets[format('TF_DATA_{0}', github.event.inputs.environment)] }}
 
