@@ -104,6 +104,13 @@ jobs:
                   service_account_key: ${{ secrets.GCS_TF_KEY }}
                   export_default_credentials: true
 
+            - name: Get Google Secrets (they keep them in a box under a tree)
+              id: secrets
+              uses: google-github-actions/get-secretmanager-secrets@main
+              with:
+                  secrets: |-
+                      secretJSON:${{ secrets.GCS_PROJECT_ID }}/${{github.event.inputs.environment}}-tfvars
+
             - name: Pull necessary artifacts
               working-directory: ./terraform
               run: |
@@ -119,24 +126,25 @@ jobs:
               run: |
                   terraform init --backend-config "prefix=${{github.event.inputs.environment}}"
 
-            - name: Write tags to tags.tfvars.auto.json
+            - name: Write *.auto.tfvars.json files
               working-directory: ./terraform
               run: |
                   echo '{"ui_tag": "${{needs.docker_sync.outputs.ui_tag}}", "bot_tag": "${{needs.docker_sync.outputs.bot_tag}}", "worker_path": "./worker-dist/backend-worker.js"}' | jq . | tee tags.tfvars.auto.json
+                  echo ${SECRET_TFVARS} > secrets.auto.tfvars.json
+              env:
+                  SECRET_TFVARS: ${{ steps.secrets.outputs.secretJSON }}
 
             - name: Terraform plan
               working-directory: ./terraform
               run: |
                   terraform plan \
-                    --var-file variables/global.tfvars \
-                    --var-file variables/${{github.event.inputs.environment}}.tfvars \
+                    -var-file variables/global.tfvars \
+                    -var-file variables/${{github.event.inputs.environment}}.tfvars \
                     -out=./deployment.tfplan
 
             - name: Terraform apply
               working-directory: ./terraform
               run: |
                   terraform apply \
-                    --var-file variables/global.tfvars \
-                    --var-file variables/${{github.event.inputs.environment}}.tfvars \
                     -auto-approve \
                         deployment.tfplan
