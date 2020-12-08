@@ -1,3 +1,7 @@
+locals {
+  uiTag = var.ui_tag == "" ? ":${var.environment_tag}" : var.ui_tag
+}
+
 resource "google_cloud_run_service" "web" {
   for_each = toset(var.ui_regions)
 
@@ -7,7 +11,7 @@ resource "google_cloud_run_service" "web" {
   template {
     spec {
       containers {
-        image = "${local.artifactBaseMap[each.key]}/ui${var.ui_tag}"
+        image = "${local.artifactBaseMap[each.key]}/ui${local.uiTag}"
 
         env {
           name  = "API_PUBLIC_URI"
