@@ -159,7 +159,7 @@ jobs:
         needs:
             - docker_build
             - worker_build
-        if: github.ref == refs/heads/main
+        if: github.ref == "refs/heads/main"
         runs-on: ubuntu-latest
         steps:
             - name: Get UI digest
