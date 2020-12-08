@@ -1,9 +1,6 @@
 name: Roleypoly CI
 
-on:
-    push:
-        paths-ignore:
-            - '.github/workflows/deploy.yml'
+on: push
 
 jobs:
     go_test:
@@ -137,6 +134,7 @@ jobs:
 
             - name: Build and push
               uses: docker/build-push-action@v2
+              id: docker
               with:
                   context: .
                   file: ./hack/dockerfiles/${{matrix.dockerfile}}.Dockerfile
@@ -145,3 +143,59 @@ jobs:
                   cache-to: type=local,dest=/tmp/.buildx-cache
                   tags: ${{ steps.docker_meta.outputs.tags }}
                   labels: ${{ steps.docker_meta.outputs.labels }}
+
+            - name: Pre-deploy - Save digest.txt
+              run: |
+                  echo "${{ steps.docker.outputs.digest }}" > digest.txt
+
+            - name: Pre-deploy - Make digest artifact
+              uses: actions/upload-artifact@v1
+              with:
+                  name: ${{ matrix.dockerfile }}-digest
+                  path: digest.txt
+
+    trigger_deploy:
+        name: Deploy to Stage
+        needs:
+            - docker_build
+            - worker_build
+        if: github.ref == refs/heads/main
+        runs-on: ubuntu-latest
+        steps:
+            - name: Get UI digest
+              uses: actions/download-artifact@v2
+              with:
+                  name: ui-digest
+                  path: .digests/ui
+
+            - name: Get Bot digest
+              uses: actions/download-artifact@v2
+              with:
+                  name: bot-digest
+                  path: .digests/bot
+
+            - name: Set digests as addressable
+              id: digests
+              env:
+                  IMAGES: ui bot
+              run: |
+                  set_digest_output() {
+                    echo ::set-output name=$1::@$(cat .digests/$1/dig)
+                  }
+
+                  for image in $IMAGES; do
+                    set_digest_output $image
+                  done
+
+            - name: Invoke Deploy workflow
+              uses: benc-uk/workflow-dispatch@v1
+              with:
+                  workflow: Deploy
+                  token: ${{ secrets.GITOPS_TOKEN }}
+                  inputs: |-
+                      {
+                        "environment": "stage",
+                        "worker_tag": "${{ github.sha }}",
+                        "ui_tag": "${{ steps.digests.output.ui }}",
+                        "bot_tag": "${{ steps.digests.output.bot }}"
+                      }
