@@ -70,6 +70,11 @@ jobs:
                     docker push $2
                   }
 
+                  get_digest() {
+                    # Finds the digest for any GAR-pushed artifact
+                    docker inspect $1 --format='{{json .RepoDigests}}' | jq -r '[.[] | match("docker.pkg.*(sha256:.*)"; "g")] | .[0] | .captures | .[0] | .string'
+                  }
+
                   UI_IMAGE_SRC=ghcr.io/roleypoly/ui${{github.event.inputs.ui_tag}}
                   UI_IMAGE_DEST_BASE=docker.pkg.dev/roleypoly/roleypoly/ui:${{github.event.inputs.environment}}
 
@@ -77,14 +82,14 @@ jobs:
                   retag_push $UI_IMAGE_SRC us-$UI_IMAGE_DEST_BASE
                   retag_push $UI_IMAGE_SRC europe-$UI_IMAGE_DEST_BASE
                   retag_push $UI_IMAGE_SRC asia-$UI_IMAGE_DEST_BASE
-                  echo ::set-output name=ui_tag::@$(docker inspect $UI_IMAGE_SRC -f '{{.Id}}')
+                  echo ::set-output name=ui_tag::@$(get_digest $UI_IMAGE_SRC)
 
                   BOT_IMAGE_SRC=ghcr.io/roleypoly/bot${{github.event.inputs.bot_tag}}
                   BOT_IMAGE_DEST_BASE=docker.pkg.dev/roleypoly/roleypoly/bot:${{github.event.inputs.environment}}
 
                   docker pull $BOT_IMAGE_SRC
                   retag_push $BOT_IMAGE_SRC us-$BOT_IMAGE_DEST_BASE
-                  echo ::set-output name=bot_tag::@$(docker inspect $BOT_IMAGE_SRC -f '{{.Id}}')
+                  echo ::set-output name=bot_tag::@$(get_digest $BOT_IMAGE_SRC)
 
     deploy_terraform:
         runs-on: ubuntu-latest
