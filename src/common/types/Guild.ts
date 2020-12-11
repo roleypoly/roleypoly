@@ -6,9 +6,7 @@ export type Guild = {
     id: string;
     name: string;
     icon: string;
-    ownerid: string;
-    membercount: number;
-    splash: string;
+    roles: Role[];
 };
 
 export type GuildRoles = {

@@ -3,6 +3,7 @@ import {
     evaluatePermission,
     permissions as Permissions,
 } from '../../common/utils/hasPermission';
+import { WrappedKVNamespace } from './kv';
 
 export const formData = (obj: Record<string, any>): string => {
     return Object.keys(obj)
@@ -52,4 +53,42 @@ export const getSessionID = (request: Request): { type: string; id: string } | n
     }
 
     return { type, id };
+};
+
+export const discordFetch = async <T>(
+    url: string,
+    auth: string,
+    authType: 'Bearer' | 'Bot' = 'Bearer'
+): Promise<T> => {
+    const response = await fetch('https://discord.com/api/v8' + url, {
+        headers: {
+            authorization: `${authType} ${auth}`,
+        },
+    });
+
+    return (await response.json()) as T;
+};
+
+export const cacheLayer = <Identity, Data>(
+    kv: WrappedKVNamespace,
+    keyFactory: (identity: Identity) => string,
+    missHandler: (identity: Identity) => Promise<Data | null>,
+    ttlSeconds?: number
+) => async (identity: Identity): Promise<Data | null> => {
+    const key = keyFactory(identity);
+
+    const value = await kv.get<Data>(key);
+    if (value) {
+        return value;
+    }
+
+    const fallbackValue = await missHandler(identity);
+
+    if (!fallbackValue) {
+        return null;
+    }
+
+    await kv.put(key, fallbackValue, ttlSeconds);
+
+    return fallbackValue;
 };

@@ -5,7 +5,12 @@ import {
     GuildSlug,
     SessionData,
 } from '../../common/types';
-import { formData, parsePermissions, resolveFailures } from '../utils/api-tools';
+import {
+    discordFetch,
+    formData,
+    parsePermissions,
+    resolveFailures,
+} from '../utils/api-tools';
 import { Bounce } from '../utils/bounce';
 import { apiPublicURI, botClientID, botClientSecret, uiPublicURI } from '../utils/config';
 import { Sessions } from '../utils/kv';
@@ -89,20 +94,11 @@ export const LoginCallback = resolveFailures(
     }
 );
 
-const discordFetch = async <T>(url: string, auth: string): Promise<T> => {
-    const response = await fetch('https://discord.com/api/v8' + url, {
-        headers: {
-            authorization: 'Bearer ' + auth,
-        },
-    });
-
-    return (await response.json()) as T;
-};
-
 const getUser = async (accessToken: string): Promise<DiscordUser> => {
     const { id, username, discriminator, bot, avatar } = await discordFetch<DiscordUser>(
         '/users/@me',
-        accessToken
+        accessToken,
+        'Bearer'
     );
 
     return { id, username, discriminator, bot, avatar };
@@ -120,7 +116,8 @@ type UserGuildsPayload = {
 const getGuilds = async (accessToken: string) => {
     const guilds = await discordFetch<UserGuildsPayload>(
         '/users/@me/guilds',
-        accessToken
+        accessToken,
+        'Bearer'
     );
 
     const guildSlugs = guilds.map<GuildSlug>((guild) => ({

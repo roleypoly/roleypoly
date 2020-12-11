@@ -27,7 +27,7 @@ It uses 3 KV namespaces per environment:
   - All data is permanent (maybe doubly persisted to Firestore)
 
 - Guilds
-  - Cache of Discord guild data
+  - Cache of Discord guild + guild member data
   - All data subject to a 5 minute TTL
 
 ### App UI

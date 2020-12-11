@@ -1,4 +1,4 @@
-class WrappedKVNamespace {
+export class WrappedKVNamespace {
     constructor(private kvNamespace: KVNamespace) {}
 
     async get<T>(key: string): Promise<T | null> {

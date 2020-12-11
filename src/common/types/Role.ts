@@ -8,8 +8,9 @@ export type Role = {
     id: string;
     name: string;
     color: number;
-    permissions: number;
     managed: boolean;
     position: number;
     safety: RoleSafety;
+    /** Permissions is should be used as a BigInt, NOT a number. */
+    permissions: string;
 };
