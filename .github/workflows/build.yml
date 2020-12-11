@@ -180,7 +180,7 @@ jobs:
                   IMAGES: ui bot
               run: |
                   set_digest_output() {
-                    echo ::set-output name=$1::@$(cat .digests/$1/dig)
+                    echo ::set-output name=$1::@$(cat .digests/$1/digest.txt)
                   }
 
                   for image in $IMAGES; do
