@@ -83,7 +83,6 @@ resource "google_compute_instance" "bot" {
     gce-container-declaration = local.containerMetadataWithSecrets
     image                     = local.container.image
     environment               = var.environment_tag
-    google-logging-enabled    = "true"
   }
 
   labels = {

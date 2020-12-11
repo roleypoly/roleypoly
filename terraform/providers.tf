@@ -25,6 +25,11 @@ terraform {
       version = ">=3.0.0"
       source  = "hashicorp/null"
     }
+
+    tls = {
+      version = ">=3.0.0"
+      source  = "hashicorp/tls"
+    }
   }
 
   backend "gcs" {
@@ -33,6 +38,11 @@ terraform {
 }
 
 variable "cloudflare_api_token" {
+  type      = string
+  sensitive = true
+}
+
+variable "cloudflare_origin_ca_key" {
   type      = string
   sensitive = true
 }
@@ -48,8 +58,9 @@ variable "cloudflare_zone_id" {
 }
 
 provider "cloudflare" {
-  api_token  = var.cloudflare_api_token
-  account_id = var.cloudflare_account_id
+  api_token            = var.cloudflare_api_token
+  account_id           = var.cloudflare_account_id
+  api_user_service_key = var.cloudflare_origin_ca_key
 }
 
 variable "gcp_project" {

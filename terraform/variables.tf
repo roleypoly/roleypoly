@@ -70,7 +70,7 @@ variable "bot_instance_size" {
 }
 
 variable "bot_tag" {
-  type    = string
-  default = ""
+  type        = string
+  default     = ""
   description = ":tag or @sha265: of ghcr.io/roleypoly/bot"
 }
