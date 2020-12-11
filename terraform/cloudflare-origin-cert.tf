@@ -1,5 +1,5 @@
 resource "tls_private_key" "tls_pk" {
-  algorithm   = "RSA"
+  algorithm = "RSA"
 }
 
 resource "tls_cert_request" "web_csr" {
