@@ -15,7 +15,7 @@ variable "ui_regions" {
 
 variable "ui_tag" {
   type        = string
-  description = "Specific tag to deploy"
+  description = ":tag or @sha265: of *-docker.pkg.dev/roleypoly/roleypoly/ui"
   default     = ""
 }
 
@@ -25,6 +25,12 @@ variable "bot_client_id" {
 }
 
 variable "bot_client_secret" {
+  type        = string
+  description = "Bot Client Secret"
+  sensitive   = true
+}
+
+variable "bot_token" {
   type        = string
   description = "Bot Client Secret"
   sensitive   = true
@@ -49,4 +55,22 @@ variable "api_path_to_worker" {
 variable "root_users" {
   type        = list(string)
   description = "Root users to use for role elevation calculations"
+}
+
+variable "deploy_bot" {
+  type        = bool
+  default     = false
+  description = "Bot is an optional piece of the system. It's only typically deployed in prod."
+}
+
+variable "bot_instance_size" {
+  type        = string
+  default     = "f1-micro"
+  description = "Google Compute Engine VM size"
+}
+
+variable "bot_tag" {
+  type    = string
+  default = ""
+  description = ":tag or @sha265: of ghcr.io/roleypoly/bot"
 }

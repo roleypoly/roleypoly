@@ -25,7 +25,6 @@ jobs:
         runs-on: ubuntu-latest
         outputs:
             ui_tag: ${{ steps.tags.outputs.ui_tag }}
-            bot_tag: ${{ steps.tags.outputs.bot_tag }}
         steps:
             - uses: actions/checkout@master
 
@@ -91,13 +90,6 @@ jobs:
                   retag_push $UI_IMAGE_SRC asia-$UI_IMAGE_DEST_BASE
                   echo ::set-output name=ui_tag::@$(get_digest $UI_IMAGE_SRC)
 
-                  BOT_IMAGE_SRC=ghcr.io/roleypoly/bot${{github.event.inputs.bot_tag}}
-                  BOT_IMAGE_DEST_BASE=docker.pkg.dev/roleypoly/roleypoly/bot:${{github.event.inputs.environment}}
-
-                  docker pull $BOT_IMAGE_SRC
-                  retag_push $BOT_IMAGE_SRC us-$BOT_IMAGE_DEST_BASE
-                  echo ::set-output name=bot_tag::@$(get_digest $BOT_IMAGE_SRC)
-
     deploy_terraform:
         runs-on: ubuntu-latest
         needs:
@@ -142,7 +134,7 @@ jobs:
               working-directory: ./terraform
               run: |
                   echo \
-                    '{"ui_tag": "${{needs.docker_sync.outputs.ui_tag}}", "bot_tag": "${{needs.docker_sync.outputs.bot_tag}}", "api_path_to_worker": "./worker-dist/backend-worker.js"}' \
+                    '{"ui_tag": "${{needs.docker_sync.outputs.ui_tag}}", "bot_tag": "${{github.event.inputs.bot_tag}}", "api_path_to_worker": "./worker-dist/backend-worker.js"}' \
                     | jq . \
                     | tee tags.auto.tfvars.json
 

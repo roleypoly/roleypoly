@@ -9,3 +9,5 @@ ui_regions = [
   "asia-northeast1",
   "asia-southeast1"
 ]
+deploy_bot        = true
+bot_instance_size = "e2-micro"
