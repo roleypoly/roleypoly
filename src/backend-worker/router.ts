@@ -35,11 +35,12 @@ export class Router {
     }
 
     handle(request: Request): Promise<Response> | Response {
-        if (request.url === '/') {
+        const url = new URL(request.url);
+
+        if (url.pathname === '/' || url.pathname === '') {
             return this.fallbacks.root(request);
         }
         const lowerMethod = request.method.toLowerCase();
-        const url = new URL(request.url);
         const rootPath = url.pathname.split('/')[1];
         const handler = this.routingTree[lowerMethod]?.[rootPath];
 

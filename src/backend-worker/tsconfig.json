@@ -9,6 +9,6 @@
         "./**/*.ts",
         "../../node_modules/@cloudflare/workers-types/index.d.ts"
     ],
-    "exclude": ["./**/*.spec.ts"],
+    "exclude": ["./**/*.spec.ts", "./dist/**"],
     "extends": "../../tsconfig.json"
 }

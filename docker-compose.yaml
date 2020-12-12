@@ -1,16 +1,28 @@
 # This is the Docker Compose for setting up a local dev environment.
-# Production uses PaaS equivalents in Google Cloud
 version: '3.8'
 
 services:
-    firestore:
-        image: mtlynch/firestore-emulator
-        environment:
-            FIRESTORE_PROJECT_ID: roleypoly-00000000
+    worker:
+        image: node:14
+        volumes:
+            - '.:/src'
         ports:
-            - 6691:8080
+            - 6609:6609
+        links:
+            - redis
+        working_dir: /src
+        command: yarn worker
+
+    ui:
+        image: node:14
+        volumes:
+            - '.:/src'
+        ports:
+            - 6601:6601
+        working_dir: /src
+        command: yarn ui
 
     redis:
-        image: redis:5-alpine
+        image: redis:6-alpine
         ports:
-            - 6692:6379
+            - 6379

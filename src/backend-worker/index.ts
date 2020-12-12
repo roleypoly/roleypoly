@@ -6,10 +6,23 @@ import { Router } from './router';
 
 const router = new Router();
 
+router.addFallback('root', () => {
+    return new Response('hello!!');
+});
+
 router.add('GET', 'bot-join', BotJoin);
 router.add('GET', 'login-bounce', LoginBounce);
 router.add('GET', 'login-callback', LoginCallback);
 router.add('GET', 'get-session', GetSession);
+router.add('GET', 'x-headers', (request) => {
+    const headers: { [x: string]: string } = {};
+
+    for (let [key, value] of request.headers.entries()) {
+        headers[key] = value;
+    }
+
+    return new Response(JSON.stringify(headers));
+});
 
 addEventListener('fetch', (event: FetchEvent) => {
     event.respondWith(router.handle(event.request));
