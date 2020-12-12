@@ -44,7 +44,7 @@
         "styled-components": "^5.2.1"
     },
     "devDependencies": {
-        "@babel/core": "^7.12.9",
+        "@babel/core": "^7.12.10",
         "@cloudflare/workers-types": "^2.1.0",
         "@icons/material": "^0.4.1",
         "@peculiar/webcrypto": "^1.1.4",
