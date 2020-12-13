@@ -39,6 +39,11 @@ resource "cloudflare_worker_script" "backend" {
     text = var.bot_client_secret
   }
 
+  secret_text_binding {
+    name = "BOT_TOKEN"
+    text = var.bot_token
+  }
+
   plain_text_binding {
     name = "UI_PUBLIC_URI"
     text = var.ui_public_uri

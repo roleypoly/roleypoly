@@ -11,3 +11,7 @@ ui_regions = [
 ]
 deploy_bot        = true
 bot_instance_size = "e2-micro"
+ui_hostnames = [
+  "next.roleypoly.com",
+  "web-prod.roleypoly.com"
+]

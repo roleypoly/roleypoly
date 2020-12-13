@@ -2,7 +2,23 @@
 resource "google_compute_url_map" "web_lb" {
   name = "lb-um-web-${var.environment_tag}"
 
-  default_service = google_compute_backend_service.web_lb.id
+  host_rule {
+    hosts        = var.ui_hostnames
+    path_matcher = "web"
+  }
+
+  path_matcher {
+    name            = "web"
+    default_service = google_compute_backend_service.web_lb.id
+  }
+
+  // Blackhole. No addresses will ever be this, and hosts without IPv6 will fail regardless.
+  // Not matching the host_rule should be seen as treason.
+  default_url_redirect {
+    host_redirect = "[100::]"
+    path_redirect = "/"
+    strip_query   = true
+  }
 }
 
 // Regional load balancer
@@ -67,20 +83,28 @@ resource "google_compute_global_forwarding_rule" "web_lb-ipv6" {
 }
 
 // Cloudflare DNS records
+
+locals {
+  // for web-example.roleypoly.com, grab the .roleypoly.com. This may break for .co.uk, etc, so don't use that. :) 
+  uiDNSReplace = regex("/\\.[a-z0-9-]+\\.[a-z\\.]+$/", var.ui_hostnames[0])
+}
+
 resource "cloudflare_record" "web-ipv4" {
-  zone_id = var.cloudflare_zone_id
-  name    = "web-${var.environment_tag}"
-  type    = "A"
-  value   = google_compute_global_forwarding_rule.web_lb-ipv4.ip_address
-  proxied = true
+  for_each = toset(var.ui_hostnames)
+  zone_id  = var.cloudflare_zone_id
+  name     = replace(each.value, uiDNSReplace, "")
+  type     = "A"
+  value    = google_compute_global_forwarding_rule.web_lb-ipv4.ip_address
+  proxied  = true
 }
 
 resource "cloudflare_record" "web-ipv6" {
-  zone_id = var.cloudflare_zone_id
-  name    = "web-${var.environment_tag}"
-  type    = "AAAA"
-  value   = google_compute_global_forwarding_rule.web_lb-ipv6.ip_address
-  proxied = true
+  for_each = toset(var.ui_hostnames)
+  zone_id  = var.cloudflare_zone_id
+  name     = replace(each.value, uiDNSReplace, "")
+  type     = "AAAA"
+  value    = google_compute_global_forwarding_rule.web_lb-ipv6.ip_address
+  proxied  = true
 }
 
 // Regional groups so the backend service knows what it can route to for a given region

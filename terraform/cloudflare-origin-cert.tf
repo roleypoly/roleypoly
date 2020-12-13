@@ -14,7 +14,7 @@ resource "tls_cert_request" "web_csr" {
 
 resource "cloudflare_origin_ca_certificate" "web" {
   csr                = tls_cert_request.web_csr.cert_request_pem
-  hostnames          = ["web-${var.environment_tag}.roleypoly.com"]
+  hostnames          = var.ui_hostnames
   request_type       = "origin-rsa"
   requested_validity = 365 * 15
 }
