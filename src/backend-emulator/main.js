@@ -7,22 +7,15 @@ const chokidar = require('chokidar');
 const webpack = require('webpack');
 const { Crypto } = require('@peculiar/webcrypto');
 const roleypolyConfig = require('../backend-worker/roleypoly.config');
-const redis = require('redis');
-const { RedisKVShim } = require('./kv');
+const { KVShim } = require('./kv');
 const crypto = new Crypto();
 
-const redisClient = redis.createClient({ host: 'redis' });
-
-const getKVs = (redisClient, namespaces = []) => {
-    namespaces.reduce(
-        (acc, ns) => ({ ...acc, [ns]: new RedisKVShim(redisClient, ns) }),
-        {}
-    );
-};
+const getKVs = (namespaces = []) =>
+    namespaces.reduce((acc, ns) => ({ ...acc, [ns]: new KVShim(ns) }), {});
 
 const workerShims = {
     ...roleypolyConfig.environment,
-    ...getKVs(redisClient, roleypolyConfig.kv),
+    ...getKVs(roleypolyConfig.kv),
 };
 
 let listeners = [];
