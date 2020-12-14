@@ -9,6 +9,7 @@ const { Crypto } = require('@peculiar/webcrypto');
 const roleypolyConfig = require('../backend-worker/roleypoly.config');
 const { KVShim } = require('./kv');
 const crypto = new Crypto();
+const fetch = require('node-fetch');
 
 const getKVs = (namespaces = []) =>
     namespaces.reduce((acc, ns) => ({ ...acc, [ns]: new KVShim(ns) }), {});
@@ -43,6 +44,7 @@ const context = () =>
             setInterval: setInterval,
             clearInterval: clearInterval,
             clearTimeout: clearTimeout,
+            fetch: fetch,
             ...workerShims,
         },
         {
