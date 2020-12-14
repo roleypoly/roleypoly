@@ -1,31 +1,17 @@
 import { SessionData } from 'roleypoly/common/types';
-import { getSessionID, respond } from '../utils/api-tools';
-import { Sessions } from '../utils/kv';
+import { respond, withSession } from '../utils/api-tools';
 
-const NotAuthenticated = (extra?: string) =>
-    respond(
-        {
-            err: extra || 'not authenticated',
-        },
-        { status: 403 }
-    );
+export const GetSession = withSession(
+    (session?: SessionData) => (): Response => {
+        const { user, guilds, sessionID } = session || {};
 
-export const GetSession = async (request: Request): Promise<Response> => {
-    const sessionID = getSessionID(request);
-    if (!sessionID) {
-        return NotAuthenticated('missing auth header');
+        return respond({
+            user,
+            guilds,
+            sessionID,
+        });
+    },
+    {
+        mustAuthenticate: true,
     }
-
-    console.log(sessionID);
-
-    const sessionData = await Sessions.get<SessionData>(sessionID.id);
-    if (!sessionData) {
-        return NotAuthenticated('session not found');
-    }
-
-    const { tokens, ...withoutTokens } = sessionData;
-
-    return respond({
-        ...withoutTokens,
-    });
-};
+);

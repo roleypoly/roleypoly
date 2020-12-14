@@ -1,9 +1,10 @@
-import { UserGuildPermissions } from '../../common/types';
+import { SessionData, UserGuildPermissions } from '../../common/types';
 import {
     evaluatePermission,
     permissions as Permissions,
 } from '../../common/utils/hasPermission';
-import { WrappedKVNamespace } from './kv';
+import { Handler } from '../router';
+import { Sessions, WrappedKVNamespace } from './kv';
 
 export const formData = (obj: Record<string, any>): string => {
     return Object.keys(obj)
@@ -63,6 +64,8 @@ export const discordFetch = async <T>(
     const response = await fetch('https://discord.com/api/v8' + url, {
         headers: {
             authorization: `${authType} ${auth}`,
+            'user-agent':
+                'DiscordBot (https://github.com/roleypoly/roleypoly, git-main) (+https://roleypoly.com)',
         },
     });
 
@@ -92,3 +95,43 @@ export const cacheLayer = <Identity, Data>(
 
     return fallbackValue;
 };
+
+const NotAuthenticated = (extra?: string) =>
+    respond(
+        {
+            err: extra || 'not authenticated',
+        },
+        { status: 403 }
+    );
+
+type WithSessionOpts = {
+    mustAuthenticate?: boolean;
+};
+
+export const withSession = (
+    wrappedHandler: (session?: SessionData) => Handler,
+    { mustAuthenticate }: WithSessionOpts = {}
+): Handler => async (request: Request): Promise<Response> => {
+    const sessionID = getSessionID(request);
+    if (!sessionID) {
+        if (mustAuthenticate) {
+            return NotAuthenticated('missing authentication');
+        } else {
+            return await wrappedHandler(undefined)(request);
+        }
+    }
+
+    const session = await Sessions.get<SessionData>(sessionID.id);
+    if (!session) {
+        if (mustAuthenticate) {
+            return NotAuthenticated('authentication expired or not found');
+        } else {
+            return await wrappedHandler(undefined)(request);
+        }
+    }
+
+    return await wrappedHandler(session)(request);
+};
+
+export const mustBeAuthenticated = (handler: Handler) =>
+    withSession(() => handler, { mustAuthenticate: true });

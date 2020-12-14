@@ -15,7 +15,7 @@ router.add('GET', 'bot-join', BotJoin);
 router.add('GET', 'login-bounce', LoginBounce);
 router.add('GET', 'login-callback', LoginCallback);
 router.add('GET', 'get-session', GetSession);
-<<<<<<< HEAD
+router.add('GET', 'get-slug', GetSlug);
 router.add('GET', 'x-headers', (request) => {
     const headers: { [x: string]: string } = {};
 
@@ -25,9 +25,6 @@ router.add('GET', 'x-headers', (request) => {
 
     return new Response(JSON.stringify(headers));
 });
-=======
-router.add('GET', 'get-slug', GetSlug);
->>>>>>> init to fetch guild slug
 
 addEventListener('fetch', (event: FetchEvent) => {
     event.respondWith(router.handle(event.request));
