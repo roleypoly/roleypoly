@@ -26,16 +26,16 @@ class KVShim {
 
     makeValue(value, expirationTtl) {
         if (!expirationTtl) {
-            return {
+            return JSON.stringify({
                 value,
                 expires: false,
-            };
+            });
         }
 
-        return {
-            value: JSON.stringify(value),
+        return JSON.stringify({
+            value,
             expires: Date.now() + 1000 * expirationTtl,
-        };
+        });
     }
 
     validate(value) {
@@ -43,7 +43,7 @@ class KVShim {
             return false;
         }
 
-        if (value.expires < Date.now()) {
+        if (value.expires && value.expires < Date.now()) {
             return false;
         }
 
@@ -51,7 +51,7 @@ class KVShim {
     }
 
     async get(key, type = 'text') {
-        const result = await this.level.get(key);
+        const result = JSON.parse(await this.level.get(key));
 
         if (!this.validate(result)) {
             return null;
@@ -75,7 +75,7 @@ class KVShim {
             hasWarned = true;
         }
 
-        return this.level.put(key, this.makeValue(value, expirationTtl));
+        return await this.level.put(key, this.makeValue(value, expirationTtl));
     }
 
     async delete(key) {
