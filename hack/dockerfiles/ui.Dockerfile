@@ -17,9 +17,8 @@ RUN yarn install --frozen-lockfile --prod
 # Output layer
 #
 FROM mhart/alpine-node:slim-14 AS output
-ENTRYPOINT []
 
 COPY --from=builder /src .
 
 ENV PORT=6601
-CMD sh -c 'node node_modules/.bin/next start -p $PORT'
+ENTRYPOINT [ "/bin/sh", "-c", "/usr/bin/node node_modules/.bin/next start -p $PORT"]
