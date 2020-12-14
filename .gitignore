@@ -5,3 +5,4 @@ storybook-static
 .next
 worker
 wrangler.toml
+.devdbs

@@ -1,5 +1,6 @@
-const redis = require('redis');
-const { promisify } = require('util');
+const level = require('level');
+const path = require('path');
+const fs = require('fs');
 
 let hasWarned = false;
 
@@ -10,28 +11,53 @@ const getConversion = {
     stream: (x) => Buffer.from(x),
 };
 
-class RedisKVShim {
-    constructor(redisClient, namespace) {
+class KVShim {
+    constructor(namespace) {
         this.namespace = namespace;
-        this._redis = redisClient;
-        this._redisGet = promisify(this._redis.get).bind(redisClient);
-        this._redisSetex = promisify(this._redis.setex).bind(redisClient);
-        this._redisSet = promisify(this._redis.set).bind(redisClient);
-        this._redisDel = promisify(this._redis.del).bind(redisClient);
+
+        fs.mkdirSync(path.resolve(__dirname, '../../.devdbs'), {
+            recursive: true,
+        });
+
+        (async () => {
+            this.level = await level(path.resolve(__dirname, '../../.devdbs', namespace));
+        })();
     }
 
-    key(key) {
-        return `${this.namespace}__${key}`;
+    makeValue(value, expirationTtl) {
+        if (!expirationTtl) {
+            return {
+                value,
+                expires: false,
+            };
+        }
+
+        return {
+            value: JSON.stringify(value),
+            expires: Date.now() + 1000 * expirationTtl,
+        };
+    }
+
+    validate(value) {
+        if (!value) {
+            return false;
+        }
+
+        if (value.expires < Date.now()) {
+            return false;
+        }
+
+        return true;
     }
 
     async get(key, type = 'text') {
-        const result = await this._redisGet(this.key(key));
+        const result = await this.level.get(key);
 
-        if (!result) {
+        if (!this.validate(result)) {
             return null;
         }
 
-        return getConversion[type](result);
+        return getConversion[type](result.value);
     }
 
     async getWithMetadata(key, type) {
@@ -49,15 +75,11 @@ class RedisKVShim {
             hasWarned = true;
         }
 
-        if (expirationTtl) {
-            return this._redisSetex(this.key(key), value, expirationTtl);
-        }
-
-        return this._redisSet(this.key(key), value);
+        return this.level.put(key, this.makeValue(value, expirationTtl));
     }
 
     async delete(key) {
-        return this._redisDel(this.key(key));
+        return this.level.del(key);
     }
 
     list() {
@@ -71,5 +93,5 @@ class RedisKVShim {
 }
 
 module.exports = {
-    RedisKVShim,
+    KVShim,
 };

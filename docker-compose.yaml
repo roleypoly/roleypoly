@@ -8,8 +8,6 @@ services:
             - '.:/src'
         ports:
             - 6609:6609
-        links:
-            - redis
         working_dir: /src
         command: yarn worker
 
@@ -21,8 +19,3 @@ services:
             - 6601:6601
         working_dir: /src
         command: yarn ui
-
-    redis:
-        image: redis:6-alpine
-        ports:
-            - 6379
