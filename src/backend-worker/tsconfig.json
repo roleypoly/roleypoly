@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
         "outDir": "./dist",
-        "lib": ["esnext", "webworker"],
-        "types": ["@cloudflare/workers-types"]
+        "lib": ["esnext", "webworker", "ES2020.BigInt", "ES2020.Promise"],
+        "types": ["@cloudflare/workers-types"],
+        "target": "ES2019"
     },
     "include": [
         "./*.ts",

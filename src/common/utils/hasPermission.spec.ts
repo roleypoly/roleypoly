@@ -5,16 +5,17 @@ import { hasPermission, hasPermissionOrAdmin, permissions } from './hasPermissio
 const roles: Role[] = [
     {
         ...guildRoles.rolesList[0],
-        permissions: permissions.ADMINISTRATOR,
+        permissions: String(permissions.ADMINISTRATOR),
     },
     {
         ...guildRoles.rolesList[0],
-        permissions:
-            permissions.SPEAK | permissions.BAN_MEMBERS | permissions.CHANGE_NICKNAME,
+        permissions: String(
+            permissions.SPEAK | permissions.BAN_MEMBERS | permissions.CHANGE_NICKNAME
+        ),
     },
     {
         ...guildRoles.rolesList[0],
-        permissions: permissions.BAN_MEMBERS,
+        permissions: String(permissions.BAN_MEMBERS),
     },
 ];
 

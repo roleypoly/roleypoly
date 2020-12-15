@@ -16,7 +16,7 @@ import {
 export const roleCategory: Role[] = [
     {
         id: 'aaa',
-        permissions: 0,
+        permissions: '0',
         name: 'She/Her',
         color: 0xffc0cb,
         position: 1,
@@ -25,7 +25,7 @@ export const roleCategory: Role[] = [
     },
     {
         id: 'bbb',
-        permissions: 0,
+        permissions: '0',
         name: 'He/Him',
         color: 0xc0ebff,
         position: 2,
@@ -34,7 +34,7 @@ export const roleCategory: Role[] = [
     },
     {
         id: 'ccc',
-        permissions: 0,
+        permissions: '0',
         name: 'They/Them',
         color: 0xc0ffd5,
         position: 3,
@@ -43,7 +43,7 @@ export const roleCategory: Role[] = [
     },
     {
         id: 'ddd',
-        permissions: 0,
+        permissions: '0',
         name: 'Reee',
         color: 0xff0000,
         position: 4,
@@ -52,7 +52,7 @@ export const roleCategory: Role[] = [
     },
     {
         id: 'eee',
-        permissions: 0,
+        permissions: '0',
         name: 'black but actually bravely default',
         color: 0x000000,
         position: 5,
@@ -61,7 +61,7 @@ export const roleCategory: Role[] = [
     },
     {
         id: 'fff',
-        permissions: 0,
+        permissions: '0',
         name: 'b̻͌̆̽ͣ̃ͭ̊l͚̥͙̔ͨ̊aͥć͕k͎̟͍͕ͥ̋ͯ̓̈̉̋i͛̄̔͂̚̚҉̳͈͔̖̼̮ṣ̤̗̝͊̌͆h͈̭̰͔̥̯ͅ',
         color: 0x1,
         position: 6,
@@ -70,7 +70,7 @@ export const roleCategory: Role[] = [
     },
     {
         id: 'unsafe1',
-        permissions: 0,
+        permissions: '0',
         name: 'too high',
         color: 0xff0088,
         position: 7,
@@ -79,7 +79,7 @@ export const roleCategory: Role[] = [
     },
     {
         id: 'unsafe2',
-        permissions: 0x00000008 | 0x10000000,
+        permissions: String(0x00000008 | 0x10000000),
         name: 'too strong',
         color: 0x00ff88,
         position: 8,
@@ -100,7 +100,7 @@ export const mockCategory: Category = {
 export const roleCategory2: Role[] = [
     {
         id: 'ddd2',
-        permissions: 0,
+        permissions: '0',
         name: 'red',
         color: 0xff0000,
         position: 9,
@@ -109,7 +109,7 @@ export const roleCategory2: Role[] = [
     },
     {
         id: 'eee2',
-        permissions: 0,
+        permissions: '0',
         name: 'green',
         color: 0x00ff00,
         position: 10,
@@ -142,9 +142,7 @@ export const guild: Guild = {
     name: 'emoji megaporium',
     id: '421896162539470888',
     icon: '3372fd895ed913b55616c5e49cd50e60',
-    ownerid: 'bbb',
-    membercount: 23453,
-    splash: '',
+    roles: [],
 };
 
 export const guildMap: { [x: string]: Guild } = {
@@ -153,25 +151,19 @@ export const guildMap: { [x: string]: Guild } = {
         name: 'Roleypoly',
         id: '203493697696956418',
         icon: 'ff08d36f5aee1ff48f8377b65d031ab0',
-        ownerid: 'bbb',
-        membercount: 23453,
-        splash: '',
+        roles: [],
     },
     'chamber of secrets': {
         name: 'chamber of secrets',
         id: 'aaa',
         icon: '',
-        ownerid: 'bbb',
-        membercount: 23453,
-        splash: '',
+        roles: [],
     },
     Eclipse: {
         name: 'Eclipse',
         id: '408821059161423873',
         icon: '49dfdd8b2456e2977e80a8b577b19c0d',
-        ownerid: 'bbb',
-        membercount: 23453,
-        splash: '',
+        roles: [],
     },
 };
 

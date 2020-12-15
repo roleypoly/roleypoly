@@ -12,7 +12,7 @@ const adminRoles: Role[] = [
     {
         id: 'roley2',
         name: 'Admin',
-        permissions: 0,
+        permissions: '0',
         color: chroma('hotpink').num(),
         position: -1,
         managed: true,
@@ -21,7 +21,7 @@ const adminRoles: Role[] = [
     {
         id: 'roley3',
         name: 'Moderator',
-        permissions: 0,
+        permissions: '0',
         color: chroma('lime').num(),
         position: -1,
         managed: true,
@@ -32,7 +32,7 @@ const adminRoles: Role[] = [
 const roleypolyRole: Role = {
     id: 'roley',
     name: 'Roleypoly',
-    permissions: 0,
+    permissions: '0',
     color: chroma(palette.taupe500).num(),
     position: -1,
     managed: true,

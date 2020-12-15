@@ -2,6 +2,7 @@ import chroma from 'chroma-js';
 import * as React from 'react';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { Role as RPCRole, RoleSafety } from 'roleypoly/common/types';
+import { evaluatePermission, permissions } from 'roleypoly/common/utils/hasPermission';
 import { numberToChroma } from 'roleypoly/design-system/atoms/colors';
 import * as styled from './Role.styled';
 
@@ -67,12 +68,12 @@ const disabledReason = (role: RPCRole) => {
         case RoleSafety.HIGHERTHANBOT:
             return `This role is above Roleypoly's own role.`;
         case RoleSafety.DANGEROUSPERMISSIONS:
-            const { permissions } = role;
+            const rolePermissions = BigInt(role.permissions);
             let permissionHits: string[] = [];
 
-            (permissions & 0x00000008) === 0x00000008 &&
+            evaluatePermission(rolePermissions, permissions.ADMINISTRATOR) &&
                 permissionHits.push('Administrator');
-            (permissions & 0x10000000) === 0x10000000 &&
+            evaluatePermission(rolePermissions, permissions.MANAGE_ROLES) &&
                 permissionHits.push('Manage Roles');
 
             return `This role has unsafe permissions: ${permissionHits.join(', ')}`;
