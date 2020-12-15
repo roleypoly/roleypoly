@@ -34,7 +34,7 @@ export class Router {
         this.routingTree[lowerMethod][rootPath] = handler;
     }
 
-    handle(request: Request): Promise<Response> | Response {
+    async handle(request: Request): Promise<Response> | Response {
         const url = new URL(request.url);
 
         if (url.pathname === '/' || url.pathname === '') {

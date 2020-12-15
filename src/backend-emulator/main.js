@@ -30,14 +30,7 @@ const context = () =>
                     listeners.push(fn);
                 }
             },
-            Response: class {
-                constructor(body, opts = {}) {
-                    this.body = Buffer.from(body || '');
-                    this.headers = opts.headers || {};
-                    this.url = opts.url || {};
-                    this.status = opts.status || 200;
-                }
-            },
+            Response: fetch.Response,
             URL: URL,
             crypto: crypto,
             setTimeout: setTimeout,
@@ -45,6 +38,7 @@ const context = () =>
             clearInterval: clearInterval,
             clearTimeout: clearTimeout,
             fetch: fetch,
+            console: console,
             ...workerShims,
         },
         {
@@ -59,24 +53,37 @@ const server = http.createServer((req, res) => {
     const event = {
         respondWith: async (value) => {
             const timeStart = Date.now();
-            const response = await value;
+            let loggedStatus = 'xxx';
+            try {
+                const response = await value;
+                if (!response) {
+                    throw new Error(
+                        `response was invalid, got ${JSON.stringify(response)}`
+                    );
+                }
+                res.statusCode = response.status;
+                loggedStatus = String(response.status);
+                Object.entries(response.headers).forEach(([k, v]) => res.setHeader(k, v));
+                res.end(response.body);
+            } catch (e) {
+                console.error(e);
+                res.statusCode = 500;
+                loggedStatus = '500';
+                res.end(JSON.stringify({ error: 'internal server error' }));
+            }
             const timeEnd = Date.now();
             console.log(
-                `${response.status} [${timeEnd - timeStart}ms] - ${req.method} ${req.url}`
+                `${loggedStatus} [${timeEnd - timeStart}ms] - ${req.method} ${req.url}`
             );
-            res.statusCode = response.status;
-            Object.entries(response.headers).forEach(([k, v]) => res.setHeader(k, v));
-            res.end(response.body);
         },
-        request: {
-            url: `http://${req.headers.host || 'localhost'}${req.url}`,
-            body: req,
-            headers: Object.entries(req.headers).reduce(
-                (acc, [k, v]) => acc.set(k, v),
-                new Map()
-            ),
-            method: req.method,
-        },
+        request: new fetch.Request(
+            new URL(`http://${req.headers.host || 'localhost'}${req.url}`),
+            {
+                body: ['GET', 'HEAD'].includes(req.method) ? undefined : req,
+                headers: req.headers,
+                method: req.method,
+            }
+        ),
     };
 
     event.request.headers.set('cf-client-ip', req.connection.remoteAddress);
@@ -110,6 +117,7 @@ const reload = () => {
             context(),
             {
                 displayErrors: true,
+                filename: 'worker.js',
             }
         )
     );
@@ -124,6 +132,11 @@ const rebuild = () =>
                 console.log('Compilation failed.', err);
                 reject(err);
             } else {
+                if (stats.hasErrors()) {
+                    console.error('Compilation errored:', stats.compilation.errors);
+                    return;
+                }
+
                 console.log('Compilation done.');
                 resolve();
             }

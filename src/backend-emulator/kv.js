@@ -51,13 +51,17 @@ class KVShim {
     }
 
     async get(key, type = 'text') {
-        const result = JSON.parse(await this.level.get(key));
+        try {
+            const result = JSON.parse(await this.level.get(key));
 
-        if (!this.validate(result)) {
+            if (!this.validate(result)) {
+                return null;
+            }
+
+            return getConversion[type](result.value);
+        } catch (e) {
             return null;
         }
-
-        return getConversion[type](result.value);
     }
 
     async getWithMetadata(key, type) {

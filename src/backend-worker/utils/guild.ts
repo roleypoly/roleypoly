@@ -26,6 +26,10 @@ export const getGuild = cacheLayer(
     async (id: string) => {
         const guildRaw = await discordFetch<APIGuild>(`/guilds/${id}`, botToken, 'Bot');
 
+        if (!guildRaw) {
+            return null;
+        }
+
         // Filters the raw guild data into data we actually want
         const guild: Guild = {
             id: guildRaw.id,

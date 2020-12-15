@@ -23,7 +23,7 @@ export const resolveFailures = (
         return handler(request);
     } catch (e) {
         console.error(e);
-        return handleWith;
+        return handleWith || respond({ error: 'internal server error' }, { status: 500 });
     }
 };
 
@@ -60,7 +60,7 @@ export const discordFetch = async <T>(
     url: string,
     auth: string,
     authType: 'Bearer' | 'Bot' = 'Bearer'
-): Promise<T> => {
+): Promise<T | null> => {
     const response = await fetch('https://discord.com/api/v8' + url, {
         headers: {
             authorization: `${authType} ${auth}`,
@@ -69,7 +69,11 @@ export const discordFetch = async <T>(
         },
     });
 
-    return (await response.json()) as T;
+    if (response.ok) {
+        return (await response.json()) as T;
+    } else {
+        return null;
+    }
 };
 
 export const cacheLayer = <Identity, Data>(
@@ -86,7 +90,6 @@ export const cacheLayer = <Identity, Data>(
     }
 
     const fallbackValue = await missHandler(identity);
-
     if (!fallbackValue) {
         return null;
     }

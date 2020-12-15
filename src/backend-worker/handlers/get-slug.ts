@@ -1,9 +1,42 @@
-import { Guild } from "roleypoly/common/types";
-import { discordFetch } from "../utils/api-tools";
+import { GuildSlug } from 'roleypoly/common/types';
+import { respond } from '../utils/api-tools';
+import { getGuild } from '../utils/guild';
 
 export const GetSlug = async (request: Request): Promise<Response> => {
-  const reqURL = new URL(request.url)
-  const serverID = reqURL.pathname.split('/')[2]
-  
-  const serverPayload = discordFetch<Guild>
+    // return respond({ hello: 'world' });
+    const reqURL = new URL(request.url);
+    const [, , serverID] = reqURL.pathname.split('/');
+
+    if (!serverID) {
+        return respond(
+            {
+                error: 'missing server ID',
+            },
+            {
+                status: 400,
+            }
+        );
+    }
+
+    const guild = await getGuild(serverID);
+    if (!guild) {
+        return respond(
+            {
+                error: 'guild not found',
+            },
+            {
+                status: 404,
+            }
+        );
+    }
+
+    const { id, name, icon } = guild;
+    const guildSlug: GuildSlug = {
+        id,
+        name,
+        icon,
+        permissionLevel: 0,
+    };
+    console.log({ guildSlug });
+    return respond(guildSlug);
 };
