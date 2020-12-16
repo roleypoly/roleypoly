@@ -2,10 +2,10 @@ import {
     Category,
     CategoryType,
     DiscordUser,
+    Features,
     Guild,
     GuildData,
     GuildEnumeration,
-    GuildRoles,
     GuildSlug,
     Member,
     Role,
@@ -21,7 +21,7 @@ export const roleCategory: Role[] = [
         color: 0xffc0cb,
         position: 1,
         managed: false,
-        safety: RoleSafety.SAFE,
+        safety: RoleSafety.Safe,
     },
     {
         id: 'bbb',
@@ -30,7 +30,7 @@ export const roleCategory: Role[] = [
         color: 0xc0ebff,
         position: 2,
         managed: false,
-        safety: RoleSafety.SAFE,
+        safety: RoleSafety.Safe,
     },
     {
         id: 'ccc',
@@ -39,7 +39,7 @@ export const roleCategory: Role[] = [
         color: 0xc0ffd5,
         position: 3,
         managed: false,
-        safety: RoleSafety.SAFE,
+        safety: RoleSafety.Safe,
     },
     {
         id: 'ddd',
@@ -48,7 +48,7 @@ export const roleCategory: Role[] = [
         color: 0xff0000,
         position: 4,
         managed: false,
-        safety: RoleSafety.SAFE,
+        safety: RoleSafety.Safe,
     },
     {
         id: 'eee',
@@ -57,7 +57,7 @@ export const roleCategory: Role[] = [
         color: 0x000000,
         position: 5,
         managed: false,
-        safety: RoleSafety.SAFE,
+        safety: RoleSafety.Safe,
     },
     {
         id: 'fff',
@@ -66,7 +66,7 @@ export const roleCategory: Role[] = [
         color: 0x1,
         position: 6,
         managed: false,
-        safety: RoleSafety.SAFE,
+        safety: RoleSafety.Safe,
     },
     {
         id: 'unsafe1',
@@ -75,7 +75,7 @@ export const roleCategory: Role[] = [
         color: 0xff0088,
         position: 7,
         managed: false,
-        safety: RoleSafety.HIGHERTHANBOT,
+        safety: RoleSafety.HigherThanBot,
     },
     {
         id: 'unsafe2',
@@ -84,16 +84,16 @@ export const roleCategory: Role[] = [
         color: 0x00ff88,
         position: 8,
         managed: false,
-        safety: RoleSafety.DANGEROUSPERMISSIONS,
+        safety: RoleSafety.DangerousPermissions,
     },
 ];
 
 export const mockCategory: Category = {
     id: 'aaa',
     name: 'Mock',
-    rolesList: roleCategory.map((x) => x.id),
+    roles: roleCategory.map((x) => x.id),
     hidden: false,
-    type: CategoryType.MULTI,
+    type: CategoryType.Multi,
     position: 0,
 };
 
@@ -105,7 +105,7 @@ export const roleCategory2: Role[] = [
         color: 0xff0000,
         position: 9,
         managed: false,
-        safety: RoleSafety.SAFE,
+        safety: RoleSafety.Safe,
     },
     {
         id: 'eee2',
@@ -114,22 +114,17 @@ export const roleCategory2: Role[] = [
         color: 0x00ff00,
         position: 10,
         managed: false,
-        safety: RoleSafety.SAFE,
+        safety: RoleSafety.Safe,
     },
 ];
 
 export const mockCategorySingle: Category = {
     id: 'bbb',
     name: 'Mock Single 岡野',
-    rolesList: roleCategory2.map((x) => x.id),
+    roles: roleCategory2.map((x) => x.id),
     hidden: false,
-    type: CategoryType.SINGLE,
+    type: CategoryType.Single,
     position: 0,
-};
-
-export const guildRoles: GuildRoles = {
-    id: 'aaa',
-    rolesList: [...roleCategory, ...roleCategory2],
 };
 
 export const roleWikiData = {
@@ -145,33 +140,38 @@ export const guild: Guild = {
     roles: [],
 };
 
-export const guildMap: { [x: string]: Guild } = {
-    'emoji megaporium': guild,
+export const guildMap: { [x: string]: GuildSlug } = {
+    'emoji megaporium': {
+        name: guild.name,
+        id: guild.id,
+        permissionLevel: 0,
+        icon: guild.icon,
+    },
     Roleypoly: {
         name: 'Roleypoly',
         id: '203493697696956418',
+        permissionLevel: 0,
         icon: 'ff08d36f5aee1ff48f8377b65d031ab0',
-        roles: [],
     },
     'chamber of secrets': {
         name: 'chamber of secrets',
         id: 'aaa',
+        permissionLevel: 0,
         icon: '',
-        roles: [],
     },
     Eclipse: {
         name: 'Eclipse',
         id: '408821059161423873',
+        permissionLevel: 0,
         icon: '49dfdd8b2456e2977e80a8b577b19c0d',
-        roles: [],
     },
 };
 
 export const guildData: GuildData = {
     id: 'aaa',
     message: 'henlo worl!!',
-    categoriesList: [mockCategory, mockCategorySingle],
-    entitlementsList: [],
+    categories: [mockCategory, mockCategorySingle],
+    features: Features.None,
 };
 
 export const user: DiscordUser = {
@@ -184,7 +184,7 @@ export const user: DiscordUser = {
 
 export const member: Member = {
     guildid: 'aaa',
-    rolesList: ['aaa', 'eee', 'unsafe2', 'ddd2'],
+    roles: ['aaa', 'eee', 'unsafe2', 'ddd2'],
     nick: 'okano cat',
     user: user,
 };
@@ -194,42 +194,42 @@ export const rpUser: RoleypolyUser = {
 };
 
 export const guildEnum: GuildEnumeration = {
-    guildsList: [
+    guilds: [
         {
             id: 'aaa',
             guild: guildMap['emoji megaporium'],
             member,
             data: guildData,
-            roles: guildRoles,
+            roles: [...roleCategory, ...roleCategory2],
         },
         {
             id: 'bbb',
             guild: guildMap['Roleypoly'],
             member: {
                 ...member,
-                rolesList: ['unsafe2'],
+                roles: ['unsafe2'],
             },
             data: guildData,
-            roles: guildRoles,
+            roles: [...roleCategory, ...roleCategory2],
         },
         {
             id: 'ccc',
             guild: guildMap['chamber of secrets'],
             member,
             data: guildData,
-            roles: guildRoles,
+            roles: [...roleCategory, ...roleCategory2],
         },
         {
             id: 'ddd',
             guild: guildMap['Eclipse'],
             member,
             data: guildData,
-            roles: guildRoles,
+            roles: [...roleCategory, ...roleCategory2],
         },
     ],
 };
 
-export const mastheadSlugs: GuildSlug[] = guildEnum.guildsList.map<GuildSlug>(
+export const mastheadSlugs: GuildSlug[] = guildEnum.guilds.map<GuildSlug>(
     (guild, idx) => ({
         id: guild.guild.id,
         name: guild.guild.name,

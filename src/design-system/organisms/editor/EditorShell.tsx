@@ -17,12 +17,12 @@ export const EditorShell = (props: Props) => (
 
 const RolesTab = (props: Props) => (
     <div>
-        {props.guild.data.categoriesList.map((category, idx) => (
+        {props.guild.data.categories.map((category, idx) => (
             <CategoryContainer key={idx}>
                 <EditorCategory
                     category={category}
                     uncategorizedRoles={[]}
-                    guildRoles={props.guild.roles.rolesList}
+                    guildRoles={props.guild.roles}
                     onChange={(x) => console.log(x)}
                 />
             </CategoryContainer>

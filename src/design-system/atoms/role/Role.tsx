@@ -65,9 +65,9 @@ export const Role = (props: Props) => {
 
 const disabledReason = (role: RPCRole) => {
     switch (role.safety) {
-        case RoleSafety.HIGHERTHANBOT:
+        case RoleSafety.HigherThanBot:
             return `This role is above Roleypoly's own role.`;
-        case RoleSafety.DANGEROUSPERMISSIONS:
+        case RoleSafety.DangerousPermissions:
             const rolePermissions = BigInt(role.permissions);
             let permissionHits: string[] = [];
 

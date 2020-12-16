@@ -8,9 +8,10 @@ import * as React from 'react';
 import {
     guild,
     guildData,
-    guildRoles,
     member,
     mockCategorySingle,
+    roleCategory,
+    roleCategory2,
 } from 'roleypoly/common/types/storyData';
 import { Role } from 'roleypoly/design-system/atoms/role';
 import { PickerCategory } from 'roleypoly/design-system/molecules/picker-category';
@@ -19,9 +20,9 @@ import { RolePicker, RolePickerProps } from './RolePicker';
 
 it('unselects the rest of a category in single mode', () => {
     const props: RolePickerProps = {
-        guildData: { ...guildData, categoriesList: [mockCategorySingle] },
-        member: { ...member, rolesList: [] },
-        roles: guildRoles,
+        guildData: { ...guildData, categories: [mockCategorySingle] },
+        member: { ...member, roles: [] },
+        roles: [...roleCategory, ...roleCategory2],
         guild: guild,
         onSubmit: jest.fn(),
         editable: false,
@@ -34,10 +35,10 @@ it('unselects the rest of a category in single mode', () => {
     roles.first().props().onClick?.(true);
 
     view.find(ResetSubmit).props().onSubmit();
-    expect(props.onSubmit).toBeCalledWith([mockCategorySingle.rolesList[0]]);
+    expect(props.onSubmit).toBeCalledWith([mockCategorySingle.roles[0]]);
 
-    roles.last().props().onClick?.(true);
+    roles.at(1).props().onClick?.(true);
 
     view.find(ResetSubmit).props().onSubmit();
-    expect(props.onSubmit).toBeCalledWith([mockCategorySingle.rolesList[1]]);
+    expect(props.onSubmit).toBeCalledWith([mockCategorySingle.roles[1]]);
 });

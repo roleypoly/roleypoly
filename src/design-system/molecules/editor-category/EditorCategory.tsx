@@ -19,7 +19,7 @@ type Props = {
 };
 
 const typeEnumToSwitch = (typeData: CategoryType) => {
-    if (typeData === CategoryType.SINGLE) {
+    if (typeData === CategoryType.Single) {
         return 'Single';
     } else {
         return 'Multiple';
@@ -28,9 +28,9 @@ const typeEnumToSwitch = (typeData: CategoryType) => {
 
 const switchToTypeEnum = (typeData: 'Single' | 'Multiple') => {
     if (typeData === 'Single') {
-        return CategoryType.SINGLE;
+        return CategoryType.Single;
     } else {
-        return CategoryType.MULTI;
+        return CategoryType.Multi;
     }
 };
 
@@ -53,14 +53,14 @@ export const EditorCategory = (props: Props) => {
         updateSearchTerm('');
         props.onChange({
             ...props.category,
-            rolesList: [...props.category.rolesList, role.id],
+            roles: [...props.category.roles, role.id],
         });
     };
 
     const handleRoleDeselect = (role: RoleType) => () => {
         props.onChange({
             ...props.category,
-            rolesList: props.category.rolesList.filter((x) => x !== role.id),
+            roles: props.category.roles.filter((x) => x !== role.id),
         });
     };
 
@@ -122,7 +122,7 @@ export const EditorCategory = (props: Props) => {
                     onChange={(x) => updateSearchTerm(x.target.value)}
                 />
                 <RoleContainer>
-                    {props.category.rolesList.map((id) => {
+                    {props.category.roles.map((id) => {
                         const role = props.guildRoles.find((x) => x.id === id);
                         if (!role) {
                             return <></>;

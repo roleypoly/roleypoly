@@ -1,12 +1,18 @@
 import * as React from 'react';
-import { guild, guildData, guildRoles, member } from 'roleypoly/common/types/storyData';
+import {
+    guild,
+    guildData,
+    member,
+    roleCategory,
+    roleCategory2,
+} from 'roleypoly/common/types/storyData';
 import { RolePicker, RolePickerProps } from './RolePicker';
 
 const props: Partial<RolePickerProps> = {
     guildData: guildData,
     member: member,
     guild: guild,
-    roles: guildRoles,
+    roles: [...roleCategory, ...roleCategory2],
     editable: false,
 };
 

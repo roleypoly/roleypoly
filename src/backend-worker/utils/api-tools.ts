@@ -28,7 +28,7 @@ export const resolveFailures = (
 };
 
 export const parsePermissions = (
-    permissions: number,
+    permissions: bigint,
     owner: boolean = false
 ): UserGuildPermissions => {
     if (owner || evaluatePermission(permissions, Permissions.ADMINISTRATOR)) {
@@ -56,6 +56,9 @@ export const getSessionID = (request: Request): { type: string; id: string } | n
     return { type, id };
 };
 
+const userAgent =
+    'DiscordBot (https://github.com/roleypoly/roleypoly, git-main) (+https://roleypoly.com)';
+
 export const discordFetch = async <T>(
     url: string,
     auth: string,
@@ -64,8 +67,7 @@ export const discordFetch = async <T>(
     const response = await fetch('https://discord.com/api/v8' + url, {
         headers: {
             authorization: `${authType} ${auth}`,
-            'user-agent':
-                'DiscordBot (https://github.com/roleypoly/roleypoly, git-main) (+https://roleypoly.com)',
+            'user-agent': userAgent,
         },
     });
 
@@ -81,12 +83,17 @@ export const cacheLayer = <Identity, Data>(
     keyFactory: (identity: Identity) => string,
     missHandler: (identity: Identity) => Promise<Data | null>,
     ttlSeconds?: number
-) => async (identity: Identity): Promise<Data | null> => {
+) => async (
+    identity: Identity,
+    options: { skipCachePull?: boolean } = {}
+): Promise<Data | null> => {
     const key = keyFactory(identity);
 
-    const value = await kv.get<Data>(key);
-    if (value) {
-        return value;
+    if (!options.skipCachePull) {
+        const value = await kv.get<Data>(key);
+        if (value) {
+            return value;
+        }
     }
 
     const fallbackValue = await missHandler(identity);

@@ -63,7 +63,7 @@ const server = http.createServer((req, res) => {
                 }
                 res.statusCode = response.status;
                 loggedStatus = String(response.status);
-                Object.entries(response.headers).forEach(([k, v]) => res.setHeader(k, v));
+                response.headers.forEach((value, key) => res.setHeader(key, value));
                 res.end(response.body);
             } catch (e) {
                 console.error(e);

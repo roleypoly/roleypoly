@@ -120,11 +120,15 @@ const getGuilds = async (accessToken: string) => {
         'Bearer'
     );
 
+    if (!guilds) {
+        return [];
+    }
+
     const guildSlugs = guilds.map<GuildSlug>((guild) => ({
         id: guild.id,
         name: guild.name,
         icon: guild.icon,
-        permissionLevel: parsePermissions(guild.permissions, guild.owner),
+        permissionLevel: parsePermissions(BigInt(guild.permissions), guild.owner),
     }));
 
     return guildSlugs;

@@ -9,34 +9,34 @@ export type Guild = {
     roles: Role[];
 };
 
-export type GuildRoles = {
-    id: string;
-    rolesList: Role[];
-};
+export enum Features {
+    None,
+    Preview = None,
+}
 
 export type GuildData = {
     id: string;
     message: string;
-    categoriesList: Category[];
-    entitlementsList: string[];
+    categories: Category[];
+    features: Features;
 };
 
 export type PresentableGuild = {
     id: string;
-    guild: Guild;
+    guild: GuildSlug;
     member: Member;
     data: GuildData;
-    roles: GuildRoles;
+    roles: Role[];
 };
 
 export type GuildEnumeration = {
-    guildsList: PresentableGuild[];
+    guilds: PresentableGuild[];
 };
 
 export enum UserGuildPermissions {
     User,
-    Manager,
-    Admin,
+    Manager = 1 << 1,
+    Admin = 1 << 2,
 }
 
 export type GuildSlug = {

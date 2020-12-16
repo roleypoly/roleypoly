@@ -1,7 +1,8 @@
 export enum RoleSafety {
-    SAFE = 0,
-    HIGHERTHANBOT,
-    DANGEROUSPERMISSIONS,
+    Safe = 0,
+    HigherThanBot = 1 << 1,
+    DangerousPermissions = 1 << 2,
+    ManagedRole = 1 << 3,
 }
 
 export type Role = {
@@ -13,4 +14,8 @@ export type Role = {
     safety: RoleSafety;
     /** Permissions is should be used as a BigInt, NOT a number. */
     permissions: string;
+};
+
+export type OwnRoleInfo = {
+    highestRolePosition: number;
 };

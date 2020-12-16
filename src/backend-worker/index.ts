@@ -1,4 +1,5 @@
 import { BotJoin } from './handlers/bot-join';
+import { GetPickerData } from './handlers/get-picker-data';
 import { GetSession } from './handlers/get-session';
 import { GetSlug } from './handlers/get-slug';
 import { LoginBounce } from './handlers/login-bounce';
@@ -16,6 +17,7 @@ router.add('GET', 'login-bounce', LoginBounce);
 router.add('GET', 'login-callback', LoginCallback);
 router.add('GET', 'get-session', GetSession);
 router.add('GET', 'get-slug', GetSlug);
+router.add('GET', 'get-picker-data', GetPickerData);
 router.add('GET', 'x-headers', (request) => {
     const headers: { [x: string]: string } = {};
 

@@ -5,7 +5,6 @@ import {
     CategoryType,
     Guild,
     GuildData,
-    GuildRoles,
     Member,
     Role,
 } from 'roleypoly/common/types';
@@ -27,7 +26,7 @@ export type RolePickerProps = {
     guild: Guild;
     guildData: GuildData;
     member: Member;
-    roles: GuildRoles;
+    roles: Role[];
     onSubmit: (selectedRoles: string[]) => void;
     editable: boolean;
 };
@@ -43,15 +42,15 @@ const arrayMatches = (a: any[], b: any[]) => {
 
 export const RolePicker = (props: RolePickerProps) => {
     const [selectedRoles, updateSelectedRoles] = React.useState<string[]>(
-        props.member.rolesList
+        props.member.roles
     );
 
     const handleChange = (category: Category) => (role: Role) => (newState: boolean) => {
-        if (category.type === CategoryType.SINGLE) {
+        if (category.type === CategoryType.Single) {
             updateSelectedRoles(
                 newState === true
                     ? [
-                          ...selectedRoles.filter((x) => !category.rolesList.includes(x)),
+                          ...selectedRoles.filter((x) => !category.roles.includes(x)),
                           role.id,
                       ]
                     : selectedRoles.filter((x) => x !== role.id)
@@ -79,31 +78,29 @@ export const RolePicker = (props: RolePickerProps) => {
                 </>
             )}
 
-            {props.guildData.categoriesList.length !== 0 ? (
+            {props.guildData.categories.length !== 0 ? (
                 <>
                     <div>
-                        {props.guildData.categoriesList.map((category, idx) => (
+                        {props.guildData.categories.map((category, idx) => (
                             <CategoryContainer key={idx}>
                                 <PickerCategory
                                     key={idx}
                                     category={category}
                                     title={category.name}
                                     selectedRoles={selectedRoles.filter((roleId) =>
-                                        category.rolesList.includes(roleId)
+                                        category.roles.includes(roleId)
                                     )}
                                     roles={
-                                        category.rolesList
+                                        category.roles
                                             .map((role) =>
-                                                props.roles.rolesList.find(
-                                                    (r) => r.id === role
-                                                )
+                                                props.roles.find((r) => r.id === role)
                                             )
                                             .filter((r) => r !== undefined) as Role[]
                                     }
                                     onChange={handleChange(category)}
                                     wikiMode={false}
                                     type={
-                                        category.type === CategoryType.SINGLE
+                                        category.type === CategoryType.Single
                                             ? 'single'
                                             : 'multi'
                                     }
@@ -112,12 +109,12 @@ export const RolePicker = (props: RolePickerProps) => {
                         ))}
                     </div>
                     <FaderOpacity
-                        isVisible={!arrayMatches(selectedRoles, props.member.rolesList)}
+                        isVisible={!arrayMatches(selectedRoles, props.member.roles)}
                     >
                         <ResetSubmit
                             onSubmit={() => props.onSubmit(selectedRoles)}
                             onReset={() => {
-                                updateSelectedRoles(props.member.rolesList);
+                                updateSelectedRoles(props.member.roles);
                             }}
                         />
                     </FaderOpacity>

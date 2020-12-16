@@ -3,9 +3,10 @@ import {
     guild,
     guildData,
     guildEnum,
-    guildRoles,
     mastheadSlugs,
     member,
+    roleCategory,
+    roleCategory2,
     user,
 } from 'roleypoly/common/types/storyData';
 import { RolePickerTemplate, RolePickerTemplateProps } from './RolePicker';
@@ -19,7 +20,7 @@ const props: RolePickerTemplateProps = {
     member: member,
     guild: guild,
     guilds: mastheadSlugs,
-    roles: guildRoles,
+    roles: [...roleCategory, ...roleCategory2],
     editable: false,
     user: user,
     guildEnumeration: guildEnum,

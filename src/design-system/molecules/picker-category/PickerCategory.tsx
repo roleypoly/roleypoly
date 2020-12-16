@@ -56,7 +56,7 @@ export const PickerCategory = (props: CategoryProps) => (
                         role={role}
                         selected={props.selectedRoles.includes(role.id)}
                         onClick={props.onChange(role)}
-                        disabled={role.safety !== RoleSafety.SAFE}
+                        disabled={role.safety !== RoleSafety.Safe}
                         tooltipId={props.category.id}
                     />
                 </Container>

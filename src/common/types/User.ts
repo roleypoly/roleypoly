@@ -7,10 +7,10 @@ export type DiscordUser = {
 };
 
 export type Member = {
-    guildid: string;
-    rolesList: string[];
-    nick: string;
-    user: DiscordUser;
+    guildid?: string;
+    roles: string[];
+    nick?: string;
+    user?: DiscordUser;
 };
 
 export type RoleypolyUser = {

@@ -1,20 +1,29 @@
 import { Role } from 'roleypoly/common/types';
-import { guildRoles } from 'roleypoly/common/types/storyData';
-import { hasPermission, hasPermissionOrAdmin, permissions } from './hasPermission';
+import { roleCategory } from 'roleypoly/common/types/storyData';
+import { hasPermission, hasPermissionOrAdmin } from './hasPermission';
+
+export const permissions = {
+    KICK_MEMBERS: BigInt(0x2),
+    BAN_MEMBERS: BigInt(0x4),
+    ADMINISTRATOR: BigInt(0x8),
+    SPEAK: BigInt(0x200000),
+    CHANGE_NICKNAME: BigInt(0x4000000),
+    MANAGE_ROLES: BigInt(0x10000000),
+};
 
 const roles: Role[] = [
     {
-        ...guildRoles.rolesList[0],
+        ...roleCategory[0],
         permissions: String(permissions.ADMINISTRATOR),
     },
     {
-        ...guildRoles.rolesList[0],
+        ...roleCategory[0],
         permissions: String(
             permissions.SPEAK | permissions.BAN_MEMBERS | permissions.CHANGE_NICKNAME
         ),
     },
     {
-        ...guildRoles.rolesList[0],
+        ...roleCategory[0],
         permissions: String(permissions.BAN_MEMBERS),
     },
 ];
