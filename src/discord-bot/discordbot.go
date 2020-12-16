@@ -5,7 +5,6 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 	"github.com/roleypoly/roleypoly/src/common"
 	"github.com/roleypoly/roleypoly/src/common/bot"
-	"github.com/roleypoly/roleypoly/src/common/version"
 	"k8s.io/klog"
 )
 
@@ -19,7 +18,7 @@ var (
 )
 
 func main() {
-	klog.Info(version.StartupInfo("discord-bot"))
+	klog.Info("bot started")
 
 	err := bot.ScaffoldBot(bot.BotScaffolding{
 		RootUsers:      rootUsers,
