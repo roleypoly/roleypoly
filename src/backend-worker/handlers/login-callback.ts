@@ -69,7 +69,6 @@ export const LoginCallback = resolveFailures(
         const tokens = (await tokenFetch.json()) as AuthTokenResponse;
 
         if (!tokens.access_token) {
-            console.info({ tokens });
             return AuthErrorResponse('token response invalid');
         }
 
@@ -78,6 +77,10 @@ export const LoginCallback = resolveFailures(
             getUser(tokens.access_token),
             getGuilds(tokens.access_token),
         ]);
+
+        if (!user) {
+            return AuthErrorResponse('failed to fetch user');
+        }
 
         const sessionData: SessionData = {
             tokens,
@@ -94,12 +97,14 @@ export const LoginCallback = resolveFailures(
     }
 );
 
-const getUser = async (accessToken: string): Promise<DiscordUser> => {
-    const { id, username, discriminator, bot, avatar } = await discordFetch<DiscordUser>(
-        '/users/@me',
-        accessToken,
-        'Bearer'
-    );
+const getUser = async (accessToken: string): Promise<DiscordUser | null> => {
+    const user = await discordFetch<DiscordUser>('/users/@me', accessToken, 'Bearer');
+
+    if (!user) {
+        return null;
+    }
+
+    const { id, username, discriminator, bot, avatar } = user;
 
     return { id, username, discriminator, bot, avatar };
 };
