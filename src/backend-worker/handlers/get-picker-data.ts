@@ -18,7 +18,7 @@ const fail = () =>
     );
 
 export const GetPickerData = withSession(
-    (session?: SessionData) => async (request: Request): Promise<Response> => {
+    (session: SessionData) => async (request: Request): Promise<Response> => {
         const url = new URL(request.url);
         const [, , guildID] = url.pathname.split('/');
 
@@ -33,8 +33,8 @@ export const GetPickerData = withSession(
             );
         }
 
-        const { id: userID } = session?.user as DiscordUser;
-        const guilds = session?.guilds as GuildSlug[];
+        const { id: userID } = session.user as DiscordUser;
+        const guilds = session.guilds as GuildSlug[];
 
         // Save a Discord API request by checking if this user is a member by session first
         const checkGuild = guilds.find((guild) => guild.id === guildID);
@@ -72,8 +72,5 @@ export const GetPickerData = withSession(
         };
 
         return respond(presentableGuild);
-    },
-    {
-        mustAuthenticate: true,
     }
 );

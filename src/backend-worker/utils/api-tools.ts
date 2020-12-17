@@ -121,29 +121,17 @@ type WithSessionOpts = {
 };
 
 export const withSession = (
-    wrappedHandler: (session?: SessionData) => Handler,
-    { mustAuthenticate }: WithSessionOpts = {}
+    wrappedHandler: (session: SessionData) => Handler
 ): Handler => async (request: Request): Promise<Response> => {
     const sessionID = getSessionID(request);
     if (!sessionID) {
-        if (mustAuthenticate) {
-            return NotAuthenticated('missing authentication');
-        } else {
-            return await wrappedHandler(undefined)(request);
-        }
+        return NotAuthenticated('missing authentication');
     }
 
     const session = await Sessions.get<SessionData>(sessionID.id);
     if (!session) {
-        if (mustAuthenticate) {
-            return NotAuthenticated('authentication expired or not found');
-        } else {
-            return await wrappedHandler(undefined)(request);
-        }
+        return NotAuthenticated('authentication expired or not found');
     }
 
     return await wrappedHandler(session)(request);
 };
-
-export const mustBeAuthenticated = (handler: Handler) =>
-    withSession(() => handler, { mustAuthenticate: true });
