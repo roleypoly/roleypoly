@@ -28,7 +28,7 @@ jobs:
         steps:
             - uses: actions/checkout@master
 
-            - uses: actions/setup-node@v2-beta
+            - uses: actions/setup-node@v2.1.4
               with:
                   node-version: '14'
 
@@ -58,7 +58,7 @@ jobs:
         steps:
             - uses: actions/checkout@master
 
-            - uses: actions/setup-node@v2-beta
+            - uses: actions/setup-node@v2.1.4
               with:
                   node-version: '14'
 
