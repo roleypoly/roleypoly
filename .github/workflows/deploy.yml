@@ -22,6 +22,7 @@ on:
 
 jobs:
     docker_sync:
+        name: Docker Sync
         runs-on: ubuntu-latest
         outputs:
             ui_tag: ${{ steps.tags.outputs.ui_tag }}
@@ -90,10 +91,44 @@ jobs:
                   retag_push $UI_IMAGE_SRC asia-$UI_IMAGE_DEST_BASE
                   echo ::set-output name=ui_tag::@$(get_digest $UI_IMAGE_SRC)
 
-    deploy_terraform:
+    deploy_metadata:
+        name: Make Deployment Metadata
         runs-on: ubuntu-latest
         needs:
             - docker_sync
+        outputs:
+            url: ${{steps.metadata.outputs.url}}
+            env: ${{steps.metadata.outputs.env}}
+        steps:
+            - name: Create deployment metadata
+              id: metadata
+              run: |
+                  ENV_URL=
+                  ENV_NAME=
+
+                  if [[ "${{github.event.inputs.environment}}" == "prod" ]]; then
+                    ENV_URL=https://next.roleypoly.com
+                    ENV_NAME=Production
+                  elif [[ "${{github.event.inputs.environment}}" == "stage" ]]; then
+                    ENV_URL=https://web-stage.roleypoly.com
+                    ENV_NAME=Staging
+                  else
+                    ENV_URL=https://web-${{github.event.inputs.environment}}.roleypoly.com
+                    ENV_NAME=Preview-${{github.event.inputs.environment}}
+                  fi
+
+                  echo ::set-output name=url::$ENV_URL
+                  echo ::set-output name=env::$ENV_NAME
+
+    deploy_terraform:
+        name: Deploy Terraform
+        runs-on: ubuntu-latest
+        needs:
+            - docker_sync
+            - deploy_metadata
+        environment:
+            name: ${{ needs.deploy_metadata.outputs.env }}
+            url: ${{ needs.deploy_metadata.outputs.url }}
         steps:
             - uses: actions/checkout@master
 
