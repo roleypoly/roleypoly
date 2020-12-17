@@ -3,7 +3,6 @@ import { respond } from '../utils/api-tools';
 import { getGuild } from '../utils/guild';
 
 export const GetSlug = async (request: Request): Promise<Response> => {
-    // return respond({ hello: 'world' });
     const reqURL = new URL(request.url);
     const [, , serverID] = reqURL.pathname.split('/');
 
