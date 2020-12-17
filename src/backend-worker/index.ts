@@ -16,7 +16,7 @@ router.addFallback('root', () => {
 router.add('GET', 'bot-join', BotJoin);
 router.add('GET', 'login-bounce', LoginBounce);
 router.add('GET', 'login-callback', LoginCallback);
-router.add('GET', 'revoke-session', RevokeSession);
+router.add('POST', 'revoke-session', RevokeSession);
 router.add('GET', 'get-session', GetSession);
 router.add('GET', 'get-slug', GetSlug);
 router.add('GET', 'get-picker-data', GetPickerData);
