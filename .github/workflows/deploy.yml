@@ -107,15 +107,18 @@ jobs:
                   ENV_NAME=
 
                   if [[ "${{github.event.inputs.environment}}" == "prod" ]]; then
-                    ENV_URL=https://next.roleypoly.com
+                    ENV_URL="https://next.roleypoly.com"
                     ENV_NAME=Production
                   elif [[ "${{github.event.inputs.environment}}" == "stage" ]]; then
-                    ENV_URL=https://web-stage.roleypoly.com
+                    ENV_URL="https://web-stage.roleypoly.com"
                     ENV_NAME=Staging
                   else
-                    ENV_URL=https://web-${{github.event.inputs.environment}}.roleypoly.com
+                    ENV_URL="https://web-${{github.event.inputs.environment}}.roleypoly.com"
                     ENV_NAME=Preview-${{github.event.inputs.environment}}
                   fi
+
+                  echo "url=$ENV_URL"
+                  echo "env=$ENV_NAME"
 
                   echo ::set-output name=url::$ENV_URL
                   echo ::set-output name=env::$ENV_NAME
