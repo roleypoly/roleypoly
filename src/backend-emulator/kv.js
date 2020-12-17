@@ -20,7 +20,7 @@ class KVShim {
         });
 
         (async () => {
-            this.level = await level(path.resolve(__dirname, '../../.devdbs', namespace));
+            this.level = level(path.resolve(__dirname, '../../.devdbs', namespace));
         })();
     }
 
@@ -82,9 +82,10 @@ class KVShim {
         return await this.level.put(key, this.makeValue(value, expirationTtl));
     }
 
-    async delete(key) {
+    // This loses scope for some unknown reason
+    delete = async (key) => {
         return this.level.del(key);
-    }
+    };
 
     list() {
         console.warn('List is frowned upon and will fail to fetch keys in the emulator.');

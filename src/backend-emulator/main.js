@@ -71,7 +71,7 @@ const server = http.createServer((req, res) => {
     const event = {
         respondWith: async (value) => {
             const timeStart = Date.now();
-            let loggedStatus = 'xxx';
+            let loggedStatus;
             try {
                 const response = await value;
                 if (!response) {
