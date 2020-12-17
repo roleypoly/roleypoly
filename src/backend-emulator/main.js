@@ -21,6 +21,24 @@ const workerShims = {
 
 let listeners = [];
 
+let isResponseConstructorAllowed = false;
+
+/**
+ * SafeResponse wraps a fetch Response to yell loudly if constructed at an unsafe time.
+ * Cloudflare will reject all Response objects that aren't created during a request, so no pre-generation is allowed.
+ */
+class SafeResponse extends fetch.Response {
+    constructor(...args) {
+        super(...args);
+
+        if (!isResponseConstructorAllowed) {
+            throw new Error(
+                'Response object created outside of request context. This will be rejected by Cloudflare.'
+            );
+        }
+    }
+}
+
 const context = () =>
     vm.createContext(
         {
@@ -30,7 +48,7 @@ const context = () =>
                     listeners.push(fn);
                 }
             },
-            Response: fetch.Response,
+            Response: SafeResponse,
             URL: URL,
             crypto: crypto,
             setTimeout: setTimeout,
@@ -75,6 +93,7 @@ const server = http.createServer((req, res) => {
             console.log(
                 `${loggedStatus} [${timeEnd - timeStart}ms] - ${req.method} ${req.url}`
             );
+            isResponseConstructorAllowed = false;
         },
         request: new fetch.Request(
             new URL(`http://${req.headers.host || 'localhost'}${req.url}`),
@@ -95,6 +114,7 @@ const server = http.createServer((req, res) => {
         return;
     }
 
+    isResponseConstructorAllowed = true;
     for (let listener of listeners) {
         try {
             listener(event);

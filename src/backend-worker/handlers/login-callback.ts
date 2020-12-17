@@ -22,7 +22,7 @@ const AuthErrorResponse = (extra?: string) =>
     );
 
 export const LoginCallback = resolveFailures(
-    AuthErrorResponse(),
+    AuthErrorResponse,
     async (request: Request): Promise<Response> => {
         const query = new URL(request.url).searchParams;
 

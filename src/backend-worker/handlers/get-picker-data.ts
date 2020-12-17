@@ -7,14 +7,15 @@ import {
 import { respond, withSession } from '../utils/api-tools';
 import { getGuild, getGuildData, getGuildMemberRoles } from '../utils/guild';
 
-const fail = respond(
-    {
-        error: 'guild not found',
-    },
-    {
-        status: 404,
-    }
-);
+const fail = () =>
+    respond(
+        {
+            error: 'guild not found',
+        },
+        {
+            status: 404,
+        }
+    );
 
 export const GetPickerData = withSession(
     (session?: SessionData) => async (request: Request): Promise<Response> => {
@@ -38,14 +39,14 @@ export const GetPickerData = withSession(
         // Save a Discord API request by checking if this user is a member by session first
         const checkGuild = guilds.find((guild) => guild.id === guildID);
         if (!checkGuild) {
-            return fail;
+            return fail();
         }
 
         const guild = await getGuild(guildID, {
             skipCachePull: url.searchParams.has('__no_cache'),
         });
         if (!guild) {
-            return fail;
+            return fail();
         }
 
         const memberRolesP = getGuildMemberRoles({
@@ -57,7 +58,7 @@ export const GetPickerData = withSession(
 
         const [guildData, memberRoles] = await Promise.all([guildDataP, memberRolesP]);
         if (!memberRoles) {
-            return fail;
+            return fail();
         }
 
         const presentableGuild: PresentableGuild = {

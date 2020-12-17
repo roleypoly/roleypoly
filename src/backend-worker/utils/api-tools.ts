@@ -16,14 +16,16 @@ export const respond = (obj: Record<string, any>, init?: ResponseInit) =>
     new Response(JSON.stringify(obj), init);
 
 export const resolveFailures = (
-    handleWith: Response,
+    handleWith: () => Response,
     handler: (request: Request) => Promise<Response> | Response
 ) => async (request: Request): Promise<Response> => {
     try {
         return handler(request);
     } catch (e) {
         console.error(e);
-        return handleWith || respond({ error: 'internal server error' }, { status: 500 });
+        return (
+            handleWith() || respond({ error: 'internal server error' }, { status: 500 })
+        );
     }
 };
 
@@ -109,7 +111,7 @@ export const cacheLayer = <Identity, Data>(
 const NotAuthenticated = (extra?: string) =>
     respond(
         {
-            err: extra || 'not authenticated',
+            error: extra || 'not authenticated',
         },
         { status: 403 }
     );
