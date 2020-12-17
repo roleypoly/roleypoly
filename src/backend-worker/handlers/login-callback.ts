@@ -6,10 +6,12 @@ import {
     SessionData,
 } from '../../common/types';
 import {
+    AuthType,
     discordFetch,
     formData,
     parsePermissions,
     resolveFailures,
+    userAgent,
 } from '../utils/api-tools';
 import { Bounce } from '../utils/bounce';
 import { apiPublicURI, botClientID, botClientSecret, uiPublicURI } from '../utils/config';
@@ -62,6 +64,7 @@ export const LoginCallback = resolveFailures(
             method: 'POST',
             headers: {
                 'content-type': 'application/x-www-form-urlencoded',
+                'user-agent': userAgent,
             },
             body: formData(tokenRequest),
         });
@@ -98,7 +101,11 @@ export const LoginCallback = resolveFailures(
 );
 
 const getUser = async (accessToken: string): Promise<DiscordUser | null> => {
-    const user = await discordFetch<DiscordUser>('/users/@me', accessToken, 'Bearer');
+    const user = await discordFetch<DiscordUser>(
+        '/users/@me',
+        accessToken,
+        AuthType.Bearer
+    );
 
     if (!user) {
         return null;
@@ -122,7 +129,7 @@ const getGuilds = async (accessToken: string) => {
     const guilds = await discordFetch<UserGuildsPayload>(
         '/users/@me/guilds',
         accessToken,
-        'Bearer'
+        AuthType.Bearer
     );
 
     if (!guilds) {

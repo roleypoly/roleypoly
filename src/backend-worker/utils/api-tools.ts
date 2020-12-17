@@ -58,17 +58,22 @@ export const getSessionID = (request: Request): { type: string; id: string } | n
     return { type, id };
 };
 
-const userAgent =
+export const userAgent =
     'DiscordBot (https://github.com/roleypoly/roleypoly, git-main) (+https://roleypoly.com)';
+
+export enum AuthType {
+    Bearer = 'Bearer',
+    Bot = 'Bot',
+}
 
 export const discordFetch = async <T>(
     url: string,
     auth: string,
-    authType: 'Bearer' | 'Bot' = 'Bearer'
+    authType: AuthType = AuthType.Bearer
 ): Promise<T | null> => {
     const response = await fetch('https://discord.com/api/v8' + url, {
         headers: {
-            authorization: `${authType} ${auth}`,
+            authorization: `${AuthType[authType]} ${auth}`,
             'user-agent': userAgent,
         },
     });
@@ -115,10 +120,6 @@ const NotAuthenticated = (extra?: string) =>
         },
         { status: 403 }
     );
-
-type WithSessionOpts = {
-    mustAuthenticate?: boolean;
-};
 
 export const withSession = (
     wrappedHandler: (session: SessionData) => Handler

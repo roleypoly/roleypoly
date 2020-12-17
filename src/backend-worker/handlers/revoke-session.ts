@@ -1,5 +1,5 @@
 import { SessionData } from 'roleypoly/common/types';
-import { formData, respond, withSession } from '../utils/api-tools';
+import { formData, respond, userAgent, withSession } from '../utils/api-tools';
 import { botClientID, botClientSecret } from '../utils/config';
 import { Sessions } from '../utils/kv';
 
@@ -15,6 +15,7 @@ export const RevokeSession = withSession(
             method: 'POST',
             headers: {
                 'content-type': 'application/x-www-form-urlencoded',
+                'user-agent': userAgent,
             },
             body: formData(tokenRequest),
         });
