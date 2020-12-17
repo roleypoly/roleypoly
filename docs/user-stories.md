@@ -10,6 +10,8 @@ Legend
   - Typical use cases: Guild roles; anything unlikely to change, but not painful to query.
 - (Cold) - Denotes cachable data stored for a long time, 1 hour.
   - Typical use cases: Guild lists for a session; anything very unlikely to change, and commonly used.
+- (Permanent) - Denotes data that is permanent.
+  - Typical use cases: Guild customization data (categories, message)
 - (Sec) - Security-minded data. Should never reach end-users.
   - Typical use cases: Access tokens
 
@@ -36,7 +38,7 @@ As a user, I'd like to see all of the roles I can select in a previously set up 
   - User Current Guilds (Cold)
   - Guild Roles (Warm)
   - User Roles (Hot)
-  - Guild Customization (Cold)
+  - Guild Customization (Cold) (Permanent)
 
 ### Server Role Picker Action
 
@@ -60,7 +62,7 @@ As an admin, I'd like to see all of the settings and options for a server.
 - Data:
   - User Current Guilds (Cold)
   - Guild Roles (Warm)
-  - Guild Customization (Cold)
+  - Guild Customization (Cold) (Permanent)
 
 ### Server Editor Action
 
@@ -72,7 +74,7 @@ As an admin, I'd like to save settings and options that I have set within the ed
 - Data:
   - User Current Guilds (Cold)
   - Guild Roles (Warm)
-  - Guild Customization (Cold)
+  - Guild Customization (Cold) (Permanent)
 
 ### Session Pre-warming
 
