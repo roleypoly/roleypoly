@@ -6,8 +6,8 @@ jest.unmock('roleypoly/design-system/atoms/role')
 import { shallow } from 'enzyme';
 import * as React from 'react';
 import {
-    guild,
     guildData,
+    mastheadSlugs,
     member,
     mockCategorySingle,
     roleCategory,
@@ -23,7 +23,7 @@ it('unselects the rest of a category in single mode', () => {
         guildData: { ...guildData, categories: [mockCategorySingle] },
         member: { ...member, roles: [] },
         roles: [...roleCategory, ...roleCategory2],
-        guild: guild,
+        guild: mastheadSlugs[0],
         onSubmit: jest.fn(),
         editable: false,
     };
