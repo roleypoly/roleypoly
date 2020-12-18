@@ -11,9 +11,11 @@ type Props = {
 export const NavSlug = (props: Props) => (
     <SlugContainer>
         <Avatar
+            hash={props.guild ? props.guild.icon : undefined}
             src={
-                (props.guild && utils.avatarHash(props.guild.id, props.guild.icon)) ||
-                undefined
+                props.guild
+                    ? utils.avatarHash(props.guild.id, props.guild.icon)
+                    : undefined
             }
             deliberatelyEmpty={!props.guild}
             size={35}

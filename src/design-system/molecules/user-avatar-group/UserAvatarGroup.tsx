@@ -19,6 +19,7 @@ export const UserAvatarGroup = (props: Props) => (
         </Collapse>
         <Avatar
             size={34}
+            hash={props.user.avatar}
             src={utils.avatarHash(props.user.id, props.user.avatar, 'avatars')}
         >
             {utils.initialsFromName(props.user.username)}

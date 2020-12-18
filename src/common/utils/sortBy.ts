@@ -1,7 +1,7 @@
-export const sortBy = <T>(
+export const sortBy = <T, Key extends keyof T>(
     array: T[],
-    key: keyof T,
-    predicate?: (a: T[keyof T], b: T[keyof T]) => number
+    key: Key,
+    predicate?: (a: T[typeof key], b: T[typeof key]) => number
 ) => {
     return array.sort((a, b) => {
         if (predicate) {

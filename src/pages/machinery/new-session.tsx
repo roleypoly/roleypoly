@@ -1,4 +1,5 @@
 import { NextPageContext } from 'next';
+import getConfig from 'next/config';
 import nookies from 'nookies';
 import * as React from 'react';
 import { Hero } from 'roleypoly/design-system/atoms/hero';
@@ -7,15 +8,18 @@ import { AppShell } from 'roleypoly/design-system/organisms/app-shell';
 
 type Props = {
     sessionID: string;
+    apiURI: string;
 };
 
 const NewSession = (props: Props) => {
-    const { sessionID } = props;
+    const { sessionID, apiURI } = props;
+
     React.useEffect(() => {
         sessionStorage.setItem('session_key', sessionID);
+        localStorage.setItem('api_uri', apiURI); // TODO: set better
 
         location.href = '/';
-    }, [sessionID]);
+    }, [sessionID, apiURI]);
 
     return (
         <AppShell>
@@ -26,7 +30,11 @@ const NewSession = (props: Props) => {
     );
 };
 
-export const getServerSideProps = (context: NextPageContext): { props: Props } => {
+export const getServerSideProps = async (
+    context: NextPageContext
+): Promise<{ props: Props }> => {
+    const { publicRuntimeConfig } = getConfig();
+    const apiURI = publicRuntimeConfig.apiPublicURI;
     const sessionID = context.query.session_id as string;
     if (!sessionID) {
         throw new Error("I shouldn't be here today.");
@@ -39,7 +47,7 @@ export const getServerSideProps = (context: NextPageContext): { props: Props } =
         sameSite: 'strict',
     });
 
-    return { props: { sessionID } };
+    return { props: { sessionID, apiURI } };
 };
 
 export default NewSession;

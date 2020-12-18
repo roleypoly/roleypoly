@@ -1,16 +1,19 @@
+import NextLink from 'next/link';
 import * as React from 'react';
 import { GoInfo } from 'react-icons/go';
 import {
     Category,
     CategoryType,
-    Guild,
     GuildData,
+    GuildSlug,
     Member,
     Role,
 } from 'roleypoly/common/types';
 import { ReactifyNewlines } from 'roleypoly/common/utils/ReactifyNewlines';
+import { sortBy } from 'roleypoly/common/utils/sortBy';
 import { FaderOpacity } from 'roleypoly/design-system/atoms/fader';
 import { Space } from 'roleypoly/design-system/atoms/space';
+import { Link } from 'roleypoly/design-system/atoms/typography';
 import { PickerCategory } from 'roleypoly/design-system/molecules/picker-category';
 import { ResetSubmit } from 'roleypoly/design-system/molecules/reset-submit';
 import { ServerMasthead } from 'roleypoly/design-system/molecules/server-masthead';
@@ -23,7 +26,7 @@ import {
 } from './RolePicker.styled';
 
 export type RolePickerProps = {
-    guild: Guild;
+    guild: GuildSlug;
     guildData: GuildData;
     member: Member;
     roles: Role[];
@@ -81,32 +84,34 @@ export const RolePicker = (props: RolePickerProps) => {
             {props.guildData.categories.length !== 0 ? (
                 <>
                     <div>
-                        {props.guildData.categories.map((category, idx) => (
-                            <CategoryContainer key={idx}>
-                                <PickerCategory
-                                    key={idx}
-                                    category={category}
-                                    title={category.name}
-                                    selectedRoles={selectedRoles.filter((roleId) =>
-                                        category.roles.includes(roleId)
-                                    )}
-                                    roles={
-                                        category.roles
-                                            .map((role) =>
-                                                props.roles.find((r) => r.id === role)
-                                            )
-                                            .filter((r) => r !== undefined) as Role[]
-                                    }
-                                    onChange={handleChange(category)}
-                                    wikiMode={false}
-                                    type={
-                                        category.type === CategoryType.Single
-                                            ? 'single'
-                                            : 'multi'
-                                    }
-                                />
-                            </CategoryContainer>
-                        ))}
+                        {sortBy(props.guildData.categories, 'position').map(
+                            (category, idx) => (
+                                <CategoryContainer key={idx}>
+                                    <PickerCategory
+                                        key={idx}
+                                        category={category}
+                                        title={category.name}
+                                        selectedRoles={selectedRoles.filter((roleId) =>
+                                            category.roles.includes(roleId)
+                                        )}
+                                        roles={
+                                            category.roles
+                                                .map((role) =>
+                                                    props.roles.find((r) => r.id === role)
+                                                )
+                                                .filter((r) => r !== undefined) as Role[]
+                                        }
+                                        onChange={handleChange(category)}
+                                        wikiMode={false}
+                                        type={
+                                            category.type === CategoryType.Single
+                                                ? 'single'
+                                                : 'multi'
+                                        }
+                                    />
+                                </CategoryContainer>
+                            )
+                        )}
                     </div>
                     <FaderOpacity
                         isVisible={!arrayMatches(selectedRoles, props.member.roles)}
@@ -126,6 +131,18 @@ export const RolePicker = (props: RolePickerProps) => {
                     </InfoIcon>
                     <div>
                         There are currently no roles available for you to choose from.
+                        {props.editable && (
+                            <>
+                                {' '}
+                                <NextLink
+                                    passHref
+                                    href={`/s/[id]/edit`}
+                                    as={`/s/${props.guild.id}/edit`}
+                                >
+                                    <Link>Add some roles!</Link>
+                                </NextLink>
+                            </>
+                        )}
                     </div>
                 </InfoBox>
             )}

@@ -27,6 +27,7 @@ export const PreauthGreeting = (props: GreetingProps) => (
                 'icons',
                 512
             )}
+            hash={props.guildSlug.icon}
         >
             {avatarUtils.initialsFromName(props.guildSlug.name)}
         </Avatar>

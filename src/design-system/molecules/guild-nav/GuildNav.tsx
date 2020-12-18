@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import * as React from 'react';
+import Scrollbars from 'react-custom-scrollbars';
 import { GoStar, GoZap } from 'react-icons/go';
 import ReactTooltip from 'react-tooltip';
 import { GuildSlug, UserGuildPermissions } from 'roleypoly/common/types';
@@ -29,14 +30,23 @@ const Badges = (props: { guild: GuildSlug }) => {
 
 export const GuildNav = (props: Props) => (
     <div>
-        {sortBy(props.guilds, 'id').map((guild) => (
-            <Link href={`/s/${guild.id}`} passHref>
-                <GuildNavItem>
-                    <NavSlug guild={guild || null} key={guild.id} />
-                    <Badges guild={guild} />
-                </GuildNavItem>
-            </Link>
-        ))}
-        <ReactTooltip id={tooltipId} />
+        <Scrollbars
+            universal
+            autoHide
+            // autoHeight
+            style={{ height: 'calc(100vh - 45px - 1.4em)', overflowX: 'hidden' }}
+        >
+            {sortBy(props.guilds, 'name', (a: string, b: string) =>
+                a.toLowerCase() > b.toLowerCase() ? 1 : -1
+            ).map((guild) => (
+                <Link href={`/s/${guild.id}`} passHref key={guild.id}>
+                    <GuildNavItem>
+                        <NavSlug guild={guild || null} key={guild.id} />
+                        <Badges guild={guild} />
+                    </GuildNavItem>
+                </Link>
+            ))}
+            <ReactTooltip id={tooltipId} />
+        </Scrollbars>
     </div>
 );

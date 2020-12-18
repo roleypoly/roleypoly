@@ -27,16 +27,18 @@ export const PopoverBase = styled.div<PopoverStyledProps>`
             opacity: 0;
             pointer-events: none;
         `}
-    ${onSmallScreen(css`
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        min-width: unset;
-        width: 100vw;
-        height: 100vh;
-    `)};
+    ${onSmallScreen(
+        css`
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            min-width: unset;
+            width: 100vw;
+            height: 100vh;
+        `
+    )};
 `;
 
 export const DefocusHandler = styled.div<PopoverStyledProps>`
@@ -84,4 +86,5 @@ export const PopoverHeadCloser = styled.div`
 
 export const PopoverContent = styled.div`
     padding: 5px;
+    overflow-y: hidden;
 `;

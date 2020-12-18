@@ -62,6 +62,7 @@ export const Authed = (props: Props) => {
                         canDefocus
                         position="bottom left"
                         active={serverPopoverState}
+                        preferredWidth={560}
                         onExit={() => setServerPopoverState(false)}
                     >
                         {() => <GuildNav guilds={props.guilds} />}

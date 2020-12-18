@@ -16,13 +16,14 @@ type PopoverProps = {
     canDefocus?: boolean;
     onExit?: (type: 'escape' | 'defocus' | 'explicit') => void;
     headContent: React.ReactNode;
+    preferredWidth?: number;
 };
 
 export const Popover = (props: PopoverProps) => {
     globalOnKeyUp(['Escape'], () => props.onExit?.('escape'), props.active);
     return (
         <>
-            <PopoverBase active={props.active}>
+            <PopoverBase active={props.active} preferredWidth={props.preferredWidth}>
                 <PopoverHead>
                     <PopoverHeadCloser onClick={() => props.onExit?.('explicit')}>
                         <IoMdClose />

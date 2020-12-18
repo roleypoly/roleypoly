@@ -9,6 +9,7 @@ export default {
     },
     args: {
         initials: 'KR',
+        hash: 'aa',
     },
 };
 

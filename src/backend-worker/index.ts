@@ -1,4 +1,5 @@
 import { BotJoin } from './handlers/bot-join';
+import { CreateRoleypolyData } from './handlers/create-roleypoly-data';
 import { GetPickerData } from './handlers/get-picker-data';
 import { GetSession } from './handlers/get-session';
 import { GetSlug } from './handlers/get-slug';
@@ -29,6 +30,7 @@ router.add('GET', 'x-headers', (request) => {
 
     return new Response(JSON.stringify(headers));
 });
+router.add('GET', 'x-create-roleypoly-data', CreateRoleypolyData);
 
 addEventListener('fetch', (event: FetchEvent) => {
     event.respondWith(router.handle(event.request));

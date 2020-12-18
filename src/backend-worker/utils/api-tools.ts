@@ -4,6 +4,7 @@ import {
     permissions as Permissions,
 } from '../../common/utils/hasPermission';
 import { Handler } from '../router';
+import { uiPublicURI } from './config';
 import { Sessions, WrappedKVNamespace } from './kv';
 
 export const formData = (obj: Record<string, any>): string => {
@@ -12,8 +13,18 @@ export const formData = (obj: Record<string, any>): string => {
         .join('&');
 };
 
-export const respond = (obj: Record<string, any>, init?: ResponseInit) =>
-    new Response(JSON.stringify(obj), init);
+export const addCORS = (init: ResponseInit = {}) => ({
+    ...init,
+    headers: {
+        ...(init.headers || {}),
+        'access-control-allow-origin': uiPublicURI,
+        'access-control-allow-method': '*',
+        'access-control-allow-headers': '*',
+    },
+});
+
+export const respond = (obj: Record<string, any>, init: ResponseInit = {}) =>
+    new Response(JSON.stringify(obj), addCORS(init));
 
 export const resolveFailures = (
     handleWith: () => Response,

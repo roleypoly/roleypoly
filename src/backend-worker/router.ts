@@ -1,3 +1,6 @@
+import { addCORS } from './utils/api-tools';
+import { uiPublicURI } from './utils/config';
+
 export type Handler = (request: Request) => Promise<Response> | Response;
 
 type RoutingTree = {
@@ -19,6 +22,8 @@ export class Router {
         404: this.notFound,
         500: this.serverError,
     };
+
+    private uiURL = new URL(uiPublicURI);
 
     addFallback(which: keyof Fallbacks, handler: Handler) {
         this.fallbacks[which] = handler;
@@ -46,11 +51,19 @@ export class Router {
 
         if (handler) {
             try {
-                return handler(request);
+                const response = await handler(request);
+
+                // this.wrapCORS(request, response);
+
+                return response;
             } catch (e) {
                 console.error(e);
                 return this.fallbacks[500](request);
             }
+        }
+
+        if (lowerMethod === 'options') {
+            return new Response(null, addCORS({}));
         }
 
         return this.fallbacks[404](request);

@@ -32,8 +32,7 @@ export const Circle = styled.div<StyledProps>`
     svg {
         width: 10px;
         height: 10px;
-        fill-opacity: ${(props) =>
-            props.selected || props.disabled || props.type !== 'delete' ? 1 : 0};
+        fill-opacity: ${(props) => (props.selected || props.disabled ? 1 : 0)};
         transition: fill-opacity ${transitions.in2in}s ease-in-out;
         fill: ${(props) =>
             props.disabled && props.defaultColor

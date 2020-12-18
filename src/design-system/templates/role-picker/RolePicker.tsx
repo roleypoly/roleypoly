@@ -5,7 +5,7 @@ import {
     RolePickerProps,
 } from 'roleypoly/design-system/organisms/role-picker';
 
-export type RolePickerTemplateProps = RolePickerProps & AppShellProps;
+export type RolePickerTemplateProps = RolePickerProps & Omit<AppShellProps, 'children'>;
 
 export const RolePickerTemplate = (props: RolePickerTemplateProps) => {
     const { user, guilds, activeGuildId, ...pickerProps } = props;

@@ -14,6 +14,7 @@ type Props = {
 const Logout = (props: Props) => {
     React.useEffect(() => {
         sessionStorage.removeItem('session_key');
+        sessionStorage.removeItem('session_data');
         location.href = '/';
     }, []);
 

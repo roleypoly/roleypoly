@@ -1,14 +1,13 @@
 import Link from 'next/link';
 import * as React from 'react';
 import { GoPencil } from 'react-icons/go';
-import { Guild } from 'roleypoly/common/types';
-import { guild } from 'roleypoly/common/types/storyData';
+import { GuildSlug } from 'roleypoly/common/types';
 import { Avatar, utils } from 'roleypoly/design-system/atoms/avatar';
 import { AccentTitle, AmbientLarge } from 'roleypoly/design-system/atoms/typography';
 import { Editable, Icon, Name, Wrapper } from './ServerMasthead.styled';
 
 export type ServerMastheadProps = {
-    guild: Guild;
+    guild: GuildSlug;
     editable: boolean;
 };
 
@@ -17,8 +16,9 @@ export const ServerMasthead = (props: ServerMastheadProps) => {
         <Wrapper>
             <Icon>
                 <Avatar
+                    hash={props.guild.icon}
                     size={props.editable ? 60 : 48}
-                    src={utils.avatarHash(guild.id, guild.icon, 'icons', 512)}
+                    src={utils.avatarHash(props.guild.id, props.guild.icon, 'icons', 512)}
                 >
                     {utils.initialsFromName(props.guild.name)}
                 </Avatar>

@@ -5,13 +5,14 @@ export type AvatarProps = {
     src?: string;
     children?: string | React.ReactNode;
     size?: number;
+    hash?: string;
     deliberatelyEmpty?: boolean;
 };
 
 /** Chuldren is recommended to not be larger than 2 uppercase letters. */
 export const Avatar = (props: AvatarProps) => (
     <Container size={props.size} deliberatelyEmpty={props.deliberatelyEmpty}>
-        {props.src && (
+        {props.src && props.hash && (
             <Image
                 style={{
                     backgroundImage: `url(${props.src})`,
