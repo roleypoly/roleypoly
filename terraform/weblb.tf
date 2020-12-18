@@ -4,11 +4,11 @@ resource "google_compute_url_map" "web_lb" {
 
   host_rule {
     hosts        = var.ui_hostnames
-    path_matcher = "web"
+    path_matcher = "path-matcher-1" // Matching google console due to bug with mutating url_maps
   }
 
   path_matcher {
-    name            = "web"
+    name            = "path-matcher-1"
     default_service = google_compute_backend_service.web_lb.id
   }
 
