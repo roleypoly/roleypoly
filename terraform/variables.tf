@@ -41,6 +41,11 @@ variable "ui_public_uri" {
   description = "UI Public Base Path"
 }
 
+variable "ui_hostnames" {
+  type        = list(string)
+  description = "Hostnames to allow web UI requests from, e.g. roleypoly.com, web-prod.roleypoly.com"
+}
+
 variable "api_public_uri" {
   type        = string
   description = "API Public Base Path"
