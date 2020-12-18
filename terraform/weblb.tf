@@ -86,13 +86,13 @@ resource "google_compute_global_forwarding_rule" "web_lb-ipv6" {
 
 locals {
   // for web-example.roleypoly.com, grab the .roleypoly.com. This may break for .co.uk, etc, so don't use that. :) 
-  uiDNSReplace = regex("/\\.[a-z0-9-]+\\.[a-z\\.]+$/", var.ui_hostnames[0])
+  uiDNSReplace = regex("\\.[a-z0-9-]+\\.[a-z]+$", var.ui_hostnames[0])
 }
 
 resource "cloudflare_record" "web-ipv4" {
   for_each = toset(var.ui_hostnames)
   zone_id  = var.cloudflare_zone_id
-  name     = replace(each.value, uiDNSReplace, "")
+  name     = replace(each.value, local.uiDNSReplace, "")
   type     = "A"
   value    = google_compute_global_forwarding_rule.web_lb-ipv4.ip_address
   proxied  = true
@@ -101,7 +101,7 @@ resource "cloudflare_record" "web-ipv4" {
 resource "cloudflare_record" "web-ipv6" {
   for_each = toset(var.ui_hostnames)
   zone_id  = var.cloudflare_zone_id
-  name     = replace(each.value, uiDNSReplace, "")
+  name     = replace(each.value, local.uiDNSReplace, "")
   type     = "AAAA"
   value    = google_compute_global_forwarding_rule.web_lb-ipv6.ip_address
   proxied  = true
