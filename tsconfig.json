@@ -25,8 +25,9 @@
         "forceConsistentCasingInFileNames": true,
         "noEmit": true,
         "resolveJsonModule": true,
-        "isolatedModules": true
+        "isolatedModules": true,
+        "typeRoots": ["typed", "node_modules/@types"]
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types/**.d.ts"],
     "exclude": ["node_modules", "**/*.stories.tsx", "src/backend-worker"]
 }
