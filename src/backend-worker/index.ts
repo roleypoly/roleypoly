@@ -1,4 +1,5 @@
 import { BotJoin } from './handlers/bot-join';
+import { CreateRoleypolyData } from './handlers/create-roleypoly-data';
 import { GetPickerData } from './handlers/get-picker-data';
 import { GetSession } from './handlers/get-session';
 import { GetSlug } from './handlers/get-slug';
@@ -6,20 +7,28 @@ import { LoginBounce } from './handlers/login-bounce';
 import { LoginCallback } from './handlers/login-callback';
 import { RevokeSession } from './handlers/revoke-session';
 import { Router } from './router';
+import { respond } from './utils/api-tools';
+import { uiPublicURI } from './utils/config';
 
 const router = new Router();
 
-router.addFallback('root', () => {
-    return new Response('hello!!');
-});
-
+// OAuth
 router.add('GET', 'bot-join', BotJoin);
 router.add('GET', 'login-bounce', LoginBounce);
 router.add('GET', 'login-callback', LoginCallback);
-router.add('POST', 'revoke-session', RevokeSession);
+
+// Session
 router.add('GET', 'get-session', GetSession);
+router.add('POST', 'revoke-session', RevokeSession);
+
+// Main biz logic
 router.add('GET', 'get-slug', GetSlug);
 router.add('GET', 'get-picker-data', GetPickerData);
+
+// Root users only
+router.add('GET', 'x-create-roleypoly-data', CreateRoleypolyData);
+
+// Tester Routes
 router.add('GET', 'x-headers', (request) => {
     const headers: { [x: string]: string } = {};
 
@@ -29,7 +38,21 @@ router.add('GET', 'x-headers', (request) => {
 
     return new Response(JSON.stringify(headers));
 });
-// router.add('GET', 'x-create-roleypoly-data', CreateRoleypolyData);
+
+// Root Zen <3
+router.addFallback('root', () => {
+    return respond({
+        __warning: '🦊',
+        this: 'is',
+        a: 'fox-based',
+        web: 'application',
+        please: 'be',
+        mindful: 'of',
+        your: 'surroundings',
+        warning__: '🦊',
+        meta: uiPublicURI,
+    });
+});
 
 addEventListener('fetch', (event: FetchEvent) => {
     event.respondWith(router.handle(event.request));

@@ -4,7 +4,7 @@ import {
     permissions as Permissions,
 } from '../../common/utils/hasPermission';
 import { Handler } from '../router';
-import { uiPublicURI } from './config';
+import { rootUsers, uiPublicURI } from './config';
 import { Sessions, WrappedKVNamespace } from './kv';
 
 export const formData = (obj: Record<string, any>): string => {
@@ -147,3 +147,21 @@ export const withSession = (
 
     return await wrappedHandler(session)(request);
 };
+
+export const isRoot = (userID: string): boolean => rootUsers.includes(userID);
+
+export const onlyRootUsers = (handler: Handler): Handler =>
+    withSession((session) => (request: Request) => {
+        if (isRoot(session.user.id)) {
+            return handler(request);
+        }
+
+        return respond(
+            {
+                error: 'not_found',
+            },
+            {
+                status: 404,
+            }
+        );
+    });
