@@ -94,8 +94,6 @@ jobs:
     deploy_metadata:
         name: Make Deployment Metadata
         runs-on: ubuntu-latest
-        needs:
-            - docker_sync
         outputs:
             url: ${{steps.metadata.outputs.url}}
             env: ${{steps.metadata.outputs.env}}
