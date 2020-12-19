@@ -5,6 +5,7 @@ import {
     Role as RPCRole,
     RoleSafety,
 } from 'roleypoly/common/types';
+import { sortBy } from 'roleypoly/common/utils/sortBy';
 import { Role } from 'roleypoly/design-system/atoms/role';
 import { AmbientLarge, LargeText } from 'roleypoly/design-system/atoms/typography';
 import styled from 'styled-components';
@@ -50,7 +51,7 @@ export const PickerCategory = (props: CategoryProps) => (
             )}
         </Head>
         <Category>
-            {props.roles.map((role, idx) => (
+            {sortBy(props.roles, 'position').map((role, idx) => (
                 <Container key={idx}>
                     <Role
                         role={role}
