@@ -32,7 +32,7 @@ export const Authed = (props: Props) => {
         <MastheadBase>
             <MastheadAlignment>
                 <MastheadLeft>
-                    <Link href="/dashboard" passHref prefetch={false}>
+                    <Link href="/servers" passHref prefetch={false}>
                         <MastheadA>
                             <DynamicLogomark height={35} />
                         </MastheadA>
