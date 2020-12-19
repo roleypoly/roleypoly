@@ -82,34 +82,37 @@ export const RolePicker = (props: RolePickerProps) => {
             {props.guildData.categories.length !== 0 ? (
                 <>
                     <div>
-                        {sortBy(props.guildData.categories, 'position').map(
-                            (category, idx) => (
-                                <CategoryContainer key={idx}>
-                                    <PickerCategory
-                                        key={idx}
-                                        category={category}
-                                        title={category.name}
-                                        selectedRoles={selectedRoles.filter((roleId) =>
-                                            category.roles.includes(roleId)
-                                        )}
-                                        roles={
-                                            category.roles
-                                                .map((role) =>
-                                                    props.roles.find((r) => r.id === role)
-                                                )
-                                                .filter((r) => r !== undefined) as Role[]
-                                        }
-                                        onChange={handleChange(category)}
-                                        wikiMode={false}
-                                        type={
-                                            category.type === CategoryType.Single
-                                                ? 'single'
-                                                : 'multi'
-                                        }
-                                    />
-                                </CategoryContainer>
-                            )
-                        )}
+                        {sortBy(
+                            props.guildData.categories.filter(
+                                (category) => !category.hidden
+                            ),
+                            'position'
+                        ).map((category, idx) => (
+                            <CategoryContainer key={idx}>
+                                <PickerCategory
+                                    key={idx}
+                                    category={category}
+                                    title={category.name}
+                                    selectedRoles={selectedRoles.filter((roleId) =>
+                                        category.roles.includes(roleId)
+                                    )}
+                                    roles={
+                                        category.roles
+                                            .map((role) =>
+                                                props.roles.find((r) => r.id === role)
+                                            )
+                                            .filter((r) => r !== undefined) as Role[]
+                                    }
+                                    onChange={handleChange(category)}
+                                    wikiMode={false}
+                                    type={
+                                        category.type === CategoryType.Single
+                                            ? 'single'
+                                            : 'multi'
+                                    }
+                                />
+                            </CategoryContainer>
+                        ))}
                     </div>
                     <FaderOpacity
                         isVisible={xor(selectedRoles, props.member.roles).length !== 0}
