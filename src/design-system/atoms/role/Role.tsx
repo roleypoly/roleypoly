@@ -15,6 +15,27 @@ type Props = {
     type?: 'delete';
 };
 
+const getColorsFromBase = (baseColor: chroma.Color, contrastCheckThrow: number = 5) => {
+    // Which has more contrast? Stepping up or stepping down?
+    const contrastColorUp = baseColor.brighten(contrastCheckThrow);
+    const contrastColorDown = baseColor.darken(contrastCheckThrow);
+
+    if (
+        chroma.contrast(baseColor, contrastColorUp) >
+        chroma.contrast(baseColor, contrastColorDown)
+    ) {
+        return {
+            contrastColor: baseColor.brighten(3),
+            accentColor: baseColor.brighten(2),
+        };
+    } else {
+        return {
+            contrastColor: baseColor.darken(3),
+            accentColor: baseColor.darken(2),
+        };
+    }
+};
+
 export const Role = (props: Props) => {
     const colorVars = {
         '--role-color': 'white',
@@ -24,11 +45,7 @@ export const Role = (props: Props) => {
 
     if (props.role.color !== 0) {
         const baseColor = numberToChroma(props.role.color);
-        const contrastColorUp = baseColor.brighten(5);
-        const contrastColorDown = baseColor.darken(5);
-        const ratio = chroma.contrast(contrastColorDown, baseColor);
-        const contrastColor = ratio > 2 ? contrastColorDown : contrastColorUp;
-        const accentColor = ratio > 2 ? baseColor.darken(2) : baseColor.brighten(2);
+        const { accentColor, contrastColor } = getColorsFromBase(baseColor, 5);
         colorVars['--role-color'] = baseColor.css();
         colorVars['--role-accent'] = accentColor.css();
         colorVars['--role-contrast'] = contrastColor.css();
