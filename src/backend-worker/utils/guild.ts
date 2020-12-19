@@ -7,7 +7,7 @@ import {
     RoleSafety,
 } from 'roleypoly/common/types';
 import { evaluatePermission, permissions } from 'roleypoly/common/utils/hasPermission';
-import { cacheLayer, discordFetch } from './api-tools';
+import { AuthType, cacheLayer, discordFetch } from './api-tools';
 import { botClientID, botToken } from './config';
 import { GuildData, Guilds } from './kv';
 
@@ -92,14 +92,17 @@ type APIMember = {
     roles: string[];
 };
 
+const guildMemberRolesIdentity = ({ serverID, userID }) =>
+    `guilds/${serverID}/members/${userID}`;
+
 export const getGuildMemberRoles = cacheLayer<GuildMemberIdentity, Role['id'][]>(
     Guilds,
-    ({ serverID, userID }) => `guilds/${serverID}/members/${userID}`,
+    guildMemberRolesIdentity,
     async ({ serverID, userID }) => {
         const discordMember = await discordFetch<APIMember>(
             `/guilds/${serverID}/members/${userID}`,
             botToken,
-            'Bot'
+            AuthType.Bot
         );
 
         if (!discordMember) {
@@ -110,6 +113,13 @@ export const getGuildMemberRoles = cacheLayer<GuildMemberIdentity, Role['id'][]>
     },
     60 * 5 // 5 minute TTL
 );
+
+export const updateGuildMemberRoles = async (
+    identity: GuildMemberIdentity,
+    roles: Role['id'][]
+) => {
+    await Guilds.put(guildMemberRolesIdentity(identity), roles, 60 * 5);
+};
 
 export const getGuildData = async (id: string): Promise<GuildDataT> => {
     const guildData = await GuildData.get<GuildDataT>(id);

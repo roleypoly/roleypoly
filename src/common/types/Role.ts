@@ -19,3 +19,19 @@ export type Role = {
 export type OwnRoleInfo = {
     highestRolePosition: number;
 };
+
+export enum TransactionType {
+    None = 0,
+    Remove = 1 << 1,
+    Add = 1 << 2,
+}
+
+export type RoleTransaction = {
+    id: string;
+    action: TransactionType;
+};
+
+export type RoleUpdate = {
+    knownState: Role['id'][];
+    transactions: RoleTransaction[];
+};

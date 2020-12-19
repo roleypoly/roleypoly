@@ -18,7 +18,7 @@ export const addCORS = (init: ResponseInit = {}) => ({
     headers: {
         ...(init.headers || {}),
         'access-control-allow-origin': uiPublicURI,
-        'access-control-allow-method': '*',
+        'access-control-allow-methods': '*',
         'access-control-allow-headers': '*',
     },
 });
@@ -80,14 +80,25 @@ export enum AuthType {
 export const discordFetch = async <T>(
     url: string,
     auth: string,
-    authType: AuthType = AuthType.Bearer
+    authType: AuthType = AuthType.Bearer,
+    init?: RequestInit
 ): Promise<T | null> => {
     const response = await fetch('https://discord.com/api/v8' + url, {
+        ...(init || {}),
         headers: {
+            ...(init?.headers || {}),
             authorization: `${AuthType[authType]} ${auth}`,
             'user-agent': userAgent,
         },
     });
+
+    if (response.status >= 400) {
+        console.error('discordFetch failed', {
+            url,
+            authType,
+            payload: await response.text(),
+        });
+    }
 
     if (response.ok) {
         return (await response.json()) as T;

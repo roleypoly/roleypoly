@@ -52,9 +52,6 @@ export class Router {
         if (handler) {
             try {
                 const response = await handler(request);
-
-                // this.wrapCORS(request, response);
-
                 return response;
             } catch (e) {
                 console.error(e);

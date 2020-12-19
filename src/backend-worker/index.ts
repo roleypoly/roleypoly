@@ -6,6 +6,7 @@ import { GetSlug } from './handlers/get-slug';
 import { LoginBounce } from './handlers/login-bounce';
 import { LoginCallback } from './handlers/login-callback';
 import { RevokeSession } from './handlers/revoke-session';
+import { UpdateRoles } from './handlers/update-roles';
 import { Router } from './router';
 import { respond } from './utils/api-tools';
 import { uiPublicURI } from './utils/config';
@@ -24,6 +25,7 @@ router.add('POST', 'revoke-session', RevokeSession);
 // Main biz logic
 router.add('GET', 'get-slug', GetSlug);
 router.add('GET', 'get-picker-data', GetPickerData);
+router.add('PATCH', 'update-roles', UpdateRoles);
 
 // Root users only
 router.add('GET', 'x-create-roleypoly-data', CreateRoleypolyData);

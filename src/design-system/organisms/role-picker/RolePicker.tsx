@@ -1,3 +1,4 @@
+import { isEqual, xor } from 'lodash';
 import NextLink from 'next/link';
 import * as React from 'react';
 import { GoInfo } from 'react-icons/go';
@@ -34,19 +35,16 @@ export type RolePickerProps = {
     editable: boolean;
 };
 
-const arrayMatches = (a: any[], b: any[]) => {
-    return (
-        a === b ||
-        (a.length === b.length &&
-            a.every((x) => b.includes(x)) &&
-            b.every((x) => a.includes(x)))
-    );
-};
-
 export const RolePicker = (props: RolePickerProps) => {
     const [selectedRoles, updateSelectedRoles] = React.useState<string[]>(
         props.member.roles
     );
+
+    React.useEffect(() => {
+        if (!isEqual(props.member.roles, selectedRoles)) {
+            updateSelectedRoles(props.member.roles);
+        }
+    }, [props.member.roles]);
 
     const handleChange = (category: Category) => (role: Role) => (newState: boolean) => {
         if (category.type === CategoryType.Single) {
@@ -114,7 +112,7 @@ export const RolePicker = (props: RolePickerProps) => {
                         )}
                     </div>
                     <FaderOpacity
-                        isVisible={!arrayMatches(selectedRoles, props.member.roles)}
+                        isVisible={xor(selectedRoles, props.member.roles).length !== 0}
                     >
                         <ResetSubmit
                             onSubmit={() => props.onSubmit(selectedRoles)}
