@@ -32,7 +32,11 @@ export const getGuild = cacheLayer(
     Guilds,
     (id: string) => `guilds/${id}`,
     async (id: string) => {
-        const guildRaw = await discordFetch<APIGuild>(`/guilds/${id}`, botToken, 'Bot');
+        const guildRaw = await discordFetch<APIGuild>(
+            `/guilds/${id}`,
+            botToken,
+            AuthType.Bot
+        );
 
         if (!guildRaw) {
             return null;
@@ -92,7 +96,7 @@ type APIMember = {
     roles: string[];
 };
 
-const guildMemberRolesIdentity = ({ serverID, userID }) =>
+const guildMemberRolesIdentity = ({ serverID, userID }: GuildMemberIdentity) =>
     `guilds/${serverID}/members/${userID}`;
 
 export const getGuildMemberRoles = cacheLayer<GuildMemberIdentity, Role['id'][]>(
