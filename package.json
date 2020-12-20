@@ -21,14 +21,14 @@
         "lint:terraform": "terraform fmt -recursive -check ./terraform",
         "lint:types": "tsc --noEmit",
         "now-build": "run-s storybook:build",
+        "postinstall": "husky install",
         "storybook": "start-storybook -p 6006",
         "storybook:build": "build-storybook",
         "test": "jest",
         "ui": "next dev -p 6601",
         "ui:build": "next build",
         "ui:prod": "cross-env next start -p ${PORT:-3000}",
-        "worker": "node src/backend-emulator/main.js",
-        "postinstall": "husky install"
+        "worker": "node src/backend-emulator/main.js"
     },
     "dependencies": {
         "chroma-js": "^2.1.0",
