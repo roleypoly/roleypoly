@@ -10,7 +10,6 @@ export const CardLine = styled.div<{ left?: boolean }>`
     display: flex;
     padding: 5px;
     box-sizing: border-box;
-
     ${(props) =>
         props.left &&
         css`
