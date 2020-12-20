@@ -1,5 +1,3 @@
-// import {} from 'styled-components';
-
 export const breakpoints = {
     onTablet: 768,
     onDesktop: 1024,
