@@ -55,6 +55,4 @@ const PermissionTag = (props: { permissionLevel: UserGuildPermissions }) => {
                 </PermissionTagStyled>
             );
     }
-
-    return null;
 };
