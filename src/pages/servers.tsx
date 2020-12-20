@@ -1,11 +1,17 @@
-import { AppShell } from 'roleypoly/design-system/organisms/app-shell';
+import Head from 'next/head';
+import { ServersTemplate } from 'roleypoly/design-system/templates/servers';
 import { useAppShellProps } from 'roleypoly/providers/appShellData';
 
-export default () => {
+const Servers = () => {
     const { appShellProps } = useAppShellProps();
     return (
-        <AppShell {...appShellProps}>
-            <div></div>
-        </AppShell>
+        <>
+            <Head>
+                <title>Viewing your servers - Roleypoly</title>
+            </Head>
+            <ServersTemplate {...appShellProps} guilds={appShellProps.guilds || []} />
+        </>
     );
 };
+
+export default Servers;

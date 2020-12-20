@@ -140,6 +140,13 @@ export const guild: Guild = {
     roles: [],
 };
 
+export const roleypolyGuild: GuildSlug = {
+    name: 'Roleypoly',
+    id: '386659935687147521',
+    permissionLevel: 0,
+    icon: 'ffee638c73ff9c972554f64ca34d67ee',
+};
+
 export const guildMap: { [x: string]: GuildSlug } = {
     'emoji megaporium': {
         name: guild.name,
@@ -147,12 +154,7 @@ export const guildMap: { [x: string]: GuildSlug } = {
         permissionLevel: 0,
         icon: guild.icon,
     },
-    Roleypoly: {
-        name: 'Roleypoly',
-        id: '203493697696956418',
-        permissionLevel: 0,
-        icon: 'ff08d36f5aee1ff48f8377b65d031ab0',
-    },
+    Roleypoly: roleypolyGuild,
     'chamber of secrets': {
         name: 'chamber of secrets',
         id: 'aaa',
@@ -234,6 +236,6 @@ export const mastheadSlugs: GuildSlug[] = guildEnum.guilds.map<GuildSlug>(
         id: guild.guild.id,
         name: guild.guild.name,
         icon: guild.guild.icon,
-        permissionLevel: idx % 3,
+        permissionLevel: 1 << idx % 3,
     })
 );

@@ -96,3 +96,13 @@ export const Link = styled.a`
         color: ${palette.taupe600};
     }
 `;
+
+export const CompletelyStylelessLink = styled.a`
+    color: inherit;
+    text-decoration: none;
+    :visited,
+    :active,
+    :hover {
+        color: inherit;
+    }
+`;
