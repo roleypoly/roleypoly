@@ -114,16 +114,20 @@ export const RolePicker = (props: RolePickerProps) => {
                             </CategoryContainer>
                         ))}
                     </div>
-                    <FaderOpacity
-                        isVisible={xor(selectedRoles, props.member.roles).length !== 0}
-                    >
-                        <ResetSubmit
-                            onSubmit={() => props.onSubmit(selectedRoles)}
-                            onReset={() => {
-                                updateSelectedRoles(props.member.roles);
-                            }}
-                        />
-                    </FaderOpacity>
+                    <div>
+                        <FaderOpacity
+                            isVisible={
+                                xor(selectedRoles, props.member.roles).length !== 0
+                            }
+                        >
+                            <ResetSubmit
+                                onSubmit={() => props.onSubmit(selectedRoles)}
+                                onReset={() => {
+                                    updateSelectedRoles(props.member.roles);
+                                }}
+                            />
+                        </FaderOpacity>
+                    </div>
                 </>
             ) : (
                 <InfoBox>
