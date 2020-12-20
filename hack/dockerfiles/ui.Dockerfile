@@ -4,17 +4,14 @@
 FROM mhart/alpine-node:14 AS builder
 WORKDIR /src
 
-# Disable Husky as it will fail
-ENV HUSKY 0
-
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile --ignore-scripts
 
 COPY tsconfig.json .babelrc.js next.config.js next-env.d.ts ./
 COPY src src
 
 RUN yarn ui:build
-RUN yarn install --frozen-lockfile --prod
+RUN yarn install --frozen-lockfile --prod --ignore-scripts
 
 #
 # Output layer
