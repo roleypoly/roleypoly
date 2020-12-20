@@ -13,6 +13,7 @@ export type AppShellProps = {
     small?: boolean;
     activeGuildId?: string | null;
     guilds?: GuildSlug[];
+    disableGuildPicker?: boolean;
 };
 
 export const AppShell = (props: AppShellProps) => (
@@ -21,6 +22,7 @@ export const AppShell = (props: AppShellProps) => (
         <GlobalStyleColors />
         {props.user ? (
             <Masthead.Authed
+                disableGuildPicker={props.disableGuildPicker}
                 guilds={props.guilds || []}
                 activeGuildId={props.activeGuildId || null}
                 user={props.user}

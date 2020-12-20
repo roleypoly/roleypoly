@@ -22,6 +22,7 @@ type Props = {
     user?: DiscordUser;
     activeGuildId: string | null;
     guilds: GuildSlug[];
+    disableGuildPicker?: boolean;
 };
 
 export const Authed = (props: Props) => {
@@ -39,8 +40,10 @@ export const Authed = (props: Props) => {
                     </Link>
                     <InteractionBase
                         onClick={() => {
-                            setServerPopoverState(true);
-                            setUserPopoverState(false);
+                            if (!props.disableGuildPicker) {
+                                setServerPopoverState(true);
+                                setUserPopoverState(false);
+                            }
                         }}
                         hide={!serverPopoverState}
                     >
