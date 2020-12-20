@@ -130,6 +130,9 @@
         ],
         "*.{json,Dockerfile,sh,md,gitignore,env,mdx,yml,html}": [
             "prettier --write"
+        ],
+        ".husky/pre-commit": [
+            "prettier --write"
         ]
     }
 }
