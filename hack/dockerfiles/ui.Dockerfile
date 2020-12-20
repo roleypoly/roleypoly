@@ -4,6 +4,9 @@
 FROM mhart/alpine-node:14 AS builder
 WORKDIR /src
 
+# Disable Husky as it will fail
+ENV HUSKY 0
+
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
