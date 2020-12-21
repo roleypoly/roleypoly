@@ -1,5 +1,6 @@
 import { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 import {
     Member,
@@ -10,13 +11,19 @@ import {
     TransactionType,
     UserGuildPermissions,
 } from 'roleypoly/common/types';
-import { apiFetch } from 'roleypoly/common/utils/isomorphicFetch';
+import { apiFetch, getSessionKey } from 'roleypoly/common/utils/isomorphicFetch';
 import { RolePickerTemplate } from 'roleypoly/design-system/templates/role-picker';
 import { useAppShellProps } from 'roleypoly/providers/appShellData';
 
-type Props = {
-    data: PresentableGuild;
-};
+type Props =
+    | {
+          data: PresentableGuild;
+          redirect: null;
+      }
+    | {
+          data: null;
+          redirect: string;
+      };
 
 const createUpdatePayload = (
     oldRoles: Role['id'][],
@@ -48,6 +55,18 @@ const createUpdatePayload = (
 };
 
 const RolePickerPage: NextPage<Props> = (props) => {
+    const router = useRouter();
+
+    React.useEffect(() => {
+        if (props.redirect !== null) {
+            void router.replace(props.redirect || '/auth/login');
+        }
+    }, [props.redirect]);
+
+    if (!props.data) {
+        return null;
+    }
+
     const { appShellProps } = useAppShellProps();
 
     const [isPending, updatePending] = React.useState(false);
@@ -108,19 +127,32 @@ RolePickerPage.getInitialProps = async (context: NextPageContext): Promise<Props
         throw new Error('serverID missing');
     }
 
-    const pickerData = await apiFetch<PresentableGuild>(
-        `/get-picker-data/${serverID}`,
-        undefined,
-        context
-    );
-
-    if (!pickerData) {
-        throw new Error('TODO: picker fetch failed');
+    if (!getSessionKey()) {
+        return {
+            data: null,
+            redirect: `/auth/login?r=${serverID}`,
+        };
     }
 
-    return {
-        data: pickerData,
-    };
+    try {
+        const pickerData = await apiFetch<PresentableGuild>(
+            `/get-picker-data/${serverID}`,
+            undefined,
+            context
+        );
+
+        if (pickerData) {
+            return {
+                data: pickerData,
+                redirect: null,
+            };
+        }
+    } catch (e) {
+        return {
+            data: null,
+            redirect: `/auth/login?r=${serverID}`,
+        };
+    }
 };
 
 export default RolePickerPage;
