@@ -11,7 +11,7 @@ const Index = () => {
 
     React.useEffect(() => {
         if (user || guilds) {
-            router.replace('/servers');
+            void router.replace('/servers');
         }
     }, [guilds, user]);
 
