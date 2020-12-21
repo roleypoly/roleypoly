@@ -125,9 +125,6 @@
         "*.go": [
             "go fmt"
         ],
-        "*.{tf,tfvars}": [
-            "terraform fmt"
-        ],
         "*.{json,Dockerfile,sh,md,gitignore,env,mdx,yml,html}": [
             "prettier --write"
         ],
