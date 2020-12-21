@@ -3,9 +3,7 @@ import * as React from 'react';
 import { FaDiscord } from 'react-icons/fa';
 import { GuildSlug } from 'roleypoly/common/types';
 import { Button } from 'roleypoly/design-system/atoms/button';
-import { Space } from 'roleypoly/design-system/atoms/space';
 import { PreauthGreeting } from 'roleypoly/design-system/molecules/preauth-greeting';
-import { PreauthSecretCode } from 'roleypoly/design-system/molecules/preauth-secret-code';
 import styled from 'styled-components';
 
 export type PreauthProps = {
@@ -47,14 +45,6 @@ export const Preauth = (props: PreauthProps) => {
                         Sign in with Discord
                     </Button>
                 </Link>
-            </WidthContainer>
-            <Space />
-            <WidthContainer>
-                <p>
-                    Or, send a message saying "login" to{' '}
-                    <b>{props.botName || 'roleypoly'}</b>
-                </p>
-                <PreauthSecretCode onSubmit={props.onSendSecretCode} />
             </WidthContainer>
         </Centered>
     );
