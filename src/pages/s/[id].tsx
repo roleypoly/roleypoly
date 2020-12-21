@@ -141,12 +141,13 @@ RolePickerPage.getInitialProps = async (context: NextPageContext): Promise<Props
             context
         );
 
-        if (pickerData) {
-            return {
-                data: pickerData,
-                redirect: null,
-            };
+        if (!pickerData) {
+            throw new Error('Picker data failed.');
         }
+        return {
+            data: pickerData,
+            redirect: null,
+        };
     } catch (e) {
         return {
             data: null,
