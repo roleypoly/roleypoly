@@ -97,7 +97,7 @@ type APIMember = {
 };
 
 const guildMemberRolesIdentity = ({ serverID, userID }: GuildMemberIdentity) =>
-    `guilds/${serverID}/members/${userID}`;
+    `guilds/${serverID}/members/${userID}/roles`;
 
 export const getGuildMemberRoles = cacheLayer<GuildMemberIdentity, Role['id'][]>(
     Guilds,
