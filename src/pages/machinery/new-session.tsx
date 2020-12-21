@@ -1,5 +1,6 @@
 import { NextPageContext } from 'next';
 import getConfig from 'next/config';
+import { useRouter } from 'next/router';
 import nookies from 'nookies';
 import * as React from 'react';
 import { Hero } from 'roleypoly/design-system/atoms/hero';
@@ -13,12 +14,15 @@ type Props = {
 
 const NewSession = (props: Props) => {
     const { sessionID, apiURI } = props;
+    const router = useRouter();
 
     React.useEffect(() => {
         sessionStorage.setItem('session_key', sessionID);
-        localStorage.setItem('api_uri', apiURI); // TODO: set better
+        localStorage.setItem('api_uri', apiURI);
 
-        location.href = '/';
+        const nextURL = sessionStorage.getItem('redirectAfterNewSession') || '/servers';
+        sessionStorage.removeItem('redirectAfterNewSession');
+        void router.replace(nextURL);
     }, [sessionID, apiURI]);
 
     return (
