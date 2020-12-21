@@ -15,3 +15,5 @@ ui_hostnames = [
   "next.roleypoly.com",
   "web-prod.roleypoly.com"
 ]
+ui_public_uri  = "https://next.roleypoly.com"
+api_public_uri = "https://api-prod.roleypoly.com"
