@@ -28,15 +28,12 @@ export const apiFetch = async <T>(
     context?: NextPageContext
 ): Promise<T | null> => {
     const sessionKey = getSessionKey(context);
-    if (!sessionKey) {
-        return null;
-    }
 
     const authorizedInit: RequestInit = {
         ...(init || {}),
         headers: {
             ...(init?.headers || {}),
-            authorization: `Bearer ${sessionKey}`,
+            authorization: sessionKey ? `Bearer ${sessionKey}` : '',
         },
     };
 
