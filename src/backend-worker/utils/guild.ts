@@ -60,7 +60,7 @@ export const getGuild = cacheLayer(
             }
 
             return role.position;
-        }, guildRaw.roles.length - 1);
+        }, 0);
 
         const roles = guildRaw.roles.map<Role>((role) => ({
             id: role.id,
