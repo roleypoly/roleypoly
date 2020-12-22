@@ -73,8 +73,8 @@ jobs:
               id: check
               run: |
                   gsutil stat gs://roleypoly-artifacts/backend-worker/${{ github.sha }}/script.js \
-                      && echo ::set-output name=skip::0 \
-                      || echo ::set-output name=skip::1
+                    && echo ::set-output name=skip::1 \
+                    || echo ::set-output name=skip::0
 
             - run: npm i -g @cloudflare/wrangler
               if: steps.check.outputs.skip == '0'
