@@ -110,6 +110,7 @@ export const SparklePatternAlpha = ({ style, ...props }: SparkleProps) => (
             height="20%"
             style={{
                 ...shapeMixin,
+
                 top: 0,
                 left: 0,
             }}
@@ -120,6 +121,7 @@ export const SparklePatternAlpha = ({ style, ...props }: SparkleProps) => (
             height="20%"
             style={{
                 ...shapeMixin,
+
                 top: '45%',
                 left: '15%',
             }}
@@ -130,6 +132,7 @@ export const SparklePatternAlpha = ({ style, ...props }: SparkleProps) => (
             height="10%"
             style={{
                 ...shapeMixin,
+
                 top: '30%',
                 left: '-15%',
                 transform: 'rotate(30deg)',
@@ -141,6 +144,7 @@ export const SparklePatternAlpha = ({ style, ...props }: SparkleProps) => (
             height="30%"
             style={{
                 ...shapeMixin,
+
                 bottom: '0%',
                 right: '10%',
             }}
@@ -156,6 +160,7 @@ export const SparklePatternBeta = ({ style, ...props }: SparkleProps) => (
             height="15%"
             style={{
                 ...shapeMixin,
+
                 top: '60%',
                 left: '20%',
             }}
@@ -166,6 +171,7 @@ export const SparklePatternBeta = ({ style, ...props }: SparkleProps) => (
             height="20%"
             style={{
                 ...shapeMixin,
+
                 top: 0,
                 right: 0,
             }}
@@ -176,6 +182,7 @@ export const SparklePatternBeta = ({ style, ...props }: SparkleProps) => (
             height="15%"
             style={{
                 ...shapeMixin,
+
                 top: '80%',
                 right: 0,
             }}
@@ -186,6 +193,7 @@ export const SparklePatternBeta = ({ style, ...props }: SparkleProps) => (
             height="30%"
             style={{
                 ...shapeMixin,
+
                 top: '20%',
                 left: '30%',
                 transform: 'rotate(30deg)',

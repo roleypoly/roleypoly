@@ -10,6 +10,7 @@ export const HeroText = styled.div`
 
 export const DemoSubtitle = styled.p`
     ${text400}
+
     text-align: center;
     margin-top: 0.4em;
 `;

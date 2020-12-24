@@ -109,7 +109,6 @@
         "stylelint-config-standard": "^20.0.0",
         "stylelint-config-styled-components": "^0.1.1",
         "stylelint-prettier": "^1.1.2",
-        "stylelint-processor-styled-components": "^1.10.0",
         "ts-jest": "^26.4.4",
         "ts-loader": "^8.0.12",
         "tsconfig-paths-webpack-plugin": "^3.3.0",

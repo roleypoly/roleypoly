@@ -10,6 +10,7 @@ export const IconContainer = styled.div`
 
 const base = css`
     ${fontCSS}
+
     appearance: none;
     display: block;
     background-color: ${palette.taupe300};
@@ -71,10 +72,12 @@ const colors = {
 const sizes = {
     small: css`
         ${text300}
+
         padding: 4px 8px;
     `,
     large: css`
         ${text400}
+
         padding: 12px 32px;
         width: 100%;
     `,

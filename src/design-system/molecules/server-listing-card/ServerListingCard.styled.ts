@@ -28,6 +28,7 @@ export const MaxWidthTitle = styled.div`
 
 export const PermissionTagStyled = styled.div<{ hiddenOnSmall?: boolean }>`
     ${text200}
+
     display: inline-block;
     background-color: ${palette.taupe200};
     padding: 4px 6px;
@@ -54,6 +55,7 @@ export const PermissionTagStyled = styled.div<{ hiddenOnSmall?: boolean }>`
 
 export const CardBase = styled.div`
     ${text500}
+
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

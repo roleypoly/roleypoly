@@ -21,6 +21,10 @@ export const DiscordRole = styled.div<{
     discordRole: Role;
     isRoleypoly: boolean;
 }>`
+    /* stylelint-disable function-name-case, function-whitespace-after */
+
+    /* Disabled due to postcss bug parsing the below functions as CSS and not a JS interpolation */
+
     padding: 6px 10px;
     color: ${(props) => numberToChroma(props.discordRole.color).css()};
     border-radius: 3px;

@@ -36,5 +36,6 @@ export const ErrorText = styled.div`
 
 export const ErrorTextLower = styled.div`
     ${text300}
+
     color: ${palette.taupe500};
 `;

@@ -13,46 +13,55 @@ const reset = css`
 
 export const text900 = css`
     ${reset}
+
     font-size: 2.3rem;
 `;
 
 export const text800 = css`
     ${reset}
+
     font-size: 2rem;
 `;
 
 export const text700 = css`
     ${reset}
+
     font-size: 1.7rem;
 `;
 
 export const text600 = css`
     ${reset}
+
     font-size: 1.4rem;
 `;
 
 export const text500 = css`
     ${reset}
+
     font-size: 1.2rem;
 `;
 
 export const text400 = css`
     ${reset}
+
     font-size: 1rem;
 `;
 
 export const text300 = css`
     ${reset}
+
     font-size: 0.9rem;
 `;
 
 export const text200 = css`
     ${reset}
+
     font-size: 0.7rem;
 `;
 
 export const text100 = css`
     ${reset}
+
     font-size: 0.5rem;
 `;
 
