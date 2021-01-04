@@ -63,7 +63,7 @@
         "@types/enzyme-adapter-react-16": "^1.0.6",
         "@types/express": "^4.17.9",
         "@types/jest": "^26.0.19",
-        "@types/lodash": "^4.14.165",
+        "@types/lodash": "^4.14.167",
         "@types/minimist": "^1.2.1",
         "@types/node": "^14.14.14",
         "@types/react": "^17.0.0",
