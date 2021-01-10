@@ -2,17 +2,17 @@ terraform {
   required_version = ">=0.14"
   required_providers {
     google = {
-      version = ">=3.51.0"
+      version = ">=3.51.1"
       source  = "hashicorp/google"
     }
 
     google-beta = {
-      version = ">=3.51.0"
+      version = ">=3.51.1"
       source  = "hashicorp/google"
     }
 
     cloudflare = {
-      version = ">=2.14.0"
+      version = ">=2.17.0"
       source  = "cloudflare/cloudflare"
     }
 
