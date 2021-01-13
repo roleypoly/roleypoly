@@ -217,7 +217,7 @@ jobs:
                   curl -X POST -H "content-type: application/json" --data $DATA ${{ secrets.DEPLOYMENT_WEBHOOK_URL }}
 
             - name: Yell Failure at Discord
-              if: failed()
+              if: failure()
               run: |
                   DATA='{
                     "embeds": [
