@@ -169,7 +169,7 @@ jobs:
                   echo "${{ steps.docker.outputs.digest }}" > digest.txt
 
             - name: Pre-deploy - Make digest artifact
-              uses: actions/upload-artifact@v2.2.1
+              uses: actions/upload-artifact@v2.2.2
               with:
                   name: ${{ matrix.dockerfile }}-digest
                   path: digest.txt
