@@ -1,5 +1,7 @@
 github.com/bwmarrin/discordgo v0.22.0 h1:uBxY1HmlVCsW1IuaPjpCGT6A2DBwRn0nvOguQIxDdFM=
 github.com/bwmarrin/discordgo v0.22.0/go.mod h1:c1WtWUGN6nREDmzIpyTp/iD3VYt4Fpx+bVyfBG7JE+M=
+github.com/bwmarrin/discordgo v0.22.1 h1:254fNYyfqJWKbPzO5g8j/nUvRgj4dNlI19EB8rnkpt8=
+github.com/bwmarrin/discordgo v0.22.1/go.mod h1:c1WtWUGN6nREDmzIpyTp/iD3VYt4Fpx+bVyfBG7JE+M=
 github.com/dghubble/trie v0.0.0-20201011220304-ed6d6b8add55 h1:3yKntgWb7KwnHd4nCVgCIUNQs4qRdua+jitRqGMxKys=
 github.com/dghubble/trie v0.0.0-20201011220304-ed6d6b8add55/go.mod h1:xNBeoT4V92/aNvuC3IJ2g59uxuKP4/kzvkpoHrb7v4A=
 github.com/fsnotify/fsnotify v1.4.7 h1:IXs+QLmnXW2CcXuY+8Mzv/fWEsPGWxqefPtCP5CnV9I=
