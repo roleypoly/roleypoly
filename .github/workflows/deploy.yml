@@ -194,9 +194,7 @@ jobs:
                         deployment.tfplan
 
             - name: Yell Success at Discord
-              when: success()
-              env:
-
+              if: success()
               run: |
                   DATA='{
                     "embeds": [
@@ -219,7 +217,7 @@ jobs:
                   curl -X POST -H "content-type: application/json" --data $DATA ${{ secrets.DEPLOYMENT_WEBHOOK_URL }}
 
             - name: Yell Failure at Discord
-              when: failed()
+              if: failed()
               run: |
                   DATA='{
                     "embeds": [
