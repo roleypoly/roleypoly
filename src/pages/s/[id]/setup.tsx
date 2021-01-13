@@ -1,7 +1,7 @@
 import { NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import { ServerSetupTemplate } from 'roleypoly/design-system/templates/server-setup/ServerSetup';
+import { ServerSetupTemplate } from 'roleypoly/design-system/templates/server-setup';
 import { useAppShellProps } from 'roleypoly/providers/appShellData';
 
 const serverSetup = (props: { guildID: string }) => {
