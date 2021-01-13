@@ -108,7 +108,7 @@ jobs:
                     ENV_URL="https://next.roleypoly.com"
                     ENV_NAME=Production
                   elif [[ "${{github.event.inputs.environment}}" == "stage" ]]; then
-                    ENV_URL="https://web-stage.roleypoly.com"
+                    ENV_URL="https://stage.roleypoly.com"
                     ENV_NAME=Staging
                   else
                     ENV_URL="https://web-${{github.event.inputs.environment}}.roleypoly.com"
@@ -192,3 +192,51 @@ jobs:
                   terraform apply \
                     -auto-approve \
                         deployment.tfplan
+
+            - name: Yell Success at Discord
+              when: success()
+              env:
+
+              run: |
+                  DATA='{
+                    "embeds": [
+                      {
+                        "title": "Roleypoly ${{ needs.deploy_metadata.outputs.env }} Deployment Success",
+                        "description": "Roleypoly was successfully deployed to ${{ needs.deploy_metadata.outputs.env }} at '$(date)'",
+                        "url": "${{ needs.deploy_metadata.outputs.url }}",
+                        "color": 4634182,
+                        "author": {
+                          "name": "Deployment Notification",
+                          "url": "https://github.com/roleypoly/roleypoly/actions/runs/${{ github.run_id }}"
+                        },
+                        "footer": {
+                          "text": "GitHub Actions"
+                        }
+                      }
+                    ]
+                  }'
+
+                  curl -X POST -H "content-type: application/json" --data $DATA ${{ secrets.DEPLOYMENT_WEBHOOK_URL }}
+
+            - name: Yell Failure at Discord
+              when: failed()
+              run: |
+                  DATA='{
+                    "embeds": [
+                      {
+                        "title": "Roleypoly ${{ needs.deploy_metadata.outputs.env }} Deployment Failed",
+                        "description": "Roleypoly failed to be deployed to ${{ needs.deploy_metadata.outputs.env }} at '$(date)'",
+                        "url": "${{ needs.deploy_metadata.outputs.url }}",
+                        "color": 15291219,
+                        "author": {
+                          "name": "Deployment Notification",
+                          "url": "https://github.com/roleypoly/roleypoly/actions/runs/${{ github.run_id }}"
+                        },
+                        "footer": {
+                          "text": "GitHub Actions"
+                        }
+                      }
+                    ]
+                  }'
+
+                  curl -X POST -H "content-type: application/json" --data $DATA ${{ secrets.DEPLOYMENT_WEBHOOK_URL }}
