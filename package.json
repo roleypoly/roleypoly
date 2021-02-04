@@ -65,7 +65,7 @@
         "@types/jest": "^26.0.20",
         "@types/lodash": "^4.14.167",
         "@types/minimist": "^1.2.1",
-        "@types/node": "^14.14.20",
+        "@types/node": "^14.14.24",
         "@types/react": "^17.0.0",
         "@types/react-custom-scrollbars": "^4.0.7",
         "@types/react-dom": "^17.0.0",
