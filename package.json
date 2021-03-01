@@ -54,7 +54,7 @@
         "@peculiar/webcrypto": "^1.1.4",
         "@storybook/addon-actions": "^6.1.14",
         "@storybook/addon-essentials": "^6.1.14",
-        "@storybook/addon-links": "^6.1.14",
+        "@storybook/addon-links": "^6.1.20",
         "@storybook/addons": "^6.1.14",
         "@storybook/react": "^6.1.14",
         "@storybook/theming": "^6.1.14",
