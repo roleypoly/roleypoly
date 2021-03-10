@@ -7,10 +7,6 @@ on:
                 description: 'One of: stage, prod'
                 required: true
                 default: stage
-            ui_tag:
-                description: 'tag/digest reference to a UI container build'
-                required: false
-                default: ':main'
             bot_tag:
                 description: 'tag/digest reference to a UI container build'
                 required: false
@@ -21,115 +17,9 @@ on:
                 default: '' # Empty will try using current main branch hash
 
 jobs:
-    docker_sync:
-        name: Docker Sync
-        runs-on: ubuntu-latest
-        outputs:
-            ui_tag: ${{ steps.tags.outputs.ui_tag }}
-        steps:
-            - uses: actions/checkout@master
-
-            - uses: docker/setup-buildx-action@v1
-              id: buildx
-              with:
-                  install: true
-
-            - name: Set up Cloud SDK
-              uses: google-github-actions/setup-gcloud@master
-              with:
-                  project_id: ${{ secrets.GCS_PROJECT_ID }}
-                  service_account_key: ${{ secrets.GCS_TF_KEY }}
-                  export_default_credentials: true
-
-            - name: Login to GHCR
-              uses: docker/login-action@v1
-              with:
-                  registry: ghcr.io
-                  username: roleypoly
-                  password: ${{ secrets.GHCR_PAT }}
-
-            - name: Login to GAR US
-              uses: docker/login-action@v1
-              with:
-                  registry: us-docker.pkg.dev
-                  username: _json_key
-                  password: ${{ secrets.GAR_JSON_KEY }}
-
-            - name: Login to GAR Europe
-              uses: docker/login-action@v1
-              with:
-                  registry: europe-docker.pkg.dev
-                  username: _json_key
-                  password: ${{ secrets.GAR_JSON_KEY }}
-
-            - name: Login to GAR Asia
-              uses: docker/login-action@v1
-              with:
-                  registry: asia-docker.pkg.dev
-                  username: _json_key
-                  password: ${{ secrets.GAR_JSON_KEY }}
-
-            - name: Retag
-              id: tags
-              run: |
-                  retag_push() {
-                    docker tag $1 $2
-                    docker push $2
-                  }
-
-                  get_digest() {
-                    # Finds the digest for any GAR-pushed artifact
-                    docker inspect $1 --format='{{json .RepoDigests}}' | jq -r '[.[] | match("docker.pkg.*(sha256:.*)"; "g")] | .[0] | .captures | .[0] | .string'
-                  }
-
-                  UI_IMAGE_SRC=ghcr.io/roleypoly/ui${{github.event.inputs.ui_tag}}
-                  UI_IMAGE_DEST_BASE=docker.pkg.dev/roleypoly/roleypoly/ui:${{github.event.inputs.environment}}
-
-                  docker pull $UI_IMAGE_SRC
-                  retag_push $UI_IMAGE_SRC us-$UI_IMAGE_DEST_BASE
-                  retag_push $UI_IMAGE_SRC europe-$UI_IMAGE_DEST_BASE
-                  retag_push $UI_IMAGE_SRC asia-$UI_IMAGE_DEST_BASE
-                  echo ::set-output name=ui_tag::@$(get_digest $UI_IMAGE_SRC)
-
-    deploy_metadata:
-        name: Make Deployment Metadata
-        runs-on: ubuntu-latest
-        outputs:
-            url: ${{steps.metadata.outputs.url}}
-            env: ${{steps.metadata.outputs.env}}
-        steps:
-            - name: Create deployment metadata
-              id: metadata
-              run: |
-                  ENV_URL=
-                  ENV_NAME=
-
-                  if [[ "${{github.event.inputs.environment}}" == "prod" ]]; then
-                    ENV_URL="https://next.roleypoly.com"
-                    ENV_NAME=Production
-                  elif [[ "${{github.event.inputs.environment}}" == "stage" ]]; then
-                    ENV_URL="https://stage.roleypoly.com"
-                    ENV_NAME=Staging
-                  else
-                    ENV_URL="https://web-${{github.event.inputs.environment}}.roleypoly.com"
-                    ENV_NAME=Preview-${{github.event.inputs.environment}}
-                  fi
-
-                  echo "url=$ENV_URL"
-                  echo "env=$ENV_NAME"
-
-                  echo ::set-output name=url::$ENV_URL
-                  echo ::set-output name=env::$ENV_NAME
-
     deploy_terraform:
         name: Deploy Terraform
         runs-on: ubuntu-latest
-        needs:
-            - docker_sync
-            - deploy_metadata
-        environment:
-            name: ${{ needs.deploy_metadata.outputs.env }}
-            url: ${{ needs.deploy_metadata.outputs.url }}
         steps:
             - uses: actions/checkout@master
 
@@ -170,7 +60,7 @@ jobs:
               working-directory: ./terraform
               run: |
                   echo \
-                    '{"ui_tag": "${{needs.docker_sync.outputs.ui_tag}}", "bot_tag": "${{github.event.inputs.bot_tag}}", "api_path_to_worker": "./worker-dist/backend-worker.js"}' \
+                    '{"bot_tag": "${{github.event.inputs.bot_tag}}", "api_path_to_worker": "./worker-dist/backend-worker.js"}' \
                     | jq . \
                     | tee tags.auto.tfvars.json
 
@@ -199,9 +89,8 @@ jobs:
                   DATA='{
                     "embeds": [
                       {
-                        "title": "Roleypoly ${{ needs.deploy_metadata.outputs.env }} Deployment Success",
-                        "description": "Roleypoly was successfully deployed to ${{ needs.deploy_metadata.outputs.env }} at '$(date)'",
-                        "url": "${{ needs.deploy_metadata.outputs.url }}",
+                        "title": "Roleypoly Deployment Success",
+                        "description": "Roleypoly was successfully deployed at '$(date)'",
                         "color": 4634182,
                         "author": {
                           "name": "Deployment Notification",
@@ -222,9 +111,8 @@ jobs:
                   DATA='{
                     "embeds": [
                       {
-                        "title": "Roleypoly ${{ needs.deploy_metadata.outputs.env }} Deployment Failed",
-                        "description": "Roleypoly failed to be deployed to ${{ needs.deploy_metadata.outputs.env }} at '$(date)'",
-                        "url": "${{ needs.deploy_metadata.outputs.url }}",
+                        "title": "Roleypoly Deployment Failed",
+                        "description": "Roleypoly failed to be deployed at '$(date)'",
                         "color": 15291219,
                         "author": {
                           "name": "Deployment Notification",
