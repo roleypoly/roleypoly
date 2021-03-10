@@ -12,7 +12,14 @@
     },
     "author": "Katalina Okano <git@kat.cafe>",
     "license": "MIT",
+    "private": true,
+    "workspaces": [
+        "packages/*"
+    ],
     "scripts": {
+        "build": "run-p -c build:*",
+        "build:design-system": "yarn workspace @roleypoly/design-system run build",
+        "build:web": "yarn workspace @roleypoly/web run build",
         "lint": "run-p -c lint:* --",
         "lint:eslint": "eslint",
         "lint:go": "go fmt ./...",
@@ -24,9 +31,6 @@
         "postinstall": "is-ci || husky install",
         "storybook": "start-storybook -p 6006",
         "storybook:build": "build-storybook",
-        "build": "run-p -c build:*",
-        "build:design-system": "yarn workspace @roleypoly/design-system run build",
-        "build:web": "yarn workspace @roleypoly/web run build",
         "test": "jest",
         "ui": "next dev -p 6601",
         "ui:build": "next build",
@@ -34,7 +38,16 @@
         "worker": "node src/backend-emulator/main.js"
     },
     "devDependencies": {
+        "@types/enzyme": "^3.10.8",
+        "@types/lodash": "^4.14.168",
+        "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
+        "enzyme": "^3.11.0",
+        "enzyme-adapter-react-16": "^1.15.6",
         "husky": "^5.1.3",
+        "is-ci": "^3.0.0",
+        "jest-enzyme": "^7.1.2",
+        "jest-react-hooks-shallow": "^1.5.1",
+        "jest-styled-components": "^7.0.3",
         "lint-staged": "^10.5.4",
         "npm-run-all": "^4.1.5",
         "prettier": "^2.2.1",
@@ -46,7 +59,7 @@
         "stylelint-config-standard": "^21.0.0",
         "stylelint-config-styled-components": "^0.1.1",
         "stylelint-prettier": "^1.2.0",
-        "is-ci": "^3.0.0",
+        "ts-jest": "^26.5.3",
         "typescript": "^4.2.3"
     },
     "lint-staged": {
@@ -62,9 +75,5 @@
         ".husky/pre-commit": [
             "prettier --write"
         ]
-    },
-    "private": true,
-    "workspaces": [
-        "packages/*"
-    ]
+    }
 }
