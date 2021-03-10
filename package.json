@@ -34,7 +34,7 @@
         "chroma-js": "^2.1.0",
         "isomorphic-unfetch": "^3.1.0",
         "ksuid": "^2.0.0",
-        "lodash": "^4.17.20",
+        "lodash": "^4.17.21",
         "next": "^10.0.5",
         "nookies": "^2.5.0",
         "react": "^17.0.1",
