@@ -1,7 +1,7 @@
+import { AppShellProps } from '@roleypoly/design-system/organisms/app-shell';
 import { NextPageContext } from 'next';
 import { SessionData } from 'roleypoly/common/types';
 import { swrFetch } from 'roleypoly/common/utils/isomorphicFetch';
-import { AppShellProps } from 'roleypoly/design-system/organisms/app-shell';
 
 export type ProvidableAppShellProps = {
     user: AppShellProps['user'];
