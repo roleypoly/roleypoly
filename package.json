@@ -70,6 +70,9 @@
         "*.{json,Dockerfile,sh,md,env,mdx,yml,html}": [
             "prettier --write"
         ],
+        ".*/*.{json,Dockerfile,sh,md,env,mdx,yml,html}": [
+            "prettier --write"
+        ],
         ".husky/pre-commit": [
             "prettier --write"
         ]
