@@ -1,0 +1,11 @@
+{
+    "name": "@roleypoly/misc-utils",
+    "version": "0.1.0",
+    "dependencies": {
+        "@roleypoly/types": "*"
+    },
+    "optionalDependencies": {
+        "enzyme": "3.x",
+        "react": "*"
+    }
+}

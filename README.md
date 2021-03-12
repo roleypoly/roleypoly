@@ -41,8 +41,8 @@ This is the fastest way to start. You must be using MacOS or Linux (WSL2 is ok!)
 - Setup `.env` using [`.env.example`][envexample] as a template and guide.
   - When setting up your Discord Application, be sure to set `http://localhost:6609/login-callback` as the OAuth2 callback URL.
 - Run: `yarn install`
-- Run both: `yarn ui` and `yarn worker`
-  - This starts the UI and API servers in hot-reload dev/emulation mode. All changes to TS/TSX files should be properly captured and reloaded for you!
+- Run both: `yarn start`
+  - This starts the Web UI, Storybook, and API servers in hot-reload dev/emulation mode. All changes to TS/TSX files should be properly captured and reloaded for you!
 - Develop you a Roleypoly!
 
 #### Option 3 🐄🤠: Wrangler (No emulation)
@@ -80,8 +80,8 @@ This is probably extremely painful and requires you to have a Cloudflare account
 
 - Setup `.env` using [`.env.example`][envexample] as a template and guide.
 - Run `yarn install`
-- Run both `wrangler dev -e dev` and `yarn ui`
-  - This starts the UI and API servers in hot-reload dev mode. All changes to TS/TSX files should be properly captured and reloaded for you!
+- Run both `wrangler dev -e dev` and `yarn start:web`
+  - This starts the Web UI and API servers in hot-reload dev mode. All changes to TS/TSX files should be properly captured and reloaded for you!
 - Develop you a Roleypoly
   - And get a beer or heated plant because oh no.
 
@@ -92,7 +92,7 @@ For working with the [Roleypoly Design System](https://ui.roleypoly.com), use th
 Run:
 
 - `yarn` to install deps
-- `yarn storybook` to open storybook
+- `yarn start:design-system` to open storybook
 - `yarn test` to test
 
 ### Developing Web UI
@@ -102,7 +102,7 @@ For working with the Next.js frontend components, use the below steps as referen
 Run:
 
 - `yarn` to install deps
-- `yarn ui` to run Next.js dev server
+- `yarn start:web` to run Next.js dev server
 - `yarn test` to test
 
 ### Developing API Components
@@ -112,7 +112,7 @@ For working with the API, use the below steps as reference. Code lives in `src/b
 Run:
 
 - `yarn` to install deps
-- `yarn worker` to start an emulated worker
+- `yarn start:api` to start an emulated worker
 - `yarn test` to test
 
 [envexample]: .env.example

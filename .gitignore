@@ -6,3 +6,4 @@ storybook-static
 worker
 wrangler.toml
 .devdbs
+dist
