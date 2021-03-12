@@ -1,9 +1,9 @@
 import { Button } from '@roleypoly/design-system/atoms/button';
 import { PreauthGreeting } from '@roleypoly/design-system/molecules/preauth-greeting';
+import { GuildSlug } from '@roleypoly/types';
 import * as React from 'react';
 import { FaDiscord } from 'react-icons/fa';
 import styled from 'styled-components';
-import { GuildSlug } from '../../../../src/common/types';
 
 export type PreauthProps = {
     guildSlug?: GuildSlug;

@@ -1,9 +1,9 @@
 import { GlobalStyleColors } from '@roleypoly/design-system/atoms/colors';
 import { Footer } from '@roleypoly/design-system/molecules/footer';
 import * as Masthead from '@roleypoly/design-system/organisms/masthead';
+import { DiscordUser, GuildSlug } from '@roleypoly/types';
 import * as React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { DiscordUser, GuildSlug } from '../../../../src/common/types';
 import { Content, GlobalStyles } from './AppShell.styled';
 
 export type AppShellProps = {

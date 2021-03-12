@@ -1,7 +1,7 @@
 import { AppShell, AppShellProps } from '@roleypoly/design-system/organisms/app-shell';
 import { ServersListing } from '@roleypoly/design-system/organisms/servers-listing/ServersListing';
+import { GuildSlug } from '@roleypoly/types';
 import * as React from 'react';
-import { GuildSlug } from '../../../../src/common/types';
 
 type ServerTemplateProps = Omit<AppShellProps, 'children'> & {
     guilds: GuildSlug[];

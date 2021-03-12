@@ -1,8 +1,8 @@
 import { Avatar, utils } from '@roleypoly/design-system/atoms/avatar';
 import { AccentTitle, AmbientLarge } from '@roleypoly/design-system/atoms/typography';
+import { GuildSlug } from '@roleypoly/types';
 import * as React from 'react';
 import { GoPencil } from 'react-icons/go';
-import { GuildSlug } from '../../../../src/common/types';
 import { Editable, Icon, Name, Wrapper } from './ServerMasthead.styled';
 
 export type ServerMastheadProps = {

@@ -1,4 +1,3 @@
-import { difference, groupBy, keyBy, union } from 'lodash';
 import {
     GuildData,
     Member,
@@ -8,7 +7,8 @@ import {
     RoleUpdate,
     SessionData,
     TransactionType,
-} from '../../../src/common/types';
+} from '@roleypoly/types';
+import { difference, groupBy, keyBy, union } from 'lodash';
 import { AuthType, discordFetch, respond, withSession } from '../utils/api-tools';
 import { botToken } from '../utils/config';
 import {

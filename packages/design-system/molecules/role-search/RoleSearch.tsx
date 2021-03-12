@@ -1,11 +1,11 @@
 import { Role } from '@roleypoly/design-system/atoms/role';
 import { Space } from '@roleypoly/design-system/atoms/space';
 import { TextInputWithIcon } from '@roleypoly/design-system/atoms/text-input';
+import { Role as RoleType } from '@roleypoly/types';
 import Fuse from 'fuse.js';
 import * as React from 'react';
 import { GoSearch } from 'react-icons/go';
 import styled from 'styled-components';
-import { Role as RoleType } from '../../../../src/common/types';
 
 type Props = {
     roles: RoleType[];

@@ -1,8 +1,8 @@
 import { Avatar, utils } from '@roleypoly/design-system/atoms/avatar';
 import { Collapse } from '@roleypoly/design-system/atoms/collapse';
+import { GuildSlug, UserGuildPermissions } from '@roleypoly/types';
 import * as React from 'react';
 import { GoPerson, GoStar, GoZap } from 'react-icons/go';
-import { GuildSlug, UserGuildPermissions } from '../../../../src/common/types';
 import {
     CardBase,
     CardLine,

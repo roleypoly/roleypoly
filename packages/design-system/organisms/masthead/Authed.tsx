@@ -4,9 +4,9 @@ import { GuildNav } from '@roleypoly/design-system/molecules/guild-nav';
 import { NavSlug } from '@roleypoly/design-system/molecules/nav-slug';
 import { UserAvatarGroup } from '@roleypoly/design-system/molecules/user-avatar-group';
 import { UserPopover } from '@roleypoly/design-system/molecules/user-popover';
+import { DiscordUser, GuildSlug } from '@roleypoly/types';
 import * as React from 'react';
 import { GoOrganization } from 'react-icons/go';
-import { DiscordUser, GuildSlug } from '../../../../src/common/types';
 import {
     GuildPopoverHead,
     InteractionBase,

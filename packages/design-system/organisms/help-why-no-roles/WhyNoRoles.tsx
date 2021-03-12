@@ -1,11 +1,11 @@
 import { palette } from '@roleypoly/design-system/atoms/colors';
 import { HalfsiesContainer, HalfsiesItem } from '@roleypoly/design-system/atoms/halfsies';
 import { SparkleOverlay } from '@roleypoly/design-system/atoms/sparkle';
+import { Role } from '@roleypoly/types';
+import { demoData } from '@roleypoly/types/demoData';
 import chroma from 'chroma-js';
 import * as React from 'react';
 import { FaCheck, FaTimes } from 'react-icons/fa';
-import { Role } from '../../../../src/common/types';
-import { demoData } from '../../../../src/common/types/demoData';
 import { DiscordBase, DiscordRole } from './WhyNoRoles.styled';
 
 const adminRoles: Role[] = [

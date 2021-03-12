@@ -1,9 +1,5 @@
+import { CategoryType, Features, GuildData as GuildDataT } from '@roleypoly/types';
 import KSUID from 'ksuid';
-import {
-    CategoryType,
-    Features,
-    GuildData as GuildDataT,
-} from '../../../src/common/types';
 import { onlyRootUsers, respond } from '../utils/api-tools';
 import { GuildData } from '../utils/kv';
 

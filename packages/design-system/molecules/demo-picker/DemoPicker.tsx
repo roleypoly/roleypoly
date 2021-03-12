@@ -1,8 +1,8 @@
 import { Role } from '@roleypoly/design-system/atoms/role';
+import { Role as RPCRole } from '@roleypoly/types';
+import { demoData } from '@roleypoly/types/demoData';
 import * as React from 'react';
 import styled from 'styled-components';
-import { Role as RPCRole } from '../../../../src/common/types';
-import { demoData } from '../../../../src/common/types/demoData';
 
 const Container = styled.div`
     display: flex;

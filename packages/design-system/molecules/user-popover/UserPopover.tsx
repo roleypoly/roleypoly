@@ -1,8 +1,8 @@
 import { CompletelyStylelessLink } from '@roleypoly/design-system/atoms/typography';
 import { UserAvatarGroup } from '@roleypoly/design-system/molecules/user-avatar-group';
+import { DiscordUser } from '@roleypoly/types';
 import * as React from 'react';
 import { GoGear, GoSignOut } from 'react-icons/go';
-import { DiscordUser } from '../../../../src/common/types';
 import { Base, NavAction } from './UserPopover.styled';
 
 type UserPopoverProps = {

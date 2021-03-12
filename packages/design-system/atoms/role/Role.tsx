@@ -1,8 +1,8 @@
 import { numberToChroma } from '@roleypoly/design-system/atoms/colors';
+import { Role as RPCRole, RoleSafety } from '@roleypoly/types';
 import chroma from 'chroma-js';
 import * as React from 'react';
 import { FaCheck, FaTimes } from 'react-icons/fa';
-import { Role as RPCRole, RoleSafety } from '../../../../src/common/types';
 import {
     evaluatePermission,
     permissions,

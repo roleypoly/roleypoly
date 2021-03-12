@@ -1,4 +1,4 @@
-import { SessionData, UserGuildPermissions } from '../../../src/common/types';
+import { SessionData, UserGuildPermissions } from '@roleypoly/types';
 import {
     evaluatePermission,
     permissions as Permissions,

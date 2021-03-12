@@ -5,7 +5,7 @@ import {
     OwnRoleInfo,
     Role,
     RoleSafety,
-} from '../../../src/common/types';
+} from '@roleypoly/types';
 import { evaluatePermission, permissions } from '../../../src/common/utils/hasPermission';
 import { AuthType, cacheLayer, discordFetch } from './api-tools';
 import { botClientID, botToken } from './config';

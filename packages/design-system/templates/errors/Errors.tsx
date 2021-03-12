@@ -5,8 +5,8 @@ import {
     ErrorMessage,
 } from '@roleypoly/design-system/molecules/error-banner';
 import { AppShell } from '@roleypoly/design-system/organisms/app-shell';
+import { DiscordUser } from '@roleypoly/types';
 import * as React from 'react';
-import { DiscordUser } from '../../../../src/common/types';
 import { getMessageFromCode } from './errorStrings';
 
 export type ErrorProps = {

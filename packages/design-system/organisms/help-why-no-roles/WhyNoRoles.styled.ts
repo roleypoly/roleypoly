@@ -1,6 +1,6 @@
 import { numberToChroma, palette } from '@roleypoly/design-system/atoms/colors';
+import { Role } from '@roleypoly/types';
 import styled, { css } from 'styled-components';
-import { Role } from '../../../../src/common/types';
 
 export const DiscordBase = styled.div`
     background-color: ${palette.discord100};

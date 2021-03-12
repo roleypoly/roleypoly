@@ -1,10 +1,5 @@
+import { AuthTokenResponse, DiscordUser, GuildSlug, SessionData } from '@roleypoly/types';
 import KSUID from 'ksuid';
-import {
-    AuthTokenResponse,
-    DiscordUser,
-    GuildSlug,
-    SessionData,
-} from '../../../src/common/types';
 import {
     AuthType,
     discordFetch,

@@ -1,4 +1,4 @@
-import { UserGuildPermissions } from '../../../../src/common/types';
+import { UserGuildPermissions } from '@roleypoly/types';
 import { mastheadSlugs } from '../../fixtures/storyData';
 import { ServerSetup } from './ServerSetup';
 

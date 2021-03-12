@@ -1,9 +1,9 @@
 import { Avatar, utils as avatarUtils } from '@roleypoly/design-system/atoms/avatar';
 import { Space } from '@roleypoly/design-system/atoms/space';
 import { AccentTitle } from '@roleypoly/design-system/atoms/typography';
+import { GuildSlug } from '@roleypoly/types';
 import * as React from 'react';
 import styled from 'styled-components';
-import { GuildSlug } from '../../../../src/common/types';
 
 type GreetingProps = {
     guildSlug: GuildSlug;

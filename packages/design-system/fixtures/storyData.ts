@@ -11,7 +11,7 @@ import {
     Role,
     RoleSafety,
     RoleypolyUser,
-} from '../../../src/common/types';
+} from '@roleypoly/types';
 
 export const roleCategory: Role[] = [
     {

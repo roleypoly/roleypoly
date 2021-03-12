@@ -4,9 +4,6 @@ import { Link } from '@roleypoly/design-system/atoms/typography';
 import { PickerCategory } from '@roleypoly/design-system/molecules/picker-category';
 import { ResetSubmit } from '@roleypoly/design-system/molecules/reset-submit';
 import { ServerMasthead } from '@roleypoly/design-system/molecules/server-masthead';
-import { isEqual, xor } from 'lodash';
-import * as React from 'react';
-import { GoInfo } from 'react-icons/go';
 import {
     Category,
     CategoryType,
@@ -14,7 +11,10 @@ import {
     GuildSlug,
     Member,
     Role,
-} from '../../../../src/common/types';
+} from '@roleypoly/types';
+import { isEqual, xor } from 'lodash';
+import * as React from 'react';
+import { GoInfo } from 'react-icons/go';
 import { ReactifyNewlines } from '../../../../src/common/utils/ReactifyNewlines';
 import { sortBy } from '../../../../src/common/utils/sortBy';
 import {

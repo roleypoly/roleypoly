@@ -6,9 +6,9 @@ import { Space } from '@roleypoly/design-system/atoms/space';
 import { TextInput, TextInputWithIcon } from '@roleypoly/design-system/atoms/text-input';
 import { Text } from '@roleypoly/design-system/atoms/typography';
 import { RoleSearch } from '@roleypoly/design-system/molecules/role-search';
+import { Category, CategoryType, Role as RoleType } from '@roleypoly/types';
 import * as React from 'react';
 import { GoSearch } from 'react-icons/go';
-import { Category, CategoryType, Role as RoleType } from '../../../../src/common/types';
 import { RoleContainer } from './EditorCategory.styled';
 
 type Props = {

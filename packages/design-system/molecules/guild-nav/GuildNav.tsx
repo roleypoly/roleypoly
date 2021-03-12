@@ -1,9 +1,9 @@
 import { NavSlug } from '@roleypoly/design-system/molecules/nav-slug';
+import { GuildSlug, UserGuildPermissions } from '@roleypoly/types';
 import * as React from 'react';
 import Scrollbars from 'react-custom-scrollbars';
 import { GoStar, GoZap } from 'react-icons/go';
 import ReactTooltip from 'react-tooltip';
-import { GuildSlug, UserGuildPermissions } from '../../../../src/common/types';
 import { sortBy } from '../../../../src/common/utils/sortBy';
 import { GuildNavItem } from './GuildNav.styled';
 

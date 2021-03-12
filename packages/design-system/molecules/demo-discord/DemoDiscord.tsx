@@ -1,6 +1,6 @@
 import { Typist } from '@roleypoly/design-system/atoms/typist';
+import { demoData } from '@roleypoly/types/demoData';
 import * as React from 'react';
-import { demoData } from '../../../../src/common/types/demoData';
 import {
     Base,
     InputBox,

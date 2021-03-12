@@ -1,4 +1,4 @@
-import { SessionData } from '../../../src/common/types';
+import { SessionData } from '@roleypoly/types';
 import { respond, withSession } from '../utils/api-tools';
 
 export const GetSession = withSession((session?: SessionData) => (): Response => {

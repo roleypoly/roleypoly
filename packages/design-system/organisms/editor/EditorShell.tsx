@@ -1,6 +1,6 @@
 import { Tab, TabView } from '@roleypoly/design-system/atoms/tab-view';
+import { PresentableGuild } from '@roleypoly/types';
 import * as React from 'react';
-import { PresentableGuild } from '../../../../src/common/types';
 import { EditorCategory } from '../../molecules/editor-category';
 import { CategoryContainer } from './EditorShell.styled';
 
