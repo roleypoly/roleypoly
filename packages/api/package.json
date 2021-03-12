@@ -6,6 +6,7 @@
         "start": "yarn workspace @roleypoly/worker-emulator start --basePath `pwd`"
     },
     "devDependencies": {
+        "@cloudflare/workers-types": "^2.1.0",
         "@roleypoly/misc-utils": "*",
         "@roleypoly/types": "*",
         "@roleypoly/worker-emulator": "*",
