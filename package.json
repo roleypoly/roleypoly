@@ -27,6 +27,7 @@
         "lint:stylelint": "cross-env stylelint '**/*.{ts,tsx}'",
         "lint:terraform": "terraform fmt -recursive -check ./terraform",
         "lint:types": "tsc --noEmit",
+        "lint:types-api": "yarn workspace @roleypoly/api run lint:types",
         "postinstall": "is-ci || husky install",
         "start": "run-p -c start:*",
         "start:design-system": "yarn workspace @roleypoly/design-system start",

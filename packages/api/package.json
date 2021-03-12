@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "scripts": {
         "build": "yarn workspace @roleypoly/worker-emulator build --basePath `pwd`",
+        "lint:types": "tsc --noEmit",
         "start": "yarn workspace @roleypoly/worker-emulator start --basePath `pwd`"
     },
     "devDependencies": {
