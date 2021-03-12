@@ -7,6 +7,6 @@ require (
 	github.com/dghubble/trie v0.0.0-20201011220304-ed6d6b8add55
 	github.com/joho/godotenv v1.3.0
 	github.com/lampjaw/discordclient v0.0.0-20210312234541-165fc2e57e2b
-	github.com/onsi/gomega v1.10.5
+	github.com/onsi/gomega v1.11.0
 	k8s.io/klog v1.0.0
 )
