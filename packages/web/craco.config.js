@@ -1,10 +1,7 @@
 const path = require('path');
 const { getLoader, loaderByName } = require('@craco/craco');
 
-const includePaths = [
-    path.join(__dirname, '../design-system'),
-    path.join(__dirname, '../../src/common'),
-];
+const includePaths = [path.join(__dirname, '..')];
 
 module.exports = {
     webpack: {
