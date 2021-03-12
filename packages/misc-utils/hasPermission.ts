@@ -1,4 +1,4 @@
-import { Role } from '../types';
+import { Role } from '@roleypoly/types';
 
 export const evaluatePermission = <T extends number | bigint>(
     haystack: T,

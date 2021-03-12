@@ -1,8 +1,8 @@
-import * as React from 'react';
 import {
     FeatureFlag,
     FeatureFlagsContext,
-} from '../../../../src/common/utils/featureFlags/react';
+} from '@roleypoly/misc-utils/featureFlags/react';
+import * as React from 'react';
 
 export type FeatureGateProps = {
     featureFlag: FeatureFlag;

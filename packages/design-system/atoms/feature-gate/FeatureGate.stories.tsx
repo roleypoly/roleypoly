@@ -1,5 +1,5 @@
+import { FeatureFlagDecorator } from '@roleypoly/misc-utils/featureFlags/react/storyDecorator';
 import * as React from 'react';
-import { FeatureFlagDecorator } from '../../../../src/common/utils/featureFlags/react/storyDecorator';
 import { FeatureGate } from './FeatureGate';
 
 export default {

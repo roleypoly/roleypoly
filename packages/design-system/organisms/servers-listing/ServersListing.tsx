@@ -1,8 +1,8 @@
 import { CompletelyStylelessLink } from '@roleypoly/design-system/atoms/typography';
 import { ServerListingCard } from '@roleypoly/design-system/molecules/server-listing-card';
+import { sortBy } from '@roleypoly/misc-utils/sortBy';
 import { GuildSlug } from '@roleypoly/types';
 import * as React from 'react';
-import { sortBy } from '../../../../src/common/utils/sortBy';
 import { CardContainer, ContentContainer } from './ServersListing.styled';
 
 type ServersListingProps = {

@@ -3,11 +3,11 @@ import { Button } from '@roleypoly/design-system/atoms/button';
 import { DotOverlay } from '@roleypoly/design-system/atoms/dot-overlay';
 import { Hero } from '@roleypoly/design-system/atoms/hero';
 import { AccentTitle, SmallTitle } from '@roleypoly/design-system/atoms/typography';
+import { evaluatePermission } from '@roleypoly/misc-utils/hasPermission';
 import { GuildSlug, UserGuildPermissions } from '@roleypoly/types';
 import * as React from 'react';
 import { FaDiscord } from 'react-icons/fa';
 import { GoArrowLeft } from 'react-icons/go';
-import { evaluatePermission } from '../../../../src/common/utils/hasPermission';
 import { FlexLine, FlexWrap } from './ServerSetup.styled';
 
 export type ServerSetupProps = {

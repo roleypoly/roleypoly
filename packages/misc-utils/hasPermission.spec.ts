@@ -1,5 +1,5 @@
 import { roleCategory } from '@roleypoly/design-system/fixtures/storyData';
-import { Role } from 'roleypoly/common/types';
+import { Role } from '@roleypoly/types';
 import { hasPermission, hasPermissionOrAdmin } from './hasPermission';
 
 export const permissions = {

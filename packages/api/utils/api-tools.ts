@@ -1,8 +1,8 @@
-import { SessionData, UserGuildPermissions } from '@roleypoly/types';
 import {
     evaluatePermission,
     permissions as Permissions,
-} from '../../../src/common/utils/hasPermission';
+} from '@roleypoly/misc-utils/hasPermission';
+import { SessionData, UserGuildPermissions } from '@roleypoly/types';
 import { Handler } from '../router';
 import { rootUsers, uiPublicURI } from './config';
 import { Sessions, WrappedKVNamespace } from './kv';

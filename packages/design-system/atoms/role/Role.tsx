@@ -1,12 +1,9 @@
 import { numberToChroma } from '@roleypoly/design-system/atoms/colors';
+import { evaluatePermission, permissions } from '@roleypoly/misc-utils/hasPermission';
 import { Role as RPCRole, RoleSafety } from '@roleypoly/types';
 import chroma from 'chroma-js';
 import * as React from 'react';
 import { FaCheck, FaTimes } from 'react-icons/fa';
-import {
-    evaluatePermission,
-    permissions,
-} from '../../../../src/common/utils/hasPermission';
 import * as styled from './Role.styled';
 
 type Props = {

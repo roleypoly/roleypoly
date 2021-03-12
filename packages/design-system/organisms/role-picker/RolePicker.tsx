@@ -4,6 +4,8 @@ import { Link } from '@roleypoly/design-system/atoms/typography';
 import { PickerCategory } from '@roleypoly/design-system/molecules/picker-category';
 import { ResetSubmit } from '@roleypoly/design-system/molecules/reset-submit';
 import { ServerMasthead } from '@roleypoly/design-system/molecules/server-masthead';
+import { ReactifyNewlines } from '@roleypoly/misc-utils/ReactifyNewlines';
+import { sortBy } from '@roleypoly/misc-utils/sortBy';
 import {
     Category,
     CategoryType,
@@ -15,8 +17,6 @@ import {
 import { isEqual, xor } from 'lodash';
 import * as React from 'react';
 import { GoInfo } from 'react-icons/go';
-import { ReactifyNewlines } from '../../../../src/common/utils/ReactifyNewlines';
-import { sortBy } from '../../../../src/common/utils/sortBy';
 import {
     CategoryContainer,
     Container,
