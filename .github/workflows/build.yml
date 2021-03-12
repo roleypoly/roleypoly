@@ -98,7 +98,7 @@ jobs:
 
             - run: |
                   wrangler init
-                  echo 'webpack_config = "src/backend-worker/webpack.config.js"' | tee -a wrangler.toml
+                  echo 'webpack_config = "packages/api/webpack.config.js"' | tee -a wrangler.toml
                   wrangler build
               if: steps.check.outputs.skip == '0'
 
