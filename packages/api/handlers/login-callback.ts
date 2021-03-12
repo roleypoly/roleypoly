@@ -4,7 +4,7 @@ import {
     DiscordUser,
     GuildSlug,
     SessionData,
-} from '../../common/types';
+} from '../../../src/common/types';
 import {
     AuthType,
     discordFetch,

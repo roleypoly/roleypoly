@@ -1,4 +1,4 @@
-import { SessionData } from 'roleypoly/common/types';
+import { SessionData } from '../../../src/common/types';
 import { formData, respond, userAgent, withSession } from '../utils/api-tools';
 import { botClientID, botClientSecret } from '../utils/config';
 import { Sessions } from '../utils/kv';

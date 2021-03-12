@@ -1,22 +1,29 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 const vm = require('vm');
 const http = require('http');
 const fs = require('fs');
-const path = require('path');
 const chokidar = require('chokidar');
 const webpack = require('webpack');
 const { Crypto } = require('@peculiar/webcrypto');
-const roleypolyConfig = require('../backend-worker/roleypoly.config');
 const { KVShim } = require('./kv');
 const crypto = new Crypto();
 const fetch = require('node-fetch');
+const args = require('minimist')(process.argv.slice(2));
+
+const basePath = args.basePath;
+if (!basePath) {
+    throw new Error('--basePath is not set.');
+}
+
+const workerConfig = require(`${basePath}/worker.config.js`);
 
 const getKVs = (namespaces = []) =>
     namespaces.reduce((acc, ns) => ({ ...acc, [ns]: new KVShim(ns) }), {});
 
 const workerShims = {
-    ...roleypolyConfig.environment,
-    ...getKVs(roleypolyConfig.kv),
+    ...workerConfig.environment,
+    ...getKVs(workerConfig.kv),
 };
 
 let listeners = [];
@@ -133,7 +140,7 @@ const reload = () => {
     // Fork and re-run
     fork(async () =>
         vm.runInContext(
-            fs.readFileSync(path.resolve(__dirname, '../backend-worker/dist/worker.js')),
+            fs.readFileSync(path.resolve(__dirname, `${basePath}/dist/worker.js`)),
             context(),
             {
                 displayErrors: true,
@@ -145,7 +152,7 @@ const reload = () => {
 
 const rebuild = () =>
     new Promise((resolve, reject) => {
-        const webpackConfig = require('../backend-worker/webpack.config.js');
+        const webpackConfig = require(`${basePath}/webpack.config.js`);
         webpackConfig.output.filename = 'worker.js';
         webpack(webpackConfig).run((err, stats) => {
             if (err) {
@@ -163,7 +170,7 @@ const rebuild = () =>
         });
     });
 
-const watcher = chokidar.watch(path.resolve(__dirname, '../backend-worker'), {
+const watcher = chokidar.watch(path.resolve(__dirname, basePath), {
     ignoreInitial: true,
     ignore: '**/dist',
 });

@@ -8,7 +8,7 @@ import {
     RoleUpdate,
     SessionData,
     TransactionType,
-} from 'roleypoly/common/types';
+} from '../../../src/common/types';
 import { AuthType, discordFetch, respond, withSession } from '../utils/api-tools';
 import { botToken } from '../utils/config';
 import {

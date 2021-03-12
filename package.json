@@ -27,15 +27,12 @@
         "lint:stylelint": "cross-env stylelint '**/*.{ts,tsx}'",
         "lint:terraform": "terraform fmt -recursive -check ./terraform",
         "lint:types": "tsc --noEmit",
-        "now-build": "run-s storybook:build",
         "postinstall": "is-ci || husky install",
-        "storybook": "start-storybook -p 6006",
-        "storybook:build": "build-storybook",
-        "test": "jest",
-        "ui": "next dev -p 6601",
-        "ui:build": "next build",
-        "ui:prod": "cross-env next start -p ${PORT:-3000}",
-        "worker": "node src/backend-emulator/main.js"
+        "start": "run-p -c start:*",
+        "start:design-system": "yarn workspace @roleypoly/design-system start",
+        "start:web": "yarn workspace @roleypoly/web start",
+        "start:worker": "yarn workspace @roleypoly/api start",
+        "test": "jest"
     },
     "devDependencies": {
         "@types/enzyme": "^3.10.8",

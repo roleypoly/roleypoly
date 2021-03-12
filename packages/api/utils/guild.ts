@@ -5,8 +5,8 @@ import {
     OwnRoleInfo,
     Role,
     RoleSafety,
-} from 'roleypoly/common/types';
-import { evaluatePermission, permissions } from 'roleypoly/common/utils/hasPermission';
+} from '../../../src/common/types';
+import { evaluatePermission, permissions } from '../../../src/common/utils/hasPermission';
 import { AuthType, cacheLayer, discordFetch } from './api-tools';
 import { botClientID, botToken } from './config';
 import { GuildData, Guilds } from './kv';

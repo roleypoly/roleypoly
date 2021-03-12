@@ -1,8 +1,8 @@
-import { SessionData, UserGuildPermissions } from '../../common/types';
+import { SessionData, UserGuildPermissions } from '../../../src/common/types';
 import {
     evaluatePermission,
     permissions as Permissions,
-} from '../../common/utils/hasPermission';
+} from '../../../src/common/utils/hasPermission';
 import { Handler } from '../router';
 import { rootUsers, uiPublicURI } from './config';
 import { Sessions, WrappedKVNamespace } from './kv';

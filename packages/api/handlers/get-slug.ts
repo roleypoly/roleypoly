@@ -1,4 +1,4 @@
-import { GuildSlug } from 'roleypoly/common/types';
+import { GuildSlug } from '../../../src/common/types';
 import { respond } from '../utils/api-tools';
 import { getGuild } from '../utils/guild';
 

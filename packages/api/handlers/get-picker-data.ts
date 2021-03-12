@@ -3,7 +3,7 @@ import {
     GuildSlug,
     PresentableGuild,
     SessionData,
-} from 'roleypoly/common/types';
+} from '../../../src/common/types';
 import { respond, withSession } from '../utils/api-tools';
 import { getGuild, getGuildData, getGuildMemberRoles } from '../utils/guild';
 
