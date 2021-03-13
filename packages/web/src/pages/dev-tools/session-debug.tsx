@@ -1,13 +1,16 @@
+import { useApiContext } from '../../api-context/ApiContext';
 import { useSessionContext } from '../../session-context/SessionContext';
 
 const SessionDebug = () => {
     const session = useSessionContext();
+    const api = useApiContext();
 
     return (
         <pre>
             {JSON.stringify(
                 {
-                    isAuthenticated: !!session.session?.user,
+                    apiUrl: api.apiUrl,
+                    isAuthenticated: session.isAuthenticated,
                     user: session.session?.user || null,
                     guilds: session.session?.guilds || null,
                 },

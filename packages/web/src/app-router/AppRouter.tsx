@@ -4,6 +4,7 @@ import * as React from 'react';
 const LandingPage = React.lazy(() => import('../pages/landing'));
 const DevToolsSetApi = React.lazy(() => import('../pages/dev-tools/set-api'));
 const DevToolsSessionDebug = React.lazy(() => import('../pages/dev-tools/session-debug'));
+const MachineryNewSession = React.lazy(() => import('../pages/machinery/new-session'));
 
 const RouteWrapper = (props: {
     component: React.LazyExoticComponent<React.ComponentType<any>>;
@@ -19,6 +20,7 @@ export const AppRouter = () => {
     return (
         <Router>
             <RouteWrapper component={LandingPage} path="/" />
+            <RouteWrapper component={MachineryNewSession} path="/machinery/new-session" />
             <RouteWrapper component={DevToolsSetApi} path="/x/dev-tools/set-api" />
             <RouteWrapper
                 component={DevToolsSessionDebug}

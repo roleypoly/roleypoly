@@ -6,9 +6,11 @@ type SessionContextT = {
     session?: Omit<Partial<SessionData>, 'tokens'>;
     setSession: (session?: SessionContextT['session']) => void;
     authedFetch: (url: string, opts?: RequestInit) => Promise<Response>;
+    isAuthenticated: boolean;
 };
 
 const SessionContext = React.createContext<SessionContextT>({
+    isAuthenticated: false,
     setSession: () => {},
     authedFetch: async () => {
         return new Response();
@@ -36,6 +38,7 @@ export const SessionContextProvider = (props: { children: React.ReactNode }) => 
                     },
                 });
             },
+            isAuthenticated: !!session && !!session.sessionID && !!session.user,
         }),
         [session, api]
     );
