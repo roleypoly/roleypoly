@@ -1,7 +1,7 @@
 import { Redirect } from '@reach/router';
 import { LandingTemplate } from '@roleypoly/design-system/templates/landing';
 import * as React from 'react';
-import { useSessionContext } from '../session-context/SessionContext';
+import { useSessionContext } from '../contexts/session/SessionContext';
 
 const Landing = () => {
     const { isAuthenticated } = useSessionContext();

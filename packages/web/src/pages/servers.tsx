@@ -1,7 +1,7 @@
 import { Redirect } from '@reach/router';
 import { ServersTemplate } from '@roleypoly/design-system/templates/servers';
 import * as React from 'react';
-import { useSessionContext } from '../session-context/SessionContext';
+import { useSessionContext } from '../contexts/session/SessionContext';
 
 const ServersPage = () => {
     const { isAuthenticated, session } = useSessionContext();

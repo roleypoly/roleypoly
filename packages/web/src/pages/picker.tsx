@@ -3,7 +3,7 @@ import { RolePickerTemplate } from '@roleypoly/design-system/templates/role-pick
 import { ServerSetupTemplate } from '@roleypoly/design-system/templates/server-setup';
 import { PresentableGuild, RoleUpdate, UserGuildPermissions } from '@roleypoly/types';
 import * as React from 'react';
-import { useSessionContext } from '../session-context/SessionContext';
+import { useSessionContext } from '../contexts/session/SessionContext';
 import { makeRoleTransactions } from '../utils/roleTransactions';
 
 type PickerProps = {

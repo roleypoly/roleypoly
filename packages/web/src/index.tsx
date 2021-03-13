@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApiContextProvider } from './api-context/ApiContext';
 import { AppRouter } from './app-router/AppRouter';
-import { SessionContextProvider } from './session-context/SessionContext';
+import { ApiContextProvider } from './contexts/api/ApiContext';
+import { SessionContextProvider } from './contexts/session/SessionContext';
 
 ReactDOM.render(
     <React.StrictMode>
