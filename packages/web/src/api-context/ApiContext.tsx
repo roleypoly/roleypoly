@@ -8,7 +8,7 @@ type ApiContextData = {
 };
 
 export const ApiContext = React.createContext<ApiContextData>({
-    apiUrl: getDefaultApiUrl(),
+    apiUrl: getDefaultApiUrl(window.location.hostname),
     setApiUrl: () => {},
     fetch: async () => {
         return new Response();
@@ -18,7 +18,9 @@ export const ApiContext = React.createContext<ApiContextData>({
 export const useApiContext = () => React.useContext(ApiContext);
 
 export const ApiContextProvider = (props: { children: React.ReactNode }) => {
-    const [apiUrl, setApiUrl] = React.useState(getDefaultApiUrl());
+    const [apiUrl, setApiUrl] = React.useState(
+        getDefaultApiUrl(window.location.hostname)
+    );
 
     const apiContextData: ApiContextData = {
         apiUrl,
