@@ -3,6 +3,7 @@ import { RolePickerTemplate } from '@roleypoly/design-system/templates/role-pick
 import { ServerSetupTemplate } from '@roleypoly/design-system/templates/server-setup';
 import { PresentableGuild, RoleUpdate, UserGuildPermissions } from '@roleypoly/types';
 import * as React from 'react';
+import { useRecentGuilds } from '../contexts/recent-guilds/RecentGuildsContext';
 import { useSessionContext } from '../contexts/session/SessionContext';
 import { makeRoleTransactions } from '../utils/roleTransactions';
 
@@ -12,6 +13,7 @@ type PickerProps = {
 
 const Picker = (props: PickerProps) => {
     const { session, authedFetch, isAuthenticated } = useSessionContext();
+    const { pushRecentGuild } = useRecentGuilds();
 
     const [pickerData, setPickerData] = React.useState<PresentableGuild | null | false>(
         null
@@ -32,7 +34,11 @@ const Picker = (props: PickerProps) => {
         };
 
         fetchPickerData();
-    }, [props.serverID, authedFetch]);
+    }, [props.serverID, authedFetch, pushRecentGuild]);
+
+    React.useCallback((serverID) => pushRecentGuild(serverID), [pushRecentGuild])(
+        props.serverID
+    );
 
     if (!isAuthenticated) {
         return <Redirect to={`/auth/login?r=${props.serverID}`} replace />;
