@@ -203,5 +203,13 @@ export const getQuery = (request: Request): { [x: string]: string } => {
 };
 
 export const isAllowedCallbackHost = (host: string): boolean => {
-    return host === apiPublicURI || allowedCallbackHosts.includes(host);
+    return (
+        host === apiPublicURI ||
+        allowedCallbackHosts.includes(host) ||
+        allowedCallbackHosts
+            .filter((callbackHost) => callbackHost.includes('*'))
+            .find((wildcard) =>
+                new RegExp(wildcard.replace('*', '[a-z0-9-]+')).test(host)
+            ) !== null
+    );
 };
