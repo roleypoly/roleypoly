@@ -14,12 +14,12 @@ export const Guest = () => (
     <MastheadBase>
         <MastheadAlignment>
             <MastheadLeft>
-                <MastheadA href="/">
+                <MastheadA to="/">
                     <DynamicLogotype height={30} />
                 </MastheadA>
             </MastheadLeft>
             <MastheadRight>
-                <MastheadA href="/auth/login">
+                <MastheadA to="/auth/login">
                     <Button size="small">
                         Login{' '}
                         <FaSignInAlt
