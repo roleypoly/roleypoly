@@ -2,6 +2,7 @@ import { getDefaultApiUrl } from './getDefaultApiUrl';
 
 it.each([
     ['https://next.roleypoly.com/servers', 'https://api-prod.roleypoly.com'],
+    ['https://stage.roleypoly.com/servers', 'https://api-stage.roleypoly.com'],
     ['https://roleypoly.com/servers', 'https://api-prod.roleypoly.com'],
     ['https://notroleypolybutclose.com/servers', 'https://api-prod.roleypoly.com'],
     ['https://myhash.roleypoly.pages.dev/servers', 'https://api-stage.roleypoly.com'],
