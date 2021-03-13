@@ -69,6 +69,20 @@ export const getSessionID = (request: Request): { type: string; id: string } | n
     return { type, id };
 };
 
+export const getSharedKey = (request: Request): { type: string; id: string } | null => {
+    const sharedKey = request.headers.get('authorization');
+    if (!sharedKey) {
+        return null;
+    }
+
+    const [type, id] = sharedKey.split(' ');
+    if (type !== 'Shared') {
+        return null;
+    }
+
+    return { type, id };
+};
+
 export const userAgent =
     'DiscordBot (https://github.com/roleypoly/roleypoly, git-main) (+https://roleypoly.com)';
 

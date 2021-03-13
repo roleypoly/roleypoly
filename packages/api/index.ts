@@ -1,5 +1,7 @@
+import { BotHeartbeat } from './handlers/bot-heartbeat';
 import { BotJoin } from './handlers/bot-join';
 import { CreateRoleypolyData } from './handlers/create-roleypoly-data';
+import { GetInfrastructureStatus } from './handlers/get-infrastructure-status';
 import { GetPickerData } from './handlers/get-picker-data';
 import { GetSession } from './handlers/get-session';
 import { GetSlug } from './handlers/get-slug';
@@ -12,6 +14,9 @@ import { respond } from './utils/api-tools';
 import { uiPublicURI } from './utils/config';
 
 const router = new Router();
+
+// Public
+router.add('GET', 'get-infrastructure-status', GetInfrastructureStatus);
 
 // OAuth
 router.add('GET', 'bot-join', BotJoin);
@@ -29,6 +34,9 @@ router.add('PATCH', 'update-roles', UpdateRoles);
 
 // Root users only
 router.add('GET', 'x-create-roleypoly-data', CreateRoleypolyData);
+
+// Internal routes
+router.add('PUT', 'bot-heartbeat', BotHeartbeat);
 
 // Tester Routes
 router.add('GET', 'x-headers', (request) => {

@@ -3,6 +3,14 @@ locals {
   botRegion = var.gcp_region
 }
 
+resource "random_password" "bot_heartbeat_token" {
+  length = 64
+  keepers = {
+    vmName = locals.vmName // Always regenerate this on a new deploy.
+    envtag = var.environment_tag
+  }
+}
+
 data "google_compute_zones" "gcp_zones" {
   region = local.botRegion
   status = "UP"
@@ -41,8 +49,16 @@ locals {
         value = var.bot_client_id
       },
       {
+        name  = "BOT_HEARTBEAT_TOKEN",
+        value = resource.random_password.bot_heartbeat_token.result
+      },
+      {
         name  = "UI_PUBLIC_URI",
         value = var.ui_public_uri
+      },
+      {
+        name  = "API_PUBLIC_URI",
+        value = var.api_public_uri
       }
     ]
   }

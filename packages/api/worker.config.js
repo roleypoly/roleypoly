@@ -7,9 +7,10 @@ module.exports = {
         'BOT_CLIENT_ID',
         'BOT_CLIENT_SECRET',
         'BOT_TOKEN',
+        'BOT_HEARTBEAT_TOKEN',
         'UI_PUBLIC_URI',
         'API_PUBLIC_URI',
         'ROOT_USERS',
     ]),
-    kv: ['KV_SESSIONS', 'KV_GUILDS', 'KV_GUILD_DATA'],
+    kv: ['KV_SESSIONS', 'KV_GUILDS', 'KV_GUILD_DATA', 'KV_INFRASTRUCTURE'],
 };

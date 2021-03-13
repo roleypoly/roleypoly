@@ -10,6 +10,10 @@ resource "cloudflare_workers_kv_namespace" "guild_data" {
   title = "roleypoly-guild_data-${var.environment_tag}"
 }
 
+resource "cloudflare_workers_kv_namespace" "infrastructure" {
+  title = "roleypoly-infrastructure-${var.environment_tag}"
+}
+
 resource "cloudflare_worker_script" "backend" {
   name    = "roleypoly-backend-${var.environment_tag}"
   content = file("${path.module}/${var.api_path_to_worker}")
@@ -29,6 +33,11 @@ resource "cloudflare_worker_script" "backend" {
     namespace_id = cloudflare_workers_kv_namespace.guild_data.id
   }
 
+  kv_namespace_binding {
+    name         = "KV_INFRASTRUCTURE"
+    namespace_id = cloudflare_workers_kv_namespace.infrastructure.id
+  }
+
   plain_text_binding {
     name = "BOT_CLIENT_ID"
     text = var.bot_client_id
@@ -42,6 +51,11 @@ resource "cloudflare_worker_script" "backend" {
   secret_text_binding {
     name = "BOT_TOKEN"
     text = var.bot_token
+  }
+
+  secret_text_binding {
+    name = "BOT_HEARTBEAT_TOKEN"
+    text = resource.random_password.bot_heartbeat_token.result
   }
 
   plain_text_binding {

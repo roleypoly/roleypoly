@@ -10,4 +10,5 @@ declare global {
     const KV_SESSIONS: KVNamespace;
     const KV_GUILDS: KVNamespace;
     const KV_GUILD_DATA: KVNamespace;
+    const KV_INFRASTRUCTURE: KVNamespace;
 }
