@@ -16,3 +16,7 @@ export type SessionData = {
     user: DiscordUser;
     guilds: GuildSlug[];
 };
+
+export type StateSession = {
+    callbackHost?: string;
+};

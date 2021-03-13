@@ -11,9 +11,10 @@ const Login = () => {
 
     React.useEffect(() => {
         const url = new URL(window.location.href);
+        const callbackHost = `${url.protocol}://${url.host}`;
         const redirectServerID = url.searchParams.get('r');
         if (!redirectServerID) {
-            window.location.href = `${apiUrl}/login-bounce`;
+            window.location.href = `${apiUrl}/login-bounce?cbh=${callbackHost}`;
             return;
         }
 

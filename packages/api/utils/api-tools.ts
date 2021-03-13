@@ -3,8 +3,9 @@ import {
     permissions as Permissions,
 } from '@roleypoly/misc-utils/hasPermission';
 import { SessionData, UserGuildPermissions } from '@roleypoly/types';
+import KSUID from 'ksuid';
 import { Handler } from '../router';
-import { rootUsers, uiPublicURI } from './config';
+import { allowedCallbackHosts, apiPublicURI, rootUsers } from './config';
 import { Sessions, WrappedKVNamespace } from './kv';
 
 export const formData = (obj: Record<string, any>): string => {
@@ -17,7 +18,7 @@ export const addCORS = (init: ResponseInit = {}) => ({
     ...init,
     headers: {
         ...(init.headers || {}),
-        'access-control-allow-origin': uiPublicURI,
+        'access-control-allow-origin': '*',
         'access-control-allow-methods': '*',
         'access-control-allow-headers': '*',
     },
@@ -159,6 +160,20 @@ export const withSession = (
     return await wrappedHandler(session)(request);
 };
 
+export const setupStateSession = async <T>(data: T): Promise<string> => {
+    const stateID = (await KSUID.random()).string;
+
+    await Sessions.put(`state_${stateID}`, { data }, 60 * 5);
+
+    return stateID;
+};
+
+export const getStateSession = async <T>(stateID: string): Promise<T | undefined> => {
+    const stateSession = await Sessions.get<{ data: T }>(`state_${stateID}`);
+
+    return stateSession?.data;
+};
+
 export const isRoot = (userID: string): boolean => rootUsers.includes(userID);
 
 export const onlyRootUsers = (handler: Handler): Handler =>
@@ -176,3 +191,17 @@ export const onlyRootUsers = (handler: Handler): Handler =>
             }
         );
     });
+
+export const getQuery = (request: Request): { [x: string]: string } => {
+    const output: { [x: string]: string } = {};
+
+    for (let [key, value] of new URL(request.url).searchParams.entries()) {
+        output[key] = value;
+    }
+
+    return output;
+};
+
+export const isAllowedCallbackHost = (host: string): boolean => {
+    return host === apiPublicURI || allowedCallbackHosts.includes(host);
+};

@@ -1,4 +1,5 @@
-import KSUID from 'ksuid';
+import { StateSession } from '@roleypoly/types';
+import { getQuery, isAllowedCallbackHost, setupStateSession } from '../utils/api-tools';
 import { Bounce } from '../utils/bounce';
 import { apiPublicURI, botClientID } from '../utils/config';
 
@@ -16,9 +17,17 @@ const buildURL = (params: URLParams) =>
     )}&state=${params.state}`;
 
 export const LoginBounce = async (request: Request): Promise<Response> => {
-    const state = await KSUID.random();
+    const stateSessionData: StateSession = {};
+
+    const { cbh: callbackHost } = getQuery(request);
+    if (callbackHost && isAllowedCallbackHost(callbackHost)) {
+        stateSessionData.callbackHost = callbackHost;
+    }
+
+    const state = await setupStateSession(stateSessionData);
+
     const redirectURI = `${apiPublicURI}/login-callback`;
     const clientID = botClientID;
 
-    return Bounce(buildURL({ state: state.string, redirectURI, clientID }));
+    return Bounce(buildURL({ state, redirectURI, clientID }));
 };

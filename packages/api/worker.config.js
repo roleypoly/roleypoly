@@ -10,6 +10,7 @@ module.exports = {
         'UI_PUBLIC_URI',
         'API_PUBLIC_URI',
         'ROOT_USERS',
+        'ALLOWED_CALLBACK_HOSTS',
     ]),
     kv: ['KV_SESSIONS', 'KV_GUILDS', 'KV_GUILD_DATA'],
 };

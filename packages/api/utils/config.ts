@@ -11,3 +11,4 @@ export const botToken = env('BOT_TOKEN');
 export const uiPublicURI = safeURI(env('UI_PUBLIC_URI'));
 export const apiPublicURI = safeURI(env('API_PUBLIC_URI'));
 export const rootUsers = list(env('ROOT_USERS'));
+export const allowedCallbackHosts = list(env('ALLOWED_CALLBACK_HOSTS'));

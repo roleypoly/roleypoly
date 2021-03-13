@@ -1,9 +1,17 @@
-import { AuthTokenResponse, DiscordUser, GuildSlug, SessionData } from '@roleypoly/types';
+import {
+    AuthTokenResponse,
+    DiscordUser,
+    GuildSlug,
+    SessionData,
+    StateSession,
+} from '@roleypoly/types';
 import KSUID from 'ksuid';
 import {
     AuthType,
     discordFetch,
     formData,
+    getStateSession,
+    isAllowedCallbackHost,
     parsePermissions,
     resolveFailures,
     userAgent,
@@ -21,8 +29,9 @@ const AuthErrorResponse = (extra?: string) =>
 export const LoginCallback = resolveFailures(
     AuthErrorResponse,
     async (request: Request): Promise<Response> => {
-        const query = new URL(request.url).searchParams;
+        let bounceBaseUrl = uiPublicURI;
 
+        const query = new URL(request.url).searchParams;
         const stateValue = query.get('state');
 
         if (stateValue === null) {
@@ -36,6 +45,14 @@ export const LoginCallback = resolveFailures(
 
             if (currentTime > stateExpiry) {
                 return AuthErrorResponse('state expired');
+            }
+
+            const stateSession = await getStateSession<StateSession>(state.string);
+            if (
+                stateSession?.callbackHost &&
+                isAllowedCallbackHost(stateSession.callbackHost)
+            ) {
+                bounceBaseUrl = stateSession.callbackHost;
             }
         } catch (e) {
             return AuthErrorResponse('state invalid');
@@ -90,7 +107,7 @@ export const LoginCallback = resolveFailures(
         await Sessions.put(sessionID.string, sessionData, 60 * 60 * 6);
 
         return Bounce(
-            uiPublicURI + '/machinery/new-session?session_id=' + sessionID.string
+            bounceBaseUrl + '/machinery/new-session?session_id=' + sessionID.string
         );
     }
 );
