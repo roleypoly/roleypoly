@@ -55,6 +55,11 @@ resource "cloudflare_worker_script" "backend" {
   }
 
   plain_text_binding {
+    name = "ALLOWED_CALLBACK_HOSTS"
+    text = var.allowed_callback_hosts
+  }
+
+  plain_text_binding {
     name = "ROOT_USERS"
     text = join(",", var.root_users)
   }

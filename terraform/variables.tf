@@ -79,3 +79,8 @@ variable "bot_tag" {
   default     = ""
   description = ":tag or @sha265: of ghcr.io/roleypoly/bot"
 }
+
+variable "allowed_callback_hosts" {
+  type    = string
+  default = ""
+}

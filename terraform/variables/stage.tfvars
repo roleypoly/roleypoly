@@ -8,5 +8,6 @@ ui_hostnames = [
   "stage.roleypoly.com",
   "web-stage.roleypoly.com"
 ]
-ui_public_uri  = "https://stage.roleypoly.com"
-api_public_uri = "https://api-stage.roleypoly.com"
+ui_public_uri          = "https://stage.roleypoly.com"
+api_public_uri         = "https://api-stage.roleypoly.com"
+allowed_callback_hosts = "https://roleypoly.com,https://stage.roleypoly.com,https://*.roleypoly.pages.dev"
