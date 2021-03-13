@@ -69,7 +69,7 @@ export const Authed = (props: Props) => {
                         {() => (
                             <GuildNav
                                 guilds={props.guilds}
-                                recentGuilds={props.recentGuilds}
+                                recentGuilds={props.recentGuilds || []}
                             />
                         )}
                     </Popover>

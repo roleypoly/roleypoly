@@ -9,6 +9,7 @@ import { GuildNavItem } from './GuildNav.styled';
 
 type Props = {
     guilds: GuildSlug[];
+    recentGuilds: string[];
 };
 
 const tooltipId = 'guildnav';
@@ -27,23 +28,53 @@ const Badges = (props: { guild: GuildSlug }) => {
     }, [props.guild.permissionLevel]);
 };
 
-export const GuildNav = (props: Props) => (
-    <div>
-        <Scrollbars
-            universal
-            autoHide
-            // autoHeight
-            style={{ height: 'calc(100vh - 45px - 1.4em)', overflowX: 'hidden' }}
-        >
-            {sortBy(props.guilds, 'name', (a: string, b: string) =>
-                a.toLowerCase() > b.toLowerCase() ? 1 : -1
-            ).map((guild) => (
-                <GuildNavItem href={`/s/${guild.id}`} key={guild.id}>
-                    <NavSlug guild={guild || null} key={guild.id} />
-                    <Badges guild={guild} />
-                </GuildNavItem>
-            ))}
-            <ReactTooltip id={tooltipId} />
-        </Scrollbars>
-    </div>
+const NavList = (props: { guilds: Props['guilds'] }) => (
+    <>
+        {props.guilds.map((guild) => (
+            <GuildNavItem href={`/s/${guild.id}`} key={guild.id}>
+                <NavSlug guild={guild || null} key={guild.id} />
+                <Badges guild={guild} />
+            </GuildNavItem>
+        ))}
+    </>
 );
+
+export const GuildNav = (props: Props) => {
+    const recentGuildSlugs: GuildSlug[] = props.recentGuilds
+        .reduce<(GuildSlug | undefined)[]>(
+            (acc, id) => [...acc, props.guilds.find((guild) => guild.id === id)],
+            []
+        )
+        .filter((slug) => slug !== undefined);
+
+    console.log({
+        recentGuilds: props.recentGuilds,
+        slugs: props.guilds,
+        recentSlugs: recentGuildSlugs,
+    });
+
+    const sortedSlugs = sortBy(props.guilds, 'name', (a: string, b: string) =>
+        a.toLowerCase() > b.toLowerCase() ? 1 : -1
+    );
+
+    return (
+        <div>
+            <Scrollbars
+                universal
+                autoHide
+                // autoHeight
+                style={{ height: 'calc(100vh - 45px - 1.4em)', overflowX: 'hidden' }}
+            >
+                {recentGuildSlugs && (
+                    <>
+                        <div>Recents</div>
+                        <NavList guilds={recentGuildSlugs} />
+                        <div>All Guilds</div>
+                    </>
+                )}
+                <NavList guilds={sortedSlugs} />
+                <ReactTooltip id={tooltipId} />
+            </Scrollbars>
+        </div>
+    );
+};

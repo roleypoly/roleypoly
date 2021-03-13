@@ -3,6 +3,7 @@ import { RolePickerTemplate } from '@roleypoly/design-system/templates/role-pick
 import { ServerSetupTemplate } from '@roleypoly/design-system/templates/server-setup';
 import { PresentableGuild, RoleUpdate, UserGuildPermissions } from '@roleypoly/types';
 import * as React from 'react';
+import { useAppShellProps } from '../contexts/app-shell/AppShellContext';
 import { useRecentGuilds } from '../contexts/recent-guilds/RecentGuildsContext';
 import { useSessionContext } from '../contexts/session/SessionContext';
 import { makeRoleTransactions } from '../utils/roleTransactions';
@@ -14,6 +15,7 @@ type PickerProps = {
 const Picker = (props: PickerProps) => {
     const { session, authedFetch, isAuthenticated } = useSessionContext();
     const { pushRecentGuild } = useRecentGuilds();
+    const appShellProps = useAppShellProps();
 
     const [pickerData, setPickerData] = React.useState<PresentableGuild | null | false>(
         null
@@ -58,9 +60,8 @@ const Picker = (props: PickerProps) => {
             return (
                 <ServerSetupTemplate
                     activeGuildId={props.serverID}
-                    user={session.user}
-                    guilds={session.guilds || []}
                     guildSlug={guildSlug}
+                    {...appShellProps}
                 />
             );
         }
@@ -96,8 +97,7 @@ const Picker = (props: PickerProps) => {
     return (
         <RolePickerTemplate
             activeGuildId={props.serverID}
-            user={session?.user}
-            guilds={session?.guilds || []}
+            {...appShellProps}
             guild={pickerData.guild}
             guildData={pickerData.data}
             member={pickerData.member}

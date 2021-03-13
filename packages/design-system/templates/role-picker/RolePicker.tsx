@@ -8,9 +8,15 @@ import * as React from 'react';
 export type RolePickerTemplateProps = RolePickerProps & Omit<AppShellProps, 'children'>;
 
 export const RolePickerTemplate = (props: RolePickerTemplateProps) => {
-    const { user, guilds, activeGuildId, ...pickerProps } = props;
+    const { user, guilds, activeGuildId, recentGuilds, ...pickerProps } = props;
     return (
-        <AppShell activeGuildId={activeGuildId} user={user} guilds={guilds} small>
+        <AppShell
+            activeGuildId={activeGuildId}
+            user={user}
+            guilds={guilds}
+            recentGuilds={recentGuilds}
+            small
+        >
             <RolePicker {...pickerProps} />
         </AppShell>
     );

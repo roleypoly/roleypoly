@@ -3,11 +3,17 @@ import * as React from 'react';
 import { useRecentGuilds } from '../recent-guilds/RecentGuildsContext';
 import { useSessionContext } from '../session/SessionContext';
 
-type AppShellPropsT = {
-    user: AppShellProps['user'];
-    guilds: AppShellProps['guilds'];
-    recentGuilds: AppShellProps['recentGuilds'];
-};
+type AppShellPropsT =
+    | {
+          user: Required<AppShellProps['user']>;
+          guilds: Required<AppShellProps['guilds']>;
+          recentGuilds: Required<AppShellProps['recentGuilds']>;
+      }
+    | {
+          user: undefined;
+          guilds: undefined;
+          recentGuilds: [];
+      };
 
 export const AppShellPropsContext = React.createContext<AppShellPropsT>({
     user: undefined,
