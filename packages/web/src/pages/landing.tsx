@@ -7,8 +7,7 @@ const Landing = () => {
     const { isAuthenticated } = useSessionContext();
 
     if (isAuthenticated) {
-        // return <Redirect to="/servers" />;
-        return <Redirect to="/x/dev-tools/session-debug" />;
+        return <Redirect to="/servers" />;
     }
 
     return <LandingTemplate />;
