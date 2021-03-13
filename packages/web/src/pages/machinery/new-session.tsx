@@ -5,8 +5,10 @@ const NewSession = () => {
         const url = new URL(window.location.href);
         const id = url.searchParams.get('session_id');
         if (id) {
-            window.location.href = '/';
             localStorage.setItem('rp_session_key', id);
+
+            const redirectUrl = localStorage.getItem('rp_postauth_redirect');
+            window.location.href = redirectUrl || '/';
         }
     });
 
