@@ -3,6 +3,7 @@ import * as React from 'react';
 
 const LandingPage = React.lazy(() => import('../pages/landing'));
 const ServersPage = React.lazy(() => import('../pages/servers'));
+const PickerPage = React.lazy(() => import('../pages/picker'));
 
 const MachineryNewSession = React.lazy(() => import('../pages/machinery/new-session'));
 
@@ -24,6 +25,7 @@ export const AppRouter = () => {
         <Router>
             <RouteWrapper component={LandingPage} path="/" />
             <RouteWrapper component={ServersPage} path="/servers" />
+            <RouteWrapper component={PickerPage} path="/s/:serverID" />
 
             <RouteWrapper component={MachineryNewSession} path="/machinery/new-session" />
 
