@@ -5,6 +5,7 @@ const LandingPage = React.lazy(() => import('../pages/landing'));
 const ServersPage = React.lazy(() => import('../pages/servers'));
 const PickerPage = React.lazy(() => import('../pages/picker'));
 
+const AuthLogin = React.lazy(() => import('../pages/auth/login'));
 const MachineryNewSession = React.lazy(() => import('../pages/machinery/new-session'));
 
 const DevToolsSetApi = React.lazy(() => import('../pages/dev-tools/set-api'));
@@ -28,6 +29,7 @@ export const AppRouter = () => {
             <RouteWrapper component={PickerPage} path="/s/:serverID" />
 
             <RouteWrapper component={MachineryNewSession} path="/machinery/new-session" />
+            <RouteWrapper component={AuthLogin} path="/auth/login" />
 
             <RouteWrapper component={DevToolsSetApi} path="/x/dev-tools/set-api" />
             <RouteWrapper

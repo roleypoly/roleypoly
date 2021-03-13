@@ -1,3 +1,4 @@
+import { Redirect } from '@reach/router';
 import { RolePickerTemplate } from '@roleypoly/design-system/templates/role-picker';
 import { PresentableGuild, RoleUpdate, UserGuildPermissions } from '@roleypoly/types';
 import * as React from 'react';
@@ -9,7 +10,7 @@ type PickerProps = {
 };
 
 const Picker = (props: PickerProps) => {
-    const { session, authedFetch } = useSessionContext();
+    const { session, authedFetch, isAuthenticated } = useSessionContext();
 
     const [pickerData, setPickerData] = React.useState<PresentableGuild | null>(null);
     const [pending, setPending] = React.useState(false);
@@ -24,6 +25,10 @@ const Picker = (props: PickerProps) => {
 
         fetchPickerData();
     }, [props.serverID, authedFetch]);
+
+    if (!isAuthenticated) {
+        return <Redirect to={`/auth/login?r=${props.serverID}`} replace />;
+    }
 
     if (pickerData === null) {
         return <div>Loading...</div>;
