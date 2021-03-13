@@ -36,6 +36,5 @@ export const GetSlug = async (request: Request): Promise<Response> => {
         icon,
         permissionLevel: 0,
     };
-    console.log({ guildSlug });
     return respond(guildSlug);
 };
