@@ -1,3 +1,4 @@
+import { Link } from '@reach/router';
 import { onSmallScreen } from '@roleypoly/design-system/atoms/breakpoints';
 import { palette } from '@roleypoly/design-system/atoms/colors';
 import { transitions } from '@roleypoly/design-system/atoms/timings';
@@ -66,7 +67,7 @@ export const InteractionBase = styled.div<InteractionBaseProps>`
     }
 `;
 
-export const MastheadA = styled.a`
+export const MastheadA = styled(Link)`
     display: flex;
     align-items: center;
     justify-content: center;
