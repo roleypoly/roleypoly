@@ -31,6 +31,10 @@ export const AppRouter = () => {
       <RouteWrapper component={PickerPage} path="/s/:serverID" />
 
       <RouteWrapper component={MachineryNewSession} path="/machinery/new-session" />
+      <RouteWrapper
+        component={MachineryNewSession}
+        path="/machinery/new-session/:sessionID"
+      />
       <RouteWrapper component={MachineryLogout} path="/machinery/logout" />
       <RouteWrapper component={MachineryBotJoin} path="/machinery/bot-join" />
       <RouteWrapper component={MachineryBotJoin} path="/machinery/bot-join/:serverID" />

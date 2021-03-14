@@ -1,22 +1,32 @@
+import { Redirect } from '@reach/router';
 import * as React from 'react';
+import { useSessionContext } from '../../contexts/session/SessionContext';
 import { Title } from '../../utils/metaTitle';
 
-const NewSession = () => {
+const NewSession = (props: { sessionID: string }) => {
+  const session = useSessionContext();
+  const [postauthUrl, setPostauthUrl] = React.useState('/servers');
+
   React.useEffect(() => {
     const url = new URL(window.location.href);
-    const id = url.searchParams.get('session_id');
+    const id = props.sessionID || url.searchParams.get('session_id');
     if (id) {
       localStorage.setItem('rp_session_key', id);
+      session.setSession({ sessionID: id });
 
-      const redirectUrl = localStorage.getItem('rp_postauth_redirect');
-      window.location.href = redirectUrl || '/';
+      const storedPostauthUrl = localStorage.getItem('rp_postauth_redirect');
+      if (storedPostauthUrl) {
+        setPostauthUrl(storedPostauthUrl);
+        localStorage.removeItem('rp_postauth_redirect');
+      }
     }
-  });
+  }, [setPostauthUrl, props.sessionID, session]);
 
   return (
     <>
       <Title title="Logging you into Roleypoly..." />
-      <div>Redirecting you...</div>
+      <div>Logging you into Roleypoly...</div>
+      {session.isAuthenticated && <Redirect to={postauthUrl} noThrow replace />}
     </>
   );
 };
