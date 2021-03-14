@@ -106,7 +106,7 @@ export const LoginCallback = resolveFailures(
 
     await Sessions.put(sessionID.string, sessionData, 60 * 60 * 6);
 
-    return Bounce(bounceBaseUrl + '/machinery/new-session/' + sessionID.string);
+    return Bounce(bounceBaseUrl + 'machinery/new-session/' + sessionID.string);
   }
 );
 
