@@ -13,18 +13,14 @@ export const UserPopover = (props: UserPopoverProps) => (
     <Base>
         <UserAvatarGroup user={props.user} preventCollapse={true} />
         <NavAction>
-            <a href="/user/settings">
-                <CompletelyStylelessLink>
-                    Settings <GoGear />
-                </CompletelyStylelessLink>
-            </a>
+            <CompletelyStylelessLink to="/user/settings">
+                Settings <GoGear />
+            </CompletelyStylelessLink>
         </NavAction>
         <NavAction>
-            <a href="/machinery/logout">
-                <CompletelyStylelessLink>
-                    Log Out <GoSignOut />
-                </CompletelyStylelessLink>
-            </a>
+            <CompletelyStylelessLink to="/machinery/logout">
+                Log Out <GoSignOut />
+            </CompletelyStylelessLink>
         </NavAction>
     </Base>
 );

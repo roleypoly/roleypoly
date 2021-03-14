@@ -14,11 +14,9 @@ const CardList = (props: { guilds: GuildSlug[] }) => (
     <>
         {props.guilds.map((guild, idx) => (
             <CardContainer key={idx}>
-                <a href={`/s/${guild.id}`}>
-                    <CompletelyStylelessLink>
-                        <ServerListingCard guild={guild} />
-                    </CompletelyStylelessLink>
-                </a>
+                <CompletelyStylelessLink to={`/s/${guild.id}`}>
+                    <ServerListingCard guild={guild} />
+                </CompletelyStylelessLink>
             </CardContainer>
         ))}
     </>

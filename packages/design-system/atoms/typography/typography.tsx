@@ -1,3 +1,4 @@
+import { Link as RouterLink } from '@reach/router';
 import { palette } from '@roleypoly/design-system/atoms/colors';
 import { transitions } from '@roleypoly/design-system/atoms/timings';
 import styled, { css } from 'styled-components';
@@ -106,7 +107,7 @@ export const Link = styled.a`
     }
 `;
 
-export const CompletelyStylelessLink = styled.a`
+export const CompletelyStylelessLink = styled(RouterLink)`
     color: inherit;
     text-decoration: none;
     :visited,

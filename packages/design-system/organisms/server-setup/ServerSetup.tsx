@@ -2,7 +2,11 @@ import { Avatar, utils } from '@roleypoly/design-system/atoms/avatar';
 import { Button } from '@roleypoly/design-system/atoms/button';
 import { DotOverlay } from '@roleypoly/design-system/atoms/dot-overlay';
 import { Hero } from '@roleypoly/design-system/atoms/hero';
-import { AccentTitle, SmallTitle } from '@roleypoly/design-system/atoms/typography';
+import {
+    AccentTitle,
+    CompletelyStylelessLink,
+    SmallTitle,
+} from '@roleypoly/design-system/atoms/typography';
 import { evaluatePermission } from '@roleypoly/misc-utils/hasPermission';
 import { GuildSlug, UserGuildPermissions } from '@roleypoly/types';
 import * as React from 'react';
@@ -63,11 +67,11 @@ const adminMessage = (id: string) => (
         </FlexLine>
         <FlexLine>
             <div>
-                <a href={`/machinery/bot-join?id=${id}`}>
+                <CompletelyStylelessLink to={`/machinery/bot-join?id=${id}`}>
                     <Button color="discord" icon={<FaDiscord />}>
                         Add Roleypoly
                     </Button>
-                </a>
+                </CompletelyStylelessLink>
             </div>
         </FlexLine>
     </>

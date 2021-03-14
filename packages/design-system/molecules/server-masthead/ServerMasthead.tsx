@@ -1,5 +1,9 @@
 import { Avatar, utils } from '@roleypoly/design-system/atoms/avatar';
-import { AccentTitle, AmbientLarge } from '@roleypoly/design-system/atoms/typography';
+import {
+    AccentTitle,
+    AmbientLarge,
+    CompletelyStylelessLink,
+} from '@roleypoly/design-system/atoms/typography';
 import { GuildSlug } from '@roleypoly/types';
 import * as React from 'react';
 import { GoPencil } from 'react-icons/go';
@@ -25,12 +29,12 @@ export const ServerMasthead = (props: ServerMastheadProps) => {
             <Name>
                 <AccentTitle>{props.guild.name}</AccentTitle>
                 {props.editable && (
-                    <a href={`/s/${props.guild.id}/edit`}>
+                    <CompletelyStylelessLink to={`/s/${props.guild.id}/edit`}>
                         <Editable role="button">
                             <GoPencil />
                             &nbsp; <AmbientLarge>Edit Server</AmbientLarge>
                         </Editable>
-                    </a>
+                    </CompletelyStylelessLink>
                 )}
             </Name>
         </Wrapper>
