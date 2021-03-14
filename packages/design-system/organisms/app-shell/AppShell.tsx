@@ -27,7 +27,7 @@ export const AppShell = (props: AppShellProps) => (
                 guilds={props.guilds || []}
                 activeGuildId={props.activeGuildId || null}
                 user={props.user}
-                recentGuilds={props.recentGuilds}
+                recentGuilds={props.recentGuilds || []}
             />
         ) : (
             <Masthead.Guest />
