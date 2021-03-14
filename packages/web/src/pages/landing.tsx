@@ -10,7 +10,7 @@ const Landing = () => {
   const appShellProps = useAppShellProps();
 
   if (isAuthenticated) {
-    return <Redirect to="/servers" />;
+    return <Redirect to="/servers" noThrow />;
   }
 
   return (
