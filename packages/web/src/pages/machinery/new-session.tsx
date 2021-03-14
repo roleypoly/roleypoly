@@ -1,4 +1,3 @@
-import { Redirect } from '@reach/router';
 import { Link } from '@roleypoly/design-system/atoms/typography';
 import * as React from 'react';
 import { useSessionContext } from '../../contexts/session/SessionContext';
@@ -16,6 +15,15 @@ const NewSession = (props: { sessionID: string }) => {
     }
   }, [setPostauthUrl]);
 
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      setTimeout(() => {
+        window.history.replaceState(null, '', '/');
+        window.location.href = postauthUrl;
+      }, 0);
+    }
+  }, [postauthUrl, isAuthenticated]);
+
   React.useCallback(
     (sessionID) => {
       setupSession(sessionID);
@@ -30,7 +38,6 @@ const NewSession = (props: { sessionID: string }) => {
       <div>
         <Link href={postauthUrl}>If you aren't redirected soon, click here.</Link>
       </div>
-      {isAuthenticated && <Redirect to={postauthUrl} noThrow replace />}
     </>
   );
 };
