@@ -12,7 +12,7 @@ const NewSession = (props: { sessionID: string }) => {
     const id = props.sessionID || url.searchParams.get('session_id');
     if (id) {
       localStorage.setItem('rp_session_key', id);
-      session.setSession({ sessionID: id });
+      // session.setSession({ sessionID: id });
 
       const storedPostauthUrl = localStorage.getItem('rp_postauth_redirect');
       if (storedPostauthUrl) {
