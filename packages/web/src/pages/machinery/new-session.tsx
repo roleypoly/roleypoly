@@ -9,16 +9,19 @@ const NewSession = (props: { sessionID: string }) => {
   const [postauthUrl, setPostauthUrl] = React.useState('/servers');
 
   React.useEffect(() => {
-    setupSession(props.sessionID);
-  }, [props.sessionID, setupSession]);
-
-  React.useEffect(() => {
     const storedPostauthUrl = localStorage.getItem('rp_postauth_redirect');
     if (storedPostauthUrl) {
       setPostauthUrl(storedPostauthUrl);
       localStorage.removeItem('rp_postauth_redirect');
     }
   }, [setPostauthUrl]);
+
+  React.useCallback(
+    (sessionID) => {
+      setupSession(sessionID);
+    },
+    [setupSession]
+  )(props.sessionID);
 
   return (
     <>
