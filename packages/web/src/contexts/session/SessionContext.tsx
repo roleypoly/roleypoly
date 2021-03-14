@@ -2,16 +2,42 @@ import { SessionData } from '@roleypoly/types';
 import * as React from 'react';
 import { useApiContext } from '../api/ApiContext';
 
+enum SessionState {
+  NoAuth,
+  HalfAuth,
+  FullAuth,
+}
+
+type SavedSession = {
+  sessionID: SessionData['sessionID'];
+
+  session: {
+    user: SessionData['user'];
+    guilds: SessionData['guilds'];
+  };
+};
+
 type SessionContextT = {
-  session?: Omit<Partial<SessionData>, 'tokens'>;
-  setSession: (session?: SessionContextT['session']) => void;
+  setupSession: (sessionID: string) => void;
   authedFetch: (url: string, opts?: RequestInit) => Promise<Response>;
   isAuthenticated: boolean;
+  sessionState: SessionState;
+  sessionID?: SessionData['sessionID'];
+  session: {
+    user?: SessionData['user'];
+    guilds?: SessionData['guilds'];
+  };
 };
 
 const SessionContext = React.createContext<SessionContextT>({
+  sessionState: SessionState.NoAuth,
+  sessionID: undefined,
   isAuthenticated: false,
-  setSession: () => {},
+  session: {
+    user: undefined,
+    guilds: undefined,
+  },
+  setupSession: () => {},
   authedFetch: async () => {
     return new Response();
   },
@@ -20,84 +46,126 @@ const SessionContext = React.createContext<SessionContextT>({
 export const useSessionContext = () => React.useContext(SessionContext);
 
 export const SessionContextProvider = (props: { children: React.ReactNode }) => {
-  const api = useApiContext();
-  const [session, setSession] = React.useState<SessionContextT['session']>(undefined);
-
-  const sessionContextValue: SessionContextT = React.useMemo(
-    () => ({
-      session,
-      setSession,
-      authedFetch: (url: string, opts?: RequestInit) => {
-        return api.fetch(url, {
-          ...opts,
-          headers: {
-            ...opts?.headers,
-            authorization: session?.sessionID
-              ? `Bearer ${session?.sessionID}`
-              : undefined,
-          },
-        });
-      },
-      isAuthenticated: !!session && !!session.sessionID && !!session.user,
-    }),
-    [session, api]
+  const { fetch } = useApiContext();
+  const [sessionID, setSessionID] = React.useState<SessionContextT['sessionID']>(
+    undefined
   );
+  const [sessionState, setSessionState] = React.useState<SessionState>(
+    SessionState.NoAuth
+  );
+  const [session, setSession] = React.useState<SessionContextT['session']>({
+    user: undefined,
+    guilds: undefined,
+  });
+  const [lock, setLock] = React.useState(false);
 
-  React.useEffect(() => {
-    // No session is set, do we have one available?
-    if (!sessionContextValue.session || !sessionContextValue.session.sessionID) {
-      // We may have the full state in session storage...
-      const storedSessionData = sessionStorage.getItem('rp_session_data');
-      if (storedSessionData) {
-        try {
-          setSession(JSON.parse(storedSessionData));
-          return;
-        } catch (e) {
-          // Oops, this data is wrong.
-        }
+  // Possible flows:
+  /* 
+    if no key, check if key available in LS
+
+    No session:
+      no key
+      isAuth = false
+    
+    Half session:
+      have key
+      lock = true
+      isAuth = false
+      fetch cached in SS _OR_ syncSession()
+      lock = false
+
+    Full session
+      have session
+      isAuth = true
+  */
+
+  const sessionContextValue: SessionContextT = {
+    sessionID,
+    session,
+    sessionState,
+    isAuthenticated: sessionState === SessionState.FullAuth,
+    setupSession: async (newID: string) => {
+      setSessionID(newID);
+      setSessionState(SessionState.HalfAuth);
+      saveSessionKey(newID);
+    },
+    authedFetch: async (url: string, init?: RequestInit): Promise<Response> => {
+      if (sessionID) {
+        init = {
+          ...init,
+          headers: {
+            ...init?.headers,
+            authorization: `Bearer ${sessionID}`,
+          },
+        };
       }
 
-      // But if not, we have the key, maybe?
-      const storedSessionID = localStorage.getItem('rp_session_key');
-      if (storedSessionID && storedSessionID !== '') {
-        setSession({ sessionID: storedSessionID });
+      return fetch(url, init);
+    },
+  };
+
+  const { setupSession, authedFetch } = sessionContextValue;
+
+  // Local storage sync on NoAuth
+  React.useEffect(() => {
+    if (!sessionID) {
+      const storedKey = getSessionKey();
+      if (!storedKey) {
         return;
       }
 
-      // If we hit here, we're definitely not authenticated.
+      setupSession(storedKey);
+    }
+  }, [sessionID, setupSession]);
+
+  // Sync session data on HalfAuth
+  React.useEffect(() => {
+    if (lock) {
       return;
     }
 
-    // If a session is set and it's not stored, set it now.
-    if (
-      localStorage.getItem('rp_session_key') !== sessionContextValue.session.sessionID
-    ) {
-      localStorage.setItem('rp_session_key', sessionContextValue.session.sessionID || '');
-    }
+    if (sessionState === SessionState.HalfAuth) {
+      setLock(true);
 
-    // Session is set, but we don't have data. Server sup?
-    if (sessionContextValue.session.sessionID && !sessionContextValue.session.user) {
+      // Use cached session
+      const storedData = getSessionData();
+      if (storedData && storedData?.sessionID === sessionID) {
+        setSession(storedData.session);
+        setSessionState(SessionState.FullAuth);
+        setLock(false);
+        return;
+      }
+
+      // If no cached session, let's grab it from server
       const syncSession = async () => {
-        const response = await sessionContextValue.authedFetch('/get-session');
-        if (response.status !== 200) {
-          console.error('get-session failed', { response });
-          clearSessionData();
-          return;
+        try {
+          const serverSession = await fetchSession(authedFetch);
+          if (!serverSession) {
+            // Not found, lets reset.
+            deleteSessionKey();
+            setSessionID(undefined);
+            setSessionState(SessionState.NoAuth);
+            setLock(false);
+            return;
+          }
+
+          const newSession = {
+            user: serverSession.user,
+            guilds: serverSession.guilds,
+          };
+
+          saveSessionData({ sessionID: sessionID || '', session: newSession });
+          setSession(newSession);
+          setLock(false);
+        } catch (e) {
+          console.error('syncSession failed', e);
+          setLock(false);
         }
-
-        const serverSession: SessionContextT['session'] = await response.json();
-
-        setSession(serverSession);
-        sessionStorage.setItem('rp_session_data', JSON.stringify(serverSession));
       };
 
       syncSession();
     }
-  }, [
-    sessionContextValue.session?.user,
-    sessionContextValue.session?.sessionID,
-    sessionContextValue,
-  ]);
+  }, [sessionState, sessionID, authedFetch, lock]);
 
   return (
     <SessionContext.Provider value={sessionContextValue}>
@@ -106,7 +174,28 @@ export const SessionContextProvider = (props: { children: React.ReactNode }) => 
   );
 };
 
-const clearSessionData = () => {
-  sessionStorage.removeItem('rp_session_data');
-  localStorage.removeItem('rp_session_key');
+const saveSessionKey = (key: string) => localStorage.setItem('rp_session_key', key);
+const deleteSessionKey = () => localStorage.removeItem('rp_session_key');
+const getSessionKey = () => localStorage.getItem('rp_session_key');
+
+type ServerSession = Omit<SessionData, 'tokens'>;
+const fetchSession = async (
+  authedFetch: SessionContextT['authedFetch']
+): Promise<ServerSession | null> => {
+  const sessionResponse = await authedFetch('/get-session');
+  if (sessionResponse.status !== 200) {
+    return null;
+  }
+
+  const { sessionID, guilds, user }: ServerSession = await sessionResponse.json();
+  return {
+    sessionID,
+    guilds,
+    user,
+  };
 };
+
+const saveSessionData = (data: SavedSession) =>
+  sessionStorage.setItem('rp_session_data', JSON.stringify(data));
+const getSessionData = (): SavedSession | null =>
+  JSON.parse(sessionStorage.getItem('rp_session_data') || 'null');

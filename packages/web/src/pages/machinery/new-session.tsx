@@ -5,7 +5,7 @@ import { useSessionContext } from '../../contexts/session/SessionContext';
 import { Title } from '../../utils/metaTitle';
 
 const NewSession = (props: { sessionID: string }) => {
-  const session = useSessionContext();
+  const { setupSession, isAuthenticated } = useSessionContext();
   const [postauthUrl, setPostauthUrl] = React.useState('/servers');
 
   React.useEffect(() => {
@@ -13,7 +13,6 @@ const NewSession = (props: { sessionID: string }) => {
     const id = props.sessionID || url.searchParams.get('session_id');
     if (id) {
       localStorage.setItem('rp_session_key', id);
-      // session.setSession({ sessionID: id });
 
       const storedPostauthUrl = localStorage.getItem('rp_postauth_redirect');
       if (storedPostauthUrl) {
@@ -21,7 +20,13 @@ const NewSession = (props: { sessionID: string }) => {
         localStorage.removeItem('rp_postauth_redirect');
       }
     }
-  }, [setPostauthUrl, props.sessionID, session]);
+  }, [setPostauthUrl, props.sessionID]);
+
+  React.useEffect(() => {
+    if (props.sessionID) {
+      setupSession(props.sessionID);
+    }
+  }, [props.sessionID, setupSession]);
 
   return (
     <>
@@ -30,7 +35,7 @@ const NewSession = (props: { sessionID: string }) => {
       <div>
         <Link href={postauthUrl}>If you aren't redirected soon, click here.</Link>
       </div>
-      {session.isAuthenticated && <Redirect to={postauthUrl} noThrow replace />}
+      {isAuthenticated && <Redirect to={postauthUrl} noThrow replace />}
     </>
   );
 };
