@@ -3,66 +3,64 @@ import { mediaQueryDefs } from './Breakpoints';
 import { BreakpointContext, ScreenSize } from './Context';
 
 const resetScreen: ScreenSize = {
-    onSmallScreen: false,
-    onTablet: false,
-    onDesktop: false,
+  onSmallScreen: false,
+  onTablet: false,
+  onDesktop: false,
 };
 
 export class BreakpointsProvider extends React.Component<{}, ScreenSize> {
-    public state = {
-        ...resetScreen,
-        onSmallScreen: true,
-    };
+  public state = {
+    ...resetScreen,
+    onSmallScreen: true,
+  };
 
-    private mediaQueries: { [key in keyof ScreenSize]: MediaQueryList } = {
-        onSmallScreen: window.matchMedia(
-            mediaQueryDefs.onSmallScreen.replace('@media screen and', '')
-        ),
-        onTablet: window.matchMedia(
-            mediaQueryDefs.onTablet.replace('@media screen and', '')
-        ),
-        onDesktop: window.matchMedia(
-            mediaQueryDefs.onDesktop.replace('@media screen and', '')
-        ),
-    };
+  private mediaQueries: { [key in keyof ScreenSize]: MediaQueryList } = {
+    onSmallScreen: window.matchMedia(
+      mediaQueryDefs.onSmallScreen.replace('@media screen and', '')
+    ),
+    onTablet: window.matchMedia(mediaQueryDefs.onTablet.replace('@media screen and', '')),
+    onDesktop: window.matchMedia(
+      mediaQueryDefs.onDesktop.replace('@media screen and', '')
+    ),
+  };
 
-    componentDidMount() {
-        Object.entries(this.mediaQueries).forEach(([key, mediaQuery]) =>
-            mediaQuery.addEventListener('change', this.handleMediaEvent)
-        );
+  componentDidMount() {
+    Object.entries(this.mediaQueries).forEach(([key, mediaQuery]) =>
+      mediaQuery.addEventListener('change', this.handleMediaEvent)
+    );
+  }
+
+  componentWillUnmount() {
+    Object.entries(this.mediaQueries).forEach(([key, mediaQuery]) =>
+      mediaQuery.removeEventListener('change', this.handleMediaEvent)
+    );
+  }
+
+  handleMediaEvent = (event: MediaQueryListEvent) => {
+    console.log('handleMediaEvent', { event });
+    this.setState({
+      ...resetScreen,
+      ...this.calculateScreen(),
+    });
+  };
+
+  calculateScreen = () => {
+    if (this.mediaQueries.onDesktop.matches) {
+      return { onDesktop: true };
     }
 
-    componentWillUnmount() {
-        Object.entries(this.mediaQueries).forEach(([key, mediaQuery]) =>
-            mediaQuery.removeEventListener('change', this.handleMediaEvent)
-        );
+    if (this.mediaQueries.onTablet.matches) {
+      return { onTablet: true };
     }
 
-    handleMediaEvent = (event: MediaQueryListEvent) => {
-        console.log('handleMediaEvent', { event });
-        this.setState({
-            ...resetScreen,
-            ...this.calculateScreen(),
-        });
-    };
+    return { onSmallScreen: true };
+  };
 
-    calculateScreen = () => {
-        if (this.mediaQueries.onDesktop.matches) {
-            return { onDesktop: true };
-        }
-
-        if (this.mediaQueries.onTablet.matches) {
-            return { onTablet: true };
-        }
-
-        return { onSmallScreen: true };
-    };
-
-    render() {
-        return (
-            <BreakpointContext.Provider value={{ screenSize: { ...this.state } }}>
-                {this.props.children}
-            </BreakpointContext.Provider>
-        );
-    }
+  render() {
+    return (
+      <BreakpointContext.Provider value={{ screenSize: { ...this.state } }}>
+        {this.props.children}
+      </BreakpointContext.Provider>
+    );
+  }
 }

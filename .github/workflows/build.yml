@@ -3,211 +3,211 @@ name: Roleypoly CI
 on: push
 
 jobs:
-    go_test:
-        runs-on: ubuntu-latest
-        name: Go CI
-        steps:
-            - uses: actions/checkout@master
-            - uses: actions/cache@v2.1.4
-              with:
-                  path: ~/go/pkg/mod
-                  key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-                  restore-keys: |
-                      ${{ runner.os }}-go-
-            - uses: actions/setup-go@v2
-              with:
-                  go-version: '^1.15.5'
+  go_test:
+    runs-on: ubuntu-latest
+    name: Go CI
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/cache@v2.1.4
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-
+      - uses: actions/setup-go@v2
+        with:
+          go-version: '^1.15.5'
 
-            - run: go vet ./...
+      - run: go vet ./...
 
-            - run: go test ./...
+      - run: go test ./...
 
-    node_test:
-        runs-on: ubuntu-latest
-        name: Node CI
-        steps:
-            - uses: actions/checkout@master
+  node_test:
+    runs-on: ubuntu-latest
+    name: Node CI
+    steps:
+      - uses: actions/checkout@master
 
-            - uses: actions/setup-node@v2.1.5
-              with:
-                  node-version: '14'
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: '14'
 
-            - name: Get yarn cache directory path
-              id: yarn-cache-dir-path
-              run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
 
-            - uses: actions/cache@v2.1.4
-              id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-              with:
-                  path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-yarn-
+      - uses: actions/cache@v2.1.4
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
-            - run: yarn install --frozen-lockfile
+      - run: yarn install --frozen-lockfile
 
-            - run: yarn lint
+      - run: yarn lint
 
-            - run: yarn test
+      - run: yarn test
 
-    worker_build:
-        runs-on: ubuntu-latest
-        name: Worker Build & Publish
-        needs:
-            - node_test
-        steps:
-            - uses: actions/checkout@master
+  worker_build:
+    runs-on: ubuntu-latest
+    name: Worker Build & Publish
+    needs:
+      - node_test
+    steps:
+      - uses: actions/checkout@master
 
-            - uses: actions/setup-node@v2.1.5
-              with:
-                  node-version: '14'
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: '14'
 
-            - name: Set up Cloud SDK
-              uses: google-github-actions/setup-gcloud@master
-              with:
-                  project_id: ${{ secrets.GCS_PROJECT_ID }}
-                  service_account_key: ${{ secrets.GCS_TF_KEY }}
-                  export_default_credentials: true
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCS_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCS_TF_KEY }}
+          export_default_credentials: true
 
-            - name: Check if already deployed
-              id: check
-              run: |
-                  gsutil stat gs://roleypoly-artifacts/backend-worker/${{ github.sha }}/script.js \
-                    && echo ::set-output name=skip::1 \
-                    || echo ::set-output name=skip::0
+      - name: Check if already deployed
+        id: check
+        run: |
+          gsutil stat gs://roleypoly-artifacts/backend-worker/${{ github.sha }}/script.js \
+            && echo ::set-output name=skip::1 \
+            || echo ::set-output name=skip::0
 
-            - run: npm i -g @cloudflare/wrangler
-              if: steps.check.outputs.skip == '0'
+      - run: npm i -g @cloudflare/wrangler
+        if: steps.check.outputs.skip == '0'
 
-            - name: Get yarn cache directory path
-              if: steps.check.outputs.skip == '0'
-              id: yarn-cache-dir-path
-              run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Get yarn cache directory path
+        if: steps.check.outputs.skip == '0'
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
 
-            - uses: actions/cache@v2.1.4
-              if: steps.check.outputs.skip == '0'
-              id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-              with:
-                  path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-yarn-
+      - uses: actions/cache@v2.1.4
+        if: steps.check.outputs.skip == '0'
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
-            - run: yarn install --frozen-lockfile
-              if: steps.check.outputs.skip == '0'
+      - run: yarn install --frozen-lockfile
+        if: steps.check.outputs.skip == '0'
 
-            - run: |
-                  wrangler init
-                  echo 'webpack_config = "packages/api/webpack.config.js"' | tee -a wrangler.toml
-                  wrangler build
-              if: steps.check.outputs.skip == '0'
+      - run: |
+          wrangler init
+          echo 'webpack_config = "packages/api/webpack.config.js"' | tee -a wrangler.toml
+          wrangler build
+        if: steps.check.outputs.skip == '0'
 
-            - id: upload-file
-              if: steps.check.outputs.skip == '0'
-              uses: google-github-actions/upload-cloud-storage@main
-              with:
-                  path: worker/script.js
-                  destination: roleypoly-artifacts/backend-worker/${{ github.sha }}
-                  credentials: ${{ secrets.GCS_TF_KEY }}
+      - id: upload-file
+        if: steps.check.outputs.skip == '0'
+        uses: google-github-actions/upload-cloud-storage@main
+        with:
+          path: worker/script.js
+          destination: roleypoly-artifacts/backend-worker/${{ github.sha }}
+          credentials: ${{ secrets.GCS_TF_KEY }}
 
-    docker_build:
-        name: Docker Build & Publish
-        runs-on: ubuntu-latest
-        needs:
-            - go_test
-            - node_test
-        strategy:
-            matrix:
-                dockerfile:
-                    - bot
-        steps:
-            - uses: actions/checkout@master
+  docker_build:
+    name: Docker Build & Publish
+    runs-on: ubuntu-latest
+    needs:
+      - go_test
+      - node_test
+    strategy:
+      matrix:
+        dockerfile:
+          - bot
+    steps:
+      - uses: actions/checkout@master
 
-            - uses: actions/cache@v2.1.4
-              with:
-                  path: /tmp/.buildx-cache
-                  key: ${{ runner.os }}-buildx-${{ github.sha }}
-                  restore-keys: |
-                      ${{ runner.os }}-buildx-
+      - uses: actions/cache@v2.1.4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
-            - name: Docker meta
-              id: docker_meta
-              uses: crazy-max/ghaction-docker-meta@v1
-              with:
-                  images: |
-                      ghcr.io/roleypoly/${{matrix.dockerfile}}
-                  tag-sha: true
+      - name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: |
+            ghcr.io/roleypoly/${{matrix.dockerfile}}
+          tag-sha: true
 
-            - name: Set up Docker Buildx
-              id: buildx
-              uses: docker/setup-buildx-action@v1
-              with:
-                  install: true
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          install: true
 
-            - name: Login to GHCR
-              uses: docker/login-action@v1
-              with:
-                  registry: ghcr.io
-                  username: roleypoly
-                  password: ${{ secrets.GHCR_PAT }}
+      - name: Login to GHCR
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: roleypoly
+          password: ${{ secrets.GHCR_PAT }}
 
-            - name: Build and push
-              uses: docker/build-push-action@v2
-              id: docker
-              with:
-                  context: .
-                  file: ./hack/dockerfiles/${{matrix.dockerfile}}.Dockerfile
-                  push: true
-                  cache-from: type=local,src=/tmp/.buildx-cache
-                  cache-to: type=local,dest=/tmp/.buildx-cache
-                  tags: ${{ steps.docker_meta.outputs.tags }}
-                  labels: ${{ steps.docker_meta.outputs.labels }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        id: docker
+        with:
+          context: .
+          file: ./hack/dockerfiles/${{matrix.dockerfile}}.Dockerfile
+          push: true
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
 
-            - name: Pre-deploy - Save digest.txt
-              run: |
-                  echo "${{ steps.docker.outputs.digest }}" > digest.txt
+      - name: Pre-deploy - Save digest.txt
+        run: |
+          echo "${{ steps.docker.outputs.digest }}" > digest.txt
 
-            - name: Pre-deploy - Make digest artifact
-              uses: actions/upload-artifact@v2.2.2
-              with:
-                  name: ${{ matrix.dockerfile }}-digest
-                  path: digest.txt
+      - name: Pre-deploy - Make digest artifact
+        uses: actions/upload-artifact@v2.2.2
+        with:
+          name: ${{ matrix.dockerfile }}-digest
+          path: digest.txt
 
-    trigger_deploy:
-        name: Deploy to Stage
-        needs:
-            - docker_build
-            - worker_build
-        if: github.ref == 'refs/heads/main'
-        runs-on: ubuntu-latest
-        steps:
-            - name: Get Bot digest
-              uses: actions/download-artifact@v2
-              with:
-                  name: bot-digest
-                  path: .digests/bot
+  trigger_deploy:
+    name: Deploy to Stage
+    needs:
+      - docker_build
+      - worker_build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Bot digest
+        uses: actions/download-artifact@v2
+        with:
+          name: bot-digest
+          path: .digests/bot
 
-            - name: Set digests as addressable
-              id: digests
-              env:
-                  IMAGES: bot
-              run: |
-                  set_digest_output() {
-                    echo ::set-output name=$1::@$(cat .digests/$1/digest.txt)
-                  }
+      - name: Set digests as addressable
+        id: digests
+        env:
+          IMAGES: bot
+        run: |
+          set_digest_output() {
+            echo ::set-output name=$1::@$(cat .digests/$1/digest.txt)
+          }
 
-                  for image in $IMAGES; do
-                    set_digest_output $image
-                  done
+          for image in $IMAGES; do
+            set_digest_output $image
+          done
 
-            - name: Invoke Deploy workflow
-              uses: benc-uk/workflow-dispatch@v1
-              with:
-                  workflow: Deploy
-                  token: ${{ secrets.GITOPS_TOKEN }}
-                  inputs: |-
-                      {
-                        "environment": "stage",
-                        "worker_tag": "${{ github.sha }}",
-                        "bot_tag": "${{ steps.digests.output.bot }}"
-                      }
+      - name: Invoke Deploy workflow
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: Deploy
+          token: ${{ secrets.GITOPS_TOKEN }}
+          inputs: |-
+            {
+              "environment": "stage",
+              "worker_tag": "${{ github.sha }}",
+              "bot_tag": "${{ steps.digests.output.bot }}"
+            }

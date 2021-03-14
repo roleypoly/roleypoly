@@ -4,81 +4,81 @@ import { uiPublicURI } from './utils/config';
 export type Handler = (request: Request) => Promise<Response> | Response;
 
 type RoutingTree = {
-    [method: string]: {
-        [path: string]: Handler;
-    };
+  [method: string]: {
+    [path: string]: Handler;
+  };
 };
 
 type Fallbacks = {
-    root: Handler;
-    404: Handler;
-    500: Handler;
+  root: Handler;
+  404: Handler;
+  500: Handler;
 };
 
 export class Router {
-    private routingTree: RoutingTree = {};
-    private fallbacks: Fallbacks = {
-        root: this.respondToRoot,
-        404: this.notFound,
-        500: this.serverError,
-    };
+  private routingTree: RoutingTree = {};
+  private fallbacks: Fallbacks = {
+    root: this.respondToRoot,
+    404: this.notFound,
+    500: this.serverError,
+  };
 
-    private uiURL = new URL(uiPublicURI);
+  private uiURL = new URL(uiPublicURI);
 
-    addFallback(which: keyof Fallbacks, handler: Handler) {
-        this.fallbacks[which] = handler;
+  addFallback(which: keyof Fallbacks, handler: Handler) {
+    this.fallbacks[which] = handler;
+  }
+
+  add(method: string, rootPath: string, handler: Handler) {
+    const lowerMethod = method.toLowerCase();
+
+    if (!this.routingTree[lowerMethod]) {
+      this.routingTree[lowerMethod] = {};
     }
 
-    add(method: string, rootPath: string, handler: Handler) {
-        const lowerMethod = method.toLowerCase();
+    this.routingTree[lowerMethod][rootPath] = handler;
+  }
 
-        if (!this.routingTree[lowerMethod]) {
-            this.routingTree[lowerMethod] = {};
-        }
+  async handle(request: Request): Promise<Response> {
+    const url = new URL(request.url);
 
-        this.routingTree[lowerMethod][rootPath] = handler;
+    if (url.pathname === '/' || url.pathname === '') {
+      return this.fallbacks.root(request);
+    }
+    const lowerMethod = request.method.toLowerCase();
+    const rootPath = url.pathname.split('/')[1];
+    const handler = this.routingTree[lowerMethod]?.[rootPath];
+
+    if (handler) {
+      try {
+        const response = await handler(request);
+        return response;
+      } catch (e) {
+        console.error(e);
+        return this.fallbacks[500](request);
+      }
     }
 
-    async handle(request: Request): Promise<Response> {
-        const url = new URL(request.url);
-
-        if (url.pathname === '/' || url.pathname === '') {
-            return this.fallbacks.root(request);
-        }
-        const lowerMethod = request.method.toLowerCase();
-        const rootPath = url.pathname.split('/')[1];
-        const handler = this.routingTree[lowerMethod]?.[rootPath];
-
-        if (handler) {
-            try {
-                const response = await handler(request);
-                return response;
-            } catch (e) {
-                console.error(e);
-                return this.fallbacks[500](request);
-            }
-        }
-
-        if (lowerMethod === 'options') {
-            return new Response(null, addCORS({}));
-        }
-
-        return this.fallbacks[404](request);
+    if (lowerMethod === 'options') {
+      return new Response(null, addCORS({}));
     }
 
-    private respondToRoot(): Response {
-        return new Response('Hi there!');
-    }
+    return this.fallbacks[404](request);
+  }
 
-    private notFound(): Response {
-        return new Response(JSON.stringify({ error: 'not_found' }), {
-            status: 404,
-        });
-    }
+  private respondToRoot(): Response {
+    return new Response('Hi there!');
+  }
 
-    private serverError(): Response {
-        return new Response(JSON.stringify({ error: 'internal_server_error' }), {
-            status: 500,
-        });
-    }
+  private notFound(): Response {
+    return new Response(JSON.stringify({ error: 'not_found' }), {
+      status: 404,
+    });
+  }
+
+  private serverError(): Response {
+    return new Response(JSON.stringify({ error: 'internal_server_error' }), {
+      status: 500,
+    });
+  }
 }

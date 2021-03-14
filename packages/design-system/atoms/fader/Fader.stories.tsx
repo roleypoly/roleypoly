@@ -4,25 +4,25 @@ import * as React from 'react';
 import { FaderOpacity, FaderSlide } from './Fader';
 
 export default {
-    title: 'Atoms/Fader',
-    component: FaderSlide,
-    args: {
-        isVisible: true,
-    },
+  title: 'Atoms/Fader',
+  component: FaderSlide,
+  args: {
+    isVisible: true,
+  },
 };
 
 export const Opacity = (args) => {
-    return (
-        <FaderOpacity {...args}>
-            <Button onClick={action('onClick')}>Click me!</Button>
-        </FaderOpacity>
-    );
+  return (
+    <FaderOpacity {...args}>
+      <Button onClick={action('onClick')}>Click me!</Button>
+    </FaderOpacity>
+  );
 };
 
 export const Slide = (args) => {
-    return (
-        <FaderSlide {...args}>
-            <Button onClick={action('onClick')}>Click me!</Button>
-        </FaderSlide>
-    );
+  return (
+    <FaderSlide {...args}>
+      <Button onClick={action('onClick')}>Click me!</Button>
+    </FaderSlide>
+  );
 };

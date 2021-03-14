@@ -2,7 +2,7 @@ import * as React from 'react';
 import { DotOverlay } from './DotOverlay';
 
 export default {
-    title: 'Atoms/Dot Overlay',
+  title: 'Atoms/Dot Overlay',
 };
 
 export const Dark = () => <DotOverlay />;

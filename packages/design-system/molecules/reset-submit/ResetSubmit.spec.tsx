@@ -7,17 +7,17 @@ const onReset = jest.fn();
 const onSubmit = jest.fn();
 
 it('calls onReset when reset is clicked', () => {
-    const view = shallow(<ResetSubmit onSubmit={onSubmit} onReset={onReset} />);
+  const view = shallow(<ResetSubmit onSubmit={onSubmit} onReset={onReset} />);
 
-    view.find(Button).at(0).simulate('click');
+  view.find(Button).at(0).simulate('click');
 
-    expect(onReset).toBeCalled();
+  expect(onReset).toBeCalled();
 });
 
 it('calls onSubmit when submit is clicked', () => {
-    const view = shallow(<ResetSubmit onSubmit={onSubmit} onReset={onReset} />);
+  const view = shallow(<ResetSubmit onSubmit={onSubmit} onReset={onReset} />);
 
-    view.find(Button).at(1).simulate('click');
+  view.find(Button).at(1).simulate('click');
 
-    expect(onSubmit).toBeCalled();
+  expect(onSubmit).toBeCalled();
 });

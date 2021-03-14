@@ -6,21 +6,21 @@ import { GoGear, GoSignOut } from 'react-icons/go';
 import { Base, NavAction } from './UserPopover.styled';
 
 type UserPopoverProps = {
-    user: DiscordUser;
+  user: DiscordUser;
 };
 
 export const UserPopover = (props: UserPopoverProps) => (
-    <Base>
-        <UserAvatarGroup user={props.user} preventCollapse={true} />
-        <NavAction>
-            <CompletelyStylelessLink to="/user/settings">
-                Settings <GoGear />
-            </CompletelyStylelessLink>
-        </NavAction>
-        <NavAction>
-            <CompletelyStylelessLink to="/machinery/logout">
-                Log Out <GoSignOut />
-            </CompletelyStylelessLink>
-        </NavAction>
-    </Base>
+  <Base>
+    <UserAvatarGroup user={props.user} preventCollapse={true} />
+    <NavAction>
+      <CompletelyStylelessLink to="/user/settings">
+        Settings <GoGear />
+      </CompletelyStylelessLink>
+    </NavAction>
+    <NavAction>
+      <CompletelyStylelessLink to="/machinery/logout">
+        Log Out <GoSignOut />
+      </CompletelyStylelessLink>
+    </NavAction>
+  </Base>
 );

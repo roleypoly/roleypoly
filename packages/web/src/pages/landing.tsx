@@ -6,19 +6,19 @@ import { useSessionContext } from '../contexts/session/SessionContext';
 import { Title } from '../utils/metaTitle';
 
 const Landing = () => {
-    const { isAuthenticated } = useSessionContext();
-    const appShellProps = useAppShellProps();
+  const { isAuthenticated } = useSessionContext();
+  const appShellProps = useAppShellProps();
 
-    if (isAuthenticated) {
-        return <Redirect to="/servers" />;
-    }
+  if (isAuthenticated) {
+    return <Redirect to="/servers" />;
+  }
 
-    return (
-        <>
-            <Title title={`Roleypoly - Tame your Discord roles.`} />
-            <LandingTemplate {...appShellProps} />
-        </>
-    );
+  return (
+    <>
+      <Title title={`Roleypoly - Tame your Discord roles.`} />
+      <LandingTemplate {...appShellProps} />
+    </>
+  );
 };
 
 export default Landing;

@@ -1,34 +1,34 @@
 {
-    "name": "Roleypoly (Go, Node)",
-    "image": "ghcr.io/roleypoly/dev-container:main",
-    // Set *default* container specific settings.json values on container create.
-    "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"
-    },
-    // Add the IDs of extensions you want installed when the container is created.
-    "extensions": [
-        "dbaeumer.vscode-eslint",
-        "golang.go",
-        "hashicorp.terraform",
-        "firsttris.vscode-jest-runner",
-        "esbenp.prettier-vscode",
-        "jpoissonnier.vscode-styled-components",
-        "eg2.vscode-npm-script",
-        "christian-kohler.npm-intellisense",
-        "ms-azuretools.vscode-docker",
-        "eamodio.gitlens",
-        "davidanson.vscode-markdownlint",
-        "stylelint.vscode-stylelint",
-        "pflannery.vscode-versionlens",
-        "visualstudioexptteam.vscodeintellicode",
-        "bungcip.better-toml"
-    ],
-    // Use 'forwardPorts' to make a list of ports inside the container available locally.
-    // "forwardPorts": [],
-    // Use 'postCreateCommand' to run commands after the container is created.
-    // "postCreateCommand": "uname -a",
-    // Uncomment when using a ptrace-based debugger like C++, Go, and Rust
-    // "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
-    // Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
-    "remoteUser": "vscode"
+  "name": "Roleypoly (Go, Node)",
+  "image": "ghcr.io/roleypoly/dev-container:main",
+  // Set *default* container specific settings.json values on container create.
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": [
+    "dbaeumer.vscode-eslint",
+    "golang.go",
+    "hashicorp.terraform",
+    "firsttris.vscode-jest-runner",
+    "esbenp.prettier-vscode",
+    "jpoissonnier.vscode-styled-components",
+    "eg2.vscode-npm-script",
+    "christian-kohler.npm-intellisense",
+    "ms-azuretools.vscode-docker",
+    "eamodio.gitlens",
+    "davidanson.vscode-markdownlint",
+    "stylelint.vscode-stylelint",
+    "pflannery.vscode-versionlens",
+    "visualstudioexptteam.vscodeintellicode",
+    "bungcip.better-toml"
+  ],
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": "uname -a",
+  // Uncomment when using a ptrace-based debugger like C++, Go, and Rust
+  // "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
+  // Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+  "remoteUser": "vscode"
 }

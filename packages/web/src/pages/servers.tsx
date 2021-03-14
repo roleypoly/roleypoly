@@ -6,18 +6,18 @@ import { useSessionContext } from '../contexts/session/SessionContext';
 import { Title } from '../utils/metaTitle';
 
 const ServersPage = () => {
-    const { isAuthenticated, session } = useSessionContext();
-    const appShellProps = useAppShellProps();
-    if (!isAuthenticated || !session) {
-        return <Redirect to="/" />;
-    }
+  const { isAuthenticated, session } = useSessionContext();
+  const appShellProps = useAppShellProps();
+  if (!isAuthenticated || !session) {
+    return <Redirect to="/" />;
+  }
 
-    return (
-        <>
-            <Title title={'Your Guilds - Roleypoly'} />
-            <ServersTemplate {...appShellProps} />
-        </>
-    );
+  return (
+    <>
+      <Title title={'Your Guilds - Roleypoly'} />
+      <ServersTemplate {...appShellProps} />
+    </>
+  );
 };
 
 export default ServersPage;
