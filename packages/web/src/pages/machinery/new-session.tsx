@@ -1,4 +1,5 @@
 import { Redirect } from '@reach/router';
+import { Link } from '@roleypoly/design-system/atoms/typography';
 import * as React from 'react';
 import { useSessionContext } from '../../contexts/session/SessionContext';
 import { Title } from '../../utils/metaTitle';
@@ -26,6 +27,9 @@ const NewSession = (props: { sessionID: string }) => {
     <>
       <Title title="Logging you into Roleypoly..." />
       <div>Logging you into Roleypoly...</div>
+      <div>
+        <Link href={postauthUrl}>If you aren't redirected soon, click here.</Link>
+      </div>
       {session.isAuthenticated && <Redirect to={postauthUrl} noThrow replace />}
     </>
   );
