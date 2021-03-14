@@ -32,7 +32,7 @@ export const ServersListing = (props: ServersListingProps) => {
 
     return (
         <ContentContainer>
-            {recentGuildSlugs && (
+            {recentGuildSlugs.length !== 0 && (
                 <>
                     <SectionHead>Recent Guilds</SectionHead>
                     <CardList guilds={recentGuildSlugs} />
