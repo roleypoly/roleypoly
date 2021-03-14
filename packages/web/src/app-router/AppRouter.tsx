@@ -30,7 +30,6 @@ export const AppRouter = () => {
       <RouteWrapper component={ServersPage} path="/servers" />
       <RouteWrapper component={PickerPage} path="/s/:serverID" />
 
-      <RouteWrapper component={MachineryNewSession} path="/machinery/new-session" />
       <RouteWrapper
         component={MachineryNewSession}
         path="/machinery/new-session/:sessionID"

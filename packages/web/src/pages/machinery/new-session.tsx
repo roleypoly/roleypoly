@@ -5,23 +5,23 @@ import { useSessionContext } from '../../contexts/session/SessionContext';
 import { Title } from '../../utils/metaTitle';
 
 const NewSession = (props: { sessionID: string }) => {
-  const session = useSessionContext();
+  const { setupSession, isAuthenticated } = useSessionContext();
   const [postauthUrl, setPostauthUrl] = React.useState('/servers');
 
   React.useEffect(() => {
-    const url = new URL(window.location.href);
-    const id = props.sessionID || url.searchParams.get('session_id');
-    if (id) {
-      localStorage.setItem('rp_session_key', id);
-      // session.setSession({ sessionID: id });
-
-      const storedPostauthUrl = localStorage.getItem('rp_postauth_redirect');
-      if (storedPostauthUrl) {
-        setPostauthUrl(storedPostauthUrl);
-        localStorage.removeItem('rp_postauth_redirect');
-      }
+    const storedPostauthUrl = localStorage.getItem('rp_postauth_redirect');
+    if (storedPostauthUrl) {
+      setPostauthUrl(storedPostauthUrl);
+      localStorage.removeItem('rp_postauth_redirect');
     }
-  }, [setPostauthUrl, props.sessionID, session]);
+  }, [setPostauthUrl]);
+
+  React.useCallback(
+    (sessionID) => {
+      setupSession(sessionID);
+    },
+    [setupSession]
+  )(props.sessionID);
 
   return (
     <>
@@ -30,7 +30,7 @@ const NewSession = (props: { sessionID: string }) => {
       <div>
         <Link href={postauthUrl}>If you aren't redirected soon, click here.</Link>
       </div>
-      {session.isAuthenticated && <Redirect to={postauthUrl} noThrow replace />}
+      {isAuthenticated && <Redirect to={postauthUrl} noThrow replace />}
     </>
   );
 };
