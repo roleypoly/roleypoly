@@ -107,7 +107,7 @@ export const Link = styled.a`
   }
 `;
 
-export const CompletelyStylelessLink = styled(RouterLink)`
+export const CompletelyStylelessA = styled.a`
   color: inherit;
   text-decoration: none;
   :visited,
@@ -116,3 +116,5 @@ export const CompletelyStylelessLink = styled(RouterLink)`
     color: inherit;
   }
 `;
+
+export const CompletelyStylelessLink = CompletelyStylelessA.withComponent(RouterLink);

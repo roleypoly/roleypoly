@@ -4,7 +4,7 @@ import { GuildSlug } from '@roleypoly/types';
 import * as React from 'react';
 import { FaDiscord } from 'react-icons/fa';
 import styled from 'styled-components';
-import { CompletelyStylelessLink } from '../../atoms/typography';
+import { CompletelyStylelessA } from '../../atoms/typography';
 
 export type PreauthProps = {
   guildSlug?: GuildSlug;
@@ -33,7 +33,7 @@ export const Preauth = (props: PreauthProps) => {
     <Centered>
       {props.guildSlug && <PreauthGreeting guildSlug={props.guildSlug} />}
       <WidthContainer>
-        <CompletelyStylelessLink to={props.discordOAuthLink || '#'}>
+        <CompletelyStylelessA href={props.discordOAuthLink || '#'}>
           <Button
             color="discord"
             icon={
@@ -44,7 +44,7 @@ export const Preauth = (props: PreauthProps) => {
           >
             Sign in with Discord
           </Button>
-        </CompletelyStylelessLink>
+        </CompletelyStylelessA>
       </WidthContainer>
     </Centered>
   );
