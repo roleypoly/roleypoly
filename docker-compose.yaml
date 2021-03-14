@@ -2,13 +2,13 @@
 version: '3.8'
 
 services:
-    dev:
-        image: node:14
-        volumes:
-            - '.:/src'
-        ports:
-            - 6609:6609
-            - 6601:6601
-            - 6006:6006
-        working_dir: /src
-        command: yarn start
+  dev:
+    image: node:14
+    volumes:
+      - '.:/src'
+    ports:
+      - 6609:6609
+      - 6601:6601
+      - 6006:6006
+    working_dir: /src
+    command: yarn start

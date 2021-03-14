@@ -1,3 +1,3 @@
 module.exports = {
-    plugins: ['styled-components'],
+  plugins: ['styled-components'],
 };

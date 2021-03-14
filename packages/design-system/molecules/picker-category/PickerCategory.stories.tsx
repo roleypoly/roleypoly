@@ -3,32 +3,32 @@ import { mockCategory, roleCategory, roleWikiData } from '../../fixtures/storyDa
 import { PickerCategory } from './PickerCategory';
 
 export default {
-    title: 'Molecules/Picker Category',
-    component: PickerCategory,
-    args: {
-        title: 'Pronouns',
-        roles: roleCategory,
-        category: mockCategory,
-        selectedRoles: [],
-    },
+  title: 'Molecules/Picker Category',
+  component: PickerCategory,
+  args: {
+    title: 'Pronouns',
+    roles: roleCategory,
+    category: mockCategory,
+    selectedRoles: [],
+  },
 };
 
 export const Default = (args) => {
-    return <PickerCategory {...args} />;
+  return <PickerCategory {...args} />;
 };
 export const Single = (args) => {
-    return <PickerCategory {...args} type="single" />;
+  return <PickerCategory {...args} type="single" />;
 };
 Single.args = {
-    type: 'single',
+  type: 'single',
 };
 export const Multi = (args) => {
-    return <PickerCategory {...args} type="single" />;
+  return <PickerCategory {...args} type="single" />;
 };
 Multi.args = {
-    type: 'multi',
+  type: 'multi',
 };
 
 export const Wiki = (args) => {
-    return <PickerCategory {...args} wikiMode roleWikiData={roleWikiData} />;
+  return <PickerCategory {...args} wikiMode roleWikiData={roleWikiData} />;
 };

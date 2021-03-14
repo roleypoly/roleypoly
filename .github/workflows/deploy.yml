@@ -1,128 +1,128 @@
 name: Deploy
 
 on:
-    workflow_dispatch:
-        inputs:
-            environment:
-                description: 'One of: stage, prod'
-                required: true
-                default: stage
-            bot_tag:
-                description: 'tag/digest reference to a UI container build'
-                required: false
-                default: ':main'
-            worker_tag:
-                description: 'bucket key to fetch worker from'
-                required: false
-                default: '' # Empty will try using current main branch hash
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'One of: stage, prod'
+        required: true
+        default: stage
+      bot_tag:
+        description: 'tag/digest reference to a UI container build'
+        required: false
+        default: ':main'
+      worker_tag:
+        description: 'bucket key to fetch worker from'
+        required: false
+        default: '' # Empty will try using current main branch hash
 
 jobs:
-    deploy_terraform:
-        name: Deploy Terraform
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@master
+  deploy_terraform:
+    name: Deploy Terraform
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
 
-            - uses: hashicorp/setup-terraform@v1.3.2
-              with:
-                  terraform_version: ^0.14.0
+      - uses: hashicorp/setup-terraform@v1.3.2
+        with:
+          terraform_version: ^0.14.0
 
-            - name: Set up Cloud SDK
-              uses: google-github-actions/setup-gcloud@master
-              with:
-                  project_id: ${{ secrets.GCS_PROJECT_ID }}
-                  service_account_key: ${{ secrets.GCS_TF_KEY }}
-                  export_default_credentials: true
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCS_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCS_TF_KEY }}
+          export_default_credentials: true
 
-            - name: Get Google Secrets (they keep them in a box under a tree)
-              id: secrets
-              uses: google-github-actions/get-secretmanager-secrets@main
-              with:
-                  secrets: |-
-                      secretJSON:${{ secrets.GCS_PROJECT_ID }}/${{github.event.inputs.environment}}-tfvars
+      - name: Get Google Secrets (they keep them in a box under a tree)
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            secretJSON:${{ secrets.GCS_PROJECT_ID }}/${{github.event.inputs.environment}}-tfvars
 
-            - name: Pull necessary artifacts
-              working-directory: ./terraform
-              run: |
-                  currentHash=${{ github.sha }}
-                  targetArtifact=${{ github.event.inputs.worker_tag }}
-                  selected="${targetArtifact:-$currentHash}"
+      - name: Pull necessary artifacts
+        working-directory: ./terraform
+        run: |
+          currentHash=${{ github.sha }}
+          targetArtifact=${{ github.event.inputs.worker_tag }}
+          selected="${targetArtifact:-$currentHash}"
 
-                  mkdir worker-dist
-                  gsutil cp gs://roleypoly-artifacts/backend-worker/$selected/script.js worker-dist/backend-worker.js
+          mkdir worker-dist
+          gsutil cp gs://roleypoly-artifacts/backend-worker/$selected/script.js worker-dist/backend-worker.js
 
-            - name: Terraform init
-              working-directory: ./terraform
-              run: |
-                  terraform init --backend-config "prefix=${{github.event.inputs.environment}}"
+      - name: Terraform init
+        working-directory: ./terraform
+        run: |
+          terraform init --backend-config "prefix=${{github.event.inputs.environment}}"
 
-            - name: Write *.auto.tfvars.json files
-              working-directory: ./terraform
-              run: |
-                  echo \
-                    '{"bot_tag": "${{github.event.inputs.bot_tag}}", "api_path_to_worker": "./worker-dist/backend-worker.js"}' \
-                    | jq . \
-                    | tee tags.auto.tfvars.json
+      - name: Write *.auto.tfvars.json files
+        working-directory: ./terraform
+        run: |
+          echo \
+            '{"bot_tag": "${{github.event.inputs.bot_tag}}", "api_path_to_worker": "./worker-dist/backend-worker.js"}' \
+            | jq . \
+            | tee tags.auto.tfvars.json
 
-                  echo ${SECRET_TFVARS} > secrets.auto.tfvars.json
-              env:
-                  SECRET_TFVARS: ${{ steps.secrets.outputs.secretJSON }}
+          echo ${SECRET_TFVARS} > secrets.auto.tfvars.json
+        env:
+          SECRET_TFVARS: ${{ steps.secrets.outputs.secretJSON }}
 
-            - name: Terraform plan
-              working-directory: ./terraform
-              run: |
-                  terraform plan \
-                    -var-file variables/global.tfvars \
-                    -var-file variables/${{github.event.inputs.environment}}.tfvars \
-                    -out=./deployment.tfplan
+      - name: Terraform plan
+        working-directory: ./terraform
+        run: |
+          terraform plan \
+            -var-file variables/global.tfvars \
+            -var-file variables/${{github.event.inputs.environment}}.tfvars \
+            -out=./deployment.tfplan
 
-            - name: Terraform apply
-              working-directory: ./terraform
-              run: |
-                  terraform apply \
-                    -auto-approve \
-                        deployment.tfplan
+      - name: Terraform apply
+        working-directory: ./terraform
+        run: |
+          terraform apply \
+            -auto-approve \
+                deployment.tfplan
 
-            - name: Yell Success at Discord
-              if: success()
-              run: |
-                  DATA='{
-                    "embeds": [
-                      {
-                        "title": "Roleypoly Deployment Success",
-                        "description": "Roleypoly was successfully deployed at '$(date)'",
-                        "color": 4634182,
-                        "author": {
-                          "name": "Deployment Notification",
-                          "url": "https://github.com/roleypoly/roleypoly/actions/runs/${{ github.run_id }}"
-                        },
-                        "footer": {
-                          "text": "GitHub Actions"
-                        }
-                      }
-                    ]
-                  }'
+      - name: Yell Success at Discord
+        if: success()
+        run: |
+          DATA='{
+            "embeds": [
+              {
+                "title": "Roleypoly Deployment Success",
+                "description": "Roleypoly was successfully deployed at '$(date)'",
+                "color": 4634182,
+                "author": {
+                  "name": "Deployment Notification",
+                  "url": "https://github.com/roleypoly/roleypoly/actions/runs/${{ github.run_id }}"
+                },
+                "footer": {
+                  "text": "GitHub Actions"
+                }
+              }
+            ]
+          }'
 
-                  curl -X POST -H "content-type: application/json" --data "$DATA" ${{ secrets.DEPLOYMENT_WEBHOOK_URL }}
+          curl -X POST -H "content-type: application/json" --data "$DATA" ${{ secrets.DEPLOYMENT_WEBHOOK_URL }}
 
-            - name: Yell Failure at Discord
-              if: failure()
-              run: |
-                  DATA='{
-                    "embeds": [
-                      {
-                        "title": "Roleypoly Deployment Failed",
-                        "description": "Roleypoly failed to be deployed at '$(date)'",
-                        "color": 15291219,
-                        "author": {
-                          "name": "Deployment Notification",
-                          "url": "https://github.com/roleypoly/roleypoly/actions/runs/${{ github.run_id }}"
-                        },
-                        "footer": {
-                          "text": "GitHub Actions"
-                        }
-                      }
-                    ]
-                  }'
+      - name: Yell Failure at Discord
+        if: failure()
+        run: |
+          DATA='{
+            "embeds": [
+              {
+                "title": "Roleypoly Deployment Failed",
+                "description": "Roleypoly failed to be deployed at '$(date)'",
+                "color": 15291219,
+                "author": {
+                  "name": "Deployment Notification",
+                  "url": "https://github.com/roleypoly/roleypoly/actions/runs/${{ github.run_id }}"
+                },
+                "footer": {
+                  "text": "GitHub Actions"
+                }
+              }
+            ]
+          }'
 
-                  curl -X POST -H "content-type: application/json" --data "$DATA" ${{ secrets.DEPLOYMENT_WEBHOOK_URL }}
+          curl -X POST -H "content-type: application/json" --data "$DATA" ${{ secrets.DEPLOYMENT_WEBHOOK_URL }}

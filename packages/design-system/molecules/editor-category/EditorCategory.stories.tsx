@@ -3,17 +3,17 @@ import { mockCategory, roleCategory, roleCategory2 } from '../../fixtures/storyD
 import { EditorCategory } from './EditorCategory';
 
 export default {
-    title: 'Molecules/Editor/Category',
+  title: 'Molecules/Editor/Category',
 };
 
 export const CategoryEditor = () => {
-    const [categoryData, setCategoryData] = React.useState(mockCategory);
-    return (
-        <EditorCategory
-            category={categoryData}
-            onChange={(category) => setCategoryData(category)}
-            uncategorizedRoles={roleCategory}
-            guildRoles={[...roleCategory, ...roleCategory2]}
-        />
-    );
+  const [categoryData, setCategoryData] = React.useState(mockCategory);
+  return (
+    <EditorCategory
+      category={categoryData}
+      onChange={(category) => setCategoryData(category)}
+      uncategorizedRoles={roleCategory}
+      guildRoles={[...roleCategory, ...roleCategory2]}
+    />
+  );
 };

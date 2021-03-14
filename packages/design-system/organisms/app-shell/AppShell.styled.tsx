@@ -3,11 +3,11 @@ import { fontCSS } from '@roleypoly/design-system/atoms/fonts';
 import styled, { createGlobalStyle } from 'styled-components';
 
 export const Content = styled.div<{ small?: boolean }>`
-    margin: 0 auto;
-    margin-top: 50px;
-    width: ${(props) => (props.small ? '960px' : '1024px')};
-    max-width: 98vw;
-    max-height: calc(100vh - 50px);
+  margin: 0 auto;
+  margin-top: 50px;
+  width: ${(props) => (props.small ? '960px' : '1024px')};
+  max-width: 98vw;
+  max-height: calc(100vh - 50px);
 `;
 
 export const GlobalStyles = createGlobalStyle`

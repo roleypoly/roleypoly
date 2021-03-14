@@ -6,5 +6,5 @@ import { errorMessages } from './errorStrings';
 const messages = storiesOf('Templates/Errors', module);
 
 for (let message in errorMessages) {
-    messages.add(`${message}`, () => <Error code={message} />);
+  messages.add(`${message}`, () => <Error code={message} />);
 }

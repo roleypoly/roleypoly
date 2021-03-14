@@ -4,22 +4,22 @@ import { palette } from '../colors';
 import { Logomark as BrandingLogomark, Logotype as BrandingLogotype } from './Branding';
 
 export default {
-    title: 'Atoms/Branding',
+  title: 'Atoms/Branding',
 };
 
 const Wrapper = styled.div`
-    background-color: ${palette.taupe100};
-    padding: 2em;
+  background-color: ${palette.taupe100};
+  padding: 2em;
 `;
 
 export const Logomark = () => (
-    <Wrapper>
-        <BrandingLogomark />
-    </Wrapper>
+  <Wrapper>
+    <BrandingLogomark />
+  </Wrapper>
 );
 
 export const Logotype = () => (
-    <Wrapper>
-        <BrandingLogotype />
-    </Wrapper>
+  <Wrapper>
+    <BrandingLogotype />
+  </Wrapper>
 );

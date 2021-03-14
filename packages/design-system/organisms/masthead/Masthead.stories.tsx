@@ -4,11 +4,11 @@ import { Authed } from './Authed';
 import { Guest } from './Guest';
 
 export default {
-    title: 'Organisms/Masthead',
+  title: 'Organisms/Masthead',
 };
 
 export const HasGuilds = () => (
-    <Authed guilds={mastheadSlugs} activeGuildId={guild.id} user={user} />
+  <Authed guilds={mastheadSlugs} activeGuildId={guild.id} user={user} />
 );
 
 export const NoGuilds = () => <Authed guilds={[]} activeGuildId={null} user={user} />;

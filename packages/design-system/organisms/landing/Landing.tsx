@@ -8,31 +8,31 @@ import * as React from 'react';
 import { DemoAlignment, DemoSubtitle, HeroCentering, HeroText } from './Landing.styled';
 
 export const Landing = () => (
-    <HeroCentering>
-        <HeroText>
-            <div>
-                <LargeTitle>Discord roles for humans.</LargeTitle>
-            </div>
-            <div style={{ color: palette.taupe500 }}>
-                <LargeText>
-                    Ditch the bot commands. It's&nbsp;{new Date().getFullYear()}.
-                </LargeText>
-            </div>
-        </HeroText>
-        <Space />
-        <HalfsiesContainer>
-            <HalfsiesItem style={{ marginTop: '2em' }}>
-                <DemoAlignment>
-                    <DemoDiscord />
-                </DemoAlignment>
-                <DemoSubtitle>Why are you okay with antiques?</DemoSubtitle>
-            </HalfsiesItem>
-            <HalfsiesItem style={{ marginTop: '2em' }}>
-                <DemoAlignment>
-                    <DemoPicker />
-                </DemoAlignment>
-                <DemoSubtitle>Just click or tap.</DemoSubtitle>
-            </HalfsiesItem>
-        </HalfsiesContainer>
-    </HeroCentering>
+  <HeroCentering>
+    <HeroText>
+      <div>
+        <LargeTitle>Discord roles for humans.</LargeTitle>
+      </div>
+      <div style={{ color: palette.taupe500 }}>
+        <LargeText>
+          Ditch the bot commands. It's&nbsp;{new Date().getFullYear()}.
+        </LargeText>
+      </div>
+    </HeroText>
+    <Space />
+    <HalfsiesContainer>
+      <HalfsiesItem style={{ marginTop: '2em' }}>
+        <DemoAlignment>
+          <DemoDiscord />
+        </DemoAlignment>
+        <DemoSubtitle>Why are you okay with antiques?</DemoSubtitle>
+      </HalfsiesItem>
+      <HalfsiesItem style={{ marginTop: '2em' }}>
+        <DemoAlignment>
+          <DemoPicker />
+        </DemoAlignment>
+        <DemoSubtitle>Just click or tap.</DemoSubtitle>
+      </HalfsiesItem>
+    </HalfsiesContainer>
+  </HeroCentering>
 );

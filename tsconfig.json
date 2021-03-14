@@ -1,29 +1,29 @@
 {
-    "compilerOptions": {
-        "target": "es2020",
-        "module": "commonjs",
-        "lib": [
-            "dom",
-            "dom.iterable",
-            "es2020",
-            "es2015.collection",
-            "es2015.iterable",
-            "es2015.core"
-        ],
-        "jsx": "preserve",
-        "baseUrl": ".",
-        "strict": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "skipLibCheck": true,
-        "declaration": true,
-        "moduleResolution": "node",
-        "allowJs": true,
-        "forceConsistentCasingInFileNames": true,
-        "noEmit": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true
-    },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-    "exclude": ["node_modules", "**/*.stories.tsx", "packages/api"]
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2020",
+      "es2015.collection",
+      "es2015.iterable",
+      "es2015.core"
+    ],
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "moduleResolution": "node",
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "**/*.stories.tsx", "packages/api"]
 }

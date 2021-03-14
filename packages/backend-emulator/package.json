@@ -1,17 +1,17 @@
 {
-    "name": "@roleypoly/worker-emulator",
-    "version": "0.1.0",
-    "scripts": {
-        "build": "node main.js --build",
-        "start": "node main.js"
-    },
-    "devDependencies": {
-        "@peculiar/webcrypto": "^1.1.6",
-        "chokidar": "^3.5.1",
-        "dotenv": "^8.2.0",
-        "level": "^6.0.1",
-        "minimist": "^1.2.5",
-        "node-fetch": "^2.6.1",
-        "webpack": "^4.x"
-    }
+  "name": "@roleypoly/worker-emulator",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "node main.js --build",
+    "start": "node main.js"
+  },
+  "devDependencies": {
+    "@peculiar/webcrypto": "^1.1.6",
+    "chokidar": "^3.5.1",
+    "dotenv": "^8.2.0",
+    "level": "^6.0.1",
+    "minimist": "^1.2.5",
+    "node-fetch": "^2.6.1",
+    "webpack": "^4.x"
+  }
 }

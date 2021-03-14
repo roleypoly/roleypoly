@@ -32,30 +32,30 @@ router.add('GET', 'x-create-roleypoly-data', CreateRoleypolyData);
 
 // Tester Routes
 router.add('GET', 'x-headers', (request) => {
-    const headers: { [x: string]: string } = {};
+  const headers: { [x: string]: string } = {};
 
-    for (let [key, value] of request.headers.entries()) {
-        headers[key] = value;
-    }
+  for (let [key, value] of request.headers.entries()) {
+    headers[key] = value;
+  }
 
-    return new Response(JSON.stringify(headers));
+  return new Response(JSON.stringify(headers));
 });
 
 // Root Zen <3
 router.addFallback('root', () => {
-    return respond({
-        __warning: '🦊',
-        this: 'is',
-        a: 'fox-based',
-        web: 'application',
-        please: 'be',
-        mindful: 'of',
-        your: 'surroundings',
-        warning__: '🦊',
-        meta: uiPublicURI,
-    });
+  return respond({
+    __warning: '🦊',
+    this: 'is',
+    a: 'fox-based',
+    web: 'application',
+    please: 'be',
+    mindful: 'of',
+    your: 'surroundings',
+    warning__: '🦊',
+    meta: uiPublicURI,
+  });
 });
 
 addEventListener('fetch', (event: FetchEvent) => {
-    event.respondWith(router.handle(event.request));
+  event.respondWith(router.handle(event.request));
 });

@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { colorVars } from './colors';
 
 const ColorsContainer = styled.div`
-    ${colorVars}
+  ${colorVars}
 `;
 
 export const withColors = (storyFn: () => React.ReactNode) => (
-    <ColorsContainer>{storyFn()}</ColorsContainer>
+  <ColorsContainer>{storyFn()}</ColorsContainer>
 );

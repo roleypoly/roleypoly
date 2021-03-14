@@ -7,27 +7,27 @@ import { RecentGuildsProvider } from './contexts/recent-guilds/RecentGuildsConte
 import { SessionContextProvider } from './contexts/session/SessionContext';
 
 const ProviderProvider = (props: {
-    providerChain: typeof ApiContextProvider[];
-    children: React.ReactNode;
+  providerChain: typeof ApiContextProvider[];
+  children: React.ReactNode;
 }) => {
-    return props.providerChain.reduceRight(
-        (acc, Provider) => <Provider>{acc}</Provider>,
-        <>{props.children}</>
-    );
+  return props.providerChain.reduceRight(
+    (acc, Provider) => <Provider>{acc}</Provider>,
+    <>{props.children}</>
+  );
 };
 
 ReactDOM.render(
-    <React.StrictMode>
-        <ProviderProvider
-            providerChain={[
-                ApiContextProvider,
-                SessionContextProvider,
-                RecentGuildsProvider,
-                AppShellPropsProvider,
-            ]}
-        >
-            <AppRouter />
-        </ProviderProvider>
-    </React.StrictMode>,
-    document.getElementById('root')
+  <React.StrictMode>
+    <ProviderProvider
+      providerChain={[
+        ApiContextProvider,
+        SessionContextProvider,
+        RecentGuildsProvider,
+        AppShellPropsProvider,
+      ]}
+    >
+      <AppRouter />
+    </ProviderProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
 );

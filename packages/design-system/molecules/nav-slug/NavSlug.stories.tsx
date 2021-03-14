@@ -3,8 +3,8 @@ import { guild } from '../../fixtures/storyData';
 import { NavSlug } from './NavSlug';
 
 export default {
-    title: 'Molecules/Server Slug',
-    component: NavSlug,
+  title: 'Molecules/Server Slug',
+  component: NavSlug,
 };
 
 export const Empty = () => <NavSlug guild={null} />;
