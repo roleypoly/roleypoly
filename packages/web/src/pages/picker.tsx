@@ -1,8 +1,11 @@
 import { Redirect } from '@reach/router';
 import { RolePickerTemplate } from '@roleypoly/design-system/templates/role-picker';
+import { ServerSetupTemplate } from '@roleypoly/design-system/templates/server-setup';
 import { PresentableGuild, RoleUpdate, UserGuildPermissions } from '@roleypoly/types';
 import * as React from 'react';
-import { useSessionContext } from '../session-context/SessionContext';
+import { useAppShellProps } from '../contexts/app-shell/AppShellContext';
+import { useRecentGuilds } from '../contexts/recent-guilds/RecentGuildsContext';
+import { useSessionContext } from '../contexts/session/SessionContext';
 import { makeRoleTransactions } from '../utils/roleTransactions';
 
 type PickerProps = {
@@ -11,8 +14,12 @@ type PickerProps = {
 
 const Picker = (props: PickerProps) => {
     const { session, authedFetch, isAuthenticated } = useSessionContext();
+    const { pushRecentGuild } = useRecentGuilds();
+    const appShellProps = useAppShellProps();
 
-    const [pickerData, setPickerData] = React.useState<PresentableGuild | null>(null);
+    const [pickerData, setPickerData] = React.useState<PresentableGuild | null | false>(
+        null
+    );
     const [pending, setPending] = React.useState(false);
 
     React.useEffect(() => {
@@ -20,11 +27,20 @@ const Picker = (props: PickerProps) => {
             const response = await authedFetch(`/get-picker-data/${props.serverID}`);
             const data = await response.json();
 
+            if (response.status !== 200) {
+                setPickerData(false);
+                return;
+            }
+
             setPickerData(data);
         };
 
         fetchPickerData();
-    }, [props.serverID, authedFetch]);
+    }, [props.serverID, authedFetch, pushRecentGuild]);
+
+    React.useCallback((serverID) => pushRecentGuild(serverID), [pushRecentGuild])(
+        props.serverID
+    );
 
     if (!isAuthenticated) {
         return <Redirect to={`/auth/login?r=${props.serverID}`} replace />;
@@ -32,6 +48,25 @@ const Picker = (props: PickerProps) => {
 
     if (pickerData === null) {
         return <div>Loading...</div>;
+    }
+
+    if (pickerData === false) {
+        if (session && session.user && session.guilds) {
+            const guildSlug = session.guilds.find((guild) => guild.id === props.serverID);
+            if (!guildSlug) {
+                throw new Error('placeholder: guild not found in user slugs, 404');
+            }
+
+            return (
+                <ServerSetupTemplate
+                    activeGuildId={props.serverID}
+                    guildSlug={guildSlug}
+                    {...appShellProps}
+                />
+            );
+        }
+
+        throw new Error('placeholder: session state is odd, 404');
     }
 
     const onSubmit = async (submittedRoles: string[]) => {
@@ -62,8 +97,7 @@ const Picker = (props: PickerProps) => {
     return (
         <RolePickerTemplate
             activeGuildId={props.serverID}
-            user={session?.user}
-            guilds={session?.guilds || []}
+            {...appShellProps}
             guild={pickerData.guild}
             guildData={pickerData.data}
             member={pickerData.member}

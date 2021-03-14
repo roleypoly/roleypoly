@@ -21,3 +21,7 @@ export const CardContainer = styled.div`
         max-width: 30%;
     `)}
 `;
+
+export const SectionHead = styled.div`
+    flex: 1 1 100%;
+`;

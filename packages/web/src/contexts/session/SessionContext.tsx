@@ -1,6 +1,6 @@
 import { SessionData } from '@roleypoly/types';
 import * as React from 'react';
-import { useApiContext } from '../api-context/ApiContext';
+import { useApiContext } from '../api/ApiContext';
 
 type SessionContextT = {
     session?: Omit<Partial<SessionData>, 'tokens'>;

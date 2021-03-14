@@ -1,7 +1,7 @@
 import { AuthLogin } from '@roleypoly/design-system/templates/auth-login';
 import { GuildSlug } from '@roleypoly/types';
 import React from 'react';
-import { useApiContext } from '../../api-context/ApiContext';
+import { useApiContext } from '../../contexts/api/ApiContext';
 
 const Login = () => {
     const { apiUrl, fetch } = useApiContext();

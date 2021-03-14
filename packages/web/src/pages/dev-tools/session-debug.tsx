@@ -1,5 +1,5 @@
-import { useApiContext } from '../../api-context/ApiContext';
-import { useSessionContext } from '../../session-context/SessionContext';
+import { useApiContext } from '../../contexts/api/ApiContext';
+import { useSessionContext } from '../../contexts/session/SessionContext';
 
 const SessionDebug = () => {
     const session = useSessionContext();

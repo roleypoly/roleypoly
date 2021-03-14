@@ -1,6 +1,6 @@
 import { navigate } from '@reach/router';
 import * as React from 'react';
-import { useApiContext } from '../../api-context/ApiContext';
+import { useApiContext } from '../../contexts/api/ApiContext';
 
 const SetApi = () => {
     const apiContext = useApiContext();

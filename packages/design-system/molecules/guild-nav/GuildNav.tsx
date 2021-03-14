@@ -1,5 +1,5 @@
 import { NavSlug } from '@roleypoly/design-system/molecules/nav-slug';
-import { sortBy } from '@roleypoly/misc-utils/sortBy';
+import { getRecentAndSortedGuilds } from '@roleypoly/misc-utils/guildListing';
 import { GuildSlug, UserGuildPermissions } from '@roleypoly/types';
 import * as React from 'react';
 import Scrollbars from 'react-custom-scrollbars';
@@ -9,6 +9,7 @@ import { GuildNavItem } from './GuildNav.styled';
 
 type Props = {
     guilds: GuildSlug[];
+    recentGuilds: string[];
 };
 
 const tooltipId = 'guildnav';
@@ -27,23 +28,41 @@ const Badges = (props: { guild: GuildSlug }) => {
     }, [props.guild.permissionLevel]);
 };
 
-export const GuildNav = (props: Props) => (
-    <div>
-        <Scrollbars
-            universal
-            autoHide
-            // autoHeight
-            style={{ height: 'calc(100vh - 45px - 1.4em)', overflowX: 'hidden' }}
-        >
-            {sortBy(props.guilds, 'name', (a: string, b: string) =>
-                a.toLowerCase() > b.toLowerCase() ? 1 : -1
-            ).map((guild) => (
-                <GuildNavItem href={`/s/${guild.id}`} key={guild.id}>
-                    <NavSlug guild={guild || null} key={guild.id} />
-                    <Badges guild={guild} />
-                </GuildNavItem>
-            ))}
-            <ReactTooltip id={tooltipId} />
-        </Scrollbars>
-    </div>
+const NavList = (props: { guilds: Props['guilds'] }) => (
+    <>
+        {props.guilds.map((guild) => (
+            <GuildNavItem href={`/s/${guild.id}`} key={guild.id}>
+                <NavSlug guild={guild || null} key={guild.id} />
+                <Badges guild={guild} />
+            </GuildNavItem>
+        ))}
+    </>
 );
+
+export const GuildNav = (props: Props) => {
+    const { sortedGuildSlugs, recentGuildSlugs } = getRecentAndSortedGuilds(
+        props.guilds,
+        props.recentGuilds
+    );
+
+    return (
+        <div>
+            <Scrollbars
+                universal
+                autoHide
+                // autoHeight
+                style={{ height: 'calc(100vh - 45px - 1.4em)', overflowX: 'hidden' }}
+            >
+                {recentGuildSlugs && (
+                    <>
+                        <div>Recents</div>
+                        <NavList guilds={recentGuildSlugs} />
+                        <div>All Guilds</div>
+                    </>
+                )}
+                <NavList guilds={sortedGuildSlugs} />
+                <ReactTooltip id={tooltipId} />
+            </Scrollbars>
+        </div>
+    );
+};

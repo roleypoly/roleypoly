@@ -22,6 +22,7 @@ type Props = {
     activeGuildId: string | null;
     guilds: GuildSlug[];
     disableGuildPicker?: boolean;
+    recentGuilds: string[];
 };
 
 export const Authed = (props: Props) => {
@@ -65,7 +66,12 @@ export const Authed = (props: Props) => {
                         preferredWidth={560}
                         onExit={() => setServerPopoverState(false)}
                     >
-                        {() => <GuildNav guilds={props.guilds} />}
+                        {() => (
+                            <GuildNav
+                                guilds={props.guilds}
+                                recentGuilds={props.recentGuilds || []}
+                            />
+                        )}
                     </Popover>
                 </MastheadLeft>
                 <MastheadRight>

@@ -13,6 +13,7 @@ export type AppShellProps = {
     small?: boolean;
     activeGuildId?: string | null;
     guilds?: GuildSlug[];
+    recentGuilds?: string[];
     disableGuildPicker?: boolean;
 };
 
@@ -26,6 +27,7 @@ export const AppShell = (props: AppShellProps) => (
                 guilds={props.guilds || []}
                 activeGuildId={props.activeGuildId || null}
                 user={props.user}
+                recentGuilds={props.recentGuilds || []}
             />
         ) : (
             <Masthead.Guest />
