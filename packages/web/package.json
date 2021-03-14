@@ -30,7 +30,7 @@
     "devDependencies": {
         "@craco/craco": "^6.1.1",
         "@types/react-helmet": "^6.1.0",
-        "babel-loader": "8.1.0",
+        "babel-loader": "8.2.2",
         "cross-env": "7.0.3",
         "ts-loader": "^8.0.18",
         "webpack": "4.44.2"
