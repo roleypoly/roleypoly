@@ -1,3 +1,4 @@
+import { navigate } from '@reach/router';
 import { Avatar, utils } from '@roleypoly/design-system/atoms/avatar';
 import { Button } from '@roleypoly/design-system/atoms/button';
 import { DotOverlay } from '@roleypoly/design-system/atoms/dot-overlay';
@@ -61,7 +62,7 @@ const adminMessage = (id: string) => (
     </FlexLine>
     <FlexLine>
       <div>
-        <CompletelyStylelessLink to={`/machinery/bot-join?id=${id}`}>
+        <CompletelyStylelessLink to={`/machinery/bot-join/${id}`}>
           <Button color="discord" icon={<FaDiscord />}>
             Add Roleypoly
           </Button>
@@ -78,7 +79,7 @@ const managerMessage = (id: string) => (
     </FlexLine>
     <FlexLine>
       <div>
-        <a href={`/machinery/bot-join?id=${id}`}>
+        <a href={`/machinery/bot-join/${id}`}>
           <Button color="discord" icon={<FaDiscord />}>
             Add Roleypoly
           </Button>
@@ -99,7 +100,7 @@ const userMessage = (name: string) => {
       <FlexLine>
         <Button
           onClick={() => {
-            // void router.push('/');
+            navigate(-1);
           }}
           color="muted"
           size="small"
