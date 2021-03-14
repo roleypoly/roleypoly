@@ -6,6 +6,9 @@ type ServerTemplateProps = Omit<AppShellProps, 'children'>;
 
 export const ServersTemplate = (props: ServerTemplateProps) => (
     <AppShell {...props} disableGuildPicker>
-        <ServersListing guilds={props.guilds}></ServersListing>
+        <ServersListing
+            guilds={props.guilds}
+            recentGuilds={props.recentGuilds}
+        ></ServersListing>
     </AppShell>
 );

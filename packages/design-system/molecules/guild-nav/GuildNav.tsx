@@ -1,5 +1,5 @@
 import { NavSlug } from '@roleypoly/design-system/molecules/nav-slug';
-import { sortBy } from '@roleypoly/misc-utils/sortBy';
+import { getRecentAndSortedGuilds } from '@roleypoly/misc-utils/guildListing';
 import { GuildSlug, UserGuildPermissions } from '@roleypoly/types';
 import * as React from 'react';
 import Scrollbars from 'react-custom-scrollbars';
@@ -40,21 +40,9 @@ const NavList = (props: { guilds: Props['guilds'] }) => (
 );
 
 export const GuildNav = (props: Props) => {
-    const recentGuildSlugs: GuildSlug[] = props.recentGuilds
-        .reduce<(GuildSlug | undefined)[]>(
-            (acc, id) => [...acc, props.guilds.find((guild) => guild.id === id)],
-            []
-        )
-        .filter((slug) => slug !== undefined);
-
-    console.log({
-        recentGuilds: props.recentGuilds,
-        slugs: props.guilds,
-        recentSlugs: recentGuildSlugs,
-    });
-
-    const sortedSlugs = sortBy(props.guilds, 'name', (a: string, b: string) =>
-        a.toLowerCase() > b.toLowerCase() ? 1 : -1
+    const { sortedGuildSlugs, recentGuildSlugs } = getRecentAndSortedGuilds(
+        props.guilds,
+        props.recentGuilds
     );
 
     return (
@@ -72,7 +60,7 @@ export const GuildNav = (props: Props) => {
                         <div>All Guilds</div>
                     </>
                 )}
-                <NavList guilds={sortedSlugs} />
+                <NavList guilds={sortedGuildSlugs} />
                 <ReactTooltip id={tooltipId} />
             </Scrollbars>
         </div>
