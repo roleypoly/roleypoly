@@ -28,6 +28,6 @@ export const NavAction = styled.div`
     box-sizing: content-box;
     padding: 5px 8px;
     position: relative;
-    top: 0.1em;
+    top: 0.5em;
   }
 `;
