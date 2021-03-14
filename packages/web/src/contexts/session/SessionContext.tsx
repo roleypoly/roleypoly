@@ -121,6 +121,7 @@ export const SessionContextProvider = (props: { children: React.ReactNode }) => 
   // Sync session data on HalfAuth
   React.useEffect(() => {
     if (lock) {
+      console.warn('hit syncSession lock');
       return;
     }
 
@@ -156,6 +157,7 @@ export const SessionContextProvider = (props: { children: React.ReactNode }) => 
 
           saveSessionData({ sessionID: sessionID || '', session: newSession });
           setSession(newSession);
+          setSessionState(SessionState.FullAuth);
           setLock(false);
         } catch (e) {
           console.error('syncSession failed', e);
