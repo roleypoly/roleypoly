@@ -7,7 +7,7 @@
     },
     "dependencies": {
         "@roleypoly/types": "*",
-        "chroma-js": "^2.1.0",
+        "chroma-js": "^2.1.1",
         "isomorphic-unfetch": "^3.1.0",
         "ksuid": "^2.0.0",
         "lodash": "^4.17.21",
@@ -15,7 +15,7 @@
         "react-custom-scrollbars": "^4.2.1",
         "react-dom": "^17.0.1",
         "react-helmet": "^6.1.0",
-        "react-icons": "^4.1.0",
+        "react-icons": "^4.2.0",
         "react-is": "^17.0.1",
         "react-tooltip": "^4.2.15",
         "styled-components": "^5.2.1",
