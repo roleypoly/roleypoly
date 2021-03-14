@@ -6,6 +6,7 @@ import * as React from 'react';
 import { useAppShellProps } from '../contexts/app-shell/AppShellContext';
 import { useRecentGuilds } from '../contexts/recent-guilds/RecentGuildsContext';
 import { useSessionContext } from '../contexts/session/SessionContext';
+import { Title } from '../utils/metaTitle';
 import { makeRoleTransactions } from '../utils/roleTransactions';
 
 type PickerProps = {
@@ -95,16 +96,19 @@ const Picker = (props: PickerProps) => {
     };
 
     return (
-        <RolePickerTemplate
-            activeGuildId={props.serverID}
-            {...appShellProps}
-            guild={pickerData.guild}
-            guildData={pickerData.data}
-            member={pickerData.member}
-            roles={pickerData.roles}
-            editable={pickerData.guild.permissionLevel > UserGuildPermissions.User}
-            onSubmit={onSubmit}
-        />
+        <>
+            <Title title={`${pickerData.guild.name} - Roleypoly`} />
+            <RolePickerTemplate
+                activeGuildId={props.serverID}
+                {...appShellProps}
+                guild={pickerData.guild}
+                guildData={pickerData.data}
+                member={pickerData.member}
+                roles={pickerData.roles}
+                editable={pickerData.guild.permissionLevel > UserGuildPermissions.User}
+                onSubmit={onSubmit}
+            />
+        </>
     );
 };
 

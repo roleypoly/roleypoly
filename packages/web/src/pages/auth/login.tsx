@@ -2,6 +2,7 @@ import { AuthLogin } from '@roleypoly/design-system/templates/auth-login';
 import { GuildSlug } from '@roleypoly/types';
 import React from 'react';
 import { useApiContext } from '../../contexts/api/ApiContext';
+import { Title } from '../../utils/metaTitle';
 
 const Login = () => {
     const { apiUrl, fetch } = useApiContext();
@@ -39,11 +40,14 @@ const Login = () => {
     }
 
     return (
-        <AuthLogin
-            guildSlug={guildSlug}
-            onSendSecretCode={() => {}}
-            discordOAuthLink={oauthLink}
-        />
+        <>
+            <Title title={'Login to Roleypoly'} />
+            <AuthLogin
+                guildSlug={guildSlug}
+                onSendSecretCode={() => {}}
+                discordOAuthLink={oauthLink}
+            />
+        </>
     );
 };
 
