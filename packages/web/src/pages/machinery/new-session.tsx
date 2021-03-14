@@ -9,24 +9,16 @@ const NewSession = (props: { sessionID: string }) => {
   const [postauthUrl, setPostauthUrl] = React.useState('/servers');
 
   React.useEffect(() => {
-    const url = new URL(window.location.href);
-    const id = props.sessionID || url.searchParams.get('session_id');
-    if (id) {
-      localStorage.setItem('rp_session_key', id);
-
-      const storedPostauthUrl = localStorage.getItem('rp_postauth_redirect');
-      if (storedPostauthUrl) {
-        setPostauthUrl(storedPostauthUrl);
-        localStorage.removeItem('rp_postauth_redirect');
-      }
-    }
-  }, [setPostauthUrl, props.sessionID]);
+    setupSession(props.sessionID);
+  }, [props.sessionID, setupSession]);
 
   React.useEffect(() => {
-    if (props.sessionID) {
-      setupSession(props.sessionID);
+    const storedPostauthUrl = localStorage.getItem('rp_postauth_redirect');
+    if (storedPostauthUrl) {
+      setPostauthUrl(storedPostauthUrl);
+      localStorage.removeItem('rp_postauth_redirect');
     }
-  }, [props.sessionID, setupSession]);
+  }, [setPostauthUrl]);
 
   return (
     <>
