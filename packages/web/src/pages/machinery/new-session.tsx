@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Title } from '../../utils/metaTitle';
 
 const NewSession = () => {
     React.useEffect(() => {
@@ -12,7 +13,12 @@ const NewSession = () => {
         }
     });
 
-    return <div>Redirecting you...</div>;
+    return (
+        <>
+            <Title title="Logging you into Roleypoly..." />
+            <div>Redirecting you...</div>
+        </>
+    );
 };
 
 export default NewSession;

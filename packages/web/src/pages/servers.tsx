@@ -3,6 +3,7 @@ import { ServersTemplate } from '@roleypoly/design-system/templates/servers';
 import * as React from 'react';
 import { useAppShellProps } from '../contexts/app-shell/AppShellContext';
 import { useSessionContext } from '../contexts/session/SessionContext';
+import { Title } from '../utils/metaTitle';
 
 const ServersPage = () => {
     const { isAuthenticated, session } = useSessionContext();
@@ -11,7 +12,12 @@ const ServersPage = () => {
         return <Redirect to="/" />;
     }
 
-    return <ServersTemplate {...appShellProps} />;
+    return (
+        <>
+            <Title title={'Your Guilds - Roleypoly'} />
+            <ServersTemplate {...appShellProps} />
+        </>
+    );
 };
 
 export default ServersPage;
