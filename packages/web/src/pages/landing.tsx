@@ -5,7 +5,7 @@ import { useAppShellProps } from '../contexts/app-shell/AppShellContext';
 import { useSessionContext } from '../contexts/session/SessionContext';
 import { Title } from '../utils/metaTitle';
 
-const Landing = () => {
+const Landing = (props: { path: string }) => {
   const { isAuthenticated } = useSessionContext();
   const appShellProps = useAppShellProps();
 

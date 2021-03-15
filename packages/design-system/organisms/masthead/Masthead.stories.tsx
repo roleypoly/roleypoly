@@ -2,15 +2,20 @@ import * as React from 'react';
 import { guild, mastheadSlugs, user } from '../../fixtures/storyData';
 import { Authed } from './Authed';
 import { Guest } from './Guest';
+import { Skeleton } from './Skeleton';
 
 export default {
   title: 'Organisms/Masthead',
 };
 
-export const HasGuilds = () => (
-  <Authed guilds={mastheadSlugs} activeGuildId={guild.id} user={user} />
+export const hasGuilds = () => (
+  <Authed guilds={mastheadSlugs} activeGuildId={guild.id} user={user} recentGuilds={[]} />
 );
 
-export const NoGuilds = () => <Authed guilds={[]} activeGuildId={null} user={user} />;
+export const noGuilds = () => (
+  <Authed guilds={[]} activeGuildId={null} user={user} recentGuilds={[]} />
+);
 
-export const Guest_ = () => <Guest />;
+export const guest = () => <Guest />;
+
+export const skeleton = () => <Skeleton />;

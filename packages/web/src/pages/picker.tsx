@@ -1,4 +1,5 @@
 import { Redirect } from '@reach/router';
+import { GenericLoadingTemplate } from '@roleypoly/design-system/templates/generic-loading';
 import { RolePickerTemplate } from '@roleypoly/design-system/templates/role-picker';
 import { ServerSetupTemplate } from '@roleypoly/design-system/templates/server-setup';
 import { PresentableGuild, RoleUpdate, UserGuildPermissions } from '@roleypoly/types';
@@ -48,7 +49,7 @@ const Picker = (props: PickerProps) => {
   }
 
   if (pickerData === null) {
-    return <div>Loading...</div>;
+    return <GenericLoadingTemplate />;
   }
 
   if (pickerData === false) {

@@ -1,3 +1,4 @@
+import { GenericLoadingTemplate } from '@roleypoly/design-system/templates/generic-loading';
 import React from 'react';
 
 const Logout = () => {
@@ -7,7 +8,7 @@ const Logout = () => {
     window.location.href = '/';
   }, []);
 
-  return <div>Logging you out...</div>;
+  return <GenericLoadingTemplate>Logging you out...</GenericLoadingTemplate>;
 };
 
 export default Logout;

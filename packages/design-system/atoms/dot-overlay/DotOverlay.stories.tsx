@@ -7,3 +7,4 @@ export default {
 
 export const Dark = () => <DotOverlay />;
 export const Light = () => <DotOverlay light />;
+export const Skeleton = () => <DotOverlay skeleton />;
