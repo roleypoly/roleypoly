@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { palette } from '../colors';
 
 type SpinnerProps = {
@@ -10,20 +10,24 @@ type SpinnerProps = {
 
 const spinnerKeyframes = keyframes`
   0%, 100% {
-    border-width: 0;
+    border-width: 0.5px;
     border-right-width: 3px;
+    border-left-width: 0;
   }
   25% {
-    border-width: 0;
+    border-width:  0.5px;
     border-top-width: 3px;
+    border-bottom-width: 0;
   }
   50% {
-    border-width: 0;
+    border-width:  0.5px;
     border-left-width: 3px;
+    border-right-width: 0;
   }
   75% {
-    border-width: 0;
+    border-width:  0.5px;
     border-bottom-width: 3px;
+    border-top-width: 0;
   }
 `;
 
@@ -34,13 +38,25 @@ const SpinnerStyled = styled.div<Required<SpinnerProps>>`
     transform: rotateZ(0);
   }
 
-  border: 0 solid ${(props) => props.color};
+  border: 0.5px solid ${(props) => props.color};
+  box-sizing: border-box;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
   border-radius: ${(props) => props.size * 0.7}px;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  ${(props) =>
+    props.reverse
+      ? css`
+          border-right-width: 0;
+          border-left-width: 3px;
+        `
+      : css`
+          border-right-width: 3px;
+          border-left-width: 0;
+        `}
 `;
 
 export const Spinner = (
