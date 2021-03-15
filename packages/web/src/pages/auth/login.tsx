@@ -1,12 +1,13 @@
 import { redirectTo } from '@reach/router';
 import { AuthLogin } from '@roleypoly/design-system/templates/auth-login';
+import { GenericLoadingTemplate } from '@roleypoly/design-system/templates/generic-loading';
 import { GuildSlug } from '@roleypoly/types';
 import React from 'react';
 import { useApiContext } from '../../contexts/api/ApiContext';
 import { useSessionContext } from '../../contexts/session/SessionContext';
 import { Title } from '../../utils/metaTitle';
 
-const Login = () => {
+const Login = (props: { path: string }) => {
   const { apiUrl, fetch } = useApiContext();
   const { isAuthenticated } = useSessionContext();
   // If ?r is in query, then let's render the slug page
@@ -46,7 +47,7 @@ const Login = () => {
   }, [apiUrl, fetch, isAuthenticated]);
 
   if (guildSlug === null) {
-    return <div>Loading...</div>;
+    return <GenericLoadingTemplate>Sending you to Discord...</GenericLoadingTemplate>;
   }
 
   return (

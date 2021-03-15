@@ -15,13 +15,35 @@ export type AppShellProps = {
   guilds?: GuildSlug[];
   recentGuilds?: string[];
   disableGuildPicker?: boolean;
+  skeleton?: boolean;
+};
+
+const OptionallyScroll = (props: {
+  shouldScroll: boolean;
+  children: React.ReactNode;
+}) => {
+  if (props.shouldScroll) {
+    return (
+      <Scrollbars
+        style={{ height: 'calc(100vh - 25px)', margin: 0, padding: 0 }}
+        autoHide
+        universal
+      >
+        {props.children}
+      </Scrollbars>
+    );
+  }
+
+  return <>{props.children}</>;
 };
 
 export const AppShell = (props: AppShellProps) => (
   <>
     <GlobalStyles />
     <GlobalStyleColors />
-    {props.user ? (
+    {props.skeleton ? (
+      <Masthead.Skeleton />
+    ) : props.user ? (
       <Masthead.Authed
         disableGuildPicker={props.disableGuildPicker}
         guilds={props.guilds || []}
@@ -32,13 +54,11 @@ export const AppShell = (props: AppShellProps) => (
     ) : (
       <Masthead.Guest />
     )}
-    <Scrollbars
-      style={{ height: 'calc(100vh - 25px)', margin: 0, padding: 0 }}
-      autoHide
-      universal
-    >
-      <Content small={props.small}>{props.children}</Content>
-      {props.showFooter && <Footer />}
-    </Scrollbars>
+    <OptionallyScroll shouldScroll={!props.skeleton}>
+      <>
+        <Content small={props.small}>{props.children}</Content>
+        {props.showFooter && <Footer />}
+      </>
+    </OptionallyScroll>
   </>
 );

@@ -1,3 +1,4 @@
+import { animateOpacity } from '@roleypoly/design-system/atoms/placeholder';
 import * as React from 'react';
 import styled from 'styled-components';
 
@@ -33,6 +34,22 @@ const DotOverlayLight = styled(dotOverlayBase)`
   );
 `;
 
-export const DotOverlay = ({ light }: { light?: boolean }) => {
-  return light ? <DotOverlayLight /> : <DotOverlayDark />;
+const DotOverlaySkeleton = styled(DotOverlayDark)`
+  ${animateOpacity}
+`;
+
+export const DotOverlay = ({
+  light,
+  skeleton,
+}: {
+  light?: boolean;
+  skeleton?: boolean;
+}) => {
+  return skeleton ? (
+    <DotOverlaySkeleton />
+  ) : light ? (
+    <DotOverlayLight />
+  ) : (
+    <DotOverlayDark />
+  );
 };
