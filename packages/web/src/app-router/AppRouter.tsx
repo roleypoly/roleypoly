@@ -3,9 +3,9 @@ import { GenericLoadingTemplate } from '@roleypoly/design-system/templates/gener
 import * as React from 'react';
 import AuthLogin from '../pages/auth/login';
 import LandingPage from '../pages/landing';
+import PickerPage from '../pages/picker';
 
 const ServersPage = React.lazy(() => import('../pages/servers'));
-const PickerPage = React.lazy(() => import('../pages/picker'));
 
 const MachineryNewSession = React.lazy(() => import('../pages/machinery/new-session'));
 const MachineryLogout = React.lazy(() => import('../pages/machinery/logout'));
@@ -29,7 +29,7 @@ export const AppRouter = () => {
     <Router>
       <LandingPage path="/" />
       <RouteWrapper component={ServersPage} path="/servers" />
-      <RouteWrapper component={PickerPage} path="/s/:serverID" />
+      <PickerPage path="/s/:serverID" />
 
       <RouteWrapper
         component={MachineryNewSession}

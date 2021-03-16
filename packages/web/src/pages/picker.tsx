@@ -12,6 +12,7 @@ import { makeRoleTransactions } from '../utils/roleTransactions';
 
 type PickerProps = {
   serverID: string;
+  path: string;
 };
 
 const Picker = (props: PickerProps) => {
