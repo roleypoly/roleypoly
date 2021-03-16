@@ -15,7 +15,7 @@ const DevToolsSetApi = React.lazy(() => import('../pages/dev-tools/set-api'));
 const DevToolsSessionDebug = React.lazy(() => import('../pages/dev-tools/session-debug'));
 
 const RouteWrapper = (props: {
-  component: React.LazyExoticComponent<React.ComponentType<any>>;
+  component: React.ComponentType<any>;
   path?: string;
   default?: boolean;
 }) => (
@@ -27,9 +27,9 @@ const RouteWrapper = (props: {
 export const AppRouter = () => {
   return (
     <Router>
-      <LandingPage path="/" />
+      <RouteWrapper component={LandingPage} path="/" />
       <RouteWrapper component={ServersPage} path="/servers" />
-      <PickerPage path="/s/:serverID" />
+      <RouteWrapper component={PickerPage} path="/s/:serverID" />
 
       <RouteWrapper
         component={MachineryNewSession}
@@ -38,7 +38,7 @@ export const AppRouter = () => {
       <RouteWrapper component={MachineryLogout} path="/machinery/logout" />
       <RouteWrapper component={MachineryBotJoin} path="/machinery/bot-join" />
       <RouteWrapper component={MachineryBotJoin} path="/machinery/bot-join/:serverID" />
-      <AuthLogin path="/auth/login" />
+      <RouteWrapper component={AuthLogin} path="/auth/login" />
 
       <RouteWrapper component={DevToolsSetApi} path="/x/dev-tools/set-api" />
       <RouteWrapper component={DevToolsSessionDebug} path="/x/dev-tools/session-debug" />
