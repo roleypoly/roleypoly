@@ -12,7 +12,7 @@ type URLParams = {
 const buildURL = (params: URLParams) =>
   `https://discord.com/api/oauth2/authorize?client_id=${
     params.clientID
-  }&response_type=code&scope=identify%20guilds&redirect_uri=${encodeURIComponent(
+  }&response_type=code&scope=identify%20guilds&prompt=none&redirect_uri=${encodeURIComponent(
     params.redirectURI
   )}&state=${params.state}`;
 
