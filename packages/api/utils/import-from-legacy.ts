@@ -44,11 +44,13 @@ export const transformLegacyGuild = (guild: LegacyGuildData): GuildData => {
     id: guild.id,
     message: guild.message,
     features: Features.LegacyGuild,
-    categories: sortBy(guild.categories, 'position').map((category, idx) => ({
-      ...category,
-      id: KSUID.randomSync().string,
-      position: idx, // Reset positions by index. May have side-effects but oh well.
-      type: category.type === 'multi' ? CategoryType.Multi : CategoryType.Single,
-    })),
+    categories: sortBy(Object.values(guild.categories), 'position').map(
+      (category, idx) => ({
+        ...category,
+        id: KSUID.randomSync().string,
+        position: idx, // Reset positions by index. May have side-effects but oh well.
+        type: category.type === 'multi' ? CategoryType.Multi : CategoryType.Single,
+      })
+    ),
   };
 };

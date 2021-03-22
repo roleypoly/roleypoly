@@ -7,6 +7,7 @@ module.exports = {
     'BOT_CLIENT_ID',
     'BOT_CLIENT_SECRET',
     'BOT_TOKEN',
+    'BOT_IMPORT_TOKEN',
     'UI_PUBLIC_URI',
     'API_PUBLIC_URI',
     'ROOT_USERS',
