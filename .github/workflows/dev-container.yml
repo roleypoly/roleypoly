@@ -14,7 +14,6 @@ jobs:
     matrix:
       dockerfile:
         - dev-container
-        - legacy
     steps:
       - uses: actions/checkout@master
 
