@@ -1,6 +1,9 @@
 {
   "name": "@roleypoly/worker-emulator",
   "version": "0.1.0",
+  "bin": {
+    "cfw-emulator": "./main.js"
+  },
   "scripts": {
     "build": "node main.js --build",
     "start": "node main.js"
