@@ -11,9 +11,6 @@ jobs:
   docker_build:
     name: Docker Build & Publish
     runs-on: ubuntu-latest
-    matrix:
-      dockerfile:
-        - dev-container
     steps:
       - uses: actions/checkout@master
 
