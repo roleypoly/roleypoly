@@ -4,7 +4,7 @@
   "scripts": {
     "build": "yarn workspace @roleypoly/worker-emulator build --basePath `pwd`",
     "lint:types": "tsc --noEmit",
-    "start": "yarn workspace @roleypoly/worker-emulator start --basePath `pwd`"
+    "start": "cfw-emulator"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^2.2.1",

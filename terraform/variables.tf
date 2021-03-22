@@ -30,6 +30,12 @@ variable "bot_client_secret" {
   sensitive   = true
 }
 
+variable "bot_import_token" {
+  type        = string
+  description = "Bot Import Token"
+  sensitive   = true
+}
+
 variable "bot_token" {
   type        = string
   description = "Bot Client Secret"

@@ -10,8 +10,9 @@ export type Guild = {
 };
 
 export enum Features {
-  None,
+  None = 0,
   Preview = None,
+  LegacyGuild = 1 << 1,
 }
 
 export type GuildData = {

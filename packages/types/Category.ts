@@ -1,6 +1,6 @@
 export enum CategoryType {
-  Single = 0,
-  Multi,
+  Multi = 0,
+  Single = 1,
 }
 
 export type Category = {

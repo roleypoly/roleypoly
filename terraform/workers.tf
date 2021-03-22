@@ -44,6 +44,11 @@ resource "cloudflare_worker_script" "backend" {
     text = var.bot_token
   }
 
+  secret_text_binding {
+    name = "BOT_IMPORT_TOKEN"
+    text = var.bot_import_token
+  }
+
   plain_text_binding {
     name = "UI_PUBLIC_URI"
     text = var.ui_public_uri

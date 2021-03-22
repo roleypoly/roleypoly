@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 const vm = require('vm');
@@ -11,7 +12,7 @@ const crypto = new Crypto();
 const fetch = require('node-fetch');
 const args = require('minimist')(process.argv.slice(2));
 
-const basePath = args.basePath;
+const basePath = args.basePath || process.cwd();
 if (!basePath) {
   throw new Error('--basePath is not set.');
 }
@@ -170,7 +171,7 @@ const rebuild = () =>
 
 const watcher = chokidar.watch(path.resolve(__dirname, basePath), {
   ignoreInitial: true,
-  ignore: '**/dist',
+  ignore: '**/{dist,node_modules}',
 });
 
 watcher.on('all', async (type, path) => {
