@@ -56,8 +56,10 @@ const Picker = (props: PickerProps) => {
   if (pickerData === false) {
     if (session && session.user && session.guilds) {
       const guildSlug = session.guilds.find((guild) => guild.id === props.serverID);
+
       if (!guildSlug) {
-        throw new Error('placeholder: guild not found in user slugs, 404');
+        console.error({ error: 'guold not in session, 404' });
+        return <Redirect to="/error/404" replace />;
       }
 
       return (
@@ -69,7 +71,8 @@ const Picker = (props: PickerProps) => {
       );
     }
 
-    throw new Error('placeholder: session state is odd, 404');
+    console.error({ error: 'session state is odd, 404' });
+    return <Redirect to="/error/404" replace />;
   }
 
   const onSubmit = async (submittedRoles: string[]) => {
