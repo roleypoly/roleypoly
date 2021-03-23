@@ -9,7 +9,7 @@ const ServersPage = () => {
   const { isAuthenticated, session } = useSessionContext();
   const appShellProps = useAppShellProps();
   if (!isAuthenticated || !session) {
-    return <Redirect to="/" />;
+    return <Redirect to="/" noThrow />;
   }
 
   return (
