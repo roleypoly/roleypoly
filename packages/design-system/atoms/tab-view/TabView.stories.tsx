@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { BreakpointsProvider } from '../breakpoints';
 import { Tab, TabView } from './TabView';
 
 export default {
   title: 'Atoms/Tab View',
+  decorators: [(story) => <BreakpointsProvider>{story()}</BreakpointsProvider>],
   argTypes: {
     tabCount: { control: 'range', min: 1, max: 100 },
   },
@@ -16,7 +18,7 @@ export const ManyTabs = ({ tabCount }) => {
     <Tab title={`tab ${i}`}>
       {() => (
         <>
-          <h1>tab {i}</h1>
+          <p>tab {i}</p>
           <p>hello!!!!!</p>
         </>
       )}
