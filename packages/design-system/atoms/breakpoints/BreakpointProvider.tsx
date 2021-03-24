@@ -31,8 +31,6 @@ export const BreakpointsProvider = (props: { children: React.ReactNode }) => {
     };
 
     updateScreenSize();
-    setTimeout(() => updateScreenSize(), 0);
-    setTimeout(() => updateScreenSize(), 10);
 
     mediaQueries.onDesktop.addEventListener('change', updateScreenSize);
     mediaQueries.onTablet.addEventListener('change', updateScreenSize);
