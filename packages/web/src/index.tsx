@@ -1,3 +1,4 @@
+import { BreakpointsProvider } from '@roleypoly/design-system/atoms/breakpoints';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppRouter } from './app-router/AppRouter';
@@ -24,6 +25,7 @@ ReactDOM.render(
         SessionContextProvider,
         RecentGuildsProvider,
         AppShellPropsProvider,
+        BreakpointsProvider,
       ]}
     >
       <AppRouter />
