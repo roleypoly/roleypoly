@@ -10,6 +10,7 @@ import {
 import { AuthType, cacheLayer, discordFetch } from './api-tools';
 import { botClientID, botToken } from './config';
 import { GuildData, Guilds } from './kv';
+import { useRateLimiter } from './rate-limiting';
 
 type APIGuild = {
   // Only relevant stuff
@@ -161,3 +162,14 @@ const calculateRoleSafety = (role: Role | APIRole, highestBotRolePosition: numbe
 
   return safety;
 };
+
+export enum GuildRateLimiterKey {
+  legacyImport = 'legacyImport',
+  cacheClear = 'cacheClear',
+}
+
+export const useGuildRateLimiter = (
+  guildID: string,
+  key: GuildRateLimiterKey,
+  timeoutSeconds: number
+) => useRateLimiter(Guilds, `guilds/${guildID}/rate-limit/${key}`, timeoutSeconds);

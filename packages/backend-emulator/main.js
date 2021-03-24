@@ -171,10 +171,23 @@ const rebuild = () =>
 
 const watcher = chokidar.watch(path.resolve(__dirname, basePath), {
   ignoreInitial: true,
-  ignore: '**/{dist,node_modules}',
+  ignore: '**/dist',
 });
 
+let currentlyRebuilding = false;
+
 watcher.on('all', async (type, path) => {
+  if (path.includes('node_modules') || path.includes('dist')) {
+    return;
+  }
+
+  if (currentlyRebuilding) {
+    console.info('change skipped...', { type, path });
+    return;
+  }
+
+  currentlyRebuilding = true;
+
   if (path.includes('dist')) {
     return;
   }
@@ -183,6 +196,8 @@ watcher.on('all', async (type, path) => {
 
   await rebuild();
   reload();
+
+  currentlyRebuilding = false;
 });
 
 fork(async () => {
