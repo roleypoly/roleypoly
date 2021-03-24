@@ -3,20 +3,32 @@ import {
   GuildData as GuildDataT,
   UserGuildPermissions,
 } from '@roleypoly/types';
-import { isRoot, respond, withSession } from '../utils/api-tools';
+import { isRoot, withSession } from '../utils/api-tools';
+import { GuildRateLimiterKey, useGuildRateLimiter } from '../utils/guild';
 import { fetchLegacyServer, transformLegacyGuild } from '../utils/import-from-legacy';
 import { GuildData } from '../utils/kv';
-
-const noPermissions = () =>
-  respond({ error: 'no permissions to this guild' }, { status: 403 });
-const notFound = () => respond({ error: 'guild not found' }, { status: 404 });
-const alreadyImported = () =>
-  respond({ error: 'guild already imported' }, { status: 400 });
+import {
+  conflict,
+  lowPermissions,
+  missingParameters,
+  notFound,
+  ok,
+  rateLimited,
+} from '../utils/responses';
 
 export const SyncFromLegacy = withSession(
   (session) => async (request: Request): Promise<Response> => {
     const url = new URL(request.url);
     const [, , guildID] = url.pathname.split('/');
+    if (!guildID) {
+      return missingParameters();
+    }
+
+    const rateLimit = useGuildRateLimiter(
+      guildID,
+      GuildRateLimiterKey.legacyImport,
+      60 * 20
+    ); // 20 minute RL TTL, 72 times per day.
 
     // Allow root users to trigger this too, just in case.
     if (!isRoot(session.user.id)) {
@@ -26,10 +38,14 @@ export const SyncFromLegacy = withSession(
       }
 
       if (
-        guild?.permissionLevel !== UserGuildPermissions.Manager ||
+        guild?.permissionLevel !== UserGuildPermissions.Manager &&
         guild?.permissionLevel !== UserGuildPermissions.Admin
       ) {
-        return noPermissions();
+        return lowPermissions();
+      }
+
+      if (await rateLimit()) {
+        return rateLimited();
       }
     }
 
@@ -44,7 +60,7 @@ export const SyncFromLegacy = withSession(
       checkGuild &&
       (checkGuild.features & Features.LegacyGuild) === Features.LegacyGuild
     ) {
-      return alreadyImported();
+      return conflict();
     }
 
     const legacyGuild = await fetchLegacyServer(guildID);
@@ -55,6 +71,6 @@ export const SyncFromLegacy = withSession(
     const newGuildData = transformLegacyGuild(legacyGuild);
     await GuildData.put(guildID, newGuildData);
 
-    return respond({ ok: true });
+    return ok();
   }
 );
