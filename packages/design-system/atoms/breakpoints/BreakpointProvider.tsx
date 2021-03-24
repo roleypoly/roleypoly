@@ -1,69 +1,57 @@
 import * as React from 'react';
 import { mediaQueryDefs } from './Breakpoints';
-import { BreakpointContext, ScreenSize } from './Context';
+import { BreakpointContext, BreakpointProps, ScreenSize } from './Context';
 
-const resetScreen: ScreenSize = {
-  onSmallScreen: false,
-  onTablet: false,
-  onDesktop: false,
+export const BreakpointsProvider = (props: { children: React.ReactNode }) => {
+  const [screenSize, setScreenSize] = React.useState<ScreenSize>({
+    onDesktop: false,
+    onTablet: false,
+    onSmallScreen: true, // Always true to be a viable "failback"
+  });
+
+  React.useEffect(() => {
+    const mediaQueries = {
+      onSmallScreen: window.matchMedia(
+        mediaQueryDefs.onSmallScreen.replace('@media screen and', '')
+      ),
+      onTablet: window.matchMedia(
+        mediaQueryDefs.onTablet.replace('@media screen and', '')
+      ),
+      onDesktop: window.matchMedia(
+        mediaQueryDefs.onDesktop.replace('@media screen and', '')
+      ),
+    };
+
+    const updateScreenSize = () => {
+      setScreenSize({
+        onDesktop: mediaQueries.onDesktop.matches,
+        onTablet: mediaQueries.onTablet.matches,
+        onSmallScreen: true, // Always true to be a viable "failback"
+      });
+    };
+
+    updateScreenSize();
+    setTimeout(() => updateScreenSize(), 0);
+    setTimeout(() => updateScreenSize(), 10);
+
+    mediaQueries.onDesktop.addEventListener('change', updateScreenSize);
+    mediaQueries.onTablet.addEventListener('change', updateScreenSize);
+    mediaQueries.onSmallScreen.addEventListener('change', updateScreenSize);
+
+    return () => {
+      mediaQueries.onDesktop.removeEventListener('change', updateScreenSize);
+      mediaQueries.onTablet.removeEventListener('change', updateScreenSize);
+      mediaQueries.onSmallScreen.removeEventListener('change', updateScreenSize);
+    };
+  }, []);
+
+  const breakpointsValue: BreakpointProps = {
+    screenSize,
+  };
+
+  return (
+    <BreakpointContext.Provider value={breakpointsValue}>
+      {props.children}
+    </BreakpointContext.Provider>
+  );
 };
-
-export class BreakpointsProvider extends React.Component<{}, ScreenSize> {
-  public state = {
-    ...resetScreen,
-    onSmallScreen: true,
-  };
-
-  private mediaQueries: { [key in keyof ScreenSize]: MediaQueryList } = {
-    onSmallScreen: window.matchMedia(
-      mediaQueryDefs.onSmallScreen.replace('@media screen and', '')
-    ),
-    onTablet: window.matchMedia(mediaQueryDefs.onTablet.replace('@media screen and', '')),
-    onDesktop: window.matchMedia(
-      mediaQueryDefs.onDesktop.replace('@media screen and', '')
-    ),
-  };
-
-  componentDidMount() {
-    Object.entries(this.mediaQueries).forEach(([key, mediaQuery]) =>
-      mediaQuery.addEventListener('change', this.handleMediaEvent)
-    );
-
-    this.handleMediaEvent();
-    setTimeout(() => this.handleMediaEvent(), 0);
-    setTimeout(() => this.handleMediaEvent(), 10);
-  }
-
-  componentWillUnmount() {
-    Object.entries(this.mediaQueries).forEach(([key, mediaQuery]) =>
-      mediaQuery.removeEventListener('change', this.handleMediaEvent)
-    );
-  }
-
-  handleMediaEvent = () => {
-    this.setState({
-      ...resetScreen,
-      ...this.calculateScreen(),
-    });
-  };
-
-  calculateScreen = () => {
-    if (this.mediaQueries.onDesktop.matches) {
-      return { onDesktop: true };
-    }
-
-    if (this.mediaQueries.onTablet.matches) {
-      return { onTablet: true };
-    }
-
-    return { onSmallScreen: true };
-  };
-
-  render() {
-    return (
-      <BreakpointContext.Provider value={{ screenSize: { ...this.state } }}>
-        {this.props.children}
-      </BreakpointContext.Provider>
-    );
-  }
-}
