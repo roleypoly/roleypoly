@@ -1,6 +1,8 @@
 name: Roleypoly CI
 
-on: push
+on:
+  push:
+  pull_request:
 
 jobs:
   go_test:
@@ -103,7 +105,7 @@ jobs:
         if: steps.check.outputs.skip == '0'
 
       - id: upload-file
-        if: steps.check.outputs.skip == '0'
+        if: github.event_name == 'push' && steps.check.outputs.skip == '0'
         uses: google-github-actions/upload-cloud-storage@main
         with:
           path: worker/script.js
