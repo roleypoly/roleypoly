@@ -1,0 +1,10 @@
+{
+  "name": "@roleypoly/bot",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^12.5.1"
+  }
+}
