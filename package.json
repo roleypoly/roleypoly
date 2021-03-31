@@ -22,7 +22,6 @@
     "build:web": "yarn workspace @roleypoly/web run build",
     "lint": "run-p -c lint:* --",
     "lint:eslint": "eslint",
-    "lint:go": "go fmt ./...",
     "lint:prettier": "cross-env prettier -c '**/*.{ts,tsx,css,yml,yaml,md,json,js,jsx,sh,gitignore,mdx,Dockerfile}'",
     "lint:stylelint": "cross-env stylelint '**/*.{ts,tsx}'",
     "lint:terraform": "terraform fmt -recursive -check ./terraform",
@@ -30,6 +29,7 @@
     "lint:types-api": "yarn workspace @roleypoly/api run lint:types",
     "postinstall": "is-ci || husky install",
     "start": "run-p -c start:*",
+    "start:bot": "yarn workspace @roleypoly/bot start",
     "start:design-system": "yarn workspace @roleypoly/design-system start",
     "start:web": "yarn workspace @roleypoly/web start",
     "start:worker": "yarn workspace @roleypoly/api start",
@@ -63,9 +63,6 @@
   "lint-staged": {
     "*.{ts,tsx,js,jsx}": [
       "prettier --write"
-    ],
-    "*.go": [
-      "go fmt"
     ],
     "*.{json,Dockerfile,sh,md,env,mdx,yml,html}": [
       "prettier --write"

@@ -1,5 +1,5 @@
 {
-  "name": "Roleypoly (Go, Node)",
+  "name": "Roleypoly (Node)",
   "image": "ghcr.io/roleypoly/dev-container:main",
   // Set *default* container specific settings.json values on container create.
   "settings": {
@@ -8,7 +8,6 @@
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
     "dbaeumer.vscode-eslint",
-    "golang.go",
     "hashicorp.terraform",
     "firsttris.vscode-jest-runner",
     "esbenp.prettier-vscode",
