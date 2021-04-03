@@ -1,6 +1,5 @@
 // thing should be everything visible on desktop/tablet and a popover when small
 
-import { useBreakpointContext } from '@roleypoly/design-system/atoms/breakpoints';
 import { Popover } from '@roleypoly/design-system/atoms/popover';
 import { useState } from 'react';
 import { GoChevronDown } from 'react-icons/go';
@@ -8,6 +7,8 @@ import {
   DropdownNavCurrent,
   DropdownNavIcon,
   DropdownNavOpener,
+  HideIfNotSmall,
+  HideIfSmall,
   NavItem,
 } from './QuickNav.styled';
 
@@ -18,18 +19,17 @@ export type QuickNavProps = {
 };
 
 export const QuickNav = (props: QuickNavProps) => {
-  const breakpoints = useBreakpointContext();
-
-  if (breakpoints.screenSize.onSmallScreen) {
-    return <QuickNavCollapsed {...props} />;
-  }
-
-  return <QuickNavExpanded {...props} />;
+  return (
+    <>
+      <QuickNavExpanded {...props} />
+      <QuickNavCollapsed {...props} />
+    </>
+  );
 };
 
 export const QuickNavExpanded = (props: QuickNavProps) => {
   return (
-    <div>
+    <HideIfSmall>
       {props.navItems.map((navItem) => (
         <NavItem
           onClick={() => props.onNavChange?.(navItem)}
@@ -39,7 +39,7 @@ export const QuickNavExpanded = (props: QuickNavProps) => {
           {navItem}
         </NavItem>
       ))}
-    </div>
+    </HideIfSmall>
   );
 };
 
@@ -47,7 +47,7 @@ export const QuickNavCollapsed = (props: QuickNavProps) => {
   const [popoverState, setPopoverState] = useState(false);
 
   return (
-    <div>
+    <HideIfNotSmall>
       {popoverState ? (
         <Popover
           headContent={<>Server Editor</>}
@@ -80,6 +80,6 @@ export const QuickNavCollapsed = (props: QuickNavProps) => {
           <DropdownNavCurrent>{props.currentNavItem}</DropdownNavCurrent>
         </DropdownNavOpener>
       )}
-    </div>
+    </HideIfNotSmall>
   );
 };

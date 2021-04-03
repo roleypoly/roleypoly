@@ -1,6 +1,22 @@
+import { onSmallScreen } from '@roleypoly/design-system/atoms/breakpoints';
+import { palette } from '@roleypoly/design-system/atoms/colors';
+import { transitions } from '@roleypoly/design-system/atoms/timings';
 import styled, { css } from 'styled-components';
-import { palette } from '../colors';
-import { transitions } from '../timings';
+
+export const HideIfSmall = styled.div`
+  display: initial;
+
+  ${onSmallScreen(css`
+    display: none;
+  `)}
+`;
+export const HideIfNotSmall = styled.div`
+  display: none;
+
+  ${onSmallScreen(css`
+    display: initial;
+  `)}
+`;
 
 export const NavItem = styled.div<{ selected: boolean }>`
   padding: 7px;
@@ -35,6 +51,7 @@ export const DropdownNavOpener = styled.div`
   cursor: pointer;
   border-radius: 2px;
   transition: background-color ${transitions.actionable}s ease-in-out;
+  width: 98vw;
 
   &:hover {
     background-color: ${palette.taupe300};
