@@ -22,6 +22,11 @@ function messageEventListener(message) {
   channel.send(`:beginner: Assign your roles here! ${appUrl}/s/${guildId}`);
 }
 
-const client = new Client();
+const client = new Client({
+  ws: {
+    intents: ['GUILDS', 'GUILD_MESSAGES'],
+  },
+});
+
 client.on('message', (message) => messageEventListener(message));
 client.login(botToken);
