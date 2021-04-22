@@ -1,4 +1,12 @@
 module.exports = {
-  stories: ['../**/*.stories.mdx', '../**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: [
+    ...['atoms', 'molecules', 'organisms', 'templates'].map(
+      (dir) => `../${dir}/**/*.stories.@(tsx|mdx)`
+    ),
+    '*.stories.mdx',
+  ],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
+  reactOptions: {
+    fastRefresh: true,
+  },
 };
