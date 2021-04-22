@@ -27,6 +27,7 @@ export const ToggleSwitch = styled.div<{ state: boolean }>`
   border: 1px solid rgba(0, 0, 0, 0.1);
   top: 0.23em;
   transition: background-color ${transitions.in2in}s ease-in-out;
+  cursor: pointer;
 
   ${ToggleState} {
     ${(props) =>
