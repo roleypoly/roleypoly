@@ -3,7 +3,7 @@ import { mockCategory, roleCategory, roleCategory2 } from '../../fixtures/storyD
 import { EditorCategory } from './EditorCategory';
 
 export default {
-  title: 'Molecules/Editor/Category',
+  title: 'Molecules/Editor/Category (Old)',
 };
 
 export const CategoryEditor = () => {

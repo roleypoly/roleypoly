@@ -12,9 +12,9 @@ export const Toggle = (props: ToggleProps) => (
       props.onChange?.(!props.state);
     }}
   >
-    {props.children}{' '}
     <ToggleSwitch state={props.state}>
       <ToggleState />
     </ToggleSwitch>
+    {props.children}
   </div>
 );

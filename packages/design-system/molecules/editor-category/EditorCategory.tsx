@@ -1,9 +1,9 @@
 import { FaderOpacity } from '@roleypoly/design-system/atoms/fader';
-import { HorizontalSwitch } from '@roleypoly/design-system/atoms/horizontal-switch';
 import { Popover } from '@roleypoly/design-system/atoms/popover';
 import { Role } from '@roleypoly/design-system/atoms/role';
 import { Space } from '@roleypoly/design-system/atoms/space';
 import { TextInput, TextInputWithIcon } from '@roleypoly/design-system/atoms/text-input';
+import { Toggle } from '@roleypoly/design-system/atoms/toggle';
 import { Text } from '@roleypoly/design-system/atoms/typography';
 import { RoleSearch } from '@roleypoly/design-system/molecules/role-search';
 import { Category, CategoryType, Role as RoleType } from '@roleypoly/types';
@@ -74,24 +74,22 @@ export const EditorCategory = (props: Props) => {
 
       <Space />
 
-      <Text>Selection Type</Text>
       <div>
-        <HorizontalSwitch
-          items={['Multiple', 'Single']}
-          value={typeEnumToSwitch(props.category.type)}
-          onChange={onUpdate('type', switchToTypeEnum)}
-        />
+        <Toggle
+          state={props.category.type === CategoryType.Multi}
+          onChange={onUpdate('type', (x) =>
+            x ? CategoryType.Multi : CategoryType.Single
+          )}
+        >
+          Allow users to pick multiple roles
+        </Toggle>
       </div>
 
       <Space />
-
-      <Text>Visiblity</Text>
       <div>
-        <HorizontalSwitch
-          items={['Visible', 'Hidden']}
-          value={props.category.hidden ? 'Hidden' : 'Visible'}
-          onChange={onUpdate('hidden', (a) => a === 'Hidden')}
-        />
+        <Toggle state={props.category.hidden} onChange={onUpdate('hidden')}>
+          Hide category from users
+        </Toggle>
       </div>
 
       <Space />

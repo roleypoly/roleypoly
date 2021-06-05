@@ -19,7 +19,7 @@ export const ToggleState = styled.div`
 
 export const ToggleSwitch = styled.div<{ state: boolean }>`
   display: inline-block;
-  background-color: ${(props) => (props.state ? palette.green200 : palette.taupe100)};
+  background-color: ${(props) => (props.state ? palette.green200 : 'rgba(0,0,0,0.45)')};
   height: 1.3em;
   width: 2.6em;
   border-radius: 1.3em;
@@ -28,6 +28,7 @@ export const ToggleSwitch = styled.div<{ state: boolean }>`
   top: 0.23em;
   transition: background-color ${transitions.in2in}s ease-in-out;
   cursor: pointer;
+  margin-right: 0.5em;
 
   ${ToggleState} {
     ${(props) =>
