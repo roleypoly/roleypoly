@@ -1,8 +1,8 @@
 module.exports = {
-  preset: 'ts-jest/presets/js-with-babel',
-  testEnvironment: 'enzyme',
+  preset: 'ts-jest/presets/js-with-ts',
+  testEnvironment: 'jsdom',
   reporters: ['default'],
-  setupFilesAfterEnv: ['jest-enzyme', 'jest-styled-components', './hack/jestSetup.ts'],
+  setupFilesAfterEnv: ['jest-styled-components', './hack/jestSetup.ts'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
   globals: {
     'ts-jest': {
