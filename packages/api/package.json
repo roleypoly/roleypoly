@@ -7,12 +7,12 @@
     "start": "cfw-emulator"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^2.2.1",
+    "@cloudflare/workers-types": "^2.2.2",
     "@roleypoly/misc-utils": "*",
     "@roleypoly/types": "*",
     "@roleypoly/worker-emulator": "*",
     "ksuid": "^2.0.0",
     "lodash": "^4.17.21",
-    "ts-loader": "^8.1.0"
+    "ts-loader": "^9.2.3"
   }
 }
