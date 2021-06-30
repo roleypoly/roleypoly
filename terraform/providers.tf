@@ -2,32 +2,32 @@ terraform {
   required_version = ">=0.14"
   required_providers {
     google = {
-      version = ">=3.51.1"
+      version = ">=3.74.0"
       source  = "hashicorp/google"
     }
 
     google-beta = {
-      version = ">=3.51.1"
+      version = ">=3.74.0"
       source  = "hashicorp/google"
     }
 
     cloudflare = {
-      version = ">=2.17.0"
+      version = ">=2.23.0"
       source  = "cloudflare/cloudflare"
     }
 
     random = {
-      version = ">=3.0.0"
+      version = ">=3.1.0"
       source  = "hashicorp/random"
     }
 
     null = {
-      version = ">=3.0.0"
+      version = ">=3.1.0"
       source  = "hashicorp/null"
     }
 
     tls = {
-      version = ">=3.0.0"
+      version = ">=3.1.0"
       source  = "hashicorp/tls"
     }
   }
