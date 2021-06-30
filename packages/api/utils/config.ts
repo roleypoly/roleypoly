@@ -1,4 +1,4 @@
-const self = (global as any) as Record<string, string>;
+const self = global as any as Record<string, string>;
 
 const env = (key: string) => self[key] ?? '';
 

@@ -53,11 +53,7 @@ class EmulatedKV implements KVNamespace {
     this.data.delete(key);
   }
 
-  async list(options?: {
-    prefix?: string;
-    limit?: number;
-    cursor?: string;
-  }): Promise<{
+  async list(options?: { prefix?: string; limit?: number; cursor?: string }): Promise<{
     keys: { name: string; expiration?: number; metadata?: unknown }[];
     list_complete: boolean;
     cursor: string;
@@ -83,7 +79,7 @@ class EmulatedKV implements KVNamespace {
 const kvOrLocal = (namespace: KVNamespace | null): KVNamespace =>
   namespace || new EmulatedKV();
 
-const self = (global as any) as Record<string, any>;
+const self = global as any as Record<string, any>;
 
 export const Sessions = new WrappedKVNamespace(kvOrLocal(self.KV_SESSIONS ?? null));
 export const GuildData = new WrappedKVNamespace(kvOrLocal(self.KV_GUILD_DATA ?? null));

@@ -3,8 +3,8 @@ FROM node:14 AS builder
 # Create the user and group files that will be used in the running container to
 # run the process as an unprivileged user.
 RUN mkdir /user \
-  && echo 'nobody:x:65534:65534:nobody:/:' >/user/passwd \
-  && echo 'nobody:x:65534:' >/user/group
+  && echo 'nobody:x:65534:65534:nobody:/:' > /user/passwd \
+  && echo 'nobody:x:65534:' > /user/group
 
 # Set the working directory outside $GOPATH to enable the support for modules.
 WORKDIR /src

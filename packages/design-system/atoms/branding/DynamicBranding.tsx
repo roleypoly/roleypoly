@@ -10,9 +10,10 @@ type DynamicLogoProps = LogoFlagProps & {
 };
 
 export const DynamicLogomark = (props: Partial<DynamicLogoProps>) => {
-  const variant = React.useMemo(() => getRelevantVariant(props.currentDate), [
-    props.currentDate,
-  ]);
+  const variant = React.useMemo(
+    () => getRelevantVariant(props.currentDate),
+    [props.currentDate]
+  );
 
   if (!variant) {
     return <Logomark {...props} />;
@@ -35,9 +36,10 @@ export const DynamicLogomark = (props: Partial<DynamicLogoProps>) => {
 };
 
 export const DynamicLogotype = (props: Partial<DynamicLogoProps>) => {
-  const variant = React.useMemo(() => getRelevantVariant(props.currentDate), [
-    props.currentDate,
-  ]);
+  const variant = React.useMemo(
+    () => getRelevantVariant(props.currentDate),
+    [props.currentDate]
+  );
 
   if (!variant) {
     return <Logotype {...props} />;

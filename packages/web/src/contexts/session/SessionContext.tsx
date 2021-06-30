@@ -47,9 +47,8 @@ export const useSessionContext = () => React.useContext(SessionContext);
 
 export const SessionContextProvider = (props: { children: React.ReactNode }) => {
   const { fetch } = useApiContext();
-  const [sessionID, setSessionID] = React.useState<SessionContextT['sessionID']>(
-    undefined
-  );
+  const [sessionID, setSessionID] =
+    React.useState<SessionContextT['sessionID']>(undefined);
   const [sessionState, setSessionState] = React.useState<SessionState>(
     SessionState.NoAuth
   );

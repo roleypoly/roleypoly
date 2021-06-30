@@ -27,17 +27,19 @@ export const addCORS = (init: ResponseInit = {}) => ({
 export const respond = (obj: Record<string, any>, init: ResponseInit = {}) =>
   new Response(JSON.stringify(obj), addCORS(init));
 
-export const resolveFailures = (
-  handleWith: () => Response,
-  handler: (request: Request) => Promise<Response> | Response
-) => async (request: Request): Promise<Response> => {
-  try {
-    return handler(request);
-  } catch (e) {
-    console.error(e);
-    return handleWith() || respond({ error: 'internal server error' }, { status: 500 });
-  }
-};
+export const resolveFailures =
+  (
+    handleWith: () => Response,
+    handler: (request: Request) => Promise<Response> | Response
+  ) =>
+  async (request: Request): Promise<Response> => {
+    try {
+      return handler(request);
+    } catch (e) {
+      console.error(e);
+      return handleWith() || respond({ error: 'internal server error' }, { status: 500 });
+    }
+  };
 
 export const parsePermissions = (
   permissions: bigint,
@@ -106,33 +108,35 @@ export const discordFetch = async <T>(
   }
 };
 
-export const cacheLayer = <Identity, Data>(
-  kv: WrappedKVNamespace,
-  keyFactory: (identity: Identity) => string,
-  missHandler: (identity: Identity) => Promise<Data | null>,
-  ttlSeconds?: number
-) => async (
-  identity: Identity,
-  options: { skipCachePull?: boolean } = {}
-): Promise<Data | null> => {
-  const key = keyFactory(identity);
+export const cacheLayer =
+  <Identity, Data>(
+    kv: WrappedKVNamespace,
+    keyFactory: (identity: Identity) => string,
+    missHandler: (identity: Identity) => Promise<Data | null>,
+    ttlSeconds?: number
+  ) =>
+  async (
+    identity: Identity,
+    options: { skipCachePull?: boolean } = {}
+  ): Promise<Data | null> => {
+    const key = keyFactory(identity);
 
-  if (!options.skipCachePull) {
-    const value = await kv.get<Data>(key);
-    if (value) {
-      return value;
+    if (!options.skipCachePull) {
+      const value = await kv.get<Data>(key);
+      if (value) {
+        return value;
+      }
     }
-  }
 
-  const fallbackValue = await missHandler(identity);
-  if (!fallbackValue) {
-    return null;
-  }
+    const fallbackValue = await missHandler(identity);
+    if (!fallbackValue) {
+      return null;
+    }
 
-  await kv.put(key, fallbackValue, ttlSeconds);
+    await kv.put(key, fallbackValue, ttlSeconds);
 
-  return fallbackValue;
-};
+    return fallbackValue;
+  };
 
 const NotAuthenticated = (extra?: string) =>
   respond(
@@ -142,21 +146,21 @@ const NotAuthenticated = (extra?: string) =>
     { status: 403 }
   );
 
-export const withSession = (
-  wrappedHandler: (session: SessionData) => Handler
-): Handler => async (request: Request): Promise<Response> => {
-  const sessionID = getSessionID(request);
-  if (!sessionID) {
-    return NotAuthenticated('missing authentication');
-  }
+export const withSession =
+  (wrappedHandler: (session: SessionData) => Handler): Handler =>
+  async (request: Request): Promise<Response> => {
+    const sessionID = getSessionID(request);
+    if (!sessionID) {
+      return NotAuthenticated('missing authentication');
+    }
 
-  const session = await Sessions.get<SessionData>(sessionID.id);
-  if (!session) {
-    return NotAuthenticated('authentication expired or not found');
-  }
+    const session = await Sessions.get<SessionData>(sessionID.id);
+    if (!session) {
+      return NotAuthenticated('authentication expired or not found');
+    }
 
-  return await wrappedHandler(session)(request);
-};
+    return await wrappedHandler(session)(request);
+  };
 
 export const setupStateSession = async <T>(data: T): Promise<string> => {
   const stateID = (await KSUID.random()).string;

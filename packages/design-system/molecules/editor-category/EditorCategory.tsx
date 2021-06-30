@@ -38,14 +38,14 @@ export const EditorCategory = (props: Props) => {
   const [roleSearchPopoverActive, setRoleSearchPopoverActive] = React.useState(false);
   const [roleSearchTerm, updateSearchTerm] = React.useState('');
 
-  const onUpdate = (key: keyof typeof props.category, pred?: (newValue: any) => any) => (
-    newValue: any
-  ) => {
-    props.onChange({
-      ...props.category,
-      [key]: pred ? pred(newValue) : newValue,
-    });
-  };
+  const onUpdate =
+    (key: keyof typeof props.category, pred?: (newValue: any) => any) =>
+    (newValue: any) => {
+      props.onChange({
+        ...props.category,
+        [key]: pred ? pred(newValue) : newValue,
+      });
+    };
 
   const handleRoleSelect = (role: RoleType) => {
     setRoleSearchPopoverActive(false);

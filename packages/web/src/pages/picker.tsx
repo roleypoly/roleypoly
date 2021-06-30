@@ -41,9 +41,10 @@ const Picker = (props: PickerProps) => {
     fetchPickerData();
   }, [props.serverID, authedFetch, pushRecentGuild]);
 
-  React.useCallback((serverID) => pushRecentGuild(serverID), [pushRecentGuild])(
-    props.serverID
-  );
+  React.useCallback(
+    (serverID) => pushRecentGuild(serverID),
+    [pushRecentGuild]
+  )(props.serverID);
 
   if (!isAuthenticated) {
     return <Redirect to={`/auth/login?r=${props.serverID}`} replace />;

@@ -21,70 +21,71 @@ import {
 const notFound = () => respond({ error: 'guild not found' }, { status: 404 });
 
 export const UpdateRoles = withSession(
-  ({ guilds, user: { id: userID } }: SessionData) => async (request: Request) => {
-    const updateRequest = (await request.json()) as RoleUpdate;
-    const [, , guildID] = new URL(request.url).pathname.split('/');
+  ({ guilds, user: { id: userID } }: SessionData) =>
+    async (request: Request) => {
+      const updateRequest = (await request.json()) as RoleUpdate;
+      const [, , guildID] = new URL(request.url).pathname.split('/');
 
-    if (!guildID) {
-      return respond({ error: 'guild ID missing from URL' }, { status: 400 });
-    }
-
-    if (updateRequest.transactions.length === 0) {
-      return respond({ error: 'must have as least one transaction' }, { status: 400 });
-    }
-
-    const guildCheck = guilds.find((guild) => guild.id === guildID);
-    if (!guildCheck) {
-      return notFound();
-    }
-
-    const guild = await getGuild(guildID);
-    if (!guild) {
-      return notFound();
-    }
-
-    const guildMemberRoles = await getGuildMemberRoles(
-      { serverID: guildID, userID },
-      { skipCachePull: true }
-    );
-    if (!guildMemberRoles) {
-      return notFound();
-    }
-
-    const newRoles = calculateNewRoles({
-      currentRoles: guildMemberRoles,
-      guildRoles: guild.roles,
-      guildData: await getGuildData(guildID),
-      updateRequest,
-    });
-
-    const patchMemberRoles = await discordFetch<Member>(
-      `/guilds/${guildID}/members/${userID}`,
-      botToken,
-      AuthType.Bot,
-      {
-        method: 'PATCH',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          roles: newRoles,
-        }),
+      if (!guildID) {
+        return respond({ error: 'guild ID missing from URL' }, { status: 400 });
       }
-    );
 
-    if (!patchMemberRoles) {
-      return respond({ error: 'discord rejected the request' }, { status: 500 });
+      if (updateRequest.transactions.length === 0) {
+        return respond({ error: 'must have as least one transaction' }, { status: 400 });
+      }
+
+      const guildCheck = guilds.find((guild) => guild.id === guildID);
+      if (!guildCheck) {
+        return notFound();
+      }
+
+      const guild = await getGuild(guildID);
+      if (!guild) {
+        return notFound();
+      }
+
+      const guildMemberRoles = await getGuildMemberRoles(
+        { serverID: guildID, userID },
+        { skipCachePull: true }
+      );
+      if (!guildMemberRoles) {
+        return notFound();
+      }
+
+      const newRoles = calculateNewRoles({
+        currentRoles: guildMemberRoles,
+        guildRoles: guild.roles,
+        guildData: await getGuildData(guildID),
+        updateRequest,
+      });
+
+      const patchMemberRoles = await discordFetch<Member>(
+        `/guilds/${guildID}/members/${userID}`,
+        botToken,
+        AuthType.Bot,
+        {
+          method: 'PATCH',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            roles: newRoles,
+          }),
+        }
+      );
+
+      if (!patchMemberRoles) {
+        return respond({ error: 'discord rejected the request' }, { status: 500 });
+      }
+
+      const updatedMember: Member = {
+        roles: patchMemberRoles.roles,
+      };
+
+      await updateGuildMemberRoles({ serverID: guildID, userID }, patchMemberRoles.roles);
+
+      return respond(updatedMember);
     }
-
-    const updatedMember: Member = {
-      roles: patchMemberRoles.roles,
-    };
-
-    await updateGuildMemberRoles({ serverID: guildID, userID }, patchMemberRoles.roles);
-
-    return respond(updatedMember);
-  }
 );
 
 const calculateNewRoles = ({
