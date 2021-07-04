@@ -1,8 +1,9 @@
 import { palette } from '@roleypoly/design-system/atoms/colors';
+import { fontCSS } from '@roleypoly/design-system/atoms/fonts';
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const StyledTextInput = styled.input`
+const common = css`
   appearance: none;
   border: 1px solid ${palette.taupe200};
   border-radius: 3px;
@@ -39,11 +40,14 @@ const StyledTextInput = styled.input`
   }
 `;
 
-type TextInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  _override?: React.Component;
-};
+const StyledTextInput = styled.input`
+  ${common};
+`;
 
-export const TextInput = (props: TextInputProps) => {
+type TextInputProps<T extends HTMLInputElement | HTMLTextAreaElement> =
+  React.InputHTMLAttributes<T>;
+
+export const TextInput = (props: TextInputProps<HTMLInputElement>) => {
   const { ...rest } = props;
   return <StyledTextInput {...rest} />;
 };
@@ -68,7 +72,7 @@ const IconInputContainer = styled.div`
   width: 100%;
 `;
 
-type TextInputWithIconProps = TextInputProps & {
+type TextInputWithIconProps = TextInputProps<HTMLInputElement> & {
   icon: React.ReactNode;
 };
 
@@ -79,5 +83,29 @@ export const TextInputWithIcon = (props: TextInputWithIconProps) => {
       <IconContainer>{icon}</IconContainer>
       <StyledTextInputWithIcon {...rest}></StyledTextInputWithIcon>
     </IconInputContainer>
+  );
+};
+
+const StyledTextarea = styled.textarea`
+  ${common};
+  ${fontCSS};
+`;
+
+export const MultilineTextInput = (
+  props: TextInputProps<HTMLTextAreaElement> & { rows?: number }
+) => {
+  const { ...rest } = props;
+  const [value, setValue] = React.useState(String(props.value));
+  const rows = Math.min(10, Math.max(props.rows || 2, value.split(/\r?\n/).length));
+  return (
+    <StyledTextarea
+      {...rest}
+      rows={rows}
+      value={value}
+      onChange={(eventData) => {
+        setValue(eventData.target.value);
+        props.onChange?.(eventData);
+      }}
+    />
   );
 };
