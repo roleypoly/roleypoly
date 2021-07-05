@@ -65,5 +65,9 @@ export const TabContentTitle = styled.div`
   ${text500}
 
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  padding: 0.5em 7px;
+`;
+
+export const TabDepth = styled.div`
+  margin-left: 7px;
 `;
