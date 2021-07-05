@@ -22,8 +22,9 @@ export const TabTitleRow = styled.div`
   position: fixed;
   ${onSmallScreen(
     css`
+      width: fit-content;
       position: unset;
-      max-width: 100vw;
+      max-width: 98vw;
     `
   )}
 `;
@@ -65,5 +66,9 @@ export const TabContentTitle = styled.div`
   ${text500}
 
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 10px;
+  padding: 0.5em 7px;
+`;
+
+export const TabDepth = styled.div`
+  margin-left: 7px;
 `;
