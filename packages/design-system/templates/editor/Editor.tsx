@@ -7,13 +7,8 @@ import {
 export const EditorTemplate = (
   props: EditorShellProps & Omit<AppShellProps, 'children'>
 ) => {
-  const {
-    guild,
-    onCategoryChange,
-    onMessageChange,
-    onGuildChange,
-    ...appShellProps
-  } = props;
+  const { guild, onCategoryChange, onMessageChange, onGuildChange, ...appShellProps } =
+    props;
   return (
     <AppShell {...appShellProps} activeGuildId={guild.id}>
       <EditorShell guild={guild} onGuildChange={onGuildChange} />

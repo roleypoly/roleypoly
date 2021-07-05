@@ -37,15 +37,25 @@ export const EditorShell = (props: EditorShellProps) => {
     });
   };
 
-  const hasChanges = React.useMemo(() => !deepEqual(guild.data, props.guild.data), [
-    guild.data,
-    props.guild.data,
-  ]);
+  const hasChanges = React.useMemo(
+    () => !deepEqual(guild.data, props.guild.data),
+    [guild.data, props.guild.data]
+  );
 
   return (
     <div>
       <Space />
-      <TabView initialTab={0} masthead={<EditorMasthead guild={guild} />}>
+      <TabView
+        initialTab={0}
+        masthead={
+          <EditorMasthead
+            guild={guild}
+            onReset={reset}
+            onSubmit={() => props.onGuildChange?.(guild)}
+            showSaveReset={hasChanges}
+          />
+        }
+      >
         <Tab title="Guild Details">
           {() => (
             <EditorDetailsTab
