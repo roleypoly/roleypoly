@@ -22,8 +22,9 @@ export const TabTitleRow = styled.div`
   position: fixed;
   ${onSmallScreen(
     css`
+      width: fit-content;
       position: unset;
-      max-width: 100vw;
+      max-width: 98vw;
     `
   )}
 `;

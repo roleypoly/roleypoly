@@ -10,6 +10,7 @@ import {
 export type TabViewProps = {
   children: React.ReactNode[];
   initialTab?: number;
+  masthead?: React.ReactNode;
 };
 
 type TabProps = {
@@ -39,6 +40,7 @@ export const TabView = (props: TabViewProps) => {
   return (
     <TabViewStyled>
       <TabTitleRow>
+        {props.masthead && props.masthead}
         <QuickNav
           currentNavItem={tabNames[currentTab]}
           navItems={tabNames}

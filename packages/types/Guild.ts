@@ -22,6 +22,8 @@ export type GuildData = {
   features: Features;
 };
 
+export type GuildDataUpdate = Omit<Omit<GuildData, 'features'>, 'id'>;
+
 export type PresentableGuild = {
   id: string;
   guild: GuildSlug;

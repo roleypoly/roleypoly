@@ -1,7 +1,10 @@
+import { Space } from '@roleypoly/design-system/atoms/space';
 import { Tab, TabView } from '@roleypoly/design-system/atoms/tab-view';
+import { EditorMasthead } from '@roleypoly/design-system/molecules/editor-masthead';
 import { EditorCategoriesTab } from '@roleypoly/design-system/organisms/editor-categories-tab';
 import { EditorDetailsTab } from '@roleypoly/design-system/organisms/editor-details-tab';
 import { Category, PresentableGuild } from '@roleypoly/types';
+import deepEqual from 'deep-equal';
 import React from 'react';
 
 export type EditorShellProps = {
@@ -34,23 +37,35 @@ export const EditorShell = (props: EditorShellProps) => {
     });
   };
 
+  const hasChanges = React.useMemo(() => !deepEqual(guild.data, props.guild.data), [
+    guild.data,
+    props.guild.data,
+  ]);
+
   return (
-    <TabView initialTab={0}>
-      <Tab title="Guild Details">
-        {() => (
-          <EditorDetailsTab {...props} guild={guild} onMessageChange={onMessageChange} />
-        )}
-      </Tab>
-      <Tab title="Categories & Roles">
-        {() => (
-          <EditorCategoriesTab
-            {...props}
-            guild={guild}
-            onCategoryChange={onCategoryChange}
-          />
-        )}
-      </Tab>
-      <Tab title="Utilities">{() => <div>hi2!</div>}</Tab>
-    </TabView>
+    <div>
+      <Space />
+      <TabView initialTab={0} masthead={<EditorMasthead guild={guild} />}>
+        <Tab title="Guild Details">
+          {() => (
+            <EditorDetailsTab
+              {...props}
+              guild={guild}
+              onMessageChange={onMessageChange}
+            />
+          )}
+        </Tab>
+        <Tab title="Categories & Roles">
+          {() => (
+            <EditorCategoriesTab
+              {...props}
+              guild={guild}
+              onCategoryChange={onCategoryChange}
+            />
+          )}
+        </Tab>
+        <Tab title="Utilities">{() => <div>hi2!</div>}</Tab>
+      </TabView>
+    </div>
   );
 };
