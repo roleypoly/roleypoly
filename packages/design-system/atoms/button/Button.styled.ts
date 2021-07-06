@@ -67,6 +67,13 @@ const colors = {
       background-color: ${palette.taupe200};
     }
   `,
+  silent: css`
+    background: none;
+    border-color: transparent;
+    :hover {
+      background-color: ${palette.taupe200};
+    }
+  `,
 };
 
 const sizes = {

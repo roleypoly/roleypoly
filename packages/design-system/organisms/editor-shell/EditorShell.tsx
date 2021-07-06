@@ -1,10 +1,16 @@
 import { Space } from '@roleypoly/design-system/atoms/space';
-import { Tab, TabView } from '@roleypoly/design-system/atoms/tab-view';
-import { EditorMasthead } from '@roleypoly/design-system/molecules/editor-masthead';
-import { EditorCategoriesTab } from '@roleypoly/design-system/organisms/editor-categories-tab';
-import { EditorDetailsTab } from '@roleypoly/design-system/organisms/editor-details-tab';
-import { Category, PresentableGuild } from '@roleypoly/types';
+import { PickerCategory } from '@roleypoly/design-system/molecules/picker-category';
+import { ServerMasthead } from '@roleypoly/design-system/molecules/server-masthead';
+import { SecondaryEditing } from '@roleypoly/design-system/organisms/masthead';
+import {
+  CategoryContainer,
+  Container,
+  MessageBox,
+} from '@roleypoly/design-system/organisms/role-picker/RolePicker.styled';
+import { ReactifyNewlines } from '@roleypoly/misc-utils/ReactifyNewlines';
+import { Category, CategoryType, PresentableGuild, Role } from '@roleypoly/types';
 import deepEqual from 'deep-equal';
+import { sortBy } from 'lodash';
 import React from 'react';
 
 export type EditorShellProps = {
@@ -43,39 +49,39 @@ export const EditorShell = (props: EditorShellProps) => {
   );
 
   return (
-    <div>
-      <Space />
-      <TabView
-        initialTab={0}
-        masthead={
-          <EditorMasthead
-            guild={guild}
-            onReset={reset}
-            onSubmit={() => props.onGuildChange?.(guild)}
-            showSaveReset={hasChanges}
-          />
-        }
-      >
-        <Tab title="Guild Details">
-          {() => (
-            <EditorDetailsTab
-              {...props}
-              guild={guild}
-              onMessageChange={onMessageChange}
-            />
-          )}
-        </Tab>
-        <Tab title="Categories & Roles">
-          {() => (
-            <EditorCategoriesTab
-              {...props}
-              guild={guild}
-              onCategoryChange={onCategoryChange}
-            />
-          )}
-        </Tab>
-        <Tab title="Utilities">{() => <div>hi2!</div>}</Tab>
-      </TabView>
-    </div>
+    <>
+      <SecondaryEditing showReset={hasChanges} guild={props.guild.guild} />
+      <Container style={{ marginTop: 90 }}>
+        <Space />
+        <ServerMasthead guild={props.guild.guild} editable={false} />
+        <Space />
+
+        <MessageBox>
+          <ReactifyNewlines>{props.guild.data.message}</ReactifyNewlines>
+        </MessageBox>
+        <Space />
+
+        <div>
+          {sortBy(props.guild.data.categories, 'position').map((category, idx) => (
+            <CategoryContainer key={idx}>
+              <PickerCategory
+                key={idx}
+                category={category}
+                title={category.name}
+                selectedRoles={[]}
+                roles={
+                  category.roles
+                    .map((role) => props.guild.roles.find((r) => r.id === role))
+                    .filter((r) => r !== undefined) as Role[]
+                }
+                onChange={() => () => {}}
+                wikiMode={false}
+                type={category.type === CategoryType.Single ? 'single' : 'multi'}
+              />
+            </CategoryContainer>
+          ))}
+        </div>
+      </Container>
+    </>
   );
 };

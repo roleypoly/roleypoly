@@ -91,3 +91,29 @@ export const GuildPopoverHead = styled.div`
     `)}
   }
 `;
+
+export const SecondaryBase = styled(MastheadBase)`
+  top: 50px;
+  background-color: ${palette.taupe300};
+  z-index: 99;
+  padding: 0 15px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+`;
+
+export const IconHolder = styled.div`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  border: 2px solid ${palette.taupe200};
+  background-color: ${palette.taupe100};
+  margin-right: 1em;
+`;
+
+export const TextHolder = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
