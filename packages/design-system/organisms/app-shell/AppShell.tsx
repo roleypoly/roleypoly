@@ -11,6 +11,7 @@ export type AppShellProps = {
   user?: DiscordUser;
   showFooter?: boolean;
   small?: boolean;
+  double?: boolean;
   activeGuildId?: string | null;
   guilds?: GuildSlug[];
   recentGuilds?: string[];
@@ -56,7 +57,9 @@ export const AppShell = (props: AppShellProps) => (
     )}
     <OptionallyScroll shouldScroll={!props.skeleton}>
       <>
-        <Content small={props.small}>{props.children}</Content>
+        <Content small={props.small} double={props.double}>
+          {props.children}
+        </Content>
         {props.showFooter && <Footer />}
       </>
     </OptionallyScroll>

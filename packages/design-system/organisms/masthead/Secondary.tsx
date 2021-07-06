@@ -15,6 +15,8 @@ import {
 type SecondaryEditingProps = {
   guild: GuildSlug;
   showReset: boolean;
+  onReset?: () => void;
+  onSubmit?: () => void;
 };
 
 export const SecondaryEditing = (props: SecondaryEditingProps) => (
@@ -30,12 +32,12 @@ export const SecondaryEditing = (props: SecondaryEditingProps) => (
       </MastheadLeft>
       <MastheadRight>
         <FaderOpacity isVisible={props.showReset}>
-          <Button size="small" color="silent">
+          <Button size="small" color="silent" onClick={props.onReset}>
             Reset
           </Button>
         </FaderOpacity>
         &nbsp;&nbsp;
-        <Button size="small">
+        <Button size="small" onClick={props.onSubmit}>
           Done <GoCheck />
         </Button>
       </MastheadRight>

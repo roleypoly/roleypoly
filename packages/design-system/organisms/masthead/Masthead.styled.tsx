@@ -97,7 +97,7 @@ export const SecondaryBase = styled(MastheadBase)`
   background-color: ${palette.taupe300};
   z-index: 99;
   padding: 0 15px;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
 `;
 
 export const IconHolder = styled.div`

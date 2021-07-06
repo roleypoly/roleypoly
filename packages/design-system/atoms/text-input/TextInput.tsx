@@ -94,18 +94,27 @@ const StyledTextarea = styled.textarea`
 export const MultilineTextInput = (
   props: TextInputProps<HTMLTextAreaElement> & { rows?: number }
 ) => {
-  const { ...rest } = props;
+  const { children, ...rest } = props;
   const [value, setValue] = React.useState(String(props.value));
-  const rows = Math.min(10, Math.max(props.rows || 2, value.split(/\r?\n/).length));
+  const rows = React.useMemo(
+    () => Math.min(10, Math.max(props.rows || 2, value.split(/\r?\n/).length)),
+    [value]
+  );
+
+  React.useEffect(() => {
+    setValue(String(props.value));
+  }, [props.value]);
+
   return (
     <StyledTextarea
       {...rest}
       rows={rows}
-      value={value}
       onChange={(eventData) => {
         setValue(eventData.target.value);
         props.onChange?.(eventData);
       }}
-    />
+    >
+      {value}
+    </StyledTextarea>
   );
 };

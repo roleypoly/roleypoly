@@ -1,4 +1,8 @@
+import { palette } from '@roleypoly/design-system/atoms/colors';
+import { FaderOpacity } from '@roleypoly/design-system/atoms/fader';
 import { Space } from '@roleypoly/design-system/atoms/space';
+import { MultilineTextInput } from '@roleypoly/design-system/atoms/text-input';
+import { AmbientLarge, LargeText } from '@roleypoly/design-system/atoms/typography';
 import { PickerCategory } from '@roleypoly/design-system/molecules/picker-category';
 import { ServerMasthead } from '@roleypoly/design-system/molecules/server-masthead';
 import { SecondaryEditing } from '@roleypoly/design-system/organisms/masthead';
@@ -7,11 +11,11 @@ import {
   Container,
   MessageBox,
 } from '@roleypoly/design-system/organisms/role-picker/RolePicker.styled';
-import { ReactifyNewlines } from '@roleypoly/misc-utils/ReactifyNewlines';
 import { Category, CategoryType, PresentableGuild, Role } from '@roleypoly/types';
 import deepEqual from 'deep-equal';
 import { sortBy } from 'lodash';
 import React from 'react';
+import { GoEyeClosed } from 'react-icons/go';
 
 export type EditorShellProps = {
   guild: PresentableGuild;
@@ -22,6 +26,10 @@ export type EditorShellProps = {
 
 export const EditorShell = (props: EditorShellProps) => {
   const [guild, setGuild] = React.useState<PresentableGuild>(props.guild);
+
+  React.useEffect(() => {
+    setGuild(props.guild);
+  }, [props.guild]);
 
   const reset = () => {
     setGuild(props.guild);
@@ -50,14 +58,33 @@ export const EditorShell = (props: EditorShellProps) => {
 
   return (
     <>
-      <SecondaryEditing showReset={hasChanges} guild={props.guild.guild} />
-      <Container style={{ marginTop: 90 }}>
-        <Space />
+      <SecondaryEditing
+        showReset={hasChanges}
+        guild={props.guild.guild}
+        onReset={reset}
+        onSubmit={() => props.onGuildChange?.(guild)}
+      />
+      <Container style={{ marginTop: 95 }}>
         <ServerMasthead guild={props.guild.guild} editable={false} />
         <Space />
 
         <MessageBox>
-          <ReactifyNewlines>{props.guild.data.message}</ReactifyNewlines>
+          <LargeText>Server Message</LargeText>
+          <MultilineTextInput
+            rows={2}
+            value={guild.data.message}
+            onChange={(event) => onMessageChange(event.target.value)}
+            placeholder={`Hey friend from ${guild.guild.name}! Pick your roles!`}
+          >
+            {guild.data.message}
+          </MultilineTextInput>
+          <AmbientLarge style={{ display: 'flex', color: palette.taupe600 }}>
+            Shows a message to your server members.
+            <FaderOpacity isVisible={guild.data.message.trim().length === 0}>
+              &nbsp;Since the message is empty, this won't show up.&nbsp;&nbsp;&nbsp;
+              <GoEyeClosed style={{ position: 'relative', top: 2 }} />
+            </FaderOpacity>
+          </AmbientLarge>
         </MessageBox>
         <Space />
 
