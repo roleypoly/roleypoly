@@ -20,9 +20,9 @@ export const ToggleState = styled.div`
 export const ToggleSwitch = styled.div<{ state: boolean }>`
   display: inline-block;
   background-color: ${(props) => (props.state ? palette.green200 : 'rgba(0,0,0,0.45)')};
-  height: 1.3em;
-  width: 2.6em;
-  border-radius: 1.3em;
+  height: 1.375rem;
+  width: 2.675rem;
+  border-radius: 1.375rem;
   position: relative;
   border: 1px solid rgba(0, 0, 0, 0.1);
   top: 0.23em;

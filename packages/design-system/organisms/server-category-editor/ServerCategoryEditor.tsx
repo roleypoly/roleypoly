@@ -83,17 +83,14 @@ export const ServerCategoryEditor = (props: Props) => {
       {sortBy(props.guild.data.categories, ['position', 'id']).map((category, idx) => (
         <CategoryContainer key={idx}>
           <EditorCategory
-            key={idx}
             category={category}
             title={category.name}
-            selectedRoles={[]}
             roles={
               category.roles
                 .map((role) => props.guild.roles.find((r) => r.id === role))
                 .filter((r) => r !== undefined) as Role[]
             }
             onChange={updateSingleCategory}
-            type={category.type === CategoryType.Single ? 'single' : 'multi'}
           />
         </CategoryContainer>
       ))}
