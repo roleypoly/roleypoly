@@ -8,6 +8,7 @@ import { Category, CategoryType, PresentableGuild, Role } from '@roleypoly/types
 import KSUID from 'ksuid';
 import { sortBy } from 'lodash';
 import React from 'react';
+import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { CgReorder } from 'react-icons/cg';
 import { GoArrowDown, GoArrowUp, GoCheck, GoGrabber, GoPlus } from 'react-icons/go';
 import {
@@ -45,7 +46,7 @@ export const ServerCategoryEditor = (props: Props) => {
     const categories = resetOrder(props.guild.data.categories);
 
     const newCategory: Category = {
-      id: KSUID.randomSync().toString(),
+      id: KSUID.randomSync().string,
       name: 'New Category',
       type: CategoryType.Multi,
       position: categories.length,
@@ -56,8 +57,12 @@ export const ServerCategoryEditor = (props: Props) => {
     props.onChange([...categories, newCategory]);
   };
 
-  const onReorder = (categories: Category[]) => {
+  const onReorder = (categories: Category[] | null) => {
     setReorderMode(false);
+    if (categories === null) {
+      return;
+    }
+
     props.onChange(resetOrder(categories));
   };
 
@@ -96,7 +101,9 @@ export const ServerCategoryEditor = (props: Props) => {
   );
 };
 
-const ReorderMode = (props: Props & { exitReorderMode: (final: Category[]) => void }) => {
+const ReorderMode = (
+  props: Props & { exitReorderMode: (final: Category[] | null) => void }
+) => {
   const [categories, setCategories] = React.useState(props.guild.data.categories);
 
   React.useEffect(() => {
@@ -117,15 +124,24 @@ const ReorderMode = (props: Props & { exitReorderMode: (final: Category[]) => vo
     setCategories(forceOrder(newCategories));
   };
 
+  const handleDrop = (dropEvent: DropResult) => {
+    const newCategories = [...categories];
+    const { source, destination } = dropEvent;
+
+    if (!destination || source.index === destination.index) {
+      return;
+    }
+
+    newCategories.splice(source.index, 1);
+    newCategories.splice(destination.index, 0, categories[source.index]);
+    setCategories(forceOrder(newCategories));
+  };
+
   return (
     <div>
       <CategoryActions right>
-        <Button
-          color="muted"
-          size="small"
-          onClick={() => props.exitReorderMode(props.guild.data.categories)}
-        >
-          Reset
+        <Button color="muted" size="small" onClick={() => props.exitReorderMode(null)}>
+          Cancel
         </Button>
         <Button
           color="primary"
@@ -135,24 +151,50 @@ const ReorderMode = (props: Props & { exitReorderMode: (final: Category[]) => vo
           <BreakpointText small="Save" large="Save Order" /> <GoCheck />
         </Button>
       </CategoryActions>
-      {sortBy(categories, ['position', 'id']).map((category, idx, array) => (
-        <ReorderCategoryContainer key={idx}>
-          <ReorderButton data-tip="Drag to reorder" style={{ cursor: 'grab' }}>
-            <GoGrabber />
-          </ReorderButton>
-          <FaderOpacity isVisible={idx !== 0}>
-            <ReorderButton onClick={handleReorder(category, 'up')} data-tip="Move up">
-              <GoArrowUp />
-            </ReorderButton>
-          </FaderOpacity>
-          <FaderOpacity isVisible={categories.length - 1 !== idx}>
-            <ReorderButton onClick={handleReorder(category, 'down')} data-tip="Move down">
-              <GoArrowDown />
-            </ReorderButton>
-          </FaderOpacity>
-          <LargeText>{category.name}</LargeText>
-        </ReorderCategoryContainer>
-      ))}
+      <DragDropContext onDragEnd={handleDrop}>
+        <Droppable droppableId="categories">
+          {(provided, snapshot) => (
+            <div ref={provided.innerRef} {...provided.droppableProps}>
+              {sortBy(categories, ['position', 'id']).map((category, idx) => (
+                <Draggable key={category.id} index={idx} draggableId={category.id}>
+                  {(provided, snapshot) => (
+                    <ReorderCategoryContainer
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                    >
+                      <ReorderButton
+                        data-tip="Drag to reorder"
+                        style={{ cursor: 'grab' }}
+                        {...provided.dragHandleProps}
+                      >
+                        <GoGrabber />
+                      </ReorderButton>
+                      <FaderOpacity isVisible={idx !== 0}>
+                        <ReorderButton
+                          onClick={handleReorder(category, 'up')}
+                          data-tip="Move up"
+                        >
+                          <GoArrowUp />
+                        </ReorderButton>
+                      </FaderOpacity>
+                      <FaderOpacity isVisible={categories.length - 1 !== idx}>
+                        <ReorderButton
+                          onClick={handleReorder(category, 'down')}
+                          data-tip="Move down"
+                        >
+                          <GoArrowDown />
+                        </ReorderButton>
+                      </FaderOpacity>
+                      <LargeText>{category.name}</LargeText>
+                    </ReorderCategoryContainer>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
     </div>
   );
 };
