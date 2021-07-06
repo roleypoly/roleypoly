@@ -6,15 +6,22 @@ export const CategoryActions = styled.div<{ right?: boolean }>`
   display: flex;
   flex-direction: row;
 
+  & > button {
+    ${(props) =>
+      props.right
+        ? css`
+            margin-left: 5px;
+          `
+        : css`
+            margin-right: 5px;
+          `};
+  }
+
   ${(props) =>
     props.right &&
     css`
       justify-content: flex-end;
     `}
-
-  & > * {
-    ${(props) => (props.right ? 'margin-left' : 'margin-right')}: 5px;
-  }
 `;
 
 export const ReorderButton = styled.div`
