@@ -1,142 +1,50 @@
-import { FaderOpacity } from '@roleypoly/design-system/atoms/fader';
-import { Popover } from '@roleypoly/design-system/atoms/popover';
-import { Role } from '@roleypoly/design-system/atoms/role';
-import { Space } from '@roleypoly/design-system/atoms/space';
-import { TextInput, TextInputWithIcon } from '@roleypoly/design-system/atoms/text-input';
-import { Toggle } from '@roleypoly/design-system/atoms/toggle';
+import { TextInput } from '@roleypoly/design-system/atoms/text-input';
 import { Text } from '@roleypoly/design-system/atoms/typography';
-import { RoleSearch } from '@roleypoly/design-system/molecules/role-search';
-import { Category, CategoryType, Role as RoleType } from '@roleypoly/types';
+import { Category as CategoryT, Role as RoleT } from '@roleypoly/types';
 import * as React from 'react';
-import { GoSearch } from 'react-icons/go';
-import { RoleContainer } from './EditorCategory.styled';
+import ReactTooltip from 'react-tooltip';
+import styled from 'styled-components';
+import { Head, HeadTitle } from './EditorCategory.styled';
 
-type Props = {
-  category: Category;
-  uncategorizedRoles: RoleType[];
-  guildRoles: RoleType[];
-  onChange: (category: Category) => void;
+export type CategoryProps = {
+  title: string;
+  roles: RoleT[];
+  category: CategoryT;
+  selectedRoles: string[];
+  onChange: (updatedCategory: CategoryT) => void;
+  type: 'single' | 'multi';
 };
 
-const typeEnumToSwitch = (typeData: CategoryType) => {
-  if (typeData === CategoryType.Single) {
-    return 'Single';
-  } else {
-    return 'Multiple';
-  }
-};
+const Category = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
 
-const switchToTypeEnum = (typeData: 'Single' | 'Multiple') => {
-  if (typeData === 'Single') {
-    return CategoryType.Single;
-  } else {
-    return CategoryType.Multi;
-  }
-};
+const Container = styled.div`
+  overflow: hidden;
+  padding: 5px;
+`;
 
-export const EditorCategory = (props: Props) => {
-  const [roleSearchPopoverActive, setRoleSearchPopoverActive] = React.useState(false);
-  const [roleSearchTerm, updateSearchTerm] = React.useState('');
-
-  const onUpdate =
-    (key: keyof typeof props.category, pred?: (newValue: any) => any) =>
-    (newValue: any) => {
-      props.onChange({
-        ...props.category,
-        [key]: pred ? pred(newValue) : newValue,
-      });
-    };
-
-  const handleRoleSelect = (role: RoleType) => {
-    setRoleSearchPopoverActive(false);
-    updateSearchTerm('');
-    props.onChange({
-      ...props.category,
-      roles: [...props.category.roles, role.id],
-    });
-  };
-
-  const handleRoleDeselect = (role: RoleType) => () => {
-    props.onChange({
-      ...props.category,
-      roles: props.category.roles.filter((x) => x !== role.id),
-    });
+export const EditorCategory = (props: CategoryProps) => {
+  const updateValue = <T extends keyof CategoryT>(key: T, value: CategoryT[T]) => {
+    props.onChange({ ...props.category, [key]: value });
   };
 
   return (
-    <div>
-      <Text>Category Name</Text>
-      <TextInput
-        placeholder="Pronouns, Political, Colors..."
-        value={props.category.name}
-        onChange={onUpdate('name', (x) => x.target.value)}
-      />
-
-      <Space />
-
-      <div>
-        <Toggle
-          state={props.category.type === CategoryType.Multi}
-          onChange={onUpdate('type', (x) =>
-            x ? CategoryType.Multi : CategoryType.Single
-          )}
-        >
-          Allow users to pick multiple roles
-        </Toggle>
-      </div>
-
-      <Space />
-      <div>
-        <Toggle state={props.category.hidden} onChange={onUpdate('hidden')}>
-          Hide category from users
-        </Toggle>
-      </div>
-
-      <Space />
-      <Text>Roles</Text>
-      <Popover
-        position={'top left'}
-        headContent={null}
-        active={roleSearchPopoverActive}
-        onExit={() => setRoleSearchPopoverActive(false)}
-      >
-        {() => (
-          <RoleSearch
-            placeholder={'Type or drag a role...'}
-            roles={props.uncategorizedRoles}
-            onSelect={handleRoleSelect}
-            searchTerm={roleSearchTerm}
-            onSearchUpdate={(newTerm) => updateSearchTerm(newTerm)}
+    <>
+      <Head>
+        <HeadTitle>
+          <div>
+            <Text>Category Name</Text>
+          </div>
+          <TextInput
+            value={props.category.name}
+            onChange={(event) => updateValue('name', event.target.value)}
           />
-        )}
-      </Popover>
-      <FaderOpacity isVisible={!roleSearchPopoverActive}>
-        <TextInputWithIcon
-          icon={<GoSearch />}
-          placeholder={'Type or drag a role...'}
-          onFocus={() => setRoleSearchPopoverActive(true)}
-          value={roleSearchTerm}
-          onChange={(x) => updateSearchTerm(x.target.value)}
-        />
-        <RoleContainer>
-          {props.category.roles.map((id) => {
-            const role = props.guildRoles.find((x) => x.id === id);
-            if (!role) {
-              return <></>;
-            }
-
-            return (
-              <Role
-                role={role}
-                selected={false}
-                key={id}
-                type="delete"
-                onClick={handleRoleDeselect(role)}
-              />
-            );
-          })}
-        </RoleContainer>
-      </FaderOpacity>
-    </div>
+        </HeadTitle>
+      </Head>
+      <Category></Category>
+      <ReactTooltip id={props.category.id} />
+    </>
   );
 };

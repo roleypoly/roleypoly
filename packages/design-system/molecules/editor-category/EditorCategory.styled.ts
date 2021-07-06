@@ -1,13 +1,20 @@
 import styled from 'styled-components';
 
-export const RoleContainer = styled.div`
+export const Head = styled.div`
+  margin: 7px 5px;
+  line-height: 200%;
   display: flex;
-  margin: 10px;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+`;
 
-  & > div {
-    /* This should be a Role element */
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    margin: 1px;
-  }
+export const HeadTitle = styled.div`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
+export const HeadSub = styled.div`
+  flex-shrink: 0;
+  margin-top: -4px;
 `;

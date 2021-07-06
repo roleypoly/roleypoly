@@ -1,19 +1,30 @@
 import * as React from 'react';
-import { mockCategory, roleCategory, roleCategory2 } from '../../fixtures/storyData';
+import { mockCategory, roleCategory } from '../../fixtures/storyData';
 import { EditorCategory } from './EditorCategory';
 
 export default {
-  title: 'Molecules/Editor/Category',
+  title: 'Molecules/Editor Category',
+  component: EditorCategory,
+  args: {
+    title: 'Pronouns',
+    roles: roleCategory,
+    category: mockCategory,
+    selectedRoles: [],
+  },
 };
 
-export const CategoryEditor = () => {
-  const [categoryData, setCategoryData] = React.useState(mockCategory);
-  return (
-    <EditorCategory
-      category={categoryData}
-      onChange={(category) => setCategoryData(category)}
-      uncategorizedRoles={roleCategory}
-      guildRoles={[...roleCategory, ...roleCategory2]}
-    />
-  );
+export const Default = (args) => {
+  return <EditorCategory {...args} />;
+};
+export const Single = (args) => {
+  return <EditorCategory {...args} type="single" />;
+};
+Single.args = {
+  type: 'single',
+};
+export const Multi = (args) => {
+  return <EditorCategory {...args} type="single" />;
+};
+Multi.args = {
+  type: 'multi',
 };
