@@ -1,10 +1,13 @@
+import { Role } from '@roleypoly/design-system/atoms/role';
 import { TextInput } from '@roleypoly/design-system/atoms/text-input';
 import { Toggle } from '@roleypoly/design-system/atoms/toggle';
 import { Text } from '@roleypoly/design-system/atoms/typography';
 import { Category as CategoryT, CategoryType, Role as RoleT } from '@roleypoly/types';
+import { sortBy } from 'lodash';
 import * as React from 'react';
+import { GoPlus } from 'react-icons/go';
 import ReactTooltip from 'react-tooltip';
-import { Box, Section } from './EditorCategory.styled';
+import { AddRoleButton, Box, RoleContainer, Section } from './EditorCategory.styled';
 
 export type CategoryProps = {
   title: string;
@@ -16,6 +19,11 @@ export type CategoryProps = {
 export const EditorCategory = (props: CategoryProps) => {
   const updateValue = <T extends keyof CategoryT>(key: T, value: CategoryT[T]) => {
     props.onChange({ ...props.category, [key]: value });
+  };
+
+  const handleRoleDelete = (role: RoleT) => () => {
+    const updatedRoles = props.category.roles.filter((r) => r !== role.id);
+    updateValue('roles', updatedRoles);
   };
 
   return (
@@ -52,7 +60,28 @@ export const EditorCategory = (props: CategoryProps) => {
         </div>
       </Section>
 
-      <Section big>aa</Section>
+      <Section big>
+        <div>
+          <Text>Roles</Text>
+        </div>
+        <RoleContainer>
+          {sortBy(props.roles, 'position').map((role) => (
+            <Role
+              key={role.id}
+              role={role}
+              selected={false}
+              type="delete"
+              onClick={handleRoleDelete(role)}
+            />
+          ))}
+          <AddRoleButton
+            data-tip="Add a role to the category"
+            data-for={props.category.id}
+          >
+            <GoPlus />
+          </AddRoleButton>
+        </RoleContainer>
+      </Section>
 
       <ReactTooltip id={props.category.id} />
     </Box>
