@@ -1,4 +1,4 @@
-import { Redirect } from '@reach/router';
+import { navigate, Redirect } from '@reach/router';
 import { EditorTemplate } from '@roleypoly/design-system/templates/editor';
 import { GenericLoadingTemplate } from '@roleypoly/design-system/templates/generic-loading';
 import {
@@ -87,6 +87,8 @@ const Editor = (props: EditorProps) => {
       setGuild(guild);
       setPending(false);
     }
+
+    navigate(`/s/${props.serverID}`);
   };
 
   return (

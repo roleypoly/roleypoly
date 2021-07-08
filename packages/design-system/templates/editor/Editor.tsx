@@ -10,7 +10,7 @@ export const EditorTemplate = (
   const { guild, onCategoryChange, onMessageChange, onGuildChange, ...appShellProps } =
     props;
   return (
-    <AppShell {...appShellProps} activeGuildId={guild.id}>
+    <AppShell {...appShellProps} activeGuildId={guild.id} small double>
       <EditorShell guild={guild} onGuildChange={onGuildChange} />
     </AppShell>
   );

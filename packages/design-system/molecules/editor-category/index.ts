@@ -1,1 +1,1 @@
-export * from './EditorCategory';
+export { EditorCategory } from './EditorCategory';

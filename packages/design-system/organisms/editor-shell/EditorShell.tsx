@@ -1,8 +1,9 @@
 import { Space } from '@roleypoly/design-system/atoms/space';
-import { Tab, TabView } from '@roleypoly/design-system/atoms/tab-view';
-import { EditorMasthead } from '@roleypoly/design-system/molecules/editor-masthead';
-import { EditorCategoriesTab } from '@roleypoly/design-system/organisms/editor-categories-tab';
-import { EditorDetailsTab } from '@roleypoly/design-system/organisms/editor-details-tab';
+import { EditableServerMessage } from '@roleypoly/design-system/molecules/editable-server-message';
+import { ServerMasthead } from '@roleypoly/design-system/molecules/server-masthead';
+import { SecondaryEditing } from '@roleypoly/design-system/organisms/masthead';
+import { Container } from '@roleypoly/design-system/organisms/role-picker/RolePicker.styled';
+import { ServerCategoryEditor } from '@roleypoly/design-system/organisms/server-category-editor';
 import { Category, PresentableGuild } from '@roleypoly/types';
 import deepEqual from 'deep-equal';
 import React from 'react';
@@ -17,16 +18,16 @@ export type EditorShellProps = {
 export const EditorShell = (props: EditorShellProps) => {
   const [guild, setGuild] = React.useState<PresentableGuild>(props.guild);
 
+  React.useEffect(() => {
+    setGuild(props.guild);
+  }, [props.guild]);
+
   const reset = () => {
     setGuild(props.guild);
   };
 
-  const onCategoryChange = (category: Category) => {
+  const replaceCategories = (categories: Category[]) => {
     setGuild((currentGuild) => {
-      const categories = [
-        ...currentGuild.data.categories.filter((x) => x.id !== category.id),
-        category,
-      ];
       return { ...currentGuild, data: { ...currentGuild.data, categories } };
     });
   };
@@ -37,45 +38,34 @@ export const EditorShell = (props: EditorShellProps) => {
     });
   };
 
+  const doSubmit = () => {
+    props.onGuildChange?.(guild);
+  };
+
   const hasChanges = React.useMemo(
     () => !deepEqual(guild.data, props.guild.data),
     [guild.data, props.guild.data]
   );
 
   return (
-    <div>
-      <Space />
-      <TabView
-        initialTab={0}
-        masthead={
-          <EditorMasthead
-            guild={guild}
-            onReset={reset}
-            onSubmit={() => props.onGuildChange?.(guild)}
-            showSaveReset={hasChanges}
-          />
-        }
-      >
-        <Tab title="Guild Details">
-          {() => (
-            <EditorDetailsTab
-              {...props}
-              guild={guild}
-              onMessageChange={onMessageChange}
-            />
-          )}
-        </Tab>
-        <Tab title="Categories & Roles">
-          {() => (
-            <EditorCategoriesTab
-              {...props}
-              guild={guild}
-              onCategoryChange={onCategoryChange}
-            />
-          )}
-        </Tab>
-        <Tab title="Utilities">{() => <div>hi2!</div>}</Tab>
-      </TabView>
-    </div>
+    <>
+      <SecondaryEditing
+        showReset={hasChanges}
+        guild={props.guild.guild}
+        onReset={reset}
+        onSubmit={doSubmit}
+      />
+      <Container style={{ marginTop: 95 }}>
+        <ServerMasthead guild={props.guild.guild} editable={false} />
+        <Space />
+        <EditableServerMessage
+          onChange={onMessageChange}
+          value={guild.data.message}
+          guild={guild.guild}
+        />
+        <Space />
+        <ServerCategoryEditor guild={guild} onChange={replaceCategories} />
+      </Container>
+    </>
   );
 };
