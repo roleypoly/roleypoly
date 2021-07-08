@@ -59,8 +59,8 @@ export const EditorCategory = (props: CategoryProps) => {
         </div>
         <div>
           <Toggle
-            state={props.category.hidden}
-            onChange={(value) => updateValue('hidden', value)}
+            state={!props.category.hidden}
+            onChange={(value) => updateValue('hidden', !value)}
           >
             Show this category to members
           </Toggle>
