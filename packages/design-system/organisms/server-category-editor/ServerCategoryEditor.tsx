@@ -4,7 +4,13 @@ import { FaderOpacity } from '@roleypoly/design-system/atoms/fader';
 import { LargeText } from '@roleypoly/design-system/atoms/typography';
 import { EditorCategory } from '@roleypoly/design-system/molecules/editor-category';
 import { CategoryContainer } from '@roleypoly/design-system/organisms/role-picker/RolePicker.styled';
-import { Category, CategoryType, PresentableGuild, Role } from '@roleypoly/types';
+import {
+  Category,
+  CategoryType,
+  PresentableGuild,
+  Role,
+  RoleSafety,
+} from '@roleypoly/types';
 import KSUID from 'ksuid';
 import { flatten, sortBy } from 'lodash';
 import React from 'react';
@@ -33,7 +39,12 @@ export const ServerCategoryEditor = (props: Props) => {
 
   const unselectedRoles = React.useMemo(() => {
     const selectedRoles = flatten(props.guild.data.categories.map((c) => c.roles));
-    return props.guild.roles.filter((r) => !selectedRoles.includes(r.id));
+    return props.guild.roles.filter(
+      (r) =>
+        !selectedRoles.includes(r.id) &&
+        r.id !== props.guild.id &&
+        r.safety === RoleSafety.Safe
+    );
   }, [props.guild.data.categories, props.guild.roles]);
 
   const updateSingleCategory = (category: Category) => {
