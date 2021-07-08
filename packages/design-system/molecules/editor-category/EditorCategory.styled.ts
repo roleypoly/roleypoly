@@ -45,17 +45,17 @@ export const RoleContainer = styled.div`
   }
 `;
 
-export const AddRoleButton = styled.div`
+export const AddRoleButton = styled.div<{ long?: boolean }>`
   border: 2px solid ${palette.taupe500};
   color: ${palette.taupe500};
   border-radius: 24px;
-  width: 32px;
   height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all ${transitions.actionable}s ease-in-out;
+
   &:hover {
     background-color: ${palette.taupe100};
     transform: translateY(-2px);
@@ -66,4 +66,13 @@ export const AddRoleButton = styled.div`
     transform: translateY(0);
     box-shadow: none;
   }
+
+  ${(props) =>
+    props.long
+      ? css`
+          padding: 0 14px;
+        `
+      : css`
+          width: 32px;
+        `};
 `;

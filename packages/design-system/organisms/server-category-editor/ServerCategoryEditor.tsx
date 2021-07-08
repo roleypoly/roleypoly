@@ -6,7 +6,7 @@ import { EditorCategory } from '@roleypoly/design-system/molecules/editor-catego
 import { CategoryContainer } from '@roleypoly/design-system/organisms/role-picker/RolePicker.styled';
 import { Category, CategoryType, PresentableGuild, Role } from '@roleypoly/types';
 import KSUID from 'ksuid';
-import { sortBy } from 'lodash';
+import { flatten, sortBy } from 'lodash';
 import React from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { CgReorder } from 'react-icons/cg';
@@ -30,6 +30,11 @@ const forceOrder = (categories: Category[]) =>
 
 export const ServerCategoryEditor = (props: Props) => {
   const [reorderMode, setReorderMode] = React.useState(false);
+
+  const unselectedRoles = React.useMemo(() => {
+    const selectedRoles = flatten(props.guild.data.categories.map((c) => c.roles));
+    return props.guild.roles.filter((r) => !selectedRoles.includes(r.id));
+  }, [props.guild.data.categories, props.guild.roles]);
 
   const updateSingleCategory = (category: Category) => {
     const newCategories = props.guild.data.categories.map((c) => {
@@ -85,6 +90,7 @@ export const ServerCategoryEditor = (props: Props) => {
           <EditorCategory
             category={category}
             title={category.name}
+            unselectedRoles={unselectedRoles}
             roles={
               category.roles
                 .map((role) => props.guild.roles.find((r) => r.id === role))
