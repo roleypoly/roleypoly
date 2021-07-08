@@ -42,10 +42,10 @@ export const EditorShell = (props: EditorShellProps) => {
     props.onGuildChange?.(guild);
   };
 
-  const hasChanges = React.useMemo(() => !deepEqual(guild.data, props.guild.data), [
-    guild.data,
-    props.guild.data,
-  ]);
+  const hasChanges = React.useMemo(
+    () => !deepEqual(guild.data, props.guild.data),
+    [guild.data, props.guild.data]
+  );
 
   return (
     <>
