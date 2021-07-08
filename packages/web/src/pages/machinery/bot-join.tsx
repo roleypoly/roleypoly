@@ -1,36 +1,19 @@
-import { navigate } from '@reach/router';
-import { Button } from '@roleypoly/design-system/atoms/button';
-import { Hero } from '@roleypoly/design-system/atoms/hero';
-import { Space } from '@roleypoly/design-system/atoms/space';
-import { Link } from '@roleypoly/design-system/atoms/typography';
-import { GoArrowLeft } from 'react-icons/go';
+import { GenericLoadingTemplate } from '@roleypoly/design-system/templates/generic-loading';
+import * as React from 'react';
+import { useApiContext } from '../../contexts/api/ApiContext';
 
-const BotJoin = () => (
-  <Hero>
-    <div>
-      Hey. Thanks for taking an interest in Roleypoly.
-      <br />
-      Right now, we're not allowing you to add the Roleypoly Next closed beta bot to any
-      servers.
-      <br />
-      Please keep an eye on{' '}
-      <Link href={'https://discord.com/channels/386659935687147521/790741820173844530'}>
-        #next-testers
-      </Link>{' '}
-      for when we're ready.
-      <Space />
-      <Button
-        onClick={() => {
-          navigate(-1);
-        }}
-        color="muted"
-        size="small"
-        icon={<GoArrowLeft />}
-      >
-        Go back
-      </Button>
-    </div>
-  </Hero>
-);
+const BotJoin = (props: { serverID: string; path: string }) => {
+  const { apiUrl } = useApiContext();
+  let params = '';
+  if (props.serverID) {
+    params = `?guild=${props.serverID}`;
+  }
+
+  React.useEffect(() => {
+    window.location.href = `${apiUrl}/bot-join${params}`;
+  }, [apiUrl, params]);
+
+  return <GenericLoadingTemplate />;
+};
 
 export default BotJoin;
