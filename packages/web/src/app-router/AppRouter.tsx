@@ -6,6 +6,7 @@ import ErrorPage from '../pages/error';
 import LandingPage from '../pages/landing';
 import PickerPage from '../pages/picker';
 
+const WhyNoRoles = React.lazy(() => import('../pages/help/why-no-roles'));
 const ServersPage = React.lazy(() => import('../pages/servers'));
 const EditorPage = React.lazy(() => import('../pages/editor'));
 
@@ -49,6 +50,8 @@ export const AppRouter = () => {
 
       <RouteWrapper component={DevToolsSetApi} path="/x/dev-tools/set-api" />
       <RouteWrapper component={DevToolsSessionDebug} path="/x/dev-tools/session-debug" />
+
+      <RouteWrapper component={WhyNoRoles} path="/help/why-no-roles" />
 
       <RouteWrapper component={ErrorPage} default identity={404} />
     </Router>
