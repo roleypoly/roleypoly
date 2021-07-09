@@ -24,7 +24,7 @@ export const GetPickerData = withSession(
       }
 
       const guild = await getGuild(guildID, {
-        skipCachePull: url.searchParams.has('__no_cache'),
+        skipCachePull: url.searchParams.has('__no_cache'), // TODO: rate limit this
       });
       if (!guild) {
         return fail();
