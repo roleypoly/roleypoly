@@ -150,7 +150,7 @@ export const Lesbian: Variant = {
   // Apr 26
   name: 'Lesbian Pride',
   activeIf: (currentDate?: Date) =>
-    matchDay(new Date('2021-Apr-25'), new Date('2021-Apt-27'), currentDate),
+    matchDay(new Date('2021-Apr-25'), new Date('2021-Apr-27'), currentDate),
   sharedProps: {
     circleFill: '#D362A4',
     circleOuterFill: palette.taupe200,
