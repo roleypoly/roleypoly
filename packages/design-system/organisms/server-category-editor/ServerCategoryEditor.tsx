@@ -1,7 +1,7 @@
 import { BreakpointText } from '@roleypoly/design-system/atoms/breakpoints';
 import { Button } from '@roleypoly/design-system/atoms/button';
 import { FaderOpacity } from '@roleypoly/design-system/atoms/fader';
-import { LargeText } from '@roleypoly/design-system/atoms/typography';
+import { LargeText, Link, Text } from '@roleypoly/design-system/atoms/typography';
 import { EditorCategory } from '@roleypoly/design-system/molecules/editor-category';
 import { CategoryContainer } from '@roleypoly/design-system/organisms/role-picker/RolePicker.styled';
 import {
@@ -96,21 +96,32 @@ export const ServerCategoryEditor = (props: Props) => {
           Change Order <CgReorder />
         </Button>
       </CategoryActions>
-      {sortBy(props.guild.data.categories, ['position', 'id']).map((category, idx) => (
-        <CategoryContainer key={idx}>
-          <EditorCategory
-            category={category}
-            title={category.name}
-            unselectedRoles={unselectedRoles}
-            roles={
-              category.roles
-                .map((role) => props.guild.roles.find((r) => r.id === role))
-                .filter((r) => r !== undefined) as Role[]
-            }
-            onChange={updateSingleCategory}
-          />
+      {props.guild.data.categories.length > 0 ? (
+        sortBy(props.guild.data.categories, ['position', 'id']).map((category, idx) => (
+          <CategoryContainer key={idx}>
+            <EditorCategory
+              category={category}
+              title={category.name}
+              unselectedRoles={unselectedRoles}
+              roles={
+                category.roles
+                  .map((role) => props.guild.roles.find((r) => r.id === role))
+                  .filter((r) => r !== undefined) as Role[]
+              }
+              onChange={updateSingleCategory}
+            />
+          </CategoryContainer>
+        ))
+      ) : (
+        <CategoryContainer>
+          <Text>
+            No categories are created yet.{' '}
+            <Link href="#" onClick={() => createCategory()}>
+              Create your first category!
+            </Link>
+          </Text>
         </CategoryContainer>
-      ))}
+      )}
     </div>
   );
 };
