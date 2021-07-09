@@ -15,6 +15,7 @@ export const Avatar = (props: AvatarProps) => (
     {props.src && props.hash && (
       <Image
         style={{
+          backgroundColor: 'inherit',
           backgroundImage: `url(${props.src})`,
         }}
       />
