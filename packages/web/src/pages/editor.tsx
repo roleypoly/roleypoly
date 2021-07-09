@@ -27,8 +27,19 @@ const Editor = (props: EditorProps) => {
   const [pending, setPending] = React.useState(false);
 
   React.useEffect(() => {
+    const shouldPullUncached = (): boolean => {
+      const lastPull = sessionStorage.getItem('rp_editor_last_pull');
+      if (!lastPull || Number(lastPull) < Date.now() - 1000 * 60 * 2) {
+        // No last pull or 2 minutes since last pull
+        sessionStorage.setItem('rp_editor_last_pull', String(Date.now()));
+        return true;
+      }
+
+      return false;
+    };
     const fetchGuild = async () => {
-      const response = await authedFetch(`/get-picker-data/${serverID}`);
+      const skipCache = shouldPullUncached() ? '?__no_cache' : '';
+      const response = await authedFetch(`/get-picker-data/${serverID}${skipCache}`);
       const data = await response.json();
 
       if (response.status !== 200) {
