@@ -49,7 +49,8 @@ export const DynamicLogotype = (props: Partial<DynamicLogoProps>) => {
   if (variant.tooltip) {
     tooltipProps = {
       'data-tip': variant.tooltip,
-      // 'data-for': 'dynamic-logomark',
+      title: variant.tooltip,
+      'data-for': 'dynamic-logomark',
     };
   }
 
