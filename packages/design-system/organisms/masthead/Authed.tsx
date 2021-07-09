@@ -34,7 +34,7 @@ export const Authed = (props: Props) => {
       <MastheadAlignment>
         <MastheadLeft>
           <MastheadA to="/servers">
-            <DynamicLogomark height={35} />
+            <DynamicLogomark height={35} currentDate={new Date()} />
           </MastheadA>
           <InteractionBase
             onClick={() => {

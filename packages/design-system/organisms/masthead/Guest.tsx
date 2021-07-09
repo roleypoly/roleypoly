@@ -15,7 +15,7 @@ export const Guest = () => (
     <MastheadAlignment>
       <MastheadLeft>
         <MastheadA to="/">
-          <DynamicLogotype height={30} />
+          <DynamicLogotype height={30} currentDate={new Date()} />
         </MastheadA>
       </MastheadLeft>
       <MastheadRight>
