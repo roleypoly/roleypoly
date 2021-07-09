@@ -2,7 +2,7 @@ environment_tag = "stage"
 ui_regions = [
   "us-east4"
 ]
-deploy_bot        = false
+deploy_bot        = true
 bot_instance_size = "f1-micro"
 ui_hostnames = [
   "stage.roleypoly.com",
