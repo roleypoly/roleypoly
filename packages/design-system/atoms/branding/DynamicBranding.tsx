@@ -350,11 +350,11 @@ export const NewYear: Variant = {
 
 export const LunarNewYear: Variant = {
   name: 'Lunar New Year',
-  // Feb 12, 2021
   // Feb 1, 2022
+  // Jan 22, 2023
   activeIf: (currentDate?: Date) =>
-    matchDay(new Date('2021-Feb-10'), new Date('2021-Feb-13'), currentDate, true) ||
-    matchDay(new Date('2022-Jan-30'), new Date('2022-Feb-3'), currentDate, true),
+    matchDay(new Date('2022-Jan-30'), new Date('2022-Feb-3'), currentDate, true) ||
+    matchDay(new Date('2023-Jan-20'), new Date('2023-Jan-24'), currentDate, true),
   sharedProps: {
     circleFill: palette.red200,
     circleOuterFill: palette.gold400,
