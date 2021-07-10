@@ -3,7 +3,13 @@ import { ServerListingCard } from '@roleypoly/design-system/molecules/server-lis
 import { getRecentAndSortedGuilds } from '@roleypoly/misc-utils/guildListing';
 import { GuildSlug } from '@roleypoly/types';
 import * as React from 'react';
-import { CardContainer, ContentContainer, SectionHead } from './ServersListing.styled';
+import { GoHistory, GoListUnordered } from 'react-icons/go';
+import {
+  CardContainer,
+  ContentContainer,
+  Line,
+  SectionHead,
+} from './ServersListing.styled';
 
 type ServersListingProps = {
   guilds: GuildSlug[];
@@ -32,11 +38,19 @@ export const ServersListing = (props: ServersListingProps) => {
     <ContentContainer>
       {recentGuildSlugs.length !== 0 && (
         <>
-          <SectionHead>Recent Guilds</SectionHead>
+          <SectionHead>
+            <GoHistory />
+            &nbsp; Recent Guilds
+            <Line />
+          </SectionHead>
           <CardList guilds={recentGuildSlugs} />
-          <SectionHead>All Guilds</SectionHead>
         </>
       )}
+      <SectionHead>
+        <GoListUnordered />
+        &nbsp; All Guilds
+        <Line />
+      </SectionHead>
       <CardList guilds={sortedGuildSlugs} />
     </ContentContainer>
   );

@@ -3,9 +3,9 @@ import { getRecentAndSortedGuilds } from '@roleypoly/misc-utils/guildListing';
 import { GuildSlug, UserGuildPermissions } from '@roleypoly/types';
 import * as React from 'react';
 import Scrollbars from 'react-custom-scrollbars';
-import { GoStar, GoZap } from 'react-icons/go';
+import { GoHistory, GoListUnordered, GoStar, GoZap } from 'react-icons/go';
 import ReactTooltip from 'react-tooltip';
-import { GuildNavItem } from './GuildNav.styled';
+import { GuildNavItem, HeadLine, SectionHead } from './GuildNav.styled';
 
 type Props = {
   guilds: GuildSlug[];
@@ -55,9 +55,17 @@ export const GuildNav = (props: Props) => {
       >
         {recentGuildSlugs && (
           <>
-            <div>Recents</div>
+            <SectionHead>
+              <GoHistory />
+              &nbsp; Recent Guilds
+              <HeadLine />
+            </SectionHead>
             <NavList guilds={recentGuildSlugs} />
-            <div>All Guilds</div>
+            <SectionHead>
+              <GoListUnordered />
+              &nbsp; All Guilds
+              <HeadLine />
+            </SectionHead>
           </>
         )}
         <NavList guilds={sortedGuildSlugs} />

@@ -1,4 +1,6 @@
 import { onTablet } from '@roleypoly/design-system/atoms/breakpoints';
+import { palette } from '@roleypoly/design-system/atoms/colors';
+import { text500 } from '@roleypoly/design-system/atoms/typography';
 import styled, { css } from 'styled-components';
 
 export const ContentContainer = styled.div`
@@ -23,5 +25,24 @@ export const CardContainer = styled.div`
 `;
 
 export const SectionHead = styled.div`
+  ${text500}
+
   flex: 1 1 100%;
+  padding: 0.6em;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+
+  svg {
+    position: relative;
+    top: 1px;
+    color: ${palette.taupe500};
+  }
+`;
+
+export const Line = styled.div`
+  height: 1px;
+  flex: 1;
+  background-color: ${palette.taupe400};
+  margin-left: 1em;
 `;
