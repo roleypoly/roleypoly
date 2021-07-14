@@ -14,6 +14,7 @@ export default {
     ),
   ],
   args: {
+    errors: { validationStatus: 0 },
     guilds: mastheadSlugs,
     user: user,
     guild: guildEnum.guilds[0],

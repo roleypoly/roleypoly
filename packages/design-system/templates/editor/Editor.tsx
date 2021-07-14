@@ -11,7 +11,9 @@ export const EditorTemplate = (
     props;
   return (
     <AppShell {...appShellProps} activeGuildId={guild.id} small double>
-      <EditorShell guild={guild} onGuildChange={onGuildChange} />
+      <EditorShell guild={guild} onGuildChange={onGuildChange} errors={props.errors} />
     </AppShell>
   );
 };
+
+export type EditorErrors = EditorShellProps['errors'];

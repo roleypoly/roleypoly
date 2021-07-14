@@ -44,6 +44,7 @@ export const transformLegacyGuild = (guild: LegacyGuildData): GuildData => {
     id: guild.id,
     message: guild.message,
     features: Features.LegacyGuild,
+    auditLogWebhook: null,
     categories: sortBy(Object.values(guild.categories), 'position').map(
       (category, idx) => ({
         ...category,

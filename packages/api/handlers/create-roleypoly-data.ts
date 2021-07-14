@@ -11,6 +11,7 @@ export const CreateRoleypolyData = onlyRootUsers(
       message:
         'Hey, this is kind of a demo setup so features/use cases can be shown off.\n\nThanks for using Roleypoly <3',
       features: Features.Preview,
+      auditLogWebhook: null,
       categories: [
         {
           id: KSUID.randomSync().string,

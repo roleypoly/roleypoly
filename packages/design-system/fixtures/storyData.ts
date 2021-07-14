@@ -174,6 +174,7 @@ export const guildData: GuildData = {
   message: 'henlo worl!!',
   categories: [mockCategory, mockCategorySingle],
   features: Features.None,
+  auditLogWebhook: null,
 };
 
 export const user: DiscordUser = {

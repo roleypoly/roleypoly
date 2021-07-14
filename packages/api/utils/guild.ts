@@ -128,17 +128,22 @@ export const updateGuildMemberRoles = async (
 
 export const getGuildData = async (id: string): Promise<GuildDataT> => {
   const guildData = await GuildData.get<GuildDataT>(id);
+  const empty = {
+    id,
+    message: '',
+    categories: [],
+    features: Features.None,
+    auditLogWebhook: null,
+  };
 
   if (!guildData) {
-    return {
-      id,
-      message: '',
-      categories: [],
-      features: Features.None,
-    };
+    return empty;
   }
 
-  return guildData;
+  return {
+    ...empty,
+    ...guildData,
+  };
 };
 
 const calculateRoleSafety = (role: Role | APIRole, highestBotRolePosition: number) => {
