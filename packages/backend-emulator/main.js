@@ -160,7 +160,6 @@ const rebuild = () =>
       } else {
         if (stats.hasErrors()) {
           console.error('Compilation errored:', stats.compilation.errors);
-          return;
         }
 
         console.log('Compilation done.');
