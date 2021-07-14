@@ -1,10 +1,11 @@
 import { navigate, Redirect } from '@reach/router';
-import { EditorTemplate } from '@roleypoly/design-system/templates/editor';
+import { EditorErrors, EditorTemplate } from '@roleypoly/design-system/templates/editor';
 import { GenericLoadingTemplate } from '@roleypoly/design-system/templates/generic-loading';
 import {
   GuildDataUpdate,
   PresentableGuild,
   UserGuildPermissions,
+  WebhookValidationStatus,
 } from '@roleypoly/types';
 import * as React from 'react';
 import { useAppShellProps } from '../contexts/app-shell/AppShellContext';
@@ -25,6 +26,9 @@ const Editor = (props: EditorProps) => {
 
   const [guild, setGuild] = React.useState<PresentableGuild | null | false>(null);
   const [pending, setPending] = React.useState(false);
+  const [errors, setErrors] = React.useState<EditorErrors>({
+    webhookValidation: WebhookValidationStatus.Ok,
+  });
 
   React.useEffect(() => {
     const shouldPullUncached = (): boolean => {
@@ -87,6 +91,7 @@ const Editor = (props: EditorProps) => {
     const updatePayload: GuildDataUpdate = {
       message: guild.data.message,
       categories: guild.data.categories,
+      auditLogWebhook: guild.data.auditLogWebhook,
     };
 
     const response = await authedFetch(`/update-guild/${serverID}`, {
@@ -96,16 +101,31 @@ const Editor = (props: EditorProps) => {
 
     if (response.status === 200) {
       setGuild(guild);
-      setPending(false);
+      navigate(`/s/${props.serverID}`);
     }
 
-    navigate(`/s/${props.serverID}`);
+    if (response.status === 400) {
+      const error = await response.json();
+      if (error.data.what === 'webhookValidationStatus') {
+        setErrors((errors) => ({
+          ...errors,
+          webhookValidation: error.data.webhookValidationStatus,
+        }));
+      }
+    }
+
+    setPending(false);
   };
 
   return (
     <>
       <Title title={`Editing ${guild.guild.name} - Roleypoly`} />
-      <EditorTemplate {...appShellProps} guild={guild} onGuildChange={onGuildChange} />
+      <EditorTemplate
+        {...appShellProps}
+        guild={guild}
+        onGuildChange={onGuildChange}
+        errors={errors}
+      />
     </>
   );
 };

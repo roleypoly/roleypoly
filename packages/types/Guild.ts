@@ -20,6 +20,7 @@ export type GuildData = {
   message: string;
   categories: Category[];
   features: Features;
+  auditLogWebhook: string | null;
 };
 
 export type GuildDataUpdate = Omit<Omit<GuildData, 'features'>, 'id'>;
@@ -48,3 +49,11 @@ export type GuildSlug = {
   icon: string;
   permissionLevel: UserGuildPermissions;
 };
+
+export enum WebhookValidationStatus {
+  Ok,
+  NoneSet,
+  DoesNotExist,
+  NotSameGuild,
+  NotDiscordURL,
+}

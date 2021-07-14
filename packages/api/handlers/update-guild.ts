@@ -1,8 +1,20 @@
-import { GuildDataUpdate, SessionData, UserGuildPermissions } from '@roleypoly/types';
+import { sendAuditLog, validateAuditLogWebhook } from '@roleypoly/api/utils/audit-log';
+import {
+  GuildDataUpdate,
+  SessionData,
+  UserGuildPermissions,
+  WebhookValidationStatus,
+} from '@roleypoly/types';
 import { withSession } from '../utils/api-tools';
 import { getGuildData } from '../utils/guild';
 import { GuildData } from '../utils/kv';
-import { lowPermissions, missingParameters, notFound, ok } from '../utils/responses';
+import {
+  invalid,
+  lowPermissions,
+  missingParameters,
+  notFound,
+  ok,
+} from '../utils/responses';
 
 export const UpdateGuild = withSession(
   (session: SessionData) =>
@@ -27,12 +39,41 @@ export const UpdateGuild = withSession(
         return lowPermissions();
       }
 
+      const oldGuildData = await getGuildData(guildID);
       const newGuildData = {
-        ...(await getGuildData(guildID)),
+        ...oldGuildData,
         ...guildUpdate,
       };
 
+      if (oldGuildData.auditLogWebhook !== newGuildData.auditLogWebhook) {
+        try {
+          const validationStatus = await validateAuditLogWebhook(
+            guild,
+            newGuildData.auditLogWebhook
+          );
+
+          if (validationStatus !== WebhookValidationStatus.Ok) {
+            if (validationStatus === WebhookValidationStatus.NoneSet) {
+              newGuildData.auditLogWebhook = null;
+            } else {
+              return invalid({
+                what: 'webhookValidationStatus',
+                webhookValidationStatus: validationStatus,
+              });
+            }
+          }
+        } catch (e) {
+          invalid();
+        }
+      }
+
       await GuildData.put(guildID, newGuildData);
+
+      try {
+        await sendAuditLog(oldGuildData, guildUpdate, session.user);
+      } catch (e) {
+        // Catching errors here because this isn't a critical task, and could simply fail due to operator error.
+      }
 
       return ok();
     }

@@ -14,3 +14,6 @@ export const conflict = () => respond({ error: 'conflict' }, { status: 409 });
 
 export const rateLimited = () =>
   respond({ error: 'rate limit hit, enhance your calm' }, { status: 419 });
+
+export const invalid = (obj: any = {}) =>
+  respond({ err: 'client sent something invalid', data: obj }, { status: 400 });

@@ -1,14 +1,22 @@
 import * as React from 'react';
-import { Space as SpaceComponent } from './Space';
+import { LinedSpace, Space } from './Space';
 
 export default {
-  title: 'Atoms',
+  title: 'Atoms/Space',
 };
 
-export const Space = () => (
+export const space = () => (
   <>
     hello world
-    <SpaceComponent />
+    <Space />
+    but im over here
+  </>
+);
+
+export const linedSpace = () => (
+  <>
+    hello world
+    <LinedSpace />
     but im over here
   </>
 );
