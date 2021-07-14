@@ -1,3 +1,4 @@
+import { Button } from '@roleypoly/design-system/atoms/button';
 import { Popover } from '@roleypoly/design-system/atoms/popover';
 import { Role } from '@roleypoly/design-system/atoms/role';
 import { TextInput } from '@roleypoly/design-system/atoms/text-input';
@@ -7,7 +8,7 @@ import { RoleSearch } from '@roleypoly/design-system/molecules/role-search';
 import { Category as CategoryT, CategoryType, Role as RoleT } from '@roleypoly/types';
 import { sortBy, uniq } from 'lodash';
 import * as React from 'react';
-import { GoPlus } from 'react-icons/go';
+import { GoHistory, GoPlus, GoTrashcan } from 'react-icons/go';
 import ReactTooltip from 'react-tooltip';
 import { AddRoleButton, Box, RoleContainer, Section } from './EditorCategory.styled';
 
@@ -17,6 +18,8 @@ export type CategoryProps = {
   category: CategoryT;
   unselectedRoles: RoleT[];
   onChange: (updatedCategory: CategoryT) => void;
+  onReset: () => void;
+  onDelete: () => void;
 };
 
 export const EditorCategory = (props: CategoryProps) => {
@@ -43,6 +46,16 @@ export const EditorCategory = (props: CategoryProps) => {
 
   return (
     <Box>
+      <Section big actions>
+        <Button size="small" color="muted" icon={<GoHistory />} onClick={props.onReset}>
+          Reset to Default
+        </Button>
+        &nbsp;
+        <Button size="small" color="muted" icon={<GoTrashcan />} onClick={props.onDelete}>
+          Delete Category
+        </Button>
+      </Section>
+
       <Section>
         <div>
           <Text>Category Name</Text>

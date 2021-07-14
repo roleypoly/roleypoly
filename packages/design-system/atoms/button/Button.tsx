@@ -31,7 +31,9 @@ export const Button = (props: ButtonProps) => {
       onClick={props.onClick}
       disabled={props.disabled}
     >
-      {props.icon && <IconContainer>{props.icon}</IconContainer>}
+      {props.icon && (
+        <IconContainer small={props.size === 'small'}>{props.icon}</IconContainer>
+      )}
       <div>{props.children}</div>
     </StyledButton>
   );

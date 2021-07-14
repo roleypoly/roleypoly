@@ -29,12 +29,18 @@ export const Box = styled.div`
   flex-wrap: wrap;
 `;
 
-export const Section = styled.div<{ big?: boolean }>`
+export const Section = styled.div<{ big?: boolean; actions?: boolean }>`
   padding: 7px 5px;
   flex: 1 2 ${(props) => (props.big ? '100%' : '50%')};
   ${onSmallScreen(css`
     flex-basis: 100%;
   `)}
+
+  ${(props) =>
+    props.actions &&
+    css`
+      display: flex;
+    `};
 `;
 
 export const RoleContainer = styled.div`

@@ -34,6 +34,13 @@ const resetOrder = (categories: Category[]) =>
 const forceOrder = (categories: Category[]) =>
   categories.map((c, index) => ({ ...c, position: index }));
 
+const defaultCategory: Omit<Omit<Category, 'id'>, 'position'> = {
+  name: 'New Category',
+  type: CategoryType.Multi,
+  roles: [],
+  hidden: false,
+};
+
 export const ServerCategoryEditor = (props: Props) => {
   const [reorderMode, setReorderMode] = React.useState(false);
 
@@ -62,12 +69,9 @@ export const ServerCategoryEditor = (props: Props) => {
     const categories = resetOrder(props.guild.data.categories);
 
     const newCategory: Category = {
+      ...defaultCategory,
       id: KSUID.randomSync().string,
-      name: 'New Category',
-      type: CategoryType.Multi,
       position: categories.length,
-      roles: [],
-      hidden: false,
     };
 
     props.onChange([...categories, newCategory]);
@@ -80,6 +84,25 @@ export const ServerCategoryEditor = (props: Props) => {
     }
 
     props.onChange(resetOrder(categories));
+  };
+
+  const onCategoryDelete = (category: Category) => () => {
+    const newCategories = props.guild.data.categories.filter((c) => c.id !== category.id);
+    props.onChange(resetOrder(newCategories));
+  };
+
+  const onCategoryReset = (category: Category) => () => {
+    const newCategories = props.guild.data.categories.map((c) => {
+      if (c.id === category.id) {
+        return {
+          ...defaultCategory,
+          id: KSUID.randomSync().string,
+          position: category.position,
+        };
+      }
+      return c;
+    });
+    props.onChange(resetOrder(newCategories));
   };
 
   if (reorderMode) {
@@ -109,6 +132,8 @@ export const ServerCategoryEditor = (props: Props) => {
                   .filter((r) => r !== undefined) as Role[]
               }
               onChange={updateSingleCategory}
+              onDelete={onCategoryDelete(category)}
+              onReset={onCategoryReset(category)}
             />
           </CategoryContainer>
         ))
