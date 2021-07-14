@@ -29,7 +29,7 @@ export const PopoverBase = styled.div<PopoverStyledProps>`
     `}
   ${onSmallScreen(
     css`
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       bottom: 0;
@@ -37,6 +37,8 @@ export const PopoverBase = styled.div<PopoverStyledProps>`
       min-width: unset;
       width: 100vw;
       height: 100vh;
+      z-index: 200;
+      margin: 0 !important;
     `
   )};
 `;
@@ -44,7 +46,7 @@ export const PopoverBase = styled.div<PopoverStyledProps>`
 export const DefocusHandler = styled.div<PopoverStyledProps>`
   background-color: rgba(0, 0, 0, 0.01);
   position: fixed;
-  z-index: -1;
+  z-index: 0;
   top: 0;
   bottom: 0;
   left: 0;
