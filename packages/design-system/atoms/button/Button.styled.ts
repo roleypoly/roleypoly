@@ -3,9 +3,18 @@ import { fontCSS } from '@roleypoly/design-system/atoms/fonts';
 import { text300, text400 } from '@roleypoly/design-system/atoms/typography';
 import styled, { css } from 'styled-components';
 
-export const IconContainer = styled.div`
+export const IconContainer = styled.div<{ small?: boolean }>`
   margin-right: 0.6rem;
   font-size: 1.75em;
+
+  ${(props) =>
+    props.small &&
+    css`
+      margin-right: 0.2rem;
+      font-size: 1.25em;
+      position: relative;
+      top: 2px;
+    `}
 `;
 
 const base = css`
