@@ -1,3 +1,4 @@
+import { onTablet } from '@roleypoly/design-system/atoms/breakpoints';
 import { palette } from '@roleypoly/design-system/atoms/colors';
 import { transitions } from '@roleypoly/design-system/atoms/timings';
 import styled, { css } from 'styled-components';
@@ -33,9 +34,10 @@ export const Circle = styled.div<StyledProps>`
     width: 10px;
     height: 10px;
     fill-opacity: ${(props) => (props.selected || props.disabled ? 1 : 0)};
-    transition: fill-opacity ${transitions.in2in}s ease-in-out;
+    transition: fill-opacity ${transitions.in2in}s ease-in-out,
+      fill ${transitions.in2in}s ease-in-out;
     fill: ${(props) =>
-      props.disabled && props.defaultColor
+      (props.disabled || !props.selected) && props.defaultColor
         ? 'var(--role-color)'
         : 'var(--role-contrast)'};
   }
@@ -57,7 +59,7 @@ export const Outer = styled.div<StyledProps>`
   cursor: pointer;
   ${(props) =>
     !props.disabled
-      ? css`
+      ? onTablet(css`
           &:hover {
             transform: translateY(-2px);
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
@@ -70,7 +72,7 @@ export const Outer = styled.div<StyledProps>`
             transform: translateY(0);
             box-shadow: 0 0 0 transparent;
           }
-        `
+        `)
       : null};
 `;
 
