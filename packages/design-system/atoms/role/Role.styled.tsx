@@ -1,3 +1,4 @@
+import { onSmallScreen } from '@roleypoly/design-system/atoms/breakpoints';
 import { palette } from '@roleypoly/design-system/atoms/colors';
 import { transitions } from '@roleypoly/design-system/atoms/timings';
 import styled, { css } from 'styled-components';
@@ -63,6 +64,11 @@ export const Outer = styled.div<StyledProps>`
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
             ${Circle} svg {
               fill-opacity: 1;
+              ${onSmallScreen(
+                css`
+                  fill-opacity: 0;
+                `
+              )}
             }
           }
 
