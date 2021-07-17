@@ -5,10 +5,10 @@ export const Space = styled.div`
   height: 15px;
 `;
 
-export const LinedSpace = styled.div<{ width?: number }>`
+export const LinedSpace = styled.div<{ width?: number; color?: string }>`
   height: 7.5px;
   margin-top: 7.5px;
-  border-top: 1px solid ${palette.taupe300};
+  border-top: 1px solid ${(props) => (props.color ? props.color : palette.taupe300)};
   ${(props) =>
     props.width &&
     css`

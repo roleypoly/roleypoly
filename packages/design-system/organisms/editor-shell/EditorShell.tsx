@@ -5,12 +5,7 @@ import { ServerUtilities } from '@roleypoly/design-system/molecules/server-utili
 import { SecondaryEditing } from '@roleypoly/design-system/organisms/masthead';
 import { Container } from '@roleypoly/design-system/organisms/role-picker/RolePicker.styled';
 import { ServerCategoryEditor } from '@roleypoly/design-system/organisms/server-category-editor';
-import {
-  Category,
-  GuildData,
-  PresentableGuild,
-  WebhookValidationStatus,
-} from '@roleypoly/types';
+import { Category, PresentableGuild } from '@roleypoly/types';
 import deepEqual from 'deep-equal';
 import React from 'react';
 
@@ -19,26 +14,17 @@ export type EditorShellProps = {
   onGuildChange?: (guild: PresentableGuild) => void;
   onCategoryChange?: (category: Category) => void;
   onMessageChange?: (message: PresentableGuild['data']['message']) => void;
-  errors: {
-    webhookValidation: WebhookValidationStatus;
-  };
 };
 
 export const EditorShell = (props: EditorShellProps) => {
   const [guild, setGuild] = React.useState<PresentableGuild>(props.guild);
-  const [errors, setErrors] = React.useState<EditorShellProps['errors']>(props.errors);
 
   React.useEffect(() => {
     setGuild(props.guild);
   }, [props.guild]);
 
-  React.useEffect(() => {
-    setErrors(props.errors);
-  }, [props.errors]);
-
   const reset = () => {
     setGuild(props.guild);
-    setErrors({ webhookValidation: WebhookValidationStatus.Ok });
   };
 
   const replaceCategories = (categories: Category[]) => {
@@ -50,12 +36,6 @@ export const EditorShell = (props: EditorShellProps) => {
   const onMessageChange = (message: PresentableGuild['data']['message']) => {
     setGuild((currentGuild) => {
       return { ...currentGuild, data: { ...guild.data, message } };
-    });
-  };
-
-  const updateGuildData = (data: PresentableGuild['data']) => {
-    setGuild((currentGuild) => {
-      return { ...currentGuild, data };
     });
   };
 
@@ -87,47 +67,8 @@ export const EditorShell = (props: EditorShellProps) => {
         <Space />
         <ServerCategoryEditor guild={guild} onChange={replaceCategories} />
         <LinedSpace />
-        <ServerUtilities
-          guildData={guild.data}
-          onChange={updateGuildData}
-          validationStatus={validateWebhook(
-            guild.data.auditLogWebhook,
-            errors.webhookValidation
-          )}
-        />
+        <ServerUtilities guildData={guild.data} />
       </Container>
     </>
   );
-};
-
-const validateWebhook = (
-  webhook: GuildData['auditLogWebhook'],
-  validationStatus: WebhookValidationStatus
-) => {
-  if (!webhook) {
-    return WebhookValidationStatus.NoneSet;
-  }
-
-  try {
-    const url = new URL(webhook);
-
-    if (
-      url.hostname !== 'discord.com' ||
-      url.protocol !== 'https:' ||
-      url.pathname.startsWith('api/webhooks/')
-    ) {
-      return WebhookValidationStatus.NotDiscordURL;
-    }
-  } catch (e) {
-    return WebhookValidationStatus.Ok;
-  }
-
-  if (
-    validationStatus !== WebhookValidationStatus.Ok &&
-    validationStatus !== WebhookValidationStatus.NoneSet
-  ) {
-    return validationStatus;
-  }
-
-  return WebhookValidationStatus.Ok;
 };
