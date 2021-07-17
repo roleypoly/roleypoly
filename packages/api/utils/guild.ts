@@ -1,13 +1,23 @@
+import { Handler } from '@roleypoly/api/router';
+import {
+  lowPermissions,
+  missingParameters,
+  notFound,
+  rateLimited,
+} from '@roleypoly/api/utils/responses';
 import { evaluatePermission, permissions } from '@roleypoly/misc-utils/hasPermission';
 import {
   Features,
   Guild,
   GuildData as GuildDataT,
+  GuildSlug,
   OwnRoleInfo,
   Role,
   RoleSafety,
+  SessionData,
+  UserGuildPermissions,
 } from '@roleypoly/types';
-import { AuthType, cacheLayer, discordFetch } from './api-tools';
+import { AuthType, cacheLayer, discordFetch, isRoot, withSession } from './api-tools';
 import { botClientID, botToken } from './config';
 import { GuildData, Guilds } from './kv';
 import { useRateLimiter } from './rate-limiting';
@@ -178,3 +188,74 @@ export const useGuildRateLimiter = (
   key: GuildRateLimiterKey,
   timeoutSeconds: number
 ) => useRateLimiter(Guilds, `guilds/${guildID}/rate-limit/${key}`, timeoutSeconds);
+
+type AsEditorOptions = {
+  rateLimitKey?: GuildRateLimiterKey;
+  rateLimitTimeoutSeconds?: number;
+};
+
+type UserGuildContext = {
+  guildID: string;
+  guild: GuildSlug;
+  url: URL;
+};
+
+export const asEditor = (
+  options: AsEditorOptions = {},
+  wrappedHandler: (session: SessionData, userGuildContext: UserGuildContext) => Handler
+): Handler =>
+  withSession((session: SessionData) => async (request: Request): Promise<Response> => {
+    const { rateLimitKey, rateLimitTimeoutSeconds } = options;
+    const url = new URL(request.url);
+    const [, , guildID] = url.pathname.split('/');
+    if (!guildID) {
+      return missingParameters();
+    }
+
+    let rateLimit: null | ReturnType<typeof useGuildRateLimiter> = null;
+    if (rateLimitKey) {
+      rateLimit = await useGuildRateLimiter(
+        guildID,
+        rateLimitKey,
+        rateLimitTimeoutSeconds || 60
+      );
+    }
+
+    const userIsRoot = isRoot(session.user.id);
+
+    let guild = session.guilds.find((guild) => guild.id === guildID);
+    if (!guild) {
+      if (!userIsRoot) {
+        return notFound();
+      }
+
+      const fullGuild = await getGuild(guildID);
+      if (!fullGuild) {
+        return notFound();
+      }
+
+      guild = {
+        id: fullGuild.id,
+        name: fullGuild.name,
+        icon: fullGuild.icon,
+        permissionLevel: UserGuildPermissions.Admin, // root will always be considered admin
+      };
+    }
+
+    const userIsManager = guild.permissionLevel === UserGuildPermissions.Manager;
+    const userIsAdmin = guild.permissionLevel === UserGuildPermissions.Admin;
+
+    if (!userIsAdmin && !userIsManager) {
+      return lowPermissions();
+    }
+
+    if (!userIsRoot && rateLimit && (await rateLimit())) {
+      return rateLimited();
+    }
+
+    return await wrappedHandler(session, {
+      guildID,
+      guild,
+      url,
+    })(request);
+  });

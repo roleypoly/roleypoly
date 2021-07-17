@@ -1,43 +1,14 @@
 import { sendAuditLog, validateAuditLogWebhook } from '@roleypoly/api/utils/audit-log';
-import {
-  GuildDataUpdate,
-  SessionData,
-  UserGuildPermissions,
-  WebhookValidationStatus,
-} from '@roleypoly/types';
-import { withSession } from '../utils/api-tools';
-import { getGuildData } from '../utils/guild';
+import { GuildDataUpdate, WebhookValidationStatus } from '@roleypoly/types';
+import { asEditor, getGuildData } from '../utils/guild';
 import { GuildData } from '../utils/kv';
-import {
-  invalid,
-  lowPermissions,
-  missingParameters,
-  notFound,
-  ok,
-} from '../utils/responses';
+import { invalid, ok } from '../utils/responses';
 
-export const UpdateGuild = withSession(
-  (session: SessionData) =>
+export const UpdateGuild = asEditor(
+  {},
+  (session, { guildID, guild }) =>
     async (request: Request): Promise<Response> => {
-      const url = new URL(request.url);
-      const [, , guildID] = url.pathname.split('/');
-      if (!guildID) {
-        return missingParameters();
-      }
-
       const guildUpdate = (await request.json()) as GuildDataUpdate;
-
-      const guild = session.guilds.find((guild) => guild.id === guildID);
-      if (!guild) {
-        return notFound();
-      }
-
-      if (
-        guild?.permissionLevel !== UserGuildPermissions.Manager &&
-        guild?.permissionLevel !== UserGuildPermissions.Admin
-      ) {
-        return lowPermissions();
-      }
 
       const oldGuildData = await getGuildData(guildID);
       const newGuildData = {
