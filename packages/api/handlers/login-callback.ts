@@ -17,7 +17,13 @@ import {
   userAgent,
 } from '../utils/api-tools';
 import { Bounce } from '../utils/bounce';
-import { apiPublicURI, botClientID, botClientSecret, uiPublicURI } from '../utils/config';
+import {
+  apiPublicURI,
+  botClientID,
+  botClientSecret,
+  discordAPIBase,
+  uiPublicURI,
+} from '../utils/config';
 import { Sessions } from '../utils/kv';
 
 const AuthErrorResponse = (extra?: string) =>
@@ -72,7 +78,7 @@ export const LoginCallback = resolveFailures(
       code,
     };
 
-    const tokenFetch = await fetch('https://discord.com/api/v8/oauth2/token', {
+    const tokenFetch = await fetch(discordAPIBase + '/oauth2/token', {
       method: 'POST',
       headers: {
         'content-type': 'application/x-www-form-urlencoded',

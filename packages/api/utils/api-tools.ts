@@ -5,7 +5,7 @@ import {
 import { SessionData, UserGuildPermissions } from '@roleypoly/types';
 import KSUID from 'ksuid';
 import { Handler } from '../router';
-import { allowedCallbackHosts, apiPublicURI, rootUsers } from './config';
+import { allowedCallbackHosts, apiPublicURI, discordAPIBase, rootUsers } from './config';
 import { Sessions, WrappedKVNamespace } from './kv';
 
 export const formData = (obj: Record<string, any>): string => {
@@ -84,7 +84,7 @@ export const discordFetch = async <T>(
   authType: AuthType = AuthType.Bearer,
   init?: RequestInit
 ): Promise<T | null> => {
-  const response = await fetch('https://discord.com/api/v8' + url, {
+  const response = await fetch(discordAPIBase + url, {
     ...(init || {}),
     headers: {
       ...(init?.headers || {}),

@@ -1,6 +1,6 @@
 import { SessionData } from '@roleypoly/types';
 import { formData, respond, userAgent, withSession } from '../utils/api-tools';
-import { botClientID, botClientSecret } from '../utils/config';
+import { botClientID, botClientSecret, discordAPIBase } from '../utils/config';
 import { Sessions } from '../utils/kv';
 
 export const RevokeSession = withSession(
@@ -11,7 +11,7 @@ export const RevokeSession = withSession(
       client_secret: botClientSecret,
     };
 
-    await fetch('https://discord.com/api/v8/oauth2/token/revoke', {
+    await fetch(discordAPIBase + '/oauth2/token/revoke', {
       method: 'POST',
       headers: {
         'content-type': 'application/x-www-form-urlencoded',
