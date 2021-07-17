@@ -21,10 +21,11 @@ import {
 const notFound = () => respond({ error: 'guild not found' }, { status: 404 });
 
 export const UpdateRoles = withSession(
-  ({ guilds, user: { id: userID } }: SessionData) =>
+  ({ guilds, user: { id: userID, username, discriminator } }: SessionData) =>
     async (request: Request) => {
       const updateRequest = (await request.json()) as RoleUpdate;
-      const [, , guildID] = new URL(request.url).pathname.split('/');
+      const url = new URL(request.url);
+      const [, , guildID] = url.pathname.split('/');
 
       if (!guildID) {
         return respond({ error: 'guild ID missing from URL' }, { status: 400 });
@@ -67,6 +68,7 @@ export const UpdateRoles = withSession(
           method: 'PATCH',
           headers: {
             'content-type': 'application/json',
+            'x-audit-log-reason': `${username}#${discriminator} changes their roles via ${url.hostname}`,
           },
           body: JSON.stringify({
             roles: newRoles,
