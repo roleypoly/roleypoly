@@ -21,7 +21,6 @@ export const ClickaleBlock = styled.a`
 
 export const Title = styled.div`
   ${text400};
-  /* padding: 0.15em 0; */
 
   svg {
     color: ${palette.taupe500};
