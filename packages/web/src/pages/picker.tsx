@@ -1,4 +1,4 @@
-import { Redirect, redirectTo } from '@reach/router';
+import { navigate, Redirect } from '@reach/router';
 import { GenericLoadingTemplate } from '@roleypoly/design-system/templates/generic-loading';
 import { RolePickerTemplate } from '@roleypoly/design-system/templates/role-picker';
 import { ServerSetupTemplate } from '@roleypoly/design-system/templates/server-setup';
@@ -32,7 +32,7 @@ const Picker = (props: PickerProps) => {
       const data = await getFullGuild(props.serverID);
 
       if (data === false) {
-        redirectTo('/error/accessControlViolation');
+        navigate('/error/accessControlViolation');
         return;
       }
 
