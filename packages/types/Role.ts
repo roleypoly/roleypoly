@@ -3,6 +3,7 @@ export enum RoleSafety {
   HigherThanBot = 1 << 1,
   DangerousPermissions = 1 << 2,
   ManagedRole = 1 << 3,
+  AccessControl = 1 << 4,
 }
 
 export type Role = {

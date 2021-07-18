@@ -11,6 +11,7 @@ export type Member = {
   roles: string[];
   nick?: string;
   user?: DiscordUser;
+  pending?: boolean;
 };
 
 export type RoleypolyUser = {

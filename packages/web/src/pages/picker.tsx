@@ -1,10 +1,11 @@
-import { Redirect } from '@reach/router';
+import { Redirect, redirectTo } from '@reach/router';
 import { GenericLoadingTemplate } from '@roleypoly/design-system/templates/generic-loading';
 import { RolePickerTemplate } from '@roleypoly/design-system/templates/role-picker';
 import { ServerSetupTemplate } from '@roleypoly/design-system/templates/server-setup';
 import { PresentableGuild, RoleUpdate, UserGuildPermissions } from '@roleypoly/types';
 import * as React from 'react';
 import { useAppShellProps } from '../contexts/app-shell/AppShellContext';
+import { useGuildContext } from '../contexts/guild/GuildContext';
 import { useRecentGuilds } from '../contexts/recent-guilds/RecentGuildsContext';
 import { useSessionContext } from '../contexts/session/SessionContext';
 import { Title } from '../utils/metaTitle';
@@ -19,6 +20,7 @@ const Picker = (props: PickerProps) => {
   const { session, authedFetch, isAuthenticated } = useSessionContext();
   const { pushRecentGuild } = useRecentGuilds();
   const appShellProps = useAppShellProps();
+  const { getFullGuild } = useGuildContext();
 
   const [pickerData, setPickerData] = React.useState<PresentableGuild | null | false>(
     null
@@ -27,10 +29,14 @@ const Picker = (props: PickerProps) => {
 
   React.useEffect(() => {
     const fetchPickerData = async () => {
-      const response = await authedFetch(`/get-picker-data/${props.serverID}`);
-      const data = await response.json();
+      const data = await getFullGuild(props.serverID);
 
-      if (response.status !== 200) {
+      if (data === false) {
+        redirectTo('/error/accessControlViolation');
+        return;
+      }
+
+      if (data === null) {
         setPickerData(false);
         return;
       }
@@ -39,7 +45,7 @@ const Picker = (props: PickerProps) => {
     };
 
     fetchPickerData();
-  }, [props.serverID, authedFetch, pushRecentGuild]);
+  }, [props.serverID, getFullGuild]);
 
   React.useCallback(
     (serverID) => pushRecentGuild(serverID),

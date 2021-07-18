@@ -8,6 +8,7 @@ import {
 } from '@roleypoly/types';
 import * as React from 'react';
 import { useAppShellProps } from '../contexts/app-shell/AppShellContext';
+import { useGuildContext } from '../contexts/guild/GuildContext';
 import { useRecentGuilds } from '../contexts/recent-guilds/RecentGuildsContext';
 import { useSessionContext } from '../contexts/session/SessionContext';
 import { Title } from '../utils/metaTitle';
@@ -22,6 +23,7 @@ const Editor = (props: EditorProps) => {
   const { session, authedFetch, isAuthenticated } = useSessionContext();
   const { pushRecentGuild } = useRecentGuilds();
   const appShellProps = useAppShellProps();
+  const { getFullGuild } = useGuildContext();
 
   const [guild, setGuild] = React.useState<PresentableGuild | null | false>(null);
   const [pending, setPending] = React.useState(false);
@@ -38,20 +40,18 @@ const Editor = (props: EditorProps) => {
       return false;
     };
     const fetchGuild = async () => {
-      const skipCache = shouldPullUncached() ? '?__no_cache' : '';
-      const response = await authedFetch(`/get-picker-data/${serverID}${skipCache}`);
-      const data = await response.json();
+      const guild = await getFullGuild(serverID, shouldPullUncached());
 
-      if (response.status !== 200) {
+      if (guild === null) {
         setGuild(false);
         return;
       }
 
-      setGuild(data);
+      setGuild(guild);
     };
 
     fetchGuild();
-  }, [serverID, authedFetch]);
+  }, [serverID, getFullGuild]);
 
   React.useCallback((serverID) => pushRecentGuild(serverID), [pushRecentGuild])(serverID);
 
@@ -84,10 +84,11 @@ const Editor = (props: EditorProps) => {
 
     setPending(true);
 
-    const updatePayload: GuildDataUpdate = {
+    const updatePayload: Partial<GuildDataUpdate> = {
       message: guild.data.message,
       categories: guild.data.categories,
-      auditLogWebhook: guild.data.auditLogWebhook,
+      auditLogWebhook:
+        'https://discord.com/api/webhooks/864658054930759696/vE91liQYwmW4nS6fiT0cMfhe_dpPLBkDXOPynDNLdXZT1KdkDKm8wa4h4E4RPw0GDcJR',
     };
 
     const response = await authedFetch(`/update-guild/${serverID}`, {

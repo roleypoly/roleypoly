@@ -1,3 +1,5 @@
+import { memberPassesAccessControl } from '@roleypoly/api/utils/access-control';
+import { accessControlViolation } from '@roleypoly/api/utils/responses';
 import {
   GuildData,
   Member,
@@ -14,8 +16,8 @@ import { botToken } from '../utils/config';
 import {
   getGuild,
   getGuildData,
-  getGuildMemberRoles,
-  updateGuildMemberRoles,
+  getGuildMember,
+  updateGuildMember,
 } from '../utils/guild';
 
 const notFound = () => respond({ error: 'guild not found' }, { status: 404 });
@@ -45,18 +47,24 @@ export const UpdateRoles = withSession(
         return notFound();
       }
 
-      const guildMemberRoles = await getGuildMemberRoles(
+      const guildMember = await getGuildMember(
         { serverID: guildID, userID },
         { skipCachePull: true }
       );
-      if (!guildMemberRoles) {
+      if (!guildMember) {
         return notFound();
       }
 
+      const guildData = await getGuildData(guildID);
+
+      if (!memberPassesAccessControl(guildCheck, guildMember, guildData.accessControl)) {
+        return accessControlViolation();
+      }
+
       const newRoles = calculateNewRoles({
-        currentRoles: guildMemberRoles,
+        currentRoles: guildMember.roles,
         guildRoles: guild.roles,
-        guildData: await getGuildData(guildID),
+        guildData,
         updateRequest,
       });
 
@@ -84,7 +92,8 @@ export const UpdateRoles = withSession(
         roles: patchMemberRoles.roles,
       };
 
-      await updateGuildMemberRoles({ serverID: guildID, userID }, patchMemberRoles.roles);
+      // Delete the cache by re-pulling... might be dangerous :)
+      await updateGuildMember({ serverID: guildID, userID });
 
       return respond(updatedMember);
     }

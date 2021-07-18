@@ -11,13 +11,21 @@ import {
   Guild,
   GuildData as GuildDataT,
   GuildSlug,
+  Member,
   OwnRoleInfo,
   Role,
   RoleSafety,
   SessionData,
   UserGuildPermissions,
 } from '@roleypoly/types';
-import { AuthType, cacheLayer, discordFetch, isRoot, withSession } from './api-tools';
+import {
+  AuthType,
+  cacheLayer,
+  CacheLayerOptions,
+  discordFetch,
+  isRoot,
+  withSession,
+} from './api-tools';
 import { botClientID, botToken } from './config';
 import { GuildData, Guilds } from './kv';
 import { useRateLimiter } from './rate-limiting';
@@ -73,6 +81,8 @@ export const getGuild = cacheLayer(
       return role.position;
     }, 0);
 
+    const guildData = await getGuildData(id);
+
     const roles = guildRaw.roles.map<Role>((role) => ({
       id: role.id,
       name: role.name,
@@ -80,7 +90,7 @@ export const getGuild = cacheLayer(
       managed: role.managed,
       position: role.position,
       permissions: role.permissions,
-      safety: calculateRoleSafety(role, highestRolePosition),
+      safety: calculateRoleSafety(role, highestRolePosition, guildData),
     }));
 
     // Filters the raw guild data into data we actually want
@@ -105,14 +115,20 @@ type GuildMemberIdentity = {
 type APIMember = {
   // Only relevant stuff, again.
   roles: string[];
+  pending: boolean;
 };
 
-const guildMemberRolesIdentity = ({ serverID, userID }: GuildMemberIdentity) =>
-  `guilds/${serverID}/members/${userID}/roles`;
+export const getGuildMemberRoles = async (
+  { serverID, userID }: GuildMemberIdentity,
+  opts?: CacheLayerOptions
+) => (await getGuildMember({ serverID, userID }, opts))?.roles;
 
-export const getGuildMemberRoles = cacheLayer<GuildMemberIdentity, Role['id'][]>(
+const guildMemberIdentity = ({ serverID, userID }: GuildMemberIdentity) =>
+  `guilds/${serverID}/members/${userID}`;
+
+export const getGuildMember = cacheLayer<GuildMemberIdentity, Member>(
   Guilds,
-  guildMemberRolesIdentity,
+  guildMemberIdentity,
   async ({ serverID, userID }) => {
     const discordMember = await discordFetch<APIMember>(
       `/guilds/${serverID}/members/${userID}`,
@@ -124,16 +140,16 @@ export const getGuildMemberRoles = cacheLayer<GuildMemberIdentity, Role['id'][]>
       return null;
     }
 
-    return discordMember.roles;
+    return {
+      roles: discordMember.roles,
+      pending: discordMember.pending,
+    };
   },
   60 * 5 // 5 minute TTL
 );
 
-export const updateGuildMemberRoles = async (
-  identity: GuildMemberIdentity,
-  roles: Role['id'][]
-) => {
-  await Guilds.put(guildMemberRolesIdentity(identity), roles, 60 * 5);
+export const updateGuildMember = async (identity: GuildMemberIdentity) => {
+  await getGuildMember(identity, { skipCachePull: true });
 };
 
 export const getGuildData = async (id: string): Promise<GuildDataT> => {
@@ -144,6 +160,11 @@ export const getGuildData = async (id: string): Promise<GuildDataT> => {
     categories: [],
     features: Features.None,
     auditLogWebhook: null,
+    accessControl: {
+      allowList: [],
+      blockList: [],
+      blockPending: true,
+    },
   };
 
   if (!guildData) {
@@ -156,7 +177,11 @@ export const getGuildData = async (id: string): Promise<GuildDataT> => {
   };
 };
 
-const calculateRoleSafety = (role: Role | APIRole, highestBotRolePosition: number) => {
+const calculateRoleSafety = (
+  role: Role | APIRole,
+  highestBotRolePosition: number,
+  guildData: GuildDataT
+) => {
   let safety = RoleSafety.Safe;
 
   if (role.managed) {
@@ -173,6 +198,13 @@ const calculateRoleSafety = (role: Role | APIRole, highestBotRolePosition: numbe
     evaluatePermission(permBigInt, permissions.MANAGE_ROLES)
   ) {
     safety |= RoleSafety.DangerousPermissions;
+  }
+
+  if (
+    guildData.accessControl.allowList.includes(role.id) ||
+    guildData.accessControl.blockList.includes(role.id)
+  ) {
+    safety |= RoleSafety.AccessControl;
   }
 
   return safety;

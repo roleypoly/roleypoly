@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import { AppRouter } from './app-router/AppRouter';
 import { ApiContextProvider } from './contexts/api/ApiContext';
 import { AppShellPropsProvider } from './contexts/app-shell/AppShellContext';
+import { GuildProvider } from './contexts/guild/GuildContext';
 import { RecentGuildsProvider } from './contexts/recent-guilds/RecentGuildsContext';
 import { SessionContextProvider } from './contexts/session/SessionContext';
 
@@ -26,6 +27,7 @@ ReactDOM.render(
         RecentGuildsProvider,
         AppShellPropsProvider,
         BreakpointsProvider,
+        GuildProvider,
       ]}
     >
       <AppRouter />

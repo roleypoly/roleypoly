@@ -21,6 +21,13 @@ export type GuildData = {
   categories: Category[];
   features: Features;
   auditLogWebhook: string | null;
+  accessControl: GuildAccessControl;
+};
+
+export type GuildAccessControl = {
+  allowList: Role['id'][];
+  blockList: Role['id'][];
+  blockPending: boolean;
 };
 
 export type GuildDataUpdate = Omit<Omit<GuildData, 'features'>, 'id'>;

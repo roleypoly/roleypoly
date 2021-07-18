@@ -1,6 +1,8 @@
+import { memberPassesAccessControl } from '@roleypoly/api/utils/access-control';
+import { accessControlViolation } from '@roleypoly/api/utils/responses';
 import { DiscordUser, GuildSlug, PresentableGuild, SessionData } from '@roleypoly/types';
 import { respond, withSession } from '../utils/api-tools';
-import { getGuild, getGuildData, getGuildMemberRoles } from '../utils/guild';
+import { getGuild, getGuildData, getGuildMember } from '../utils/guild';
 
 const fail = () => respond({ error: 'guild not found' }, { status: 404 });
 
@@ -30,16 +32,20 @@ export const GetPickerData = withSession(
         return fail();
       }
 
-      const memberRolesP = getGuildMemberRoles({
+      const memberP = getGuildMember({
         serverID: guildID,
         userID,
       });
 
       const guildDataP = getGuildData(guildID);
 
-      const [guildData, memberRoles] = await Promise.all([guildDataP, memberRolesP]);
-      if (!memberRoles) {
+      const [guildData, member] = await Promise.all([guildDataP, memberP]);
+      if (!member) {
         return fail();
+      }
+
+      if (!memberPassesAccessControl(checkGuild, member, guildData.accessControl)) {
+        return accessControlViolation();
       }
 
       const presentableGuild: PresentableGuild = {
@@ -47,7 +53,7 @@ export const GetPickerData = withSession(
         guild: checkGuild,
         roles: guild.roles,
         member: {
-          roles: memberRoles,
+          roles: member.roles,
         },
         data: guildData,
       };

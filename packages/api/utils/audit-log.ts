@@ -97,6 +97,23 @@ const changeHandlers: Record<keyof GuildDataUpdate, ChangeHandler> = {
       title: `Categories were changed...`,
     },
   ],
+  accessControl: (oldValue, newValue) => [
+    {
+      timestamp: new Date().toISOString(),
+      color: 0xab9b9a,
+      fields: [
+        {
+          name: 'Changed Access Control',
+          value: getChangedAccessControl(
+            oldValue as GuildDataUpdate['accessControl'],
+            newValue as GuildDataUpdate['accessControl']
+          ).join('\n'),
+          inline: false,
+        },
+      ],
+      title: `Access Control was changed...`,
+    },
+  ],
 };
 
 export const sendAuditLog = async (
@@ -222,5 +239,28 @@ const getChangedCategories = (oldCategories: Category[], newCategories: Category
     ...addedCategories.map((c) => `➕ **Added** ${c.name}`),
     ...removedCategories.map((c) => `➖ **Removed** ${c.name}`),
     ...changedCategories.map((c) => `🔧 **Changed** ${c.name}`),
+  ];
+};
+
+const getChangedAccessControl = (
+  oldAccessControl: GuildDataUpdate['accessControl'],
+  newAccessControl: GuildDataUpdate['accessControl']
+) => {
+  const pendingChanged = newAccessControl.blockPending !== oldAccessControl.blockPending;
+
+  return [
+    `✅ Allowed roles: ${
+      newAccessControl.allowList.map((role) => `<@&${role}>`).join(', ') || `*all roles*`
+    }`,
+    `❌ Blocked roles: ${
+      newAccessControl.blockList.map((role) => `<@&${role}>`).join(', ') || `*no roles*`
+    }`,
+    ...(pendingChanged
+      ? [
+          `🔧 Pending/Welcome Screening users are ${
+            newAccessControl.blockPending ? 'blocked ❌' : 'allowed ✔'
+          }`,
+        ]
+      : []),
   ];
 };

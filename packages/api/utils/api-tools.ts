@@ -108,6 +108,10 @@ export const discordFetch = async <T>(
   }
 };
 
+export type CacheLayerOptions = {
+  skipCachePull?: boolean;
+};
+
 export const cacheLayer =
   <Identity, Data>(
     kv: WrappedKVNamespace,
@@ -115,10 +119,7 @@ export const cacheLayer =
     missHandler: (identity: Identity) => Promise<Data | null>,
     ttlSeconds?: number
   ) =>
-  async (
-    identity: Identity,
-    options: { skipCachePull?: boolean } = {}
-  ): Promise<Data | null> => {
+  async (identity: Identity, options: CacheLayerOptions = {}): Promise<Data | null> => {
     const key = keyFactory(identity);
 
     if (!options.skipCachePull) {

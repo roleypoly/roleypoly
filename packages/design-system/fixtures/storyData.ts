@@ -134,9 +134,9 @@ export const roleWikiData = {
 };
 
 export const guild: Guild = {
-  name: 'emoji megaporium',
-  id: '421896162539470888',
-  icon: '3372fd895ed913b55616c5e49cd50e60',
+  name: 'Roleypoly',
+  id: '386659935687147521',
+  icon: 'ffee638c73ff9c972554f64ca34d67ee',
   roles: [],
 };
 
@@ -169,12 +169,37 @@ export const guildMap: { [x: string]: GuildSlug } = {
   },
 };
 
+const blockedRole: Role = {
+  id: 'blocked',
+  permissions: '0',
+  name: 'blocked',
+  color: 0xff0000,
+  position: 0,
+  managed: false,
+  safety: RoleSafety.Safe,
+};
+
+const allowedRole: Role = {
+  id: 'allowed',
+  permissions: '0',
+  name: 'allowed',
+  color: 0x00ff00,
+  position: 0,
+  managed: false,
+  safety: RoleSafety.Safe,
+};
+
 export const guildData: GuildData = {
-  id: 'aaa',
+  id: '386659935687147521',
   message: 'henlo worl!!',
   categories: [mockCategory, mockCategorySingle],
   features: Features.None,
   auditLogWebhook: null,
+  accessControl: {
+    blockList: [blockedRole.id],
+    allowList: [allowedRole.id],
+    blockPending: true,
+  },
 };
 
 export const user: DiscordUser = {
@@ -206,14 +231,14 @@ export const guildEnum: GuildEnumeration = {
       roles: [...roleCategory, ...roleCategory2],
     },
     {
-      id: 'bbb',
+      id: '386659935687147521',
       guild: guildMap['Roleypoly'],
       member: {
         ...member,
         roles: ['unsafe2'],
       },
       data: guildData,
-      roles: [...roleCategory, ...roleCategory2],
+      roles: [...roleCategory, ...roleCategory2, blockedRole, allowedRole],
     },
     {
       id: 'ccc',
@@ -231,6 +256,8 @@ export const guildEnum: GuildEnumeration = {
     },
   ],
 };
+
+export const presentableGuild = guildEnum.guilds[1];
 
 export const mastheadSlugs: GuildSlug[] = guildEnum.guilds.map<GuildSlug>(
   (guild, idx) => ({

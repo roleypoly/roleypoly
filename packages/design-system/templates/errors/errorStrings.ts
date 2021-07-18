@@ -42,6 +42,11 @@ export const errorMessages: { [code: string]: ErrorMessage } = {
     japanese: `...but it didn't believe me. :( ごめんなさい`,
     friendlyCode: 'Yo.',
   },
+  accessControlViolation: {
+    english: `You're not allowed to pick roles on that server.`,
+    japanese: `このサーバーでは許可されていない権限です`,
+    friendlyCode: 'Hold up!',
+  },
 };
 
 export const getMessageFromCode = (

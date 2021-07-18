@@ -82,6 +82,10 @@ export const Role = (props: Props) => {
 
 const disabledReason = (role: RPCRole) => {
   switch (role.safety) {
+    case RoleSafety.ManagedRole:
+      return 'This role is managed by an integration/bot.';
+    case RoleSafety.AccessControl:
+      return 'This role is part of the allow/block list for the server.';
     case RoleSafety.HigherThanBot:
       return `This role is above Roleypoly's own role.`;
     case RoleSafety.DangerousPermissions:

@@ -4,12 +4,14 @@ import { GenericLoadingTemplate } from '@roleypoly/design-system/templates/gener
 import { GuildSlug } from '@roleypoly/types';
 import React from 'react';
 import { useApiContext } from '../../contexts/api/ApiContext';
+import { useGuildContext } from '../../contexts/guild/GuildContext';
 import { useSessionContext } from '../../contexts/session/SessionContext';
 import { Title } from '../../utils/metaTitle';
 
 const Login = (props: { path: string }) => {
-  const { apiUrl, fetch } = useApiContext();
+  const { apiUrl } = useApiContext();
   const { isAuthenticated } = useSessionContext();
+  const { getGuildSlug } = useGuildContext();
   // If ?r is in query, then let's render the slug page
   // If not, redirect.
   const [guildSlug, setGuildSlug] = React.useState<GuildSlug | null>(null);
@@ -32,9 +34,8 @@ const Login = (props: { path: string }) => {
     localStorage.setItem('rp_postauth_redirect', `/s/${redirectServerID}`);
 
     const fetchGuildSlug = async (id: string) => {
-      const response = await fetch(`/get-slug/${id}`);
-      if (response.status === 200) {
-        const slug = await response.json();
+      const slug = await getGuildSlug(id);
+      if (slug) {
         setGuildSlug(slug);
       }
     };
@@ -44,7 +45,7 @@ const Login = (props: { path: string }) => {
     if (isAuthenticated) {
       redirectTo(`/s/${redirectServerID}`);
     }
-  }, [apiUrl, fetch, isAuthenticated]);
+  }, [apiUrl, getGuildSlug, isAuthenticated]);
 
   if (guildSlug === null) {
     return <GenericLoadingTemplate>Sending you to Discord...</GenericLoadingTemplate>;

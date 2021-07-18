@@ -9,6 +9,7 @@ import PickerPage from '../pages/picker';
 const WhyNoRoles = React.lazy(() => import('../pages/help/why-no-roles'));
 const ServersPage = React.lazy(() => import('../pages/servers'));
 const EditorPage = React.lazy(() => import('../pages/editor'));
+const AccessControlPage = React.lazy(() => import('../pages/editor/access-control'));
 
 const MachineryNewSession = React.lazy(() => import('../pages/machinery/new-session'));
 const MachineryLogout = React.lazy(() => import('../pages/machinery/logout'));
@@ -35,6 +36,10 @@ export const AppRouter = () => {
       <RouteWrapper component={ServersPage} path="/servers" />
       <RouteWrapper component={PickerPage} path="/s/:serverID" />
       <RouteWrapper component={EditorPage} path="/s/:serverID/edit" />
+      <RouteWrapper
+        component={AccessControlPage}
+        path="/s/:serverID/edit/access-control"
+      />
 
       <RouteWrapper component={ErrorPage} path="/error" />
       <RouteWrapper component={ErrorPage} path="/error/:identity" />
