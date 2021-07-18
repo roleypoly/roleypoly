@@ -17,7 +17,13 @@ You need:
 
 Run:
 
-- `yarn storybook` to get started.
+- `yarn start:design-system` to get started.
+
+Need to make a new component?
+
+- `yarn create-component <atomic-type> <name>`
+  - This will create the skeleton files needed for a component.
+  - See below for atomic types.
 
 ## Atomic Design 101
 

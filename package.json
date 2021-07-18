@@ -20,6 +20,7 @@
     "build": "run-p -c build:*",
     "build:design-system": "yarn workspace @roleypoly/design-system run build",
     "build:web": "yarn workspace @roleypoly/web run build",
+    "create-component": "yarn workspace @roleypoly/design-system run create-component",
     "lint": "run-p -c lint:* --",
     "lint:eslint": "eslint",
     "lint:prettier": "cross-env prettier -c '**/*.{ts,tsx,css,yml,yaml,md,json,js,jsx,sh,gitignore,mdx,Dockerfile}'",
