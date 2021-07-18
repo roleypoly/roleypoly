@@ -87,8 +87,6 @@ const Editor = (props: EditorProps) => {
     const updatePayload: Partial<GuildDataUpdate> = {
       message: guild.data.message,
       categories: guild.data.categories,
-      auditLogWebhook:
-        'https://discord.com/api/webhooks/864658054930759696/vE91liQYwmW4nS6fiT0cMfhe_dpPLBkDXOPynDNLdXZT1KdkDKm8wa4h4E4RPw0GDcJR',
     };
 
     const response = await authedFetch(`/update-guild/${serverID}`, {
