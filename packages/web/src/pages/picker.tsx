@@ -20,7 +20,7 @@ const Picker = (props: PickerProps) => {
   const { session, authedFetch, isAuthenticated } = useSessionContext();
   const { pushRecentGuild } = useRecentGuilds();
   const appShellProps = useAppShellProps();
-  const { getFullGuild } = useGuildContext();
+  const { getFullGuild, uncacheGuild } = useGuildContext();
 
   const [pickerData, setPickerData] = React.useState<PresentableGuild | null | false>(
     null
@@ -93,6 +93,7 @@ const Picker = (props: PickerProps) => {
       transactions: makeRoleTransactions(pickerData.member.roles, submittedRoles),
     };
 
+    uncacheGuild(props.serverID);
     const response = await authedFetch(`/update-roles/${props.serverID}`, {
       method: 'PATCH',
       body: JSON.stringify(updatePayload),
