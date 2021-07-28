@@ -13,6 +13,8 @@ export enum Features {
   None = 0,
   Preview = None,
   LegacyGuild = 1 << 1,
+  AccessControl = 1 << 2,
+  AuditLogging = 1 << 3,
 }
 
 export type GuildData = {
