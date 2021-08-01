@@ -49,7 +49,7 @@ jobs:
           selected="${targetArtifact:-$currentHash}"
 
           mkdir worker-dist
-          gsutil cp gs://roleypoly-artifacts/backend-worker/$selected/script.js worker-dist/backend-worker.js
+          gsutil cp gs://roleypoly-artifacts/workers/$selected worker-dist
 
       - name: Terraform init
         working-directory: ./terraform

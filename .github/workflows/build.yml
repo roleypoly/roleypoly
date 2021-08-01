@@ -38,6 +38,11 @@ jobs:
     name: Worker Build & Publish
     needs:
       - node_test
+    strategy:
+      matrix:
+        worker:
+          - api
+          - interactions
     steps:
       - uses: actions/checkout@master
 
