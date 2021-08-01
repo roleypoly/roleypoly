@@ -204,5 +204,6 @@ fork(async () => {
   reload();
 });
 
-console.log('starting on http://localhost:6609');
-server.listen(6609, '0.0.0.0');
+const port = args.port || 6609;
+console.log(`starting on http://localhost:${port}`);
+server.listen(port, '0.0.0.0');

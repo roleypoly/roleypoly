@@ -34,6 +34,7 @@
     "start": "run-p -c start:*",
     "start:bot": "yarn workspace @roleypoly/bot start",
     "start:design-system": "yarn workspace @roleypoly/design-system start",
+    "start:interactions": "yarn workspace @roleypoly/interactions start",
     "start:web": "yarn workspace @roleypoly/web start",
     "start:worker": "yarn workspace @roleypoly/api start",
     "test": "jest"
