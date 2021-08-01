@@ -1,6 +1,9 @@
 {
   "name": "@roleypoly/worker-utils",
   "version": "0.1.0",
+  "scripts": {
+    "lint:types": "tsc --noEmit"
+  },
   "devDependencies": {
     "@cloudflare/workers-types": "^2.2.2"
   }

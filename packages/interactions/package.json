@@ -10,6 +10,7 @@
     "@cloudflare/workers-types": "^2.2.2",
     "@roleypoly/types": "*",
     "@roleypoly/worker-utils": "*",
+    "@types/node": "^16.4.10",
     "tweetnacl": "^1.0.3"
   }
 }

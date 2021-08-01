@@ -28,6 +28,8 @@
     "lint:terraform": "terraform fmt -recursive -check ./terraform",
     "lint:types": "tsc --noEmit",
     "lint:types-api": "yarn workspace @roleypoly/api run lint:types",
+    "lint:types-interactions": "yarn workspace @roleypoly/interactions run lint:types",
+    "lint:types-worker-utils": "yarn workspace @roleypoly/worker-utils run lint:types",
     "postinstall": "is-ci || husky install",
     "start": "run-p -c start:*",
     "start:bot": "yarn workspace @roleypoly/bot start",
