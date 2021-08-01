@@ -1,6 +1,7 @@
 import { SessionData } from '@roleypoly/types';
-import { formData, respond, userAgent, withSession } from '../utils/api-tools';
-import { botClientID, botClientSecret, discordAPIBase } from '../utils/config';
+import { discordAPIBase, respond, userAgent } from '@roleypoly/worker-utils';
+import { formData, withSession } from '../utils/api-tools';
+import { botClientID, botClientSecret } from '../utils/config';
 import { Sessions } from '../utils/kv';
 
 export const RevokeSession = withSession(

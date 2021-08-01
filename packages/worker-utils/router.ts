@@ -1,6 +1,3 @@
-import { addCORS } from './utils/api-tools';
-import { uiPublicURI } from './utils/config';
-
 export type Handler = (request: Request) => Promise<Response> | Response;
 
 type RoutingTree = {
@@ -23,7 +20,11 @@ export class Router {
     500: this.serverError,
   };
 
-  private uiURL = new URL(uiPublicURI);
+  private corsOrigins: string[] = [];
+
+  addCORSOrigins(origins: string[]) {
+    this.corsOrigins = [...this.corsOrigins, ...origins];
+  }
 
   addFallback(which: keyof Fallbacks, handler: Handler) {
     this.fallbacks[which] = handler;
@@ -40,6 +41,12 @@ export class Router {
   }
 
   async handle(request: Request): Promise<Response> {
+    const response = await this.processRequest(request);
+    this.injectCORSHeaders(request, response.headers);
+    return response;
+  }
+
+  private async processRequest(request: Request): Promise<Response> {
     const url = new URL(request.url);
 
     if (url.pathname === '/' || url.pathname === '') {
@@ -60,7 +67,7 @@ export class Router {
     }
 
     if (lowerMethod === 'options') {
-      return new Response(null, addCORS({}));
+      return new Response(null, {});
     }
 
     return this.fallbacks[404](request);
@@ -80,5 +87,25 @@ export class Router {
     return new Response(JSON.stringify({ error: 'internal_server_error' }), {
       status: 500,
     });
+  }
+
+  private injectCORSHeaders(request: Request, headers: Headers) {
+    headers.set('access-control-allow-methods', '*');
+    headers.set('access-control-allow-headers', '*');
+
+    if (this.corsOrigins.length === 0) {
+      headers.set('access-control-allow-origin', '*');
+      return;
+    }
+
+    const originHeader = request.headers.get('origin');
+    if (!originHeader) {
+      return;
+    }
+
+    const originHostname = new URL(originHeader).hostname;
+    if (this.corsOrigins.includes(originHostname)) {
+      headers.set('access-control-allow-origin', originHostname);
+    }
   }
 }

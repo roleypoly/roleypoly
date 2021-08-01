@@ -1,4 +1,4 @@
-import { respond } from './api-tools';
+import { respond } from '@roleypoly/worker-utils';
 
 export const ok = () => respond({ ok: true });
 

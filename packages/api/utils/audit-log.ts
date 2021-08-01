@@ -1,4 +1,3 @@
-import { userAgent } from '@roleypoly/api/utils/api-tools';
 import { uiPublicURI } from '@roleypoly/api/utils/config';
 import {
   Category,
@@ -8,6 +7,7 @@ import {
   GuildSlug,
   WebhookValidationStatus,
 } from '@roleypoly/types';
+import { userAgent } from '@roleypoly/worker-utils';
 import deepEqual from 'deep-equal';
 import { sortBy, uniq } from 'lodash';
 

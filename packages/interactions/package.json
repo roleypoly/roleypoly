@@ -1,5 +1,5 @@
 {
-  "name": "@roleypoly/api",
+  "name": "@roleypoly/interactions",
   "version": "0.1.0",
   "scripts": {
     "build": "yarn workspace @roleypoly/worker-emulator build --basePath `pwd`",
@@ -8,14 +8,8 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^2.2.2",
-    "@roleypoly/misc-utils": "*",
     "@roleypoly/types": "*",
-    "@roleypoly/worker-emulator": "*",
     "@roleypoly/worker-utils": "*",
-    "@types/deep-equal": "^1.0.1",
-    "deep-equal": "^2.0.5",
-    "ksuid": "^2.0.0",
-    "lodash": "^4.17.21",
-    "ts-loader": "^8.3.0"
+    "tweetnacl": "^1.0.3"
   }
 }

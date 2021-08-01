@@ -1,7 +1,8 @@
 import { memberPassesAccessControl } from '@roleypoly/api/utils/access-control';
 import { accessControlViolation } from '@roleypoly/api/utils/responses';
 import { DiscordUser, GuildSlug, PresentableGuild, SessionData } from '@roleypoly/types';
-import { respond, withSession } from '../utils/api-tools';
+import { respond } from '@roleypoly/worker-utils';
+import { withSession } from '../utils/api-tools';
 import { getGuild, getGuildData, getGuildMember } from '../utils/guild';
 
 const fail = () => respond({ error: 'guild not found' }, { status: 404 });

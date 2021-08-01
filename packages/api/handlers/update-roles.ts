@@ -10,8 +10,9 @@ import {
   SessionData,
   TransactionType,
 } from '@roleypoly/types';
+import { AuthType, discordFetch, respond } from '@roleypoly/worker-utils';
 import { difference, groupBy, keyBy, union } from 'lodash';
-import { AuthType, discordFetch, respond, withSession } from '../utils/api-tools';
+import { withSession } from '../utils/api-tools';
 import { botToken } from '../utils/config';
 import {
   getGuild,

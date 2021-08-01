@@ -1,5 +1,5 @@
 import { GuildSlug } from '@roleypoly/types';
-import { respond } from '../utils/api-tools';
+import { respond } from '@roleypoly/worker-utils';
 import { getGuild } from '../utils/guild';
 
 export const GetSlug = async (request: Request): Promise<Response> => {

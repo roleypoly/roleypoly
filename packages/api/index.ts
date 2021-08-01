@@ -1,3 +1,4 @@
+import { Router } from '@roleypoly/worker-utils/router';
 import { BotJoin } from './handlers/bot-join';
 import { ClearGuildCache } from './handlers/clear-guild-cache';
 import { GetPickerData } from './handlers/get-picker-data';
@@ -9,7 +10,6 @@ import { RevokeSession } from './handlers/revoke-session';
 import { SyncFromLegacy } from './handlers/sync-from-legacy';
 import { UpdateGuild } from './handlers/update-guild';
 import { UpdateRoles } from './handlers/update-roles';
-import { Router } from './router';
 import { respond } from './utils/api-tools';
 import { uiPublicURI } from './utils/config';
 

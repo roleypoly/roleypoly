@@ -3,10 +3,10 @@ import {
   permissions as Permissions,
 } from '@roleypoly/misc-utils/hasPermission';
 import { SessionData, UserGuildPermissions } from '@roleypoly/types';
+import { Handler, WrappedKVNamespace } from '@roleypoly/worker-utils';
 import KSUID from 'ksuid';
-import { Handler } from '../router';
-import { allowedCallbackHosts, apiPublicURI, discordAPIBase, rootUsers } from './config';
-import { Sessions, WrappedKVNamespace } from './kv';
+import { allowedCallbackHosts, apiPublicURI, rootUsers } from './config';
+import { Sessions } from './kv';
 
 export const formData = (obj: Record<string, any>): string => {
   return Object.keys(obj)
@@ -14,18 +14,8 @@ export const formData = (obj: Record<string, any>): string => {
     .join('&');
 };
 
-export const addCORS = (init: ResponseInit = {}) => ({
-  ...init,
-  headers: {
-    ...(init.headers || {}),
-    'access-control-allow-origin': '*',
-    'access-control-allow-methods': '*',
-    'access-control-allow-headers': '*',
-  },
-});
-
 export const respond = (obj: Record<string, any>, init: ResponseInit = {}) =>
-  new Response(JSON.stringify(obj), addCORS(init));
+  new Response(JSON.stringify(obj), init);
 
 export const resolveFailures =
   (
@@ -68,44 +58,6 @@ export const getSessionID = (request: Request): { type: string; id: string } | n
   }
 
   return { type, id };
-};
-
-export const userAgent =
-  'DiscordBot (https://github.com/roleypoly/roleypoly, git-main) (+https://roleypoly.com)';
-
-export enum AuthType {
-  Bearer = 'Bearer',
-  Bot = 'Bot',
-}
-
-export const discordFetch = async <T>(
-  url: string,
-  auth: string,
-  authType: AuthType = AuthType.Bearer,
-  init?: RequestInit
-): Promise<T | null> => {
-  const response = await fetch(discordAPIBase + url, {
-    ...(init || {}),
-    headers: {
-      ...(init?.headers || {}),
-      authorization: `${AuthType[authType]} ${auth}`,
-      'user-agent': userAgent,
-    },
-  });
-
-  if (response.status >= 400) {
-    console.error('discordFetch failed', {
-      url,
-      authType,
-      payload: await response.text(),
-    });
-  }
-
-  if (response.ok) {
-    return (await response.json()) as T;
-  } else {
-    return null;
-  }
 };
 
 export type CacheLayerOptions = {
@@ -194,16 +146,6 @@ export const onlyRootUsers = (handler: Handler): Handler =>
       }
     );
   });
-
-export const getQuery = (request: Request): { [x: string]: string } => {
-  const output: { [x: string]: string } = {};
-
-  for (let [key, value] of new URL(request.url).searchParams.entries()) {
-    output[key] = value;
-  }
-
-  return output;
-};
 
 export const isAllowedCallbackHost = (host: string): boolean => {
   return (
