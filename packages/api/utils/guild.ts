@@ -168,7 +168,9 @@ export const getGuildData = async (id: string): Promise<GuildDataT> => {
   };
 
   if (!guildData) {
-    return empty;
+    return {
+      ...empty,
+    };
   }
 
   return {

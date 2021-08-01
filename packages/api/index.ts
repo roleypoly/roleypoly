@@ -1,5 +1,6 @@
 import { BotJoin } from './handlers/bot-join';
 import { ClearGuildCache } from './handlers/clear-guild-cache';
+import { FetchFromLegacy } from './handlers/fetch-from-legacy';
 import { GetPickerData } from './handlers/get-picker-data';
 import { GetSession } from './handlers/get-session';
 import { GetSlug } from './handlers/get-slug';
@@ -29,8 +30,11 @@ router.add('GET', 'get-slug', GetSlug);
 router.add('GET', 'get-picker-data', GetPickerData);
 router.add('PATCH', 'update-roles', UpdateRoles);
 router.add('PATCH', 'update-guild', UpdateGuild);
-router.add('POST', 'sync-from-legacy', SyncFromLegacy);
 router.add('POST', 'clear-guild-cache', ClearGuildCache);
+
+// Legacy sync stuff
+router.add('POST', 'sync-from-legacy', SyncFromLegacy);
+router.add('GET', 'fetch-from-legacy', FetchFromLegacy);
 
 // Tester Routes
 router.add('GET', 'x-headers', (request) => {
