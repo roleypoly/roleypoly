@@ -7,7 +7,7 @@ import { uiPublicURI } from './utils/config';
 const router = new Router();
 
 router.add('GET', '_healthz', healthz);
-router.add('POST', 'interaction', interactionHandler);
+router.add('POST', 'interactions', interactionHandler);
 
 // Root Zen <3
 router.addFallback('root', () => {

@@ -99,9 +99,21 @@ provider "registry.terraform.io/hashicorp/tls" {
 }
 
 provider "registry.terraform.io/roleypoly/discord-interactions" {
-  version     = "0.0.1"
-  constraints = "~> 0.0"
+  version     = "0.0.2"
+  constraints = ">= 0.0.1"
   hashes = [
-    "h1:LwNmNIZRaLn7b3uCY2znFKGvncDS9GirjiC2LTw5jHw=",
+    "h1:YjCqc/W26R2UX/7MOD542QKhqadtGJLddDkqNPz/bR4=",
+    "zh:0321498537de78f8e56ce201bf35f442ca16ad704a49c6540674603e932ad72b",
+    "zh:0d27a0fb3387ccf5ca36980015a0d18515e59dd0433265c2e6541e7578b1c197",
+    "zh:23308a7402a3fc0fd39bf3f77fc94236c11cef177c6d3d162da246a6fd3bc107",
+    "zh:3aaac8a98375f195e313bdb61956c01846cb6d63e6fbd6833a8e0dcd269d94e6",
+    "zh:40182705dabf1c1c4581a5a485b61b897695b7d046a5b576611c0559d1dedc74",
+    "zh:649183c25b6ce5a5683b2e3088c5ffa163bf36fcb8243326fd38beabe2f2ec9e",
+    "zh:69f74ae5fe75f045c1b0c9df63e306b049e3cdd437e73fadd6292e0d517c97db",
+    "zh:9c5c6f73d8d08fefdb3342b3da6ec8a8d3e2c3732a684bd4c6fe47123ab328ab",
+    "zh:b0803665993565705a732f787949f5e4c095300761c207325225ce6bcc1dcaa2",
+    "zh:d54ff5a38e252719934ad836b369135e7300675575369e07a39313b08a14aeab",
+    "zh:d583722f547c37a5ba8750ccc5ecd7c010c444965bac9716f052ffb445a96cb8",
+    "zh:e20aebc9cb94e513396d6b94881952b0761fca4bb73e51f19fb856cd395e91a7",
   ]
 }

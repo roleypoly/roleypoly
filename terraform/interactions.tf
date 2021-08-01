@@ -4,7 +4,7 @@ locals {
   ])
 }
 
-resource "discord-interactions_guild_command" {
+resource "discord-interactions_guild_command" "hello-world" {
   for_each = local.internalTestingGuilds
   guild_id = each.value
 
