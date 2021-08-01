@@ -1,3 +1,5 @@
+import { InteractionsPickRole } from '@roleypoly/api/handlers/interactions-pick-role';
+import { InteractionsPickableRoles } from '@roleypoly/api/handlers/interactions-pickable-roles';
 import { Router } from '@roleypoly/worker-utils/router';
 import { BotJoin } from './handlers/bot-join';
 import { ClearGuildCache } from './handlers/clear-guild-cache';
@@ -31,6 +33,10 @@ router.add('PATCH', 'update-roles', UpdateRoles);
 router.add('PATCH', 'update-guild', UpdateGuild);
 router.add('POST', 'sync-from-legacy', SyncFromLegacy);
 router.add('POST', 'clear-guild-cache', ClearGuildCache);
+
+// Interactions endpoints
+router.add('GET', 'interactions-pickable-roles', InteractionsPickableRoles);
+router.add('POST', 'interactions-pick-role', InteractionsPickRole);
 
 // Tester Routes
 router.add('GET', 'x-headers', (request) => {

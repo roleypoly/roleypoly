@@ -3,5 +3,10 @@ const reexportEnv = (keys = []) => {
 };
 
 module.exports = {
-  environment: reexportEnv(['DISCORD_PUBLIC_KEY', 'UI_PUBLIC_URI', 'API_PUBLIC_URI']),
+  environment: reexportEnv([
+    'DISCORD_PUBLIC_KEY',
+    'UI_PUBLIC_URI',
+    'API_PUBLIC_URI',
+    'INTERACTIONS_SHARED_KEY',
+  ]),
 };

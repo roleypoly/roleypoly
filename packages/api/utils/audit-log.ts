@@ -2,6 +2,7 @@ import { uiPublicURI } from '@roleypoly/api/utils/config';
 import {
   Category,
   DiscordUser,
+  Embed,
   GuildData,
   GuildDataUpdate,
   GuildSlug,
@@ -11,25 +12,10 @@ import { userAgent } from '@roleypoly/worker-utils';
 import deepEqual from 'deep-equal';
 import { sortBy, uniq } from 'lodash';
 
-type WebhookEmbed = {
-  fields: {
-    name: string;
-    value: string;
-    inline: boolean;
-  }[];
-  timestamp: string;
-  title: string;
-  color: number;
-  author?: {
-    name: string;
-    icon_url: string;
-  };
-};
-
 type WebhookPayload = {
   username: string;
   avatar_url: string;
-  embeds: WebhookEmbed[];
+  embeds: Embed[];
   provider: {
     name: string;
     url: string;
@@ -39,7 +25,7 @@ type WebhookPayload = {
 type ChangeHandler = (
   oldValue: GuildDataUpdate[keyof GuildDataUpdate],
   newValue: GuildData[keyof GuildDataUpdate]
-) => WebhookEmbed[];
+) => Embed[];
 
 const changeHandlers: Record<keyof GuildDataUpdate, ChangeHandler> = {
   message: (oldValue, newValue) => [

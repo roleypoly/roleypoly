@@ -92,6 +92,12 @@ variable "bot_tag" {
   description = ":tag or @sha265: of ghcr.io/roleypoly/bot"
 }
 
+variable "worker_tag" {
+  type        = string
+  default     = ""
+  description = "Usually the commit hash, this invalidates some secrets that can always be rotated"
+}
+
 variable "allowed_callback_hosts" {
   type    = string
   default = ""

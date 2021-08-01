@@ -1,5 +1,8 @@
 import { helloWorld } from '@roleypoly/interactions/handlers/interactions/hello-world';
+import { pickableRoles } from '@roleypoly/interactions/handlers/interactions/pickable-roles';
+import { roleypoly } from '@roleypoly/interactions/handlers/interactions/roleypoly';
 import { verifyRequest } from '@roleypoly/interactions/utils/interactions';
+import { somethingWentWrong } from '@roleypoly/interactions/utils/responses';
 import {
   InteractionData,
   InteractionRequest,
@@ -14,6 +17,8 @@ const commands: Record<
   (request: InteractionRequestCommand) => Promise<InteractionResponse>
 > = {
   'hello-world': helloWorld,
+  roleypoly: roleypoly,
+  'pickable-roles': pickableRoles,
 };
 
 export const interactionHandler = async (request: Request): Promise<Response> => {
@@ -44,6 +49,7 @@ export const interactionHandler = async (request: Request): Promise<Response> =>
     const response = await handler(interaction as InteractionRequestCommand);
     return respond(response);
   } catch (e) {
-    return respond({ err: 'command errored' }, { status: 500 });
+    console.error(e);
+    return respond(somethingWentWrong());
   }
 };

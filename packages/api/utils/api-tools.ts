@@ -1,3 +1,4 @@
+import { notAuthenticated } from '@roleypoly/api/utils/responses';
 import {
   evaluatePermission,
   permissions as Permissions,
@@ -5,7 +6,12 @@ import {
 import { SessionData, UserGuildPermissions } from '@roleypoly/types';
 import { Handler, WrappedKVNamespace } from '@roleypoly/worker-utils';
 import KSUID from 'ksuid';
-import { allowedCallbackHosts, apiPublicURI, rootUsers } from './config';
+import {
+  allowedCallbackHosts,
+  apiPublicURI,
+  interactionsSharedKey,
+  rootUsers,
+} from './config';
 import { Sessions } from './kv';
 
 export const formData = (obj: Record<string, any>): string => {
@@ -157,3 +163,14 @@ export const isAllowedCallbackHost = (host: string): boolean => {
       null
   );
 };
+
+export const interactionsEndpoint =
+  (handler: Handler): Handler =>
+  async (request: Request): Promise<Response> => {
+    const authHeader = request.headers.get('authorization') || '';
+    if (authHeader !== `Shared ${interactionsSharedKey}`) {
+      return notAuthenticated();
+    }
+
+    return handler(request);
+  };

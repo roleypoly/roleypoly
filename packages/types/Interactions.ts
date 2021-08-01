@@ -41,16 +41,35 @@ export enum InteractionCallbackType {
   UPDATE_MESSAGE = 7,
 }
 
+export enum InteractionFlags {
+  EPHEMERAL = 1 << 6,
+}
+
 export type InteractionCallbackData = {
   tts?: boolean;
   content?: string;
   embeds?: {};
   allowed_mentions?: {};
-  flags?: number;
+  flags?: InteractionFlags;
   components?: {}[];
 };
 
 export type InteractionResponse = {
   type: InteractionCallbackType;
   data?: InteractionCallbackData;
+};
+
+export type Embed = {
+  fields: {
+    name: string;
+    value: string;
+    inline?: boolean;
+  }[];
+  timestamp?: string;
+  title: string;
+  color: number;
+  author?: {
+    name: string;
+    icon_url: string;
+  };
 };
