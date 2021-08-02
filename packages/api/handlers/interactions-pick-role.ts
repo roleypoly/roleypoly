@@ -1,4 +1,4 @@
-import { CategoryType, RoleSafety } from '@roleypoly/types';
+import { CategoryType, Member, RoleSafety } from '@roleypoly/types';
 import { AuthType, discordFetch, respond } from '@roleypoly/worker-utils';
 import { difference, keyBy } from 'lodash';
 import { interactionsEndpoint } from '../utils/api-tools';
