@@ -30,6 +30,11 @@ terraform {
       version = ">=3.1.0"
       source  = "hashicorp/tls"
     }
+
+    discord-interactions = {
+      source  = "roleypoly/discord-interactions"
+      version = ">=0.0.1"
+    }
   }
 
   backend "gcs" {
@@ -83,3 +88,7 @@ provider "google-beta" {
   region  = var.gcp_region
 }
 
+provider "discord-interactions" {
+  application_id = var.bot_client_id
+  bot_token      = var.bot_token
+}

@@ -1,4 +1,4 @@
-import { WrappedKVNamespace } from './kv';
+import { WrappedKVNamespace } from '@roleypoly/worker-utils';
 
 export const useRateLimiter =
   (kv: WrappedKVNamespace, key: string, timeoutSeconds: number) =>

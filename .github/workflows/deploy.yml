@@ -49,7 +49,7 @@ jobs:
           selected="${targetArtifact:-$currentHash}"
 
           mkdir worker-dist
-          gsutil cp gs://roleypoly-artifacts/backend-worker/$selected/script.js worker-dist/backend-worker.js
+          gsutil cp -r "gs://roleypoly-artifacts/workers/$selected/*" worker-dist/
 
       - name: Terraform init
         working-directory: ./terraform
@@ -60,7 +60,7 @@ jobs:
         working-directory: ./terraform
         run: |
           echo \
-            '{"bot_tag": "${{github.event.inputs.bot_tag}}", "api_path_to_worker": "./worker-dist/backend-worker.js"}' \
+            '{"bot_tag": "${{github.event.inputs.bot_tag}}", "worker_tag": "${{github.event.inputs.worker_tag}}", "api_path_to_worker": "./worker-dist/api.js", "interactions_path_to_worker": "./worker-dist/interactions.js"}' \
             | jq . \
             | tee tags.auto.tfvars.json
 

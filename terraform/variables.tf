@@ -59,8 +59,14 @@ variable "api_public_uri" {
 
 variable "api_path_to_worker" {
   type        = string
-  description = "Path to worker JS, relative to this file/terraform folder."
-  default     = "worker-dist/backend-worker.js"
+  description = "Path to API worker JS, relative to this file/terraform folder."
+  default     = "worker-dist/api.js"
+}
+
+variable "interactions_path_to_worker" {
+  type        = string
+  description = "Path to interactions worker JS, relative to this file/terraform folder."
+  default     = "worker-dist/interactions.js"
 }
 
 variable "root_users" {
@@ -86,7 +92,18 @@ variable "bot_tag" {
   description = ":tag or @sha265: of ghcr.io/roleypoly/bot"
 }
 
+variable "worker_tag" {
+  type        = string
+  default     = ""
+  description = "Usually the commit hash, this invalidates some secrets that can always be rotated"
+}
+
 variable "allowed_callback_hosts" {
   type    = string
   default = ""
+}
+
+variable "discord_public_key" {
+  type        = string
+  description = "Discord Interactions Public Key"
 }

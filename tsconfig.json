@@ -28,5 +28,11 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "**/*.stories.tsx", "packages/api"]
+  "exclude": [
+    "node_modules",
+    "**/*.stories.tsx",
+    "packages/api",
+    "packages/interactions",
+    "packages/worker-utils"
+  ]
 }

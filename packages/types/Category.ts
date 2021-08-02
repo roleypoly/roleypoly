@@ -11,3 +11,8 @@ export type Category = {
   type: CategoryType;
   position: number;
 };
+
+export type CategorySlug = {
+  roles: Category['roles'];
+  type: Category['type'];
+};

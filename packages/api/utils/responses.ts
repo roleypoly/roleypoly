@@ -1,4 +1,4 @@
-import { respond } from './api-tools';
+import { respond } from '@roleypoly/worker-utils';
 
 export const ok = () => respond({ ok: true });
 
@@ -20,3 +20,6 @@ export const rateLimited = () =>
 
 export const invalid = (obj: any = {}) =>
   respond({ err: 'client sent something invalid', data: obj }, { status: 400 });
+
+export const notAuthenticated = () =>
+  respond({ err: 'not authenticated' }, { status: 403 });

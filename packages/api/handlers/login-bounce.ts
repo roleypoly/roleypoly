@@ -1,5 +1,6 @@
 import { StateSession } from '@roleypoly/types';
-import { getQuery, isAllowedCallbackHost, setupStateSession } from '../utils/api-tools';
+import { getQuery } from '@roleypoly/worker-utils';
+import { isAllowedCallbackHost, setupStateSession } from '../utils/api-tools';
 import { Bounce } from '../utils/bounce';
 import { apiPublicURI, botClientID } from '../utils/config';
 

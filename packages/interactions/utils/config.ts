@@ -5,12 +5,7 @@ const env = (key: string) => self[key] ?? '';
 const safeURI = (x: string) => x.replace(/\/$/, '');
 const list = (x: string) => x.split(',');
 
-export const botClientID = env('BOT_CLIENT_ID');
-export const botClientSecret = env('BOT_CLIENT_SECRET');
-export const botToken = env('BOT_TOKEN');
 export const uiPublicURI = safeURI(env('UI_PUBLIC_URI'));
 export const apiPublicURI = safeURI(env('API_PUBLIC_URI'));
-export const rootUsers = list(env('ROOT_USERS'));
-export const allowedCallbackHosts = list(env('ALLOWED_CALLBACK_HOSTS'));
-export const importSharedKey = env('BOT_IMPORT_TOKEN');
+export const publicKey = safeURI(env('DISCORD_PUBLIC_KEY'));
 export const interactionsSharedKey = env('INTERACTIONS_SHARED_KEY');
