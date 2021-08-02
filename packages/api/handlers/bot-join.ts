@@ -34,7 +34,7 @@ export const BotJoin = (request: Request): Response => {
       clientID: botClientID,
       permissions: 268435456,
       guildID,
-      scopes: ['bot', 'application.commands'],
+      scopes: ['bot', 'applications.commands'],
     })
   );
 };
