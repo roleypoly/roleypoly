@@ -23,3 +23,19 @@ export const getPickableRoles = async (
 
   return (await response.json()) as Record<Category['name'], CategorySlug>;
 };
+
+export const selectRole = async (
+  mode: 'add' | 'remove',
+  guildID: string,
+  userID: string,
+  roleID: string
+): Promise<number> => {
+  const response = await apiFetch(
+    `/interactions-pick-role/${guildID}/${userID}/${roleID}`,
+    {
+      method: mode === 'add' ? 'PUT' : 'DELETE',
+    }
+  );
+
+  return response.status;
+};

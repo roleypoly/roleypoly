@@ -12,6 +12,14 @@ export const mustBeInGuild = (): InteractionResponse => ({
   },
 });
 
+export const invalid = (): InteractionResponse => ({
+  type: InteractionCallbackType.CHANNEL_MESSAGE_WITH_SOURCE,
+  data: {
+    content: ':x: You filled that command out wrong...',
+    flags: InteractionFlags.EPHEMERAL,
+  },
+});
+
 export const somethingWentWrong = (): InteractionResponse => ({
   type: InteractionCallbackType.CHANNEL_MESSAGE_WITH_SOURCE,
   data: {

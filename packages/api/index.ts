@@ -36,7 +36,8 @@ router.add('POST', 'clear-guild-cache', ClearGuildCache);
 
 // Interactions endpoints
 router.add('GET', 'interactions-pickable-roles', InteractionsPickableRoles);
-router.add('POST', 'interactions-pick-role', InteractionsPickRole);
+router.add('PUT', 'interactions-pick-role', InteractionsPickRole);
+router.add('DELETE', 'interactions-pick-role', InteractionsPickRole);
 
 // Tester Routes
 router.add('GET', 'x-headers', (request) => {

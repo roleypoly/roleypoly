@@ -1,8 +1,3 @@
-import { helloWorld } from '@roleypoly/interactions/handlers/interactions/hello-world';
-import { pickableRoles } from '@roleypoly/interactions/handlers/interactions/pickable-roles';
-import { roleypoly } from '@roleypoly/interactions/handlers/interactions/roleypoly';
-import { verifyRequest } from '@roleypoly/interactions/utils/interactions';
-import { somethingWentWrong } from '@roleypoly/interactions/utils/responses';
 import {
   InteractionData,
   InteractionRequest,
@@ -11,6 +6,12 @@ import {
   InteractionType,
 } from '@roleypoly/types';
 import { respond } from '@roleypoly/worker-utils';
+import { verifyRequest } from '../utils/interactions';
+import { somethingWentWrong } from '../utils/responses';
+import { helloWorld } from './interactions/hello-world';
+import { pickRole } from './interactions/pick-role';
+import { pickableRoles } from './interactions/pickable-roles';
+import { roleypoly } from './interactions/roleypoly';
 
 const commands: Record<
   InteractionData['name'],
@@ -19,6 +20,8 @@ const commands: Record<
   'hello-world': helloWorld,
   roleypoly: roleypoly,
   'pickable-roles': pickableRoles,
+  'pick-role': pickRole('add'),
+  'remove-role': pickRole('remove'),
 };
 
 export const interactionHandler = async (request: Request): Promise<Response> => {

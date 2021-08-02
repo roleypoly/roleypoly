@@ -1,5 +1,3 @@
-import { memberPassesAccessControl } from '@roleypoly/api/utils/access-control';
-import { accessControlViolation } from '@roleypoly/api/utils/responses';
 import {
   GuildData,
   Member,
@@ -13,7 +11,7 @@ import {
 import { AuthType, discordFetch, respond } from '@roleypoly/worker-utils';
 import { difference, groupBy, keyBy, union } from 'lodash';
 import { withSession } from '../utils/api-tools';
-import { botToken } from '../utils/config';
+import { botToken, uiPublicURI } from '../utils/config';
 import {
   getGuild,
   getGuildData,
@@ -58,10 +56,6 @@ export const UpdateRoles = withSession(
 
       const guildData = await getGuildData(guildID);
 
-      if (!memberPassesAccessControl(guildCheck, guildMember, guildData.accessControl)) {
-        return accessControlViolation();
-      }
-
       const newRoles = calculateNewRoles({
         currentRoles: guildMember.roles,
         guildRoles: guild.roles,
@@ -77,7 +71,7 @@ export const UpdateRoles = withSession(
           method: 'PATCH',
           headers: {
             'content-type': 'application/json',
-            'x-audit-log-reason': `${username}#${discriminator} changes their roles via ${url.hostname}`,
+            'x-audit-log-reason': `Picked their roles via ${uiPublicURI}`,
           },
           body: JSON.stringify({
             roles: newRoles,

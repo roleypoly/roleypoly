@@ -28,7 +28,11 @@ export type InteractionData = {
   id: string;
   name: string;
   resolved?: {};
-  options?: {}[];
+  options?: {
+    name: string;
+    type: number;
+    value?: string;
+  }[];
   custom_id: string;
   component_type: string;
 };

@@ -32,6 +32,7 @@ resource "discord-interactions_global_command" "pick-role" {
     name        = "role"
     description = "The role you want"
     type        = 8
+    required    = true
   }
 }
 
@@ -40,12 +41,29 @@ resource "discord-interactions_guild_command" "pick-role" {
   guild_id = each.value
 
   name        = "pick-role"
-  description = "Pick a role! (See which ones can be picked with /pickable-roles)"
+  description = "**[TEST]** Pick a role! (See which ones can be picked with /pickable-roles)"
+
 
   option {
     name        = "role"
     description = "The role you want"
     type        = 8
+    required    = true
+  }
+}
+
+resource "discord-interactions_guild_command" "remove-role" {
+  for_each = local.internalTestingGuilds
+  guild_id = each.value
+
+  name        = "remove-role"
+  description = "**[TEST]** Pick a role to remove (See which ones can be removed with /pickable-roles)"
+
+  option {
+    name        = "role"
+    description = "The role you want to remove"
+    type        = 8
+    required    = true
   }
 }
 
