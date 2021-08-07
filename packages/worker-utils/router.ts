@@ -1,4 +1,11 @@
-export type Handler = (request: Request) => Promise<Response> | Response;
+export type Handler = (
+  request: Request,
+  tools: HandlerTools
+) => Promise<Response> | Response;
+
+export type HandlerTools = {
+  waitUntil: FetchEvent['waitUntil'];
+};
 
 type RoutingTree = {
   [method: string]: {
@@ -40,17 +47,17 @@ export class Router {
     this.routingTree[lowerMethod][rootPath] = handler;
   }
 
-  async handle(request: Request): Promise<Response> {
-    const response = await this.processRequest(request);
-    this.injectCORSHeaders(request, response.headers);
+  async handle(event: FetchEvent): Promise<Response> {
+    const response = await this.processRequest(event);
+    this.injectCORSHeaders(event.request, response.headers);
     return response;
   }
 
-  private async processRequest(request: Request): Promise<Response> {
+  private async processRequest({ request, waitUntil }: FetchEvent): Promise<Response> {
     const url = new URL(request.url);
 
     if (url.pathname === '/' || url.pathname === '') {
-      return this.fallbacks.root(request);
+      return this.fallbacks.root(request, { waitUntil });
     }
     const lowerMethod = request.method.toLowerCase();
     const rootPath = url.pathname.split('/')[1];
@@ -58,11 +65,11 @@ export class Router {
 
     if (handler) {
       try {
-        const response = await handler(request);
+        const response = await handler(request, { waitUntil });
         return response;
       } catch (e) {
         console.error(e);
-        return this.fallbacks[500](request);
+        return this.fallbacks[500](request, { waitUntil });
       }
     }
 
@@ -70,7 +77,7 @@ export class Router {
       return new Response(null, {});
     }
 
-    return this.fallbacks[404](request);
+    return this.fallbacks[404](request, { waitUntil });
   }
 
   private respondToRoot(): Response {

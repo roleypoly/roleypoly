@@ -101,6 +101,9 @@ const server = http.createServer((req, res) => {
       );
       isResponseConstructorAllowed = false;
     },
+    waitUntil: async (promise) => {
+      await promise;
+    },
     request: new fetch.Request(
       new URL(`http://${req.headers.host || 'localhost'}${req.url}`),
       {

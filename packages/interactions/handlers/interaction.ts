@@ -2,21 +2,17 @@ import {
   InteractionData,
   InteractionRequest,
   InteractionRequestCommand,
-  InteractionResponse,
   InteractionType,
 } from '@roleypoly/types';
-import { respond } from '@roleypoly/worker-utils';
-import { verifyRequest } from '../utils/interactions';
+import { HandlerTools, respond } from '@roleypoly/worker-utils';
+import { CommandHandler, verifyRequest } from '../utils/interactions';
 import { somethingWentWrong } from '../utils/responses';
 import { helloWorld } from './interactions/hello-world';
 import { pickRole } from './interactions/pick-role';
 import { pickableRoles } from './interactions/pickable-roles';
 import { roleypoly } from './interactions/roleypoly';
 
-const commands: Record<
-  InteractionData['name'],
-  (request: InteractionRequestCommand) => Promise<InteractionResponse>
-> = {
+const commands: Record<InteractionData['name'], CommandHandler> = {
   'hello-world': helloWorld,
   roleypoly: roleypoly,
   'pickable-roles': pickableRoles,
@@ -24,7 +20,10 @@ const commands: Record<
   'remove-role': pickRole('remove'),
 };
 
-export const interactionHandler = async (request: Request): Promise<Response> => {
+export const interactionHandler = async (
+  request: Request,
+  { waitUntil }: HandlerTools
+): Promise<Response> => {
   const interaction = (await request.json()) as InteractionRequest;
 
   if (!verifyRequest(request, interaction)) {
@@ -49,7 +48,10 @@ export const interactionHandler = async (request: Request): Promise<Response> =>
   }
 
   try {
-    const response = await handler(interaction as InteractionRequestCommand);
+    const response = await handler(interaction as InteractionRequestCommand, {
+      request,
+      waitUntil,
+    });
     return respond(response);
   } catch (e) {
     console.error(e);

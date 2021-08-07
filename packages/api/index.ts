@@ -66,5 +66,5 @@ router.addFallback('root', () => {
 });
 
 addEventListener('fetch', (event: FetchEvent) => {
-  event.respondWith(router.handle(event.request));
+  event.respondWith(router.handle(event));
 });

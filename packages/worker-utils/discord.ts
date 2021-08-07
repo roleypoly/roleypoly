@@ -5,6 +5,7 @@ export const discordAPIBase = 'https://discordapp.com/api/v9';
 export enum AuthType {
   Bearer = 'Bearer',
   Bot = 'Bot',
+  None = 'None',
 }
 
 export const discordFetch = async <T>(
@@ -17,7 +18,11 @@ export const discordFetch = async <T>(
     ...(init || {}),
     headers: {
       ...(init?.headers || {}),
-      authorization: `${AuthType[authType]} ${auth}`,
+      ...(authType !== AuthType.None
+        ? {
+            authorization: `${AuthType[authType]} ${auth}`,
+          }
+        : {}),
       'user-agent': userAgent,
     },
   });

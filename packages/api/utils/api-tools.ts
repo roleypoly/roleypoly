@@ -4,7 +4,7 @@ import {
   permissions as Permissions,
 } from '@roleypoly/misc-utils/hasPermission';
 import { SessionData, UserGuildPermissions } from '@roleypoly/types';
-import { Handler, WrappedKVNamespace } from '@roleypoly/worker-utils';
+import { Handler, HandlerTools, WrappedKVNamespace } from '@roleypoly/worker-utils';
 import KSUID from 'ksuid';
 import {
   allowedCallbackHosts,
@@ -107,7 +107,7 @@ const NotAuthenticated = (extra?: string) =>
 
 export const withSession =
   (wrappedHandler: (session: SessionData) => Handler): Handler =>
-  async (request: Request): Promise<Response> => {
+  async (request: Request, tools: HandlerTools): Promise<Response> => {
     const sessionID = getSessionID(request);
     if (!sessionID) {
       return NotAuthenticated('missing authentication');
@@ -118,7 +118,7 @@ export const withSession =
       return NotAuthenticated('authentication expired or not found');
     }
 
-    return await wrappedHandler(session)(request);
+    return await wrappedHandler(session)(request, tools);
   };
 
 export const setupStateSession = async <T>(data: T): Promise<string> => {
@@ -138,9 +138,9 @@ export const getStateSession = async <T>(stateID: string): Promise<T | undefined
 export const isRoot = (userID: string): boolean => rootUsers.includes(userID);
 
 export const onlyRootUsers = (handler: Handler): Handler =>
-  withSession((session) => (request: Request) => {
+  withSession((session) => (request: Request, tools: HandlerTools) => {
     if (isRoot(session.user.id)) {
-      return handler(request);
+      return handler(request, tools);
     }
 
     return respond(
@@ -166,11 +166,11 @@ export const isAllowedCallbackHost = (host: string): boolean => {
 
 export const interactionsEndpoint =
   (handler: Handler): Handler =>
-  async (request: Request): Promise<Response> => {
+  async (request: Request, tools: HandlerTools): Promise<Response> => {
     const authHeader = request.headers.get('authorization') || '';
     if (authHeader !== `Shared ${interactionsSharedKey}`) {
       return notAuthenticated();
     }
 
-    return handler(request);
+    return handler(request, tools);
   };
