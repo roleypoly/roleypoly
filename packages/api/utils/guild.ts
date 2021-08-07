@@ -17,7 +17,7 @@ import {
   SessionData,
   UserGuildPermissions,
 } from '@roleypoly/types';
-import { AuthType, discordFetch, Handler } from '@roleypoly/worker-utils';
+import { AuthType, discordFetch, Handler, HandlerTools } from '@roleypoly/worker-utils';
 import { cacheLayer, CacheLayerOptions, isRoot, withSession } from './api-tools';
 import { botClientID, botToken } from './config';
 import { GuildData, Guilds } from './kv';
@@ -229,58 +229,61 @@ export const asEditor = (
   options: AsEditorOptions = {},
   wrappedHandler: (session: SessionData, userGuildContext: UserGuildContext) => Handler
 ): Handler =>
-  withSession((session: SessionData) => async (request: Request): Promise<Response> => {
-    const { rateLimitKey, rateLimitTimeoutSeconds } = options;
-    const url = new URL(request.url);
-    const [, , guildID] = url.pathname.split('/');
-    if (!guildID) {
-      return missingParameters();
-    }
+  withSession(
+    (session: SessionData) =>
+      async (request: Request, tools: HandlerTools): Promise<Response> => {
+        const { rateLimitKey, rateLimitTimeoutSeconds } = options;
+        const url = new URL(request.url);
+        const [, , guildID] = url.pathname.split('/');
+        if (!guildID) {
+          return missingParameters();
+        }
 
-    let rateLimit: null | ReturnType<typeof useGuildRateLimiter> = null;
-    if (rateLimitKey) {
-      rateLimit = await useGuildRateLimiter(
-        guildID,
-        rateLimitKey,
-        rateLimitTimeoutSeconds || 60
-      );
-    }
+        let rateLimit: null | ReturnType<typeof useGuildRateLimiter> = null;
+        if (rateLimitKey) {
+          rateLimit = await useGuildRateLimiter(
+            guildID,
+            rateLimitKey,
+            rateLimitTimeoutSeconds || 60
+          );
+        }
 
-    const userIsRoot = isRoot(session.user.id);
+        const userIsRoot = isRoot(session.user.id);
 
-    let guild = session.guilds.find((guild) => guild.id === guildID);
-    if (!guild) {
-      if (!userIsRoot) {
-        return notFound();
+        let guild = session.guilds.find((guild) => guild.id === guildID);
+        if (!guild) {
+          if (!userIsRoot) {
+            return notFound();
+          }
+
+          const fullGuild = await getGuild(guildID);
+          if (!fullGuild) {
+            return notFound();
+          }
+
+          guild = {
+            id: fullGuild.id,
+            name: fullGuild.name,
+            icon: fullGuild.icon,
+            permissionLevel: UserGuildPermissions.Admin, // root will always be considered admin
+          };
+        }
+
+        const userIsManager = guild.permissionLevel === UserGuildPermissions.Manager;
+        const userIsAdmin = guild.permissionLevel === UserGuildPermissions.Admin;
+
+        if (!userIsAdmin && !userIsManager) {
+          return lowPermissions();
+        }
+
+        if (!userIsRoot && rateLimit && (await rateLimit())) {
+          return rateLimited();
+        }
+
+        return await wrappedHandler(session, {
+          guildID,
+          guild,
+          url,
+        })(request, tools);
       }
-
-      const fullGuild = await getGuild(guildID);
-      if (!fullGuild) {
-        return notFound();
-      }
-
-      guild = {
-        id: fullGuild.id,
-        name: fullGuild.name,
-        icon: fullGuild.icon,
-        permissionLevel: UserGuildPermissions.Admin, // root will always be considered admin
-      };
-    }
-
-    const userIsManager = guild.permissionLevel === UserGuildPermissions.Manager;
-    const userIsAdmin = guild.permissionLevel === UserGuildPermissions.Admin;
-
-    if (!userIsAdmin && !userIsManager) {
-      return lowPermissions();
-    }
-
-    if (!userIsRoot && rateLimit && (await rateLimit())) {
-      return rateLimited();
-    }
-
-    return await wrappedHandler(session, {
-      guildID,
-      guild,
-      url,
-    })(request);
-  });
+  );
