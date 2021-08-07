@@ -1,5 +1,8 @@
 import { selectRole } from '@roleypoly/interactions/utils/api';
-import { asyncResponse } from '@roleypoly/interactions/utils/interactions';
+import {
+  asyncPreflightEphemeral,
+  asyncResponse,
+} from '@roleypoly/interactions/utils/interactions';
 import { invalid, mustBeInGuild } from '@roleypoly/interactions/utils/responses';
 import {
   InteractionCallbackType,
@@ -78,5 +81,6 @@ export const pickRole = (mode: 'add' | 'remove') =>
           flags: InteractionFlags.EPHEMERAL,
         },
       };
-    }
+    },
+    asyncPreflightEphemeral
   );

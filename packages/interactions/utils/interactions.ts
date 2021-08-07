@@ -41,7 +41,10 @@ export type CommandHandler = (
 ) => Promise<InteractionResponse>;
 
 export const asyncResponse =
-  (handler: CommandHandler): CommandHandler =>
+  (
+    handler: CommandHandler,
+    preflight?: () => InteractionResponse['data']
+  ): CommandHandler =>
   async (
     command: InteractionRequestCommand,
     requestInfo: RequestInfo
@@ -55,11 +58,13 @@ export const asyncResponse =
 
     return {
       type: InteractionCallbackType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
-      data: {
-        flags: InteractionFlags.EPHEMERAL,
-      },
+      data: preflight ? preflight() : undefined,
     };
   };
+
+export const asyncPreflightEphemeral = () => ({
+  flags: InteractionFlags.EPHEMERAL,
+});
 
 const updateOriginalMessage = async (
   appID: string,

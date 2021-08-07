@@ -1,6 +1,9 @@
 import { getPickableRoles } from '@roleypoly/interactions/utils/api';
 import { uiPublicURI } from '@roleypoly/interactions/utils/config';
-import { asyncResponse } from '@roleypoly/interactions/utils/interactions';
+import {
+  asyncPreflightEphemeral,
+  asyncResponse,
+} from '@roleypoly/interactions/utils/interactions';
 import { mustBeInGuild } from '@roleypoly/interactions/utils/responses';
 import {
   CategoryType,
@@ -55,5 +58,6 @@ export const pickableRoles = asyncResponse(
         ],
       },
     };
-  }
+  },
+  asyncPreflightEphemeral
 );
