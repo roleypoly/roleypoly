@@ -34,6 +34,7 @@
     "start": "run-p -c start:*",
     "start:bot": "yarn workspace @roleypoly/bot start",
     "start:design-system": "yarn workspace @roleypoly/design-system start",
+    "start:evergreen": "yarn workspace @roleypoly/evergreen start",
     "start:interactions": "yarn workspace @roleypoly/interactions start",
     "start:web": "yarn workspace @roleypoly/web start",
     "start:worker": "yarn workspace @roleypoly/api start",
@@ -72,7 +73,7 @@
     "*.{ts,tsx,js,jsx}": [
       "prettier --write"
     ],
-    "*.{json,Dockerfile,sh,md,env,mdx,yml,html}": [
+    "*.{json,Dockerfile,sh,md,env,mdx,yml,html,css}": [
       "prettier --write"
     ],
     ".*/*.{json,Dockerfile,sh,md,env,mdx,yml,html}": [
