@@ -31,7 +31,7 @@
     "@storybook/addon-links": "^6.3.3",
     "@storybook/addons": "^6.3.3",
     "@storybook/react": "^6.3.3",
-    "@storybook/theming": "^6.3.3",
+    "@storybook/theming": "^6.4.0",
     "@types/chroma-js": "^2.1.3",
     "@types/deep-equal": "^1.0.1",
     "@types/node": "^16.0.1",
