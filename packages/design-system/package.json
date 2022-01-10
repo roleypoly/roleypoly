@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@icons/material": "^0.4.1",
-    "@storybook/addon-actions": "^6.3.3",
+    "@storybook/addon-actions": "^6.4.10",
     "@storybook/addon-essentials": "^6.3.3",
     "@storybook/addon-links": "^6.3.3",
     "@storybook/addons": "^6.3.3",
