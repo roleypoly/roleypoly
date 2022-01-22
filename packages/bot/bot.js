@@ -1,4 +1,4 @@
-const { Client } = require('discord.js');
+const { Client, Message } = require('discord.js');
 
 const botToken = process.env['BOT_TOKEN'];
 const allowedBots = process.env['ALLOWED_BOTS']?.split(',') ?? [];
@@ -10,7 +10,11 @@ function messageEventListener(message) {
   if (!guild) {
     return;
   } // Ignore DMs
-  if (client.user && !mentions.has(client.user.id)) {
+
+  if (
+    client.user &&
+    !mentions.has(client.user.id, { ignoreRoles: true, ignoreEveryone: true })
+  ) {
     return;
   } // Ignore non bot mentions
 
@@ -19,14 +23,12 @@ function messageEventListener(message) {
   } // Only respond to allowed bots
 
   const guildId = guild.id;
-  channel.send(`:beginner: Assign your roles here! ${appUrl}/s/${guildId}`);
+  channel.send({ content: `:beginner: Assign your roles here! ${appUrl}/s/${guildId}` });
 }
 
 const client = new Client({
-  ws: {
-    intents: ['GUILDS', 'GUILD_MESSAGES'],
-  },
+  intents: ['GUILDS', 'GUILD_MESSAGES'],
 });
 
-client.on('message', (message) => messageEventListener(message));
+client.on('messageCreate', (message) => messageEventListener(message));
 client.login(botToken);
