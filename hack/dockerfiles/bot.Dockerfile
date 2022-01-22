@@ -1,4 +1,4 @@
-FROM node:14 AS builder
+FROM node:16 AS builder
 
 # Create the user and group files that will be used in the running container to
 # run the process as an unprivileged user.
@@ -15,7 +15,7 @@ COPY ./package.json ./yarn.lock /src/
 COPY ./packages/bot/package.json /src/packages/bot/
 RUN yarn workspace @roleypoly/bot install --focus
 
-FROM node:14-slim AS final
+FROM node:16-slim AS final
 WORKDIR /src
 
 COPY --from=builder /user/group /user/passwd /etc/
