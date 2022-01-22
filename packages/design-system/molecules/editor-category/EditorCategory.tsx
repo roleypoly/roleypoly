@@ -21,10 +21,11 @@ export type CategoryProps = {
 
 export const EditorCategory = (props: CategoryProps) => {
   const updateValue = <T extends keyof CategoryT>(key: T, value: CategoryT[T]) => {
+    console.log('update value', { key, value, category: props.category });
     props.onChange({ ...props.category, [key]: value });
   };
 
-  const handleRoleListUpdate = (roles: RoleT['id'][]) => () => {
+  const handleRoleListUpdate = (roles: RoleT['id'][]) => {
     updateValue('roles', roles);
   };
 
