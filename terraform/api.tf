@@ -73,6 +73,16 @@ resource "cloudflare_worker_script" "backend" {
     name = "INTERACTIONS_SHARED_KEY"
     text = random_password.interactions_token.result
   }
+
+  plain_text_binding {
+    name = "RP_SERVER_ID"
+    text = var.rp_server_id
+  }
+
+  plain_text_binding {
+    name = "RP_HELPER_ROLE_IDS"
+    text = join(",", var.rp_helper_roles)
+  }
 }
 
 resource "cloudflare_record" "api" {

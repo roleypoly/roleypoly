@@ -14,3 +14,5 @@ export const rootUsers = list(env('ROOT_USERS'));
 export const allowedCallbackHosts = list(env('ALLOWED_CALLBACK_HOSTS'));
 export const importSharedKey = env('BOT_IMPORT_TOKEN');
 export const interactionsSharedKey = env('INTERACTIONS_SHARED_KEY');
+export const roleypolyServerID = env('RP_SERVER_ID');
+export const roleypolyHelperRoleIDs = list(env('RP_HELPER_ROLE_IDS'));
