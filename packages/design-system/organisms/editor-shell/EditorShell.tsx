@@ -57,6 +57,7 @@ export const EditorShell = (props: EditorShellProps) => {
         onSubmit={doSubmit}
       />
       <Container style={{ marginTop: 95 }}>
+        <Space />
         <ServerMasthead guild={props.guild.guild} editable={false} />
         <Space />
         <EditableServerMessage
