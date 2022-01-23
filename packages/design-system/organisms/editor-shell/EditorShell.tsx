@@ -1,5 +1,6 @@
 import { LinedSpace, Space } from '@roleypoly/design-system/atoms/space';
 import { EditableServerMessage } from '@roleypoly/design-system/molecules/editable-server-message';
+import { EditorInviteLink } from '@roleypoly/design-system/molecules/editor-invite-link';
 import { ServerMasthead } from '@roleypoly/design-system/molecules/server-masthead';
 import { ServerUtilities } from '@roleypoly/design-system/molecules/server-utilities/ServerUtilities';
 import { SecondaryEditing } from '@roleypoly/design-system/organisms/masthead';
@@ -59,6 +60,8 @@ export const EditorShell = (props: EditorShellProps) => {
       <Container style={{ marginTop: 95 }}>
         <Space />
         <ServerMasthead guild={props.guild.guild} editable={false} />
+        <Space />
+        <EditorInviteLink guild={props.guild.guild} />
         <Space />
         <EditableServerMessage
           onChange={onMessageChange}

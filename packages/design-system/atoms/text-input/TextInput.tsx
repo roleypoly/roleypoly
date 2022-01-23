@@ -40,7 +40,7 @@ const common = css`
   }
 `;
 
-const StyledTextInput = styled.input`
+export const StyledTextInput = styled.input`
   ${common};
 `;
 
@@ -89,6 +89,7 @@ export const TextInputWithIcon = (props: TextInputWithIconProps) => {
 const StyledTextarea = styled.textarea`
   ${common};
   ${fontCSS};
+  margin: 0.5em 0;
 `;
 
 export const MultilineTextInput = (

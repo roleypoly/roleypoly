@@ -14,7 +14,7 @@ const ServersPage = () => {
 
   return (
     <>
-      <Title title={'Your Guilds - Roleypoly'} />
+      <Title title={'Your Servers - Roleypoly'} />
       <ServersTemplate {...appShellProps} />
     </>
   );
