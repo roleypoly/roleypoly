@@ -2,12 +2,11 @@ import { palette } from '@roleypoly/design-system/atoms/colors';
 import { CopyArea } from '@roleypoly/design-system/atoms/copy-area';
 import { AmbientLarge } from '@roleypoly/design-system/atoms/typography';
 import { MessageBox } from '@roleypoly/design-system/organisms/role-picker/RolePicker.styled';
-import { Guild } from '@roleypoly/types';
 import { GoInfo } from 'react-icons/go';
 
-export const EditorInviteLink = (props: { guild: Guild }) => {
+export const EditorInviteLink = (props: { guildId: string }) => {
   const currentURL = new URL(location.href);
-  currentURL.pathname = `/s/${props.guild.id}`;
+  currentURL.pathname = `/s/${props.guildId}`;
   currentURL.search = '';
 
   const inviteLink = currentURL.toString();

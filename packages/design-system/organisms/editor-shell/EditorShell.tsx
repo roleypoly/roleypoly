@@ -61,7 +61,7 @@ export const EditorShell = (props: EditorShellProps) => {
         <Space />
         <ServerMasthead guild={props.guild.guild} editable={false} />
         <Space />
-        <EditorInviteLink guild={props.guild.guild} />
+        <EditorInviteLink guildId={props.guild.id} />
         <Space />
         <EditableServerMessage
           onChange={onMessageChange}
