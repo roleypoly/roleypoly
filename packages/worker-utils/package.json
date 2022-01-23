@@ -5,6 +5,6 @@
     "lint:types": "tsc --noEmit"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^2.2.2"
+    "@cloudflare/workers-types": "^3.3.1"
   }
 }
