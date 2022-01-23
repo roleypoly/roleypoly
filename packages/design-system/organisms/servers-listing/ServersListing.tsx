@@ -40,7 +40,7 @@ export const ServersListing = (props: ServersListingProps) => {
         <>
           <SectionHead>
             <GoHistory />
-            &nbsp; Recent Guilds
+            &nbsp; Recent Servers
             <Line />
           </SectionHead>
           <CardList guilds={recentGuildSlugs} />
@@ -48,7 +48,7 @@ export const ServersListing = (props: ServersListingProps) => {
       )}
       <SectionHead>
         <GoListUnordered />
-        &nbsp; All Guilds
+        &nbsp; All Servers
         <Line />
       </SectionHead>
       <CardList guilds={sortedGuildSlugs} />

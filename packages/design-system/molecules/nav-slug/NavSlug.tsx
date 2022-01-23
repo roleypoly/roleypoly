@@ -18,6 +18,6 @@ export const NavSlug = (props: Props) => (
     >
       {props.guild ? utils.initialsFromName(props.guild.name) : <GoOrganization />}
     </Avatar>
-    <SlugName>{props.guild?.name || <>Your Guilds</>}</SlugName>
+    <SlugName>{props.guild?.name || <>Your Servers</>}</SlugName>
   </SlugContainer>
 );

@@ -57,13 +57,13 @@ export const GuildNav = (props: Props) => {
           <>
             <SectionHead>
               <GoHistory />
-              &nbsp; Recent Guilds
+              &nbsp; Recent Servers
               <HeadLine />
             </SectionHead>
             <NavList guilds={recentGuildSlugs} />
             <SectionHead>
               <GoListUnordered />
-              &nbsp; All Guilds
+              &nbsp; All Servers
               <HeadLine />
             </SectionHead>
           </>

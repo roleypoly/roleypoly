@@ -55,7 +55,7 @@ export const Authed = (props: Props) => {
             headContent={
               <GuildPopoverHead>
                 <GoOrganization />
-                My Guilds
+                My Servers
               </GuildPopoverHead>
             }
             canDefocus
