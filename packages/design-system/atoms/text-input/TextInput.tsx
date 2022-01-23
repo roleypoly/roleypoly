@@ -89,6 +89,7 @@ export const TextInputWithIcon = (props: TextInputWithIconProps) => {
 const StyledTextarea = styled.textarea`
   ${common};
   ${fontCSS};
+
   margin: 0.5em 0;
 `;
 
