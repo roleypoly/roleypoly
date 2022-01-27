@@ -32,6 +32,7 @@
     "@types/react-helmet": "^6.1.2",
     "babel-loader": "8.1.0",
     "cross-env": "7.0.3",
+    "exponential-backoff": "^3.1.0",
     "ts-loader": "^8.3.0",
     "webpack": "4.44.2"
   },

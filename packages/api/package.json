@@ -1,11 +1,13 @@
 {
   "name": "@roleypoly/api",
   "version": "0.1.0",
+  "main": "./src/index.ts",
   "scripts": {
-    "build": "yarn workspace @roleypoly/worker-emulator build --basePath `pwd`",
-    "lint:types": "tsc --noEmit",
-    "start": "cfw-emulator"
+    "build": "esbuild --bundle --sourcemap --platform=node --format=esm --outdir=dist --out-extension:.js=.mjs ./src/index.ts",
+    "dev": "miniflare --watch --debug",
+    "lint:types": "tsc --noEmit"
   },
+  "dependencies": {},
   "devDependencies": {
     "@cloudflare/workers-types": "^2.2.2",
     "@roleypoly/misc-utils": "*",
@@ -14,8 +16,13 @@
     "@roleypoly/worker-utils": "*",
     "@types/deep-equal": "^1.0.1",
     "deep-equal": "^2.0.5",
+    "esbuild": "^0.14.13",
+    "exponential-backoff": "^3.1.0",
+    "itty-router": "^2.4.10",
     "ksuid": "^2.0.0",
     "lodash": "^4.17.21",
-    "ts-loader": "^8.3.0"
+    "miniflare": "^2.2.0",
+    "ts-loader": "^8.3.0",
+    "ulid-workers": "^1.1.0"
   }
 }

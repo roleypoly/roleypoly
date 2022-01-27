@@ -3,7 +3,9 @@
     "outDir": "./dist",
     "lib": ["esnext", "webworker", "ES2020.BigInt", "ES2020.Promise"],
     "types": ["@cloudflare/workers-types"],
-    "target": "ES2019"
+    "target": "ES2019",
+    "esModuleInterop": true,
+    "module": "commonjs"
   },
   "include": [
     "./*.ts",

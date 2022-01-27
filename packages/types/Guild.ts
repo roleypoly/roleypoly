@@ -50,6 +50,7 @@ export enum UserGuildPermissions {
   User,
   Manager = 1 << 1,
   Admin = 1 << 2,
+  RoleypolySupport = 1 << 3,
 }
 
 export type GuildSlug = {

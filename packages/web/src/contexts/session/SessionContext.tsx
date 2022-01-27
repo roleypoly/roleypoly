@@ -160,6 +160,7 @@ export const SessionContextProvider = (props: { children: React.ReactNode }) => 
           setLock(false);
         } catch (e) {
           console.error('syncSession failed', e);
+          deleteSessionKey();
           setLock(false);
         }
       };
@@ -179,7 +180,7 @@ const saveSessionKey = (key: string) => localStorage.setItem('rp_session_key', k
 const deleteSessionKey = () => localStorage.removeItem('rp_session_key');
 const getSessionKey = () => localStorage.getItem('rp_session_key');
 
-type ServerSession = Omit<SessionData, 'tokens'>;
+type ServerSession = Omit<Omit<SessionData, 'tokens'>, 'flags'>;
 const fetchSession = async (
   authedFetch: SessionContextT['authedFetch']
 ): Promise<ServerSession | null> => {
