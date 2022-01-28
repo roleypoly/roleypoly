@@ -1,23 +1,19 @@
-import { WrappedKVNamespace } from '@roleypoly/api/src/kv';
-import { monotonicFactory } from 'ulid-workers';
-const ulid = monotonicFactory();
+import { Config } from '@roleypoly/api/src/config';
+import { getID } from '@roleypoly/api/src/utils/id';
 
-export const setupStateSession = async <T>(
-  Sessions: WrappedKVNamespace,
-  data: T
-): Promise<string> => {
-  const stateID = ulid();
+export const setupStateSession = async <T>(config: Config, data: T): Promise<string> => {
+  const stateID = getID();
 
-  await Sessions.put(`state_${stateID}`, { data }, 60 * 5);
+  await config.kv.sessions.put(`state_${stateID}`, { data }, config.retention.session);
 
   return stateID;
 };
 
 export const getStateSession = async <T>(
-  Sessions: WrappedKVNamespace,
+  config: Config,
   stateID: string
 ): Promise<T | undefined> => {
-  const stateSession = await Sessions.get<{ data: T }>(`state_${stateID}`);
+  const stateSession = await config.kv.sessions.get<{ data: T }>(`state_${stateID}`);
 
   return stateSession?.data;
 };

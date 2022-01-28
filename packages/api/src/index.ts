@@ -1,12 +1,20 @@
 // @ts-ignore
-import { authBounce } from '@roleypoly/api/src/routes/auth/bounce';
-import { json, notFound } from '@roleypoly/api/src/utils/response';
+import { authBot } from '@roleypoly/api/src/routes/auth/bot';
+import { authCallback } from '@roleypoly/api/src/routes/auth/callback';
+import { withAuthMode } from '@roleypoly/api/src/sessions/middleware';
 import { Router } from 'itty-router';
 import { Config, Environment, parseEnvironment } from './config';
+import { authBounce } from './routes/auth/bounce';
+import { Context } from './utils/context';
+import { json, notFound } from './utils/response';
 
 const router = Router();
 
+router.all('*', withAuthMode);
+
+router.get('/auth/bot', authBot);
 router.get('/auth/bounce', authBounce);
+router.get('/auth/callback', authCallback);
 
 router.get('/', (request: Request, config: Config) =>
   json({
@@ -25,8 +33,17 @@ router.get('/', (request: Request, config: Config) =>
 router.get('*', () => notFound());
 
 export default {
-  async fetch(request: Request, env: Environment, ctx: FetchEvent) {
+  async fetch(request: Request, env: Environment, event: Context['fetchContext']) {
     const config = parseEnvironment(env);
-    return router.handle(request, config, ctx);
+    const context: Context = {
+      config,
+      fetchContext: {
+        waitUntil: event.waitUntil,
+      },
+      authMode: {
+        type: 'anonymous',
+      },
+    };
+    return router.handle(request, context);
   },
 };

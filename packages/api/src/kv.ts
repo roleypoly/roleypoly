@@ -1,5 +1,11 @@
 export class WrappedKVNamespace {
-  constructor(private kvNamespace: KVNamespace) {}
+  constructor(private kvNamespace: KVNamespace) {
+    this.getRaw = kvNamespace.get.bind(kvNamespace);
+    this.putRaw = kvNamespace.put.bind(kvNamespace);
+    this.delete = kvNamespace.delete.bind(kvNamespace);
+    this.list = kvNamespace.list.bind(kvNamespace);
+    this.getWithMetadata = kvNamespace.getWithMetadata.bind(kvNamespace);
+  }
 
   async get<T>(key: string): Promise<T | null> {
     const data = await this.kvNamespace.get(key, 'text');
@@ -16,8 +22,19 @@ export class WrappedKVNamespace {
     });
   }
 
-  getRaw = this.kvNamespace.get;
-  list = this.kvNamespace.list;
-  getWithMetadata = this.kvNamespace.getWithMetadata;
-  delete = this.kvNamespace.delete;
+  public getRaw: (
+    ...args: Parameters<KVNamespace['get']>
+  ) => ReturnType<KVNamespace['get']>;
+  public putRaw: (
+    ...args: Parameters<KVNamespace['put']>
+  ) => ReturnType<KVNamespace['put']>;
+  public list: (
+    ...args: Parameters<KVNamespace['list']>
+  ) => ReturnType<KVNamespace['list']>;
+  public getWithMetadata: (
+    ...args: Parameters<KVNamespace['getWithMetadata']>
+  ) => ReturnType<KVNamespace['getWithMetadata']>;
+  public delete: (
+    ...args: Parameters<KVNamespace['delete']>
+  ) => ReturnType<KVNamespace['delete']>;
 }

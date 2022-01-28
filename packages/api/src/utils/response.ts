@@ -9,8 +9,6 @@ export const json = (obj: any, init?: ResponseInit): Response => {
   });
 };
 
-export const notFound = () => json({ error: 'not found' }, { status: 404 });
-
 export const seeOther = (url: string) =>
   new Response(
     `<!doctype html>If you are not redirected soon, <a href="${url}">click here.</a>`,
@@ -22,3 +20,12 @@ export const seeOther = (url: string) =>
       },
     }
   );
+
+export const unauthorized = () => json({ error: 'unauthorized' }, { status: 401 });
+export const forbidden = () => json({ error: 'forbidden' }, { status: 403 });
+export const notFound = () => json({ error: 'not found' }, { status: 404 });
+export const serverError = (error: Error) => {
+  console.error(error);
+  return json({ error: 'internal server error' }, { status: 500 });
+};
+export const notImplemented = () => json({ error: 'not implemented' }, { status: 501 });

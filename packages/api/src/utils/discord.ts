@@ -1,4 +1,3 @@
-import { Config } from '@roleypoly/api/src/config';
 import {
   evaluatePermission,
   permissions as Permissions,
@@ -13,7 +12,7 @@ import {
 export const userAgent =
   'DiscordBot (https://github.com/roleypoly/roleypoly, git-main) (+https://roleypoly.com)';
 
-export const discordAPIBase = 'https://discordapp.com/api/v9';
+export const discordAPIBase = 'https://discord.com/api/v9';
 
 export enum AuthType {
   Bearer = 'Bearer',
@@ -82,7 +81,7 @@ type UserGuildsPayload = {
   features: string[];
 }[];
 
-export const getTokenGuilds = async (accessToken: string, config: Config) => {
+export const getTokenGuilds = async (accessToken: string) => {
   const guilds = await discordFetch<UserGuildsPayload>(
     '/users/@me/guilds',
     accessToken,
@@ -97,11 +96,7 @@ export const getTokenGuilds = async (accessToken: string, config: Config) => {
     id: guild.id,
     name: guild.name,
     icon: guild.icon,
-    permissionLevel: parsePermissions(
-      BigInt(guild.permissions),
-      guild.owner,
-      config.roleypolyServerID
-    ),
+    permissionLevel: parsePermissions(BigInt(guild.permissions), guild.owner),
   }));
 
   return guildSlugs;

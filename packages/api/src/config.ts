@@ -1,4 +1,4 @@
-import { WrappedKVNamespace } from '@roleypoly/api/src/kv';
+import { WrappedKVNamespace } from './kv';
 
 export type Environment = {
   BOT_CLIENT_ID: string;
@@ -35,6 +35,10 @@ export type Config = {
     guilds: WrappedKVNamespace;
     guildData: WrappedKVNamespace;
   };
+  retention: {
+    session: number;
+    sessionState: number;
+  };
   _raw: Environment;
 };
 
@@ -59,6 +63,10 @@ export const parseEnvironment = (env: Environment): Config => {
       sessions: new WrappedKVNamespace(env.KV_SESSIONS),
       guilds: new WrappedKVNamespace(env.KV_GUILDS),
       guildData: new WrappedKVNamespace(env.KV_GUILD_DATA),
+    },
+    retention: {
+      session: 60 * 60 * 6, // 6 hours
+      sessionState: 60 * 5, // 5 minutes
     },
   };
 };

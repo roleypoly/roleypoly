@@ -9,20 +9,18 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@cloudflare/workers-types": "^2.2.2",
+    "@cloudflare/workers-types": "^3.3.1",
     "@roleypoly/misc-utils": "*",
     "@roleypoly/types": "*",
-    "@roleypoly/worker-emulator": "*",
     "@roleypoly/worker-utils": "*",
     "@types/deep-equal": "^1.0.1",
     "deep-equal": "^2.0.5",
-    "esbuild": "^0.14.13",
-    "exponential-backoff": "^3.1.0",
+    "esbuild": "^0.14.14",
     "itty-router": "^2.4.10",
-    "ksuid": "^2.0.0",
+    "jest-environment-miniflare": "^2.2.0",
     "lodash": "^4.17.21",
     "miniflare": "^2.2.0",
-    "ts-loader": "^8.3.0",
+    "ts-jest": "^27.1.3",
     "ulid-workers": "^1.1.0"
   }
 }

@@ -13,3 +13,18 @@ export const formData = (obj: Record<string, any>): string => {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`)
     .join('&');
 };
+
+export const formDataRequest = (
+  obj: Record<string, any>,
+  init?: RequestInit
+): RequestInit => {
+  return {
+    method: 'POST', // First, so it can be overridden.
+    ...init,
+    headers: {
+      ...(init?.headers || {}),
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+    body: formData(obj),
+  };
+};
