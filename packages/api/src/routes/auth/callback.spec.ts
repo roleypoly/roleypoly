@@ -1,9 +1,9 @@
 jest.mock('../../utils/discord');
 jest.mock('../../sessions/create');
 
-import { parseEnvironment } from '../../config';
 import { createSession } from '../../sessions/create';
 import { setupStateSession } from '../../sessions/state';
+import { parseEnvironment } from '../../utils/config';
 import { discordFetch } from '../../utils/discord';
 import { getBindings, makeRequest } from '../../utils/testHelpers';
 

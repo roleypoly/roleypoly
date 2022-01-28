@@ -1,4 +1,4 @@
-import { Config } from '@roleypoly/api/src/config';
+import { Config } from '@roleypoly/api/src/utils/config';
 import { SessionData } from '@roleypoly/types';
 
 export type AuthMode =

@@ -1,4 +1,4 @@
-import { Config } from '@roleypoly/api/src/config';
+import { Config } from '@roleypoly/api/src/utils/config';
 import { getID } from '@roleypoly/api/src/utils/id';
 
 export const setupStateSession = async <T>(config: Config, data: T): Promise<string> => {

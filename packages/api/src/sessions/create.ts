@@ -1,8 +1,7 @@
-import { Config } from '@roleypoly/api/src/config';
+import { Config } from '@roleypoly/api/src/utils/config';
 import { getTokenGuilds, getTokenUser } from '@roleypoly/api/src/utils/discord';
+import { getID } from '@roleypoly/api/src/utils/id';
 import { AuthTokenResponse, SessionData } from '@roleypoly/types';
-import { monotonicFactory } from 'ulid-workers';
-const ulid = monotonicFactory();
 
 export const createSession = async (
   config: Config,
@@ -17,7 +16,7 @@ export const createSession = async (
     return null;
   }
 
-  const sessionID = ulid();
+  const sessionID = getID();
 
   const session: SessionData = {
     sessionID,

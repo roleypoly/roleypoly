@@ -3,8 +3,8 @@ import { authBot } from '@roleypoly/api/src/routes/auth/bot';
 import { authCallback } from '@roleypoly/api/src/routes/auth/callback';
 import { withAuthMode } from '@roleypoly/api/src/sessions/middleware';
 import { Router } from 'itty-router';
-import { Config, Environment, parseEnvironment } from './config';
 import { authBounce } from './routes/auth/bounce';
+import { Config, Environment, parseEnvironment } from './utils/config';
 import { Context } from './utils/context';
 import { json, notFound } from './utils/response';
 

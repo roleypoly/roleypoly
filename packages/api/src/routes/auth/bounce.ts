@@ -1,5 +1,5 @@
-import { Config } from '@roleypoly/api/src/config';
 import { setupStateSession } from '@roleypoly/api/src/sessions/state';
+import { Config } from '@roleypoly/api/src/utils/config';
 import { Context } from '@roleypoly/api/src/utils/context';
 import { getQuery } from '@roleypoly/api/src/utils/request';
 import { seeOther } from '@roleypoly/api/src/utils/response';

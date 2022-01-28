@@ -1,10 +1,25 @@
 import { Context } from '@roleypoly/api/src/utils/context';
+import { unauthorized } from '@roleypoly/api/src/utils/response';
+import { SessionData } from '@roleypoly/types';
 
-export const withSession = (request: Request, context: Context) => {};
+export const withSession = async (request: Request, context: Context) => {
+  if (context.authMode.type !== 'bearer') {
+    return;
+  }
+
+  const session = await context.config.kv.sessions.get<SessionData>(
+    context.authMode.sessionId
+  );
+  if (!session) {
+    return;
+  }
+
+  context.session = session;
+};
 
 export const requireSession = (request: Request, context: Context) => {
-  if (context.authMode.type !== 'bearer') {
-    throw new Error('Not authed');
+  if (context.authMode.type !== 'bearer' || !context.session) {
+    return unauthorized();
   }
 };
 

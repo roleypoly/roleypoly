@@ -1,9 +1,9 @@
 export const getQuery = (request: Request): { [x: string]: string } => {
   const output: { [x: string]: string } = {};
 
-  for (let [key, value] of new URL(request.url).searchParams.entries()) {
+  new URL(request.url).searchParams.forEach((value, key) => {
     output[key] = value;
-  }
+  });
 
   return output;
 };
