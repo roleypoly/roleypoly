@@ -38,7 +38,9 @@ router.put('/guilds/:guildId/roles', ...guildsCommon, notImplemented);
 // Slug is unauthenticated...
 router.get('/guilds/slug/:guildId', injectParams, guildsSlug);
 
-router.post('/interactions', notImplemented);
+// TODO: move this to another worker.
+// It inflates the output by way too much.
+// router.post('/interactions', handleInteraction);
 
 router.get(
   '/legacy/preflight/:guildId',
