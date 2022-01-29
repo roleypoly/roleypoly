@@ -21,16 +21,10 @@ export const verifyRequest = async (
     ['verify']
   );
 
-  if (
-    !(await crypto.subtle.verify(
-      'NODE-ED25519',
-      key,
-      Buffer.from(signature, 'hex'),
-      Buffer.from(timestamp + JSON.stringify(interaction))
-    ))
-  ) {
-    return false;
-  }
-
-  return true;
+  return crypto.subtle.verify(
+    'NODE-ED25519',
+    key,
+    Buffer.from(signature, 'hex'),
+    Buffer.from(timestamp + JSON.stringify(interaction))
+  );
 };
