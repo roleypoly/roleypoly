@@ -5,8 +5,10 @@ import { authCallback } from '@roleypoly/api/src/routes/auth/callback';
 import { authSessionDelete } from '@roleypoly/api/src/routes/auth/delete-session';
 import { authSession } from '@roleypoly/api/src/routes/auth/session';
 import { guildsGuild } from '@roleypoly/api/src/routes/guilds/guild';
+import { guildsRolesPut } from '@roleypoly/api/src/routes/guilds/guild-roles-put';
 import { guildsGuildPatch } from '@roleypoly/api/src/routes/guilds/guilds-patch';
 import { guildsSlug } from '@roleypoly/api/src/routes/guilds/slug';
+import { handleInteraction } from '@roleypoly/api/src/routes/interactions/interactions';
 import {
   requireSession,
   withAuthMode,
@@ -33,14 +35,12 @@ const guildsCommon = [injectParams, withSession, requireSession, requireMember];
 router.get('/guilds/:guildId', ...guildsCommon, guildsGuild);
 router.patch('/guilds/:guildId', ...guildsCommon, requireEditor, guildsGuildPatch);
 router.delete('/guilds/:guildId/cache', ...guildsCommon, requireEditor, notImplemented);
-router.put('/guilds/:guildId/roles', ...guildsCommon, notImplemented);
+router.put('/guilds/:guildId/roles', ...guildsCommon, guildsRolesPut);
 
 // Slug is unauthenticated...
 router.get('/guilds/slug/:guildId', injectParams, guildsSlug);
 
-// TODO: move this to another worker.
-// It inflates the output by way too much.
-// router.post('/interactions', handleInteraction);
+router.post('/interactions', handleInteraction);
 
 router.get(
   '/legacy/preflight/:guildId',

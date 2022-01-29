@@ -3,8 +3,16 @@ import nacl from 'tweetnacl';
 import { configContext } from '../../utils/testHelpers';
 import { verifyRequest } from './helpers';
 
+//
+// Q: Why tweetnacl when WebCrypto is available?
+// A: Discord uses tweetnacl on their end, thus is also
+//   used in far more examples of Discord Interactions than WebCrypto.
+//   We don't actually use it in Workers, as SubtleCrypto using NODE-ED25519
+//    is better in every way, and still gives us the same effect.
+//
+
 describe('verifyRequest', () => {
-  it('validates a successful Discord interactions request', () => {
+  it('validates a successful Discord interactions request', async () => {
     const [config, context] = configContext();
 
     const timestamp = String(Date.now());
@@ -32,10 +40,10 @@ describe('verifyRequest', () => {
       },
     });
 
-    expect(verifyRequest(context.config, request, body)).toBe(true);
+    expect(await verifyRequest(context.config, request, body)).toBe(true);
   });
 
-  it('fails to validate a headerless Discord interactions request', () => {
+  it('fails to validate a headerless Discord interactions request', async () => {
     const [config, context] = configContext();
 
     const body: InteractionRequest = {
@@ -55,10 +63,10 @@ describe('verifyRequest', () => {
       headers: {},
     });
 
-    expect(verifyRequest(context.config, request, body)).toBe(false);
+    expect(await verifyRequest(context.config, request, body)).toBe(false);
   });
 
-  it('fails to validate a bad signature from Discord', () => {
+  it('fails to validate a bad signature from Discord', async () => {
     const [config, context] = configContext();
 
     const timestamp = String(Date.now());
@@ -87,10 +95,10 @@ describe('verifyRequest', () => {
       },
     });
 
-    expect(verifyRequest(context.config, request, body)).toBe(false);
+    expect(await verifyRequest(context.config, request, body)).toBe(false);
   });
 
-  it('fails to validate when signature differs from data', () => {
+  it('fails to validate when signature differs from data', async () => {
     const [config, context] = configContext();
 
     const timestamp = String(Date.now());
@@ -118,6 +126,6 @@ describe('verifyRequest', () => {
       },
     });
 
-    expect(verifyRequest(context.config, request, body)).toBe(false);
+    expect(await verifyRequest(context.config, request, body)).toBe(false);
   });
 });

@@ -12,7 +12,7 @@ export const handleInteraction: RoleypolyHandler = async (
     return invalid();
   }
 
-  if (!verifyRequest(context.config, request, interaction)) {
+  if (!(await verifyRequest(context.config, request, interaction))) {
     return new Response('invalid request signature', { status: 401 });
   }
 

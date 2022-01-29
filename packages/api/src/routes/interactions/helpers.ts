@@ -1,12 +1,11 @@
 import { Config } from '@roleypoly/api/src/utils/config';
 import { InteractionRequest } from '@roleypoly/types';
-import nacl from 'tweetnacl';
 
-export const verifyRequest = (
+export const verifyRequest = async (
   config: Config,
   request: Request,
   interaction: InteractionRequest
-): boolean => {
+): Promise<boolean> => {
   const timestamp = request.headers.get('x-signature-timestamp');
   const signature = request.headers.get('x-signature-ed25519');
 
@@ -14,12 +13,21 @@ export const verifyRequest = (
     return false;
   }
 
+  const key = await crypto.subtle.importKey(
+    'raw',
+    Buffer.from(config.publicKey, 'hex'),
+    { name: 'NODE-ED25519', namedCurve: 'NODE-ED25519', public: true } as any,
+    false,
+    ['verify']
+  );
+
   if (
-    !nacl.sign.detached.verify(
-      Buffer.from(timestamp + JSON.stringify(interaction)),
+    !(await crypto.subtle.verify(
+      'NODE-ED25519',
+      key,
       Buffer.from(signature, 'hex'),
-      Buffer.from(config.publicKey, 'hex')
-    )
+      Buffer.from(timestamp + JSON.stringify(interaction))
+    ))
   ) {
     return false;
   }
