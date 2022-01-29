@@ -15,7 +15,7 @@ kv_namespaces = [
 ]
 
 [build]
-command = "yarn build"
+command = "yarn build:dev"
 [build.upload]
 format = "modules"
 dir = "dist"

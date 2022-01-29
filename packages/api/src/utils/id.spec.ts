@@ -5,5 +5,5 @@ it('returns an id', () => {
 });
 
 it('outputs a valid millisecond decoded from id', () => {
-  expect(dateFromID(getID())).toBeCloseTo(Date.now(), Date.now().toString.length - 2);
+  expect(dateFromID(getID())).toBeCloseTo(Date.now(), Date.now().toString.length - 4);
 });

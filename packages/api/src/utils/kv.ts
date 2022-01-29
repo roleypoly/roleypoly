@@ -22,6 +22,29 @@ export class WrappedKVNamespace {
     });
   }
 
+  async cacheThrough<Data>(
+    cacheKey: string,
+    missHandler: () => Promise<Data | null>,
+    retention?: number,
+    forceMiss?: boolean
+  ): Promise<Data | null> {
+    if (!forceMiss) {
+      const value = await this.get<Data>(cacheKey);
+      if (value) {
+        return value;
+      }
+    }
+
+    const fallbackValue = await missHandler();
+    if (!fallbackValue) {
+      return null;
+    }
+
+    await this.put(cacheKey, fallbackValue, retention);
+
+    return fallbackValue;
+  }
+
   public getRaw: (
     ...args: Parameters<KVNamespace['get']>
   ) => ReturnType<KVNamespace['get']>;

@@ -1,4 +1,4 @@
-import { Context } from '@roleypoly/api/src/utils/context';
+import { Context, RoleypolyHandler } from '@roleypoly/api/src/utils/context';
 import { seeOther } from '@roleypoly/api/src/utils/response';
 
 const validGuildID = /^[0-9]+$/;
@@ -22,7 +22,10 @@ const buildURL = (params: URLParams) => {
   return url;
 };
 
-export const authBot = (request: Request, { config }: Context): Response => {
+export const authBot: RoleypolyHandler = (
+  request: Request,
+  { config }: Context
+): Response => {
   let guildID = new URL(request.url).searchParams.get('guild') || '';
 
   if (guildID && !validGuildID.test(guildID)) {

@@ -11,10 +11,6 @@ const mockDiscordFetch = discordFetch as jest.Mock;
 const mockCreateSession = createSession as jest.Mock;
 
 describe('GET /auth/callback', () => {
-  beforeEach(() => {
-    mockDiscordFetch.mockClear();
-  });
-
   it('should ask Discord to trade code for tokens', async () => {
     const env = getBindings();
     const config = parseEnvironment(env);

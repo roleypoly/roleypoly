@@ -6,6 +6,7 @@ import {
   AuthTokenResponse,
   DiscordUser,
   GuildSlug,
+  Role,
   UserGuildPermissions,
 } from '@roleypoly/types';
 
@@ -102,6 +103,30 @@ export const getTokenGuilds = async (accessToken: string) => {
   return guildSlugs;
 };
 
+export type APIGuild = {
+  // Only relevant stuff
+  id: string;
+  name: string;
+  icon: string;
+  roles: APIRole[];
+};
+
+export type APIRole = {
+  id: string;
+  name: string;
+  color: number;
+  position: number;
+  permissions: string;
+  managed: boolean;
+};
+
+export type APIMember = {
+  // Only relevant stuff, again.
+  roles: string[];
+  pending: boolean;
+  nick: string;
+};
+
 export const parsePermissions = (
   permissions: bigint,
   owner: boolean = false
@@ -115,4 +140,11 @@ export const parsePermissions = (
   }
 
   return UserGuildPermissions.User;
+};
+
+export const getHighestRole = (roles: (Role | APIRole)[]): Role | APIRole => {
+  return roles.reduce(
+    (highestRole, role) => (highestRole.position > role.position ? highestRole : role),
+    roles[0]
+  );
 };

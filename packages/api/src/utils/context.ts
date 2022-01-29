@@ -20,7 +20,21 @@ export type Context = {
     waitUntil: FetchEvent['waitUntil'];
   };
   authMode: AuthMode;
+  params: {
+    guildId?: string;
+    memberId?: string;
+  };
 
   // Must include withSession middleware for population
   session?: SessionData;
 };
+
+export type RoleypolyHandler = (
+  request: Request,
+  context: Context
+) => Promise<Response> | Response;
+
+export type RoleypolyMiddleware = (
+  request: Request,
+  context: Context
+) => Promise<Response | void> | Response | void;

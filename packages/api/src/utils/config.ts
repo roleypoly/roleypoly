@@ -12,7 +12,7 @@ export type Environment = {
   INTERACTIONS_SHARED_KEY: string;
   RP_SERVER_ID: string;
   RP_HELPER_ROLE_IDS: string;
-
+  DISCORD_PUBLIC_KEY: string;
   KV_SESSIONS: KVNamespace;
   KV_GUILDS: KVNamespace;
   KV_GUILD_DATA: KVNamespace;
@@ -22,6 +22,7 @@ export type Config = {
   botClientID: string;
   botClientSecret: string;
   botToken: string;
+  publicKey: string;
   uiPublicURI: string;
   apiPublicURI: string;
   rootUsers: string[];
@@ -38,6 +39,8 @@ export type Config = {
   retention: {
     session: number;
     sessionState: number;
+    guild: number;
+    member: number;
   };
   _raw: Environment;
 };
@@ -51,6 +54,7 @@ export const parseEnvironment = (env: Environment): Config => {
     botClientID: env.BOT_CLIENT_ID,
     botClientSecret: env.BOT_CLIENT_SECRET,
     botToken: env.BOT_TOKEN,
+    publicKey: env.DISCORD_PUBLIC_KEY,
     uiPublicURI: safeURI(env.UI_PUBLIC_URI),
     apiPublicURI: safeURI(env.API_PUBLIC_URI),
     rootUsers: toList(env.ROOT_USERS),
@@ -67,6 +71,8 @@ export const parseEnvironment = (env: Environment): Config => {
     retention: {
       session: 60 * 60 * 6, // 6 hours
       sessionState: 60 * 5, // 5 minutes
+      guild: 60 * 60 * 2, // 2 hours
+      member: 60 * 5, // 5 minutes
     },
   };
 };

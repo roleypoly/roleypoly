@@ -1,4 +1,5 @@
-import { Config, Environment } from '@roleypoly/api/src/utils/config';
+import { Config, Environment, parseEnvironment } from '@roleypoly/api/src/utils/config';
+import { Context } from '@roleypoly/api/src/utils/context';
 import { getID } from '@roleypoly/api/src/utils/id';
 import { SessionData, UserGuildPermissions } from '@roleypoly/types';
 import index from '../index';
@@ -57,6 +58,18 @@ export const makeSession = async (
         icon: 'test-guild-icon',
         permissionLevel: UserGuildPermissions.User,
       },
+      {
+        id: 'test-guild-id-editor',
+        name: 'test-guild-name',
+        icon: 'test-guild-icon',
+        permissionLevel: UserGuildPermissions.Manager,
+      },
+      {
+        id: 'test-guild-id-admin',
+        name: 'test-guild-name',
+        icon: 'test-guild-icon',
+        permissionLevel: UserGuildPermissions.Manager | UserGuildPermissions.Admin,
+      },
     ],
     ...data,
   };
@@ -64,4 +77,25 @@ export const makeSession = async (
   await config.kv.sessions.put(sessionID, session, config.retention.session);
 
   return session;
+};
+
+export const configContext = (): [Config, Context] => {
+  const config = parseEnvironment({
+    ...getBindings(),
+    BOT_CLIENT_SECRET: 'test-client-secret',
+    BOT_CLIENT_ID: 'test-client-id',
+    BOT_TOKEN: 'test-bot-token',
+  });
+  const context: Context = {
+    config,
+    fetchContext: {
+      waitUntil: () => {},
+    },
+    authMode: {
+      type: 'anonymous',
+    },
+    params: {},
+  };
+
+  return [config, context];
 };

@@ -1,6 +1,6 @@
 import { setupStateSession } from '@roleypoly/api/src/sessions/state';
 import { Config } from '@roleypoly/api/src/utils/config';
-import { Context } from '@roleypoly/api/src/utils/context';
+import { Context, RoleypolyHandler } from '@roleypoly/api/src/utils/context';
 import { getQuery } from '@roleypoly/api/src/utils/request';
 import { seeOther } from '@roleypoly/api/src/utils/response';
 import { StateSession } from '@roleypoly/types';
@@ -44,7 +44,10 @@ export const isAllowedCallbackHost = (config: Config, host: string): boolean => 
   );
 };
 
-export const authBounce = async (request: Request, { config }: Context) => {
+export const authBounce: RoleypolyHandler = async (
+  request: Request,
+  { config }: Context
+) => {
   const stateSessionData: StateSession = {};
 
   const { cbh: callbackHost } = getQuery(request);

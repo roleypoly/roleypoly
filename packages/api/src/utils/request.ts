@@ -1,3 +1,5 @@
+import { Context, RoleypolyMiddleware } from '@roleypoly/api/src/utils/context';
+
 export const getQuery = (request: Request): { [x: string]: string } => {
   const output: { [x: string]: string } = {};
 
@@ -26,5 +28,15 @@ export const formDataRequest = (
       'content-type': 'application/x-www-form-urlencoded',
     },
     body: formData(obj),
+  };
+};
+
+export const injectParams: RoleypolyMiddleware = (
+  request: Request & { params?: Record<string, string> },
+  context: Context
+) => {
+  context.params = {
+    guildId: request.params?.guildId,
+    memberId: request.params?.memberId,
   };
 };

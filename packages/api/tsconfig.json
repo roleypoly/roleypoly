@@ -4,7 +4,7 @@
     "target": "esnext",
     "module": "esnext",
     "lib": ["esnext", "webworker", "ES2020.BigInt", "ES2020.Promise"],
-    "types": ["@cloudflare/workers-types"],
+    "types": ["@cloudflare/workers-types", "node"],
     "esModuleInterop": true,
     "moduleResolution": "node"
   },

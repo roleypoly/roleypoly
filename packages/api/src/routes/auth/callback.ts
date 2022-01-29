@@ -1,7 +1,7 @@
 import { isAllowedCallbackHost } from '@roleypoly/api/src/routes/auth/bounce';
 import { createSession } from '@roleypoly/api/src/sessions/create';
 import { getStateSession } from '@roleypoly/api/src/sessions/state';
-import { Context } from '@roleypoly/api/src/utils/context';
+import { Context, RoleypolyHandler } from '@roleypoly/api/src/utils/context';
 import { AuthType, discordAPIBase, discordFetch } from '@roleypoly/api/src/utils/discord';
 import { dateFromID } from '@roleypoly/api/src/utils/id';
 import { formDataRequest, getQuery } from '@roleypoly/api/src/utils/request';
@@ -14,7 +14,10 @@ const authFailure = (uiPublicURI: string, extra?: string) =>
       `/machinery/error?error_code=authFailure${extra ? `&extra=${extra}` : ''}`
   );
 
-export const authCallback = async (request: Request, { config }: Context) => {
+export const authCallback: RoleypolyHandler = async (
+  request: Request,
+  { config }: Context
+) => {
   let bounceBaseUrl = config.uiPublicURI;
 
   const { state: stateValue, code } = getQuery(request);

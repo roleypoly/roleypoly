@@ -1,8 +1,11 @@
-import { Context } from '@roleypoly/api/src/utils/context';
+import { Context, RoleypolyMiddleware } from '@roleypoly/api/src/utils/context';
 import { unauthorized } from '@roleypoly/api/src/utils/response';
 import { SessionData } from '@roleypoly/types';
 
-export const withSession = async (request: Request, context: Context) => {
+export const withSession: RoleypolyMiddleware = async (
+  request: Request,
+  context: Context
+) => {
   if (context.authMode.type !== 'bearer') {
     return;
   }
@@ -17,13 +20,16 @@ export const withSession = async (request: Request, context: Context) => {
   context.session = session;
 };
 
-export const requireSession = (request: Request, context: Context) => {
+export const requireSession: RoleypolyMiddleware = (
+  request: Request,
+  context: Context
+) => {
   if (context.authMode.type !== 'bearer' || !context.session) {
     return unauthorized();
   }
 };
 
-export const withAuthMode = (request: Request, context: Context) => {
+export const withAuthMode: RoleypolyMiddleware = (request: Request, context: Context) => {
   const auth = extractAuthentication(request);
 
   if (auth.authType === 'Bearer') {
