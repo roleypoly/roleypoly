@@ -161,7 +161,7 @@ export const SessionContextProvider = (props: { children: React.ReactNode }) => 
         } catch (e) {
           console.error('syncSession failed', e);
           deleteSessionKey();
-          setLock(false);
+          setTimeout(() => setLock(false), 1000); // Unlock after 1s to prevent loop flood
         }
       };
 
@@ -184,7 +184,7 @@ type ServerSession = Omit<Omit<SessionData, 'tokens'>, 'flags'>;
 const fetchSession = async (
   authedFetch: SessionContextT['authedFetch']
 ): Promise<ServerSession | null> => {
-  const sessionResponse = await authedFetch('/get-session');
+  const sessionResponse = await authedFetch('/auth/session');
   if (sessionResponse.status !== 200) {
     return null;
   }

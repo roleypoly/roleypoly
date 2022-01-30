@@ -52,7 +52,7 @@ export const GuildProvider = (props: { children: React.ReactNode }) => {
         }
       }
 
-      const response = await fetch(`/get-slug/${id}`);
+      const response = await fetch(`/guilds/${id}/slug`);
       if (response.status !== 200) {
         return null;
       }
@@ -83,7 +83,7 @@ export const GuildProvider = (props: { children: React.ReactNode }) => {
       }
 
       const skipCache = uncached ? '?__no_cache' : '';
-      const response = await authedFetch(`/get-picker-data/${id}${skipCache}`);
+      const response = await authedFetch(`/guilds/${id}${skipCache}`);
       const guild: PresentableGuild = await response.json();
 
       if (response.status !== 200) {

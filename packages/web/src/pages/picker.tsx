@@ -65,7 +65,7 @@ const Picker = (props: PickerProps) => {
       const guildSlug = session.guilds.find((guild) => guild.id === props.serverID);
 
       if (!guildSlug) {
-        console.error({ error: 'guold not in session, 404' });
+        console.error({ error: 'guild not in session, 404' });
         return <Redirect to="/error/404" replace />;
       }
 
@@ -94,8 +94,8 @@ const Picker = (props: PickerProps) => {
     };
 
     uncacheGuild(props.serverID);
-    const response = await authedFetch(`/update-roles/${props.serverID}`, {
-      method: 'PATCH',
+    const response = await authedFetch(`/guilds/${props.serverID}/roles`, {
+      method: 'PUT',
       body: JSON.stringify(updatePayload),
     });
     if (response.status === 200) {

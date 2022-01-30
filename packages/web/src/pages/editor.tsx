@@ -89,7 +89,7 @@ const Editor = (props: EditorProps) => {
       categories: guild.data.categories,
     };
 
-    const response = await authedFetch(`/update-guild/${serverID}`, {
+    const response = await authedFetch(`/guilds/${serverID}`, {
       method: 'PATCH',
       body: JSON.stringify(updatePayload),
     });
