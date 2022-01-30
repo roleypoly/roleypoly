@@ -2,7 +2,7 @@ import { isAllowedCallbackHost } from '@roleypoly/api/src/routes/auth/bounce';
 import { createSession } from '@roleypoly/api/src/sessions/create';
 import { getStateSession } from '@roleypoly/api/src/sessions/state';
 import { Context, RoleypolyHandler } from '@roleypoly/api/src/utils/context';
-import { AuthType, discordAPIBase, discordFetch } from '@roleypoly/api/src/utils/discord';
+import { AuthType, discordFetch } from '@roleypoly/api/src/utils/discord';
 import { dateFromID } from '@roleypoly/api/src/utils/id';
 import { formDataRequest, getQuery } from '@roleypoly/api/src/utils/request';
 import { seeOther } from '@roleypoly/api/src/utils/response';
@@ -51,7 +51,7 @@ export const authCallback: RoleypolyHandler = async (
   }
 
   const response = await discordFetch<AuthTokenResponse>(
-    `${discordAPIBase}/oauth2/token`,
+    `/oauth2/token`,
     '',
     AuthType.None,
     formDataRequest({

@@ -6,7 +6,7 @@ import {
 } from '@roleypoly/design-system/molecules/server-utilities/ServerUtilities.styled';
 import { hasFeature } from '@roleypoly/misc-utils/hasFeature';
 import { Features, GuildData } from '@roleypoly/types';
-import { GoArchive, GoChevronRight, GoReport, GoShield, GoSync } from 'react-icons/go';
+import { GoArchive, GoChevronRight, GoReport, GoShield } from 'react-icons/go';
 
 type Props = {
   guildData: GuildData;
@@ -54,25 +54,17 @@ export const ServerUtilities = (props: Props) => (
         link={`/s/${props.guildData.id}/edit/audit-logging`}
       />
     )}
-    <Utility
-      title={
-        <>
-          <GoSync />
-          &nbsp;&nbsp;Import from Roleypoly Legacy
-        </>
-      }
-      description="Used Roleypoly before and don't see your categories?"
-      link={`/s/${props.guildData.id}/edit/import-from-legacy`}
-    />
-    <Utility
-      title={
-        <>
-          <GoArchive />
-          &nbsp;&nbsp;Manage your Data
-        </>
-      }
-      description="Export or delete all of your Roleypoly data."
-      link={`/s/${props.guildData.id}/edit/data`}
-    />
+    {hasFeature(props.guildData.features, Features.Preview) && (
+      <Utility
+        title={
+          <>
+            <GoArchive />
+            &nbsp;&nbsp;Manage your Data
+          </>
+        }
+        description="Export or delete all of your Roleypoly data."
+        link={`/s/${props.guildData.id}/edit/data`}
+      />
+    )}
   </div>
 );

@@ -1,12 +1,20 @@
-export const json = (obj: any, init?: ResponseInit): Response => {
+export const json = <T>(obj: T, init?: ResponseInit): Response => {
   const body = JSON.stringify(obj);
   return new Response(body, {
     ...init,
     headers: {
       ...init?.headers,
       'content-type': 'application/json; charset=utf-8',
+      ...corsHeaders,
     },
   });
+};
+
+export const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS, PATCH',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  'Access-Control-Max-Age': '86400',
 };
 
 export const noContent = () => new Response(null, { status: 204 });

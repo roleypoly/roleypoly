@@ -8,7 +8,7 @@ export const getDefaultApiUrl = memoizeOne.default((host: string) => {
     /^stage\.roleypoly\.com$/.test(host)
   ) {
     return 'https://api-stage.roleypoly.com';
-  } else if (/\blocalhost|127\.0\.0\.1\b/.test(host)) {
+  } else if (/\blocalhost|127\.0\.0\.1|172.21.92\b/.test(host)) {
     return 'http://localhost:6609';
   } else {
     return 'https://api-prod.roleypoly.com';

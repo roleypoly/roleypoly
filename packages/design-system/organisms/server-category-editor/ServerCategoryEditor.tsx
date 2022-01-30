@@ -11,12 +11,12 @@ import {
   Role,
   RoleSafety,
 } from '@roleypoly/types';
-import KSUID from 'ksuid';
 import { flatten, sortBy } from 'lodash';
 import React from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { CgReorder } from 'react-icons/cg';
 import { GoArrowDown, GoArrowUp, GoCheck, GoGrabber, GoPlus } from 'react-icons/go';
+import { ulid } from 'ulidx';
 import {
   CategoryActions,
   ReorderButton,
@@ -70,7 +70,7 @@ export const ServerCategoryEditor = (props: Props) => {
 
     const newCategory: Category = {
       ...defaultCategory,
-      id: KSUID.randomSync().string,
+      id: ulid(),
       position: categories.length,
     };
 
@@ -96,7 +96,7 @@ export const ServerCategoryEditor = (props: Props) => {
       if (c.id === category.id) {
         return {
           ...defaultCategory,
-          id: KSUID.randomSync().string,
+          id: ulid(),
           position: category.position,
         };
       }

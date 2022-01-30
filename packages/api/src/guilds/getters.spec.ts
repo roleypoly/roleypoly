@@ -46,7 +46,7 @@ describe('getGuild', () => {
       roles: [],
     };
 
-    await config.kv.guilds.put('guilds/123', guild, config.retention.guild);
+    await config.kv.guilds.put('123', guild, config.retention.guild);
     mockDiscordFetch.mockReturnValue({ ...guild, name: 'test2' });
 
     const result = await getGuild(config, '123');
@@ -220,7 +220,7 @@ describe('getGuildMember', () => {
       nick: 'test2',
     };
 
-    await config.kv.guilds.put('guilds/123/members/123', member, config.retention.guild);
+    await config.kv.guilds.put('123:members:123', member, config.retention.guild);
     mockDiscordFetch.mockReturnValue({ ...member, nick: 'test' });
 
     const result = await getGuildMember(config, '123', '123');

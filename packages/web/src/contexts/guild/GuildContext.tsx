@@ -1,6 +1,7 @@
 import { GuildSlug, PresentableGuild } from '@roleypoly/types';
 import React from 'react';
 import { useApiContext } from '../api/ApiContext';
+import { useAuthedFetch } from '../session/AuthedFetchContext';
 import { useSessionContext } from '../session/SessionContext';
 
 const CACHE_HOLD_TIME = 2 * 60 * 1000; // 2 minutes
@@ -29,7 +30,8 @@ export const GuildContext = React.createContext<GuildContextT>({
 export const useGuildContext = () => React.useContext(GuildContext);
 
 export const GuildProvider = (props: { children: React.ReactNode }) => {
-  const { session, authedFetch } = useSessionContext();
+  const { session } = useSessionContext();
+  const { authedFetch } = useAuthedFetch();
   const { fetch } = useApiContext();
 
   const guildContextValue: GuildContextT = {

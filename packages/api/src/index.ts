@@ -19,7 +19,7 @@ import { Router } from 'itty-router';
 import { authBounce } from './routes/auth/bounce';
 import { Environment, parseEnvironment } from './utils/config';
 import { Context, RoleypolyHandler } from './utils/context';
-import { json, notFound, serverError } from './utils/response';
+import { corsHeaders, json, notFound, serverError } from './utils/response';
 
 const router = Router();
 
@@ -42,8 +42,7 @@ router.delete(
 );
 router.put('/guilds/:guildId/roles', ...guildsCommon, guildsRolesPut);
 
-// Slug is unauthenticated...
-router.get('/guilds/slug/:guildId', injectParams, guildsSlug);
+router.get('/guilds/:guildId/slug', injectParams, withSession, guildsSlug);
 
 router.post('/interactions', handleInteraction);
 
@@ -60,7 +59,23 @@ router.get('/', ((request: Request, { config }: Context) =>
     meta: config.uiPublicURI,
   })) as RoleypolyHandler);
 
-router.any('*', () => notFound());
+router.options('*', (request: Request) => {
+  return new Response(null, {
+    headers: {
+      ...corsHeaders,
+    },
+  });
+});
+
+router.all('/*', notFound);
+
+const scrubURL = (urlStr: string) => {
+  const url = new URL(urlStr);
+  url.searchParams.delete('code');
+  url.searchParams.delete('state');
+
+  return url.toString();
+};
 
 export default {
   async fetch(request: Request, env: Environment, event: Context['fetchContext']) {
@@ -68,13 +83,14 @@ export default {
     const context: Context = {
       config,
       fetchContext: {
-        waitUntil: event.waitUntil,
+        waitUntil: event.waitUntil.bind(event),
       },
       authMode: {
         type: 'anonymous',
       },
       params: {},
     };
+    console.log(`${request.method} ${scrubURL(request.url)}`);
     return router
       .handle(request, context)
       .catch((e: Error) => (!e ? notFound() : serverError(e)));

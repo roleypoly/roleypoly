@@ -22,7 +22,7 @@ export const fetchLegacyServer = async (
   config: Config,
   id: string
 ): Promise<LegacyGuildData | null> => {
-  if (!config.interactionsSharedKey) {
+  if (!config.importSharedKey) {
     return null;
   }
 

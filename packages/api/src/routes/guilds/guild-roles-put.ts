@@ -2,9 +2,10 @@ import {
   getGuild,
   getGuildData,
   getGuildMember,
+  updateGuildMember,
 } from '@roleypoly/api/src/guilds/getters';
 import { Context, RoleypolyHandler } from '@roleypoly/api/src/utils/context';
-import { AuthType, discordFetch } from '@roleypoly/api/src/utils/discord';
+import { APIMember, AuthType, discordFetch } from '@roleypoly/api/src/utils/discord';
 import {
   engineeringProblem,
   invalid,
@@ -66,11 +67,14 @@ export const guildsRolesPut: RoleypolyHandler = async (
     updateRequest,
   });
 
-  if (isIdenticalArray(member.roles, newRoles)) {
+  if (
+    isIdenticalArray(member.roles, newRoles) ||
+    isIdenticalArray(updateRequest.knownState, newRoles)
+  ) {
     return invalid();
   }
 
-  const patchMemberRoles = await discordFetch<Member>(
+  const patchMemberRoles = await discordFetch<APIMember>(
     `/guilds/${guildID}/members/${userID}`,
     context.config.botToken,
     AuthType.Bot,
@@ -90,7 +94,9 @@ export const guildsRolesPut: RoleypolyHandler = async (
     return serverError(new Error('discord rejected the request'));
   }
 
-  context.fetchContext.waitUntil(getGuildMember(context.config, guildID, userID, true));
+  context.fetchContext.waitUntil(
+    updateGuildMember(context.config, guildID, patchMemberRoles)
+  );
 
   const updatedMember: Member = {
     roles: patchMemberRoles.roles,

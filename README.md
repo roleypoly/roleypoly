@@ -41,11 +41,13 @@ This is the fastest way to start. You must be using MacOS or Linux (WSL2 is ok!)
 - Setup `.env` using [`.env.example`][envexample] as a template and guide.
   - When setting up your Discord Application, be sure to set `http://localhost:6609/login-callback` as the OAuth2 callback URL.
 - Run: `yarn install`
-- Run both: `yarn start`
+- Run: `yarn start`
   - This starts the Web UI, Storybook, and API servers in hot-reload dev/emulation mode. All changes to TS/TSX files should be properly captured and reloaded for you!
 - Develop you a Roleypoly!
 
 #### Option 3 🐄🤠: Wrangler (No emulation)
+
+**Outdated. This won't work, but could give you an idea of what to do.**
 
 This is probably extremely painful and requires you to have a Cloudflare account.
 
@@ -93,26 +95,26 @@ Run:
 
 - `yarn` to install deps
 - `yarn start:design-system` to open storybook
-- `yarn test` to test
+- `yarn test:design-system` to test
 
 ### Developing Web UI
 
-For working with the Next.js frontend components, use the below steps as reference. Code lives in `src/pages` among elsewhere.
+For working with the Next.js frontend components, use the below steps as reference. Code lives in `src/web` among elsewhere.
 
 Run:
 
 - `yarn` to install deps
 - `yarn start:web` to run Next.js dev server
-- `yarn test` to test
+- `yarn test:web` to test
 
 ### Developing API Components
 
-For working with the API, use the below steps as reference. Code lives in `src/backend-worker`.
+For working with the API, use the below steps as reference. Code lives in `src/api`.
 
 Run:
 
 - `yarn` to install deps
 - `yarn start:api` to start an emulated worker
-- `yarn test` to test
+- `yarn test:api` to test
 
 [envexample]: .env.example

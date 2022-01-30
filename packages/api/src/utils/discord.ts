@@ -125,6 +125,9 @@ export type APIMember = {
   roles: string[];
   pending: boolean;
   nick: string;
+  user: {
+    id: string;
+  };
 };
 
 export const parsePermissions = (

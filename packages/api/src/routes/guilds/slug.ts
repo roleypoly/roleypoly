@@ -8,6 +8,13 @@ export const guildsSlug: RoleypolyHandler = async (
   context: Context
 ) => {
   const id = context.params.guildId!;
+
+  const guildInSession = context.session?.guilds.find((guild) => guild.id === id);
+
+  if (guildInSession) {
+    return json<GuildSlug>(guildInSession);
+  }
+
   const guild = await getGuild(context.config, id);
   if (!guild) {
     return notFound();
@@ -19,5 +26,6 @@ export const guildsSlug: RoleypolyHandler = async (
     icon: guild.icon,
     permissionLevel: UserGuildPermissions.User,
   };
-  return json(slug);
+
+  return json<GuildSlug>(slug);
 };

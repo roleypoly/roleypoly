@@ -10,6 +10,7 @@ import * as React from 'react';
 import { useAppShellProps } from '../contexts/app-shell/AppShellContext';
 import { useGuildContext } from '../contexts/guild/GuildContext';
 import { useRecentGuilds } from '../contexts/recent-guilds/RecentGuildsContext';
+import { useAuthedFetch } from '../contexts/session/AuthedFetchContext';
 import { useSessionContext } from '../contexts/session/SessionContext';
 import { Title } from '../utils/metaTitle';
 
@@ -20,10 +21,11 @@ type EditorProps = {
 
 const Editor = (props: EditorProps) => {
   const { serverID } = props;
-  const { session, authedFetch, isAuthenticated } = useSessionContext();
+  const { session, isAuthenticated } = useSessionContext();
+  const { authedFetch } = useAuthedFetch();
   const { pushRecentGuild } = useRecentGuilds();
   const appShellProps = useAppShellProps();
-  const { getFullGuild } = useGuildContext();
+  const { getFullGuild, uncacheGuild } = useGuildContext();
 
   const [guild, setGuild] = React.useState<PresentableGuild | null | false>(null);
   const [pending, setPending] = React.useState(false);
@@ -96,6 +98,7 @@ const Editor = (props: EditorProps) => {
 
     if (response.status === 200) {
       setGuild(guild);
+      uncacheGuild(serverID);
       navigate(`/s/${props.serverID}`);
     }
 

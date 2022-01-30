@@ -15,6 +15,10 @@ module.exports = {
           : [match.loader.include];
         match.loader.include = [...include, ...includePaths];
       }
+
+      webpackConfig.resolve.fallback = {
+        crypto: false,
+      };
       return webpackConfig;
     },
   },

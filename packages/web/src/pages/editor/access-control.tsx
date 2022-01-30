@@ -11,10 +11,12 @@ import React from 'react';
 import { useAppShellProps } from '../../contexts/app-shell/AppShellContext';
 import { useGuildContext } from '../../contexts/guild/GuildContext';
 import { useRecentGuilds } from '../../contexts/recent-guilds/RecentGuildsContext';
+import { useAuthedFetch } from '../../contexts/session/AuthedFetchContext';
 import { useSessionContext } from '../../contexts/session/SessionContext';
 
 const AccessControlPage = (props: { serverID: string; path: string }) => {
-  const { session, isAuthenticated, authedFetch } = useSessionContext();
+  const { session, isAuthenticated } = useSessionContext();
+  const { authedFetch } = useAuthedFetch();
   const { pushRecentGuild } = useRecentGuilds();
   const { getFullGuild, uncacheGuild } = useGuildContext();
   const appShellProps = useAppShellProps();

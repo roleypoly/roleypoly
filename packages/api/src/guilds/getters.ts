@@ -25,7 +25,7 @@ export const getGuild = async (
   forceMiss?: boolean
 ): Promise<(Guild & OwnRoleInfo) | null> =>
   config.kv.guilds.cacheThrough(
-    `guilds/${id}`,
+    `guild/${id}`,
     async () => {
       const guildRaw = await discordFetch<APIGuild>(
         `/guilds/${id}`,
@@ -54,7 +54,7 @@ export const getGuild = async (
         managed: role.managed,
         position: role.position,
         permissions: role.permissions,
-        safety: RoleSafety.Safe, // TODO: calculate this
+        safety: calculateRoleSafety(role, highestRolePosition),
       }));
 
       const guild: Guild & OwnRoleInfo = {
@@ -133,7 +133,7 @@ export const getGuildMember = async (
   overrideRetention?: number // allows for own-member to be cached as long as it's used.
 ): Promise<Member | null> =>
   config.kv.guilds.cacheThrough(
-    `guilds/${serverID}/members/${userID}`,
+    `members/${serverID}/${userID}`,
     async () => {
       const discordMember = await discordFetch<APIMember>(
         `/guilds/${serverID}/members/${userID}`,
@@ -155,6 +155,23 @@ export const getGuildMember = async (
     overrideRetention || config.retention.member,
     forceMiss
   );
+
+export const updateGuildMember = async (
+  config: Config,
+  serverID: string,
+  member: APIMember
+): Promise<void> => {
+  config.kv.guilds.put(
+    `members/${serverID}/${member.user.id}`,
+    {
+      guildid: serverID,
+      roles: member.roles,
+      pending: member.pending,
+      nick: member.nick,
+    },
+    config.retention.member
+  );
+};
 
 const calculateRoleSafety = (role: Role | APIRole, highestBotRolePosition: number) => {
   let safety = RoleSafety.Safe;
