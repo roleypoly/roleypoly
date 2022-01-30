@@ -11,21 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - uses: actions/setup-node@v2.1.5
+      - uses: actions/setup-node@v2.5.1
         with:
           node-version: '16'
-
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v2.1.6
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          cache: yarn
 
       - run: yarn install --frozen-lockfile
 
@@ -45,9 +34,10 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - uses: actions/setup-node@v2.1.5
+      - uses: actions/setup-node@v2.5.1
         with:
           node-version: '16'
+          cache: yarn
 
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
@@ -66,20 +56,6 @@ jobs:
           gsutil stat gs://roleypoly-artifacts/workers/${{ github.sha }}/index.mjs \
             && echo ::set-output name=skip::1 \
             || echo ::set-output name=skip::0
-
-      - name: Get yarn cache directory path
-        if: steps.check.outputs.skip == '0'
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-
-      - uses: actions/cache@v2.1.6
-        if: steps.check.outputs.skip == '0'
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
 
       - run: yarn install --frozen-lockfile
         if: steps.check.outputs.skip == '0'
