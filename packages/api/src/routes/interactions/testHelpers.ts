@@ -1,8 +1,12 @@
 import { handleInteraction } from '@roleypoly/api/src/routes/interactions/interactions';
 import { Context } from '@roleypoly/api/src/utils/context';
+import { AuthType } from '@roleypoly/api/src/utils/discord';
 import { getID } from '@roleypoly/api/src/utils/id';
 import {
+  InteractionCallbackData,
+  InteractionCallbackType,
   InteractionData,
+  InteractionFlags,
   InteractionRequest,
   InteractionResponse,
   InteractionType,
@@ -32,7 +36,8 @@ export const getSignatureHeaders = (
 export const makeInteractionsRequest = async (
   context: Context,
   interactionData: Partial<InteractionData>,
-  forceInvalid?: boolean
+  forceInvalid?: boolean,
+  topLevelMixin?: Partial<InteractionRequest>
 ): Promise<Response> => {
   context.config.publicKey = hexPublicKey;
 
@@ -55,9 +60,10 @@ export const makeInteractionsRequest = async (
       avatar: '',
     },
     member: {
-      nick: 'test-user',
+      nick: 'test-user-nick',
       roles: [],
     },
+    ...topLevelMixin,
   };
 
   const request = new Request('http://localhost:3000/interactions', {
@@ -80,4 +86,49 @@ export const extractInteractionResponse = async (
 ): Promise<InteractionResponse> => {
   const body = await response.json();
   return body as InteractionResponse;
+};
+
+export const isDeferred = (response: InteractionResponse): boolean => {
+  return response.type === InteractionCallbackType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE;
+};
+
+export const isEphemeral = (response: InteractionResponse): boolean => {
+  return (
+    (response.data?.flags || 0 & InteractionFlags.EPHEMERAL) ===
+    InteractionFlags.EPHEMERAL
+  );
+};
+
+export const interactionData = (
+  response: InteractionResponse
+): Omit<InteractionCallbackData, 'flags'> | undefined => {
+  const { data } = response;
+  if (!data) return undefined;
+
+  delete data.flags;
+  return response.data;
+};
+
+export const mockUpdateCall = (
+  expect: any,
+  data: Omit<InteractionCallbackData, 'flags'>
+) => {
+  return [
+    expect.any(String),
+    '',
+    AuthType.None,
+    {
+      body: JSON.stringify({
+        type: InteractionCallbackType.DEFERRED_UPDATE_MESSAGE,
+        data: {
+          flags: InteractionFlags.EPHEMERAL,
+          ...data,
+        },
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'PATCH',
+    },
+  ];
 };

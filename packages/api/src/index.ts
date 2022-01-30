@@ -1,10 +1,10 @@
-// @ts-ignore
 import { requireEditor, requireMember } from '@roleypoly/api/src/guilds/middleware';
 import { authBot } from '@roleypoly/api/src/routes/auth/bot';
 import { authCallback } from '@roleypoly/api/src/routes/auth/callback';
 import { authSessionDelete } from '@roleypoly/api/src/routes/auth/delete-session';
 import { authSession } from '@roleypoly/api/src/routes/auth/session';
 import { guildsGuild } from '@roleypoly/api/src/routes/guilds/guild';
+import { guildsCacheDelete } from '@roleypoly/api/src/routes/guilds/guild-cache-delete';
 import { guildsRolesPut } from '@roleypoly/api/src/routes/guilds/guild-roles-put';
 import { guildsGuildPatch } from '@roleypoly/api/src/routes/guilds/guilds-patch';
 import { guildsSlug } from '@roleypoly/api/src/routes/guilds/slug';
@@ -34,7 +34,12 @@ router.delete('/auth/session', withSession, requireSession, authSessionDelete);
 const guildsCommon = [injectParams, withSession, requireSession, requireMember];
 router.get('/guilds/:guildId', ...guildsCommon, guildsGuild);
 router.patch('/guilds/:guildId', ...guildsCommon, requireEditor, guildsGuildPatch);
-router.delete('/guilds/:guildId/cache', ...guildsCommon, requireEditor, notImplemented);
+router.delete(
+  '/guilds/:guildId/cache',
+  ...guildsCommon,
+  requireEditor,
+  guildsCacheDelete
+);
 router.put('/guilds/:guildId/roles', ...guildsCommon, guildsRolesPut);
 
 // Slug is unauthenticated...

@@ -59,7 +59,7 @@ export const runAsync = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        type: InteractionCallbackType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
+        type: InteractionCallbackType.DEFERRED_UPDATE_MESSAGE,
         data: {
           flags: handler.ephemeral ? InteractionFlags.EPHEMERAL : 0,
           ...response.data,
@@ -82,7 +82,7 @@ export const runAsync = async (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          type: InteractionCallbackType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
+          type: InteractionCallbackType.DEFERRED_UPDATE_MESSAGE,
           data: {
             content: "I'm sorry, I'm having trouble processing this request.",
             flags: InteractionFlags.EPHEMERAL,
