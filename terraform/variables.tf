@@ -57,16 +57,10 @@ variable "api_public_uri" {
   description = "API Public Base Path"
 }
 
-variable "api_path_to_worker" {
+variable "path_to_worker" {
   type        = string
   description = "Path to API worker JS, relative to this file/terraform folder."
-  default     = "worker-dist/api.js"
-}
-
-variable "interactions_path_to_worker" {
-  type        = string
-  description = "Path to interactions worker JS, relative to this file/terraform folder."
-  default     = "worker-dist/interactions.js"
+  default     = "worker-dist/index.mjs"
 }
 
 variable "root_users" {

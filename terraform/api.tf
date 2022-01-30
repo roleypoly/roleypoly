@@ -68,11 +68,6 @@ resource "cloudflare_worker_script" "backend" {
     name = "ROOT_USERS"
     text = join(",", var.root_users)
   }
-
-  secret_text_binding {
-    name = "INTERACTIONS_SHARED_KEY"
-    text = random_password.interactions_token.result
-  }
 }
 
 resource "cloudflare_record" "api" {

@@ -42,7 +42,6 @@ jobs:
       matrix:
         worker:
           - api
-          - interactions
     steps:
       - uses: actions/checkout@master
 
@@ -64,9 +63,6 @@ jobs:
             && echo ::set-output name=skip::1 \
             || echo ::set-output name=skip::0
 
-      - run: npm i -g @cloudflare/wrangler
-        if: steps.check.outputs.skip == '0'
-
       - name: Get yarn cache directory path
         if: steps.check.outputs.skip == '0'
         id: yarn-cache-dir-path
@@ -85,17 +81,14 @@ jobs:
         if: steps.check.outputs.skip == '0'
 
       - run: |
-          wrangler init
-          echo 'webpack_config = "packages/${{ matrix.worker }}/webpack.config.js"' | tee -a wrangler.toml
-          wrangler build
-          mv worker/script.js worker/${{ matrix.worker }}.js
+          yarn build:api
         if: steps.check.outputs.skip == '0'
 
       - id: upload-file
         if: github.event_name == 'push' && steps.check.outputs.skip == '0'
         uses: google-github-actions/upload-cloud-storage@main
         with:
-          path: worker/${{ matrix.worker }}.js
+          path: packages/api/dist/index.mjs
           destination: roleypoly-artifacts/workers/${{ github.sha }}
           credentials: ${{ secrets.GCS_TF_KEY }}
 
