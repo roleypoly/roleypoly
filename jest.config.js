@@ -9,4 +9,5 @@ module.exports = {
       tsconfig: './tsconfig.test.json',
     },
   },
+  projects: ['packages/api/jest.config.js'],
 };
