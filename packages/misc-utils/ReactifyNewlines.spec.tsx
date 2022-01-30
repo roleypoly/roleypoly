@@ -1,9 +1,10 @@
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import * as React from 'react';
 import { ReactifyNewlines } from './ReactifyNewlines';
 
-it('renders a correct number of divs per newlines', () => {
-  const view = shallow(<ReactifyNewlines>{`1\n2\n3`}</ReactifyNewlines>);
+it('renders a correct number of divs per newlines', async () => {
+  const view = render(<ReactifyNewlines>{`test\ntest\ntest`}</ReactifyNewlines>);
 
-  expect(view.find('div').length).toBe(3);
+  const elements = await view.findAllByText('test');
+  expect(elements.length).toBe(3);
 });

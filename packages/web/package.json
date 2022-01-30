@@ -33,6 +33,7 @@
     "@types/react-helmet": "^6.1.5",
     "babel-loader": "8.2.3",
     "cross-env": "7.0.3",
+    "jest": "^27.4.7",
     "ts-loader": "^9.2.6",
     "webpack": "5.67.0"
   },
