@@ -19,7 +19,7 @@ import { Router } from 'itty-router';
 import { authBounce } from './routes/auth/bounce';
 import { Environment, parseEnvironment } from './utils/config';
 import { Context, RoleypolyHandler } from './utils/context';
-import { json, notFound, notImplemented, serverError } from './utils/response';
+import { json, notFound, serverError } from './utils/response';
 
 const router = Router();
 
@@ -46,21 +46,6 @@ router.put('/guilds/:guildId/roles', ...guildsCommon, guildsRolesPut);
 router.get('/guilds/slug/:guildId', injectParams, guildsSlug);
 
 router.post('/interactions', handleInteraction);
-
-router.get(
-  '/legacy/preflight/:guildId',
-  injectParams,
-  withSession,
-  requireSession,
-  notImplemented
-);
-router.put(
-  '/legacy/import/:guildId',
-  injectParams,
-  withSession,
-  requireSession,
-  notImplemented
-);
 
 router.get('/', ((request: Request, { config }: Context) =>
   json({

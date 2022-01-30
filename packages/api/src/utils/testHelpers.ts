@@ -85,6 +85,7 @@ export const configContext = (): [Config, Context] => {
     BOT_CLIENT_SECRET: 'test-client-secret',
     BOT_CLIENT_ID: 'test-client-id',
     BOT_TOKEN: 'test-bot-token',
+    INTERACTIONS_SHARED_KEY: '', // IMPORTANT: setting this properly can have unexpected results.
   });
   const context: Context = {
     config,

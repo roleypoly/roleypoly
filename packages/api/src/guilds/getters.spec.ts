@@ -1,11 +1,19 @@
 jest.mock('../utils/discord');
+jest.mock('../utils/legacy');
 
-import { Features, GuildData } from '@roleypoly/types';
+import { CategoryType, Features, GuildData } from '@roleypoly/types';
 import { APIGuild, discordFetch } from '../utils/discord';
+import {
+  fetchLegacyServer,
+  LegacyGuildData,
+  transformLegacyGuild,
+} from '../utils/legacy';
 import { configContext } from '../utils/testHelpers';
 import { getGuild, getGuildData, getGuildMember } from './getters';
 
 const mockDiscordFetch = discordFetch as jest.Mock;
+const mockFetchLegacyServer = fetchLegacyServer as jest.Mock;
+const mockTransformLegacyGuild = transformLegacyGuild as jest.Mock;
 
 beforeEach(() => {
   mockDiscordFetch.mockReset();
@@ -89,6 +97,89 @@ describe('getGuildData', () => {
       ...guildData,
       auditLogWebhook: null,
       accessControl: expect.any(Object),
+    });
+  });
+
+  describe('automatic legacy import', () => {
+    beforeEach(() => {
+      mockFetchLegacyServer.mockReset();
+      mockTransformLegacyGuild.mockImplementation(
+        jest.requireActual('../utils/legacy').transformLegacyGuild
+      );
+    });
+
+    it('attempts to import guild data from the legacy server', async () => {
+      const [config] = configContext();
+
+      const legacyGuildData: LegacyGuildData = {
+        id: '123',
+        message: 'Hello world!',
+        categories: [
+          {
+            id: '123',
+            name: 'test',
+            position: 0,
+            roles: ['role-1', 'role-2'],
+            hidden: false,
+            type: 'multi',
+          },
+        ],
+      };
+
+      mockFetchLegacyServer.mockReturnValue(legacyGuildData);
+
+      const expectedGuildData: GuildData = {
+        id: '123',
+        message: legacyGuildData.message,
+        auditLogWebhook: null,
+        accessControl: {
+          allowList: [],
+          blockList: [],
+          blockPending: true,
+        },
+        features: Features.LegacyGuild,
+        categories: [
+          {
+            id: expect.any(String),
+            name: 'test',
+            position: 0,
+            roles: ['role-1', 'role-2'],
+            hidden: false,
+            type: CategoryType.Multi,
+          },
+        ],
+      };
+
+      const currentGuildData = await getGuildData(config, '123');
+      expect(currentGuildData).toMatchObject(expectedGuildData);
+
+      const storedGuildData = await config.kv.guildData.get('123');
+      expect(storedGuildData).toMatchObject(expectedGuildData);
+    });
+
+    it('fails an import and saves new guild data instead', async () => {
+      const [config] = configContext();
+
+      mockFetchLegacyServer.mockReturnValue(null);
+
+      const expectedGuildData: GuildData = {
+        id: '123',
+        message: '',
+        auditLogWebhook: null,
+        accessControl: {
+          allowList: [],
+          blockList: [],
+          blockPending: true,
+        },
+        features: Features.None,
+        categories: [],
+      };
+
+      const currentGuildData = await getGuildData(config, '123');
+      expect(currentGuildData).toMatchObject(expectedGuildData);
+
+      const storedGuildData = await config.kv.guildData.get('123');
+      expect(storedGuildData).toMatchObject(expectedGuildData);
     });
   });
 });
