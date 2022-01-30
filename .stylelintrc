@@ -1,6 +1,16 @@
 {
-  "extends": ["stylelint-config-standard", "stylelint-config-styled-components", "stylelint-prettier/recommended"],
+  "customSyntax": "@stylelint/postcss-css-in-js",
+  "extends": [
+    "stylelint-config-recommended",
+    "stylelint-config-styled-components"
+  ],
   "rules": {
-    "value-keyword-case": null
+    "color-function-notation": "modern",
+    "shorthand-property-no-redundant-values": true,
+    "font-weight-notation": "numeric",
+    "alpha-value-notation": "percentage",
+    "hue-degree-notation": "angle",
+    "function-calc-no-unspaced-operator": true,
+    "length-zero-no-unit": true
   }
 }

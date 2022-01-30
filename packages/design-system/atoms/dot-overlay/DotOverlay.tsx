@@ -3,7 +3,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 
 const dotOverlayBase = styled.div`
-  opacity: 0.6;
+  opacity: 60%;
   pointer-events: none;
   position: fixed;
   top: 0;

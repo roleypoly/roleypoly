@@ -75,11 +75,11 @@ export const CardBase = styled.div`
   box-sizing: border-box;
   max-width: 98vw;
   :hover {
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 2px 2px rgb(0 0 0 / 25%);
     transform: translate(0, -1px);
   }
   :active {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 25%);
     transform: translate(0);
   }
 

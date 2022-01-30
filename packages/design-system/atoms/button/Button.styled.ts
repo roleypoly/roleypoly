@@ -25,7 +25,7 @@ const base = css`
   background-color: ${palette.taupe300};
   color: ${palette.grey500};
   border-radius: 3px;
-  border: 2px solid rgba(0, 0, 0, 0.55);
+  border: 2px solid rgb(0 0 0 / 55%);
   transition: all 0.15s ease-in-out;
   outline: 0;
   position: relative;
@@ -41,20 +41,20 @@ const base = css`
     left: 0;
     right: 0;
     background-color: #000;
-    opacity: 0;
+    opacity: 0%;
     transition: all 0.15s ease-in-out;
   }
 
   :hover {
     transform: translateY(-1px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 15%);
   }
 
   :active {
     transform: translateY(1px);
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 2px rgb(0 0 0 / 25%);
     ::after {
-      opacity: 0.1;
+      opacity: 10%;
     }
   }
 `;
@@ -70,7 +70,7 @@ const colors = {
     border: 2px solid ${palette.discord200};
   `,
   muted: css`
-    border: 2px solid rgba(0, 0, 0, 0.15);
+    border: 2px solid rgb(0 0 0 / 15%);
     background: none;
     :hover {
       background-color: ${palette.taupe200};

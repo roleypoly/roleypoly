@@ -41,7 +41,7 @@ const StoryWrapper = ({ topSpacing, bottomSpacing, ...props }: WrapperProps) => 
       <div
         style={{
           height: topSpacing,
-          backgroundColor: 'rgba(255,0,0,0.25)',
+          backgroundColor: 'rgb(255 0 0 / 25%)',
           top: 0,
           left: 0,
           right: 0,
@@ -54,7 +54,7 @@ const StoryWrapper = ({ topSpacing, bottomSpacing, ...props }: WrapperProps) => 
       <div
         style={{
           height: bottomSpacing,
-          backgroundColor: 'rgba(0,0,255,0.25)',
+          backgroundColor: 'rgb(0 0 255 / 25%)',
           bottom: 0,
           left: 0,
           right: 0,

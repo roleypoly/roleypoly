@@ -7,7 +7,7 @@ export type FaderProps = {
 };
 
 const FaderOpacityStyled = styled.div<Pick<FaderProps, 'isVisible'>>`
-  opacity: ${(props) => (props.isVisible ? 1 : 0)};
+  opacity: ${(props) => (props.isVisible ? '100%' : '0%')};
   pointer-events: ${(props) => (props.isVisible ? 'unset' : 'none')};
   transition: opacity 0.35s ease-in-out;
 `;

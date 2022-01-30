@@ -6,3 +6,4 @@ worker
 **/dist
 terraform
 .husky/_
+.mf

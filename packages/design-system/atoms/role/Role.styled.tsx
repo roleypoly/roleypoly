@@ -62,7 +62,7 @@ export const Outer = styled.div<StyledProps>`
       ? onTablet(css`
           &:hover {
             transform: translateY(-2px);
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 1px 2px rgb(0 0 0 / 15%);
             ${Circle} svg {
               fill-opacity: 1;
             }
@@ -73,7 +73,7 @@ export const Outer = styled.div<StyledProps>`
             box-shadow: 0 0 0 transparent;
           }
         `)
-      : null};
+      : null}
 `;
 
 export const Text = styled.div`

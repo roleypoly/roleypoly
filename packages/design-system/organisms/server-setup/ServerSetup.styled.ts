@@ -9,6 +9,5 @@ export const FlexLine = styled.div`
 
 export const FlexWrap = styled.div`
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  flex-flow: wrap column;
 `;

@@ -14,7 +14,7 @@ export const CategoryActions = styled.div<{ right?: boolean }>`
           `
         : css`
             margin-right: 5px;
-          `};
+          `}
   }
 
   ${(props) =>
@@ -37,7 +37,7 @@ export const ReorderButton = styled.div`
   transition: background-color ${transitions.actionable}s ease-in-out;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgb(0 0 0 / 15%);
   }
 `;
 

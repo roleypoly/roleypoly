@@ -40,7 +40,7 @@ export const Section = styled.div<{ big?: boolean; actions?: boolean }>`
     props.actions &&
     css`
       display: flex;
-    `};
+    `}
 `;
 
 export const RoleContainer = styled.div`
@@ -65,7 +65,7 @@ export const AddRoleButton = styled.div<{ long?: boolean }>`
   &:hover {
     background-color: ${palette.taupe100};
     transform: translateY(-2px);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
   }
 
   &:active {
@@ -80,5 +80,5 @@ export const AddRoleButton = styled.div<{ long?: boolean }>`
         `
       : css`
           width: 32px;
-        `};
+        `}
 `;

@@ -59,10 +59,10 @@ export const InteractionBase = styled.div<InteractionBaseProps>`
   padding: 0 5px;
   transition: opacity ${transitions.actionable}s ease-in-out,
     background-color ${transitions.actionable}s ease-in-out;
-  opacity: ${(props) => (props.hide ? 1 : 0)};
+  opacity: ${(props) => (props.hide ? '100%' : '0%')};
 
   :hover {
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgb(0 0 0 / 15%);
     cursor: pointer;
   }
 `;
@@ -97,7 +97,7 @@ export const SecondaryBase = styled(MastheadBase)`
   background-color: ${palette.taupe300};
   z-index: 99;
   padding: 0 15px;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 1px 1px 3px rgb(0 0 0 / 5%);
 `;
 
 export const IconHolder = styled.div`
