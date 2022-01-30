@@ -21,7 +21,7 @@ export type SessionData = {
   tokens: AuthTokenResponse;
   user: DiscordUser;
   guilds: GuildSlug[];
-  flags: SessionFlags;
+  // flags: SessionFlags;
 };
 
 export type StateSession = {
