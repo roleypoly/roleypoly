@@ -181,6 +181,16 @@ describe('getGuildData', () => {
       const storedGuildData = await config.kv.guildData.get('123');
       expect(storedGuildData).toMatchObject(expectedGuildData);
     });
+
+    it('fails an import and prevents re-fetch', async () => {
+      const [config] = configContext();
+
+      mockFetchLegacyServer.mockReturnValue(null);
+
+      await getGuildData(config, '123');
+      await getGuildData(config, '123');
+      expect(mockFetchLegacyServer).toHaveBeenCalledTimes(1);
+    });
   });
 });
 
