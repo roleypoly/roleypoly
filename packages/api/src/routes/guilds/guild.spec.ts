@@ -37,6 +37,9 @@ describe('GET /guilds/:id', () => {
       roles: ['role-1'],
       pending: false,
       nick: '',
+      user: {
+        id: 'user-1',
+      },
     };
 
     const guildData: GuildData = {

@@ -11,7 +11,7 @@ beforeEach(() => {
   mockGetGuild.mockReset();
 });
 
-describe('GET /guilds/slug/:id', () => {
+describe('GET /guilds/:id/slug', () => {
   it('returns a valid slug for a given discord server', async () => {
     const guild: APIGuild = {
       id: '123',
@@ -31,7 +31,7 @@ describe('GET /guilds/slug/:id', () => {
 
     mockGetGuild.mockReturnValue(guild);
 
-    const response = await makeRequest('GET', `/guilds/slug/${guild.id}`);
+    const response = await makeRequest('GET', `/guilds/${guild.id}/slug`);
 
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual({

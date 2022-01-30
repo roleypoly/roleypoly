@@ -133,7 +133,7 @@ export const getGuildMember = async (
   overrideRetention?: number // allows for own-member to be cached as long as it's used.
 ): Promise<Member | null> =>
   config.kv.guilds.cacheThrough(
-    `members/${serverID}/${userID}`,
+    `member/${serverID}/${userID}`,
     async () => {
       const discordMember = await discordFetch<APIMember>(
         `/guilds/${serverID}/members/${userID}`,

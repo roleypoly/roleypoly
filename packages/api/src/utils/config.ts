@@ -45,8 +45,8 @@ export type Config = {
   _raw: Environment;
 };
 
-const toList = (x: string): string[] => x.split(',');
-const safeURI = (x: string) => x.replace(/\/$/, '');
+const toList = (x: string): string[] => String(x).split(',');
+const safeURI = (x: string) => String(x).replace(/\/$/, '');
 
 export const parseEnvironment = (env: Environment): Config => {
   return {
