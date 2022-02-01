@@ -107,6 +107,7 @@ const Picker = (props: PickerProps) => {
       });
     }
 
+    uncacheGuild(props.serverID);
     setPending(false);
   };
 
