@@ -31,7 +31,7 @@ resource "null_resource" "cloudflare_workers_script_backend" {
 
   provisioner "local-exec" {
     command = <<EOF
-      curl -X PUT "https://api.cloudflare.com/client/v4/accounts/${var.cloudflare_account_id}/workers/scripts/${local.name}" \
+      curl -f -sSL -X PUT "https://api.cloudflare.com/client/v4/accounts/${var.cloudflare_account_id}/workers/scripts/${local.name}" \
         -H "Authorization: Bearer ${var.cloudflare_api_token}" \
         -F "script=@${data.local_file.script.filename};filename=${basename(data.local_file.script.filename)};type=application/javascript+module" \
         -F "metadata=@${local_file.bindings.filename}"

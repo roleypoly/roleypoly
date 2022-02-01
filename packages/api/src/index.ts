@@ -57,6 +57,7 @@ router.get('/', ((request: Request, { config }: Context) =>
     your: 'surroundings',
     warning__: '🦊',
     meta: config.uiPublicURI,
+    version: 2,
   })) as RoleypolyHandler);
 
 router.options('*', (request: Request) => {
