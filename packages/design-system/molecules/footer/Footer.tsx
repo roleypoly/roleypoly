@@ -16,7 +16,7 @@ export const Footer = () => (
       </div>
       <div>
         <a href="https://discord.gg/Xj6rK3E">Discord/Support</a> &ndash;&nbsp;
-        <a href="https://patreon.com/kata">Patreon</a> &ndash;&nbsp;
+        <a href="https://patreon.com/roleypoly">Patreon</a> &ndash;&nbsp;
         <a href="https://github.com/roleypoly">GitHub</a>
       </div>
       <HoverColor>
