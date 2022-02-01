@@ -80,6 +80,11 @@ resource "local_file" "bindings" {
         type = "plain_text"
       },
       {
+        name = "DISCORD_PUBLIC_KEY"
+        text = var.discord_public_key
+        type = "secret_text"
+      },
+      {
         name = "ROOT_USERS"
         text = join(",", var.root_users)
         type = "plain_text"
