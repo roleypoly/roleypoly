@@ -10,11 +10,11 @@ ui_regions = [
   "asia-southeast1"
 ]
 deploy_bot        = true
-bot_instance_size = "e2-micro"
+bot_instance_size = "e2-medium"
 ui_hostnames = [
   "next.roleypoly.com",
   "web-prod.roleypoly.com"
 ]
-ui_public_uri          = "https://next.roleypoly.com"
+ui_public_uri          = "https://roleypoly.com"
 api_public_uri         = "https://api-prod.roleypoly.com"
 allowed_callback_hosts = "https://roleypoly.com,https://next.roleypoly.com"
