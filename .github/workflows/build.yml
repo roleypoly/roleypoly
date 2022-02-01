@@ -25,6 +25,7 @@ jobs:
   worker_build:
     runs-on: ubuntu-latest
     name: Worker Build & Publish
+    if: startsWith(github.ref, 'refs/heads/dependabot/') != true
     needs:
       - node_test
     strategy:
@@ -74,6 +75,7 @@ jobs:
   docker_build:
     name: Docker Build & Publish
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/heads/dependabot/') != true
     needs:
       - node_test
     strategy:
@@ -138,7 +140,7 @@ jobs:
     needs:
       - docker_build
       - worker_build
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/miniflare'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Get Bot digest
