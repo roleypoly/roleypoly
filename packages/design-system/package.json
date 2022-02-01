@@ -29,7 +29,7 @@
     "@icons/material": "^0.4.1",
     "@storybook/addon-actions": "^6.4.16",
     "@storybook/addon-essentials": "^6.4.16",
-    "@storybook/addon-links": "^6.4.16",
+    "@storybook/addon-links": "^6.4.17",
     "@storybook/addons": "^6.4.16",
     "@storybook/react": "^6.4.16",
     "@storybook/theming": "^6.4.16",
