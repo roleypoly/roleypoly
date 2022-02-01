@@ -72,5 +72,5 @@ export const authCallback: RoleypolyHandler = async (
     return authFailure(config.uiPublicURI, 'session setup failure');
   }
 
-  return seeOther(bounceBaseUrl + '/machinery/new-session/' + session.sessionID);
+  return seeOther(bounceBaseUrl + 'machinery/new-session/' + session.sessionID);
 };
