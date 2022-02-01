@@ -18,11 +18,12 @@
     "@roleypoly/misc-utils": "*",
     "@roleypoly/types": "*",
     "@types/node": "^17.0.13",
-    "esbuild": "^0.14.14",
+    "esbuild": "^0.14.16",
     "itty-router": "^2.4.10",
     "jest-environment-miniflare": "^2.2.0",
     "lodash": "^4.17.21",
     "miniflare": "^2.2.0",
+    "normalize-url": "^4.5.1",
     "ts-jest": "^27.1.3",
     "tweetnacl": "^1.0.3",
     "ulid-workers": "^1.1.0"

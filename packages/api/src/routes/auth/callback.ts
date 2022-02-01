@@ -7,6 +7,7 @@ import { dateFromID } from '@roleypoly/api/src/utils/id';
 import { formDataRequest, getQuery } from '@roleypoly/api/src/utils/request';
 import { seeOther } from '@roleypoly/api/src/utils/response';
 import { AuthTokenResponse, StateSession } from '@roleypoly/types';
+import normalizeUrl from 'normalize-url';
 
 const authFailure = (uiPublicURI: string, extra?: string) =>
   seeOther(uiPublicURI + `/error/authFailure${extra ? `?extra=${extra}` : ''}`);
@@ -69,5 +70,8 @@ export const authCallback: RoleypolyHandler = async (
     return authFailure(config.uiPublicURI, 'session setup failure');
   }
 
-  return seeOther(bounceBaseUrl + 'machinery/new-session/#/' + session.sessionID);
+  const nextURL = normalizeUrl(
+    bounceBaseUrl + '/machinery/new-session/#/' + session.sessionID
+  );
+  return seeOther(nextURL);
 };

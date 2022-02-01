@@ -54,7 +54,7 @@ describe('GET /auth/callback', () => {
     expect(mockDiscordFetch).toBeCalledTimes(1);
     expect(mockCreateSession).toBeCalledWith(expect.any(Object), tokens);
     expect(response.headers.get('Location')).toContain(
-      'http://web.test.local/machinery/new-session/test-session-id'
+      'http://web.test.local/machinery/new-session#/test-session-id'
     );
   });
 
@@ -73,7 +73,7 @@ describe('GET /auth/callback', () => {
 
     expect(response.status).toBe(303);
     expect(response.headers.get('Location')).toContain(
-      'http://web.test.local/machinery/error?error_code=authFailure&extra=state invalid'
+      'http://web.test.local/error/authFailure?extra=state invalid'
     );
   });
 
@@ -87,7 +87,7 @@ describe('GET /auth/callback', () => {
 
     expect(response.status).toBe(303);
     expect(response.headers.get('Location')).toContain(
-      'http://web.test.local/machinery/error?error_code=authFailure&extra=state invalid'
+      'http://web.test.local/error/authFailure?extra=state invalid'
     );
   });
 });
