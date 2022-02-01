@@ -30,7 +30,7 @@ const Login = (props: { path: string }) => {
       if (isAuthenticated) {
         navigate('/servers');
       }
-      navigate(redirectUrl);
+      location.href = redirectUrl;
       return;
     }
 
