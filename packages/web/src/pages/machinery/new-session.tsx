@@ -1,3 +1,4 @@
+import { useLocation, useNavigate } from '@reach/router';
 import { palette } from '@roleypoly/design-system/atoms/colors';
 import { Link } from '@roleypoly/design-system/atoms/typography';
 import { GenericLoadingTemplate } from '@roleypoly/design-system/templates/generic-loading';
@@ -6,8 +7,10 @@ import { useSessionContext } from '../../contexts/session/SessionContext';
 import { Title } from '../../utils/metaTitle';
 
 const NewSession = (props: { sessionID: string }) => {
-  const { setupSession, isAuthenticated } = useSessionContext();
+  const { setupSession, sessionID } = useSessionContext();
   const [postauthUrl, setPostauthUrl] = React.useState('/servers');
+  const navigate = useNavigate();
+  const location = useLocation();
 
   React.useEffect(() => {
     const storedPostauthUrl = localStorage.getItem('rp_postauth_redirect');
@@ -18,20 +21,21 @@ const NewSession = (props: { sessionID: string }) => {
   }, [setPostauthUrl]);
 
   React.useEffect(() => {
-    if (isAuthenticated) {
-      setTimeout(() => {
-        window.history.replaceState(null, '', '/');
-        window.location.href = postauthUrl;
-      }, 0);
-    }
-  }, [postauthUrl, isAuthenticated]);
+    if (!sessionID) {
+      const sessionToken = location.hash.substring(2);
+      if (!sessionToken) {
+        console.error({ sessionToken });
+        navigate('/error/400?extra=missing-hash');
+        return;
+      }
 
-  React.useCallback(
-    (sessionID) => {
-      setupSession(sessionID);
-    },
-    [setupSession]
-  )(props.sessionID);
+      setupSession(sessionToken);
+    }
+
+    if (sessionID) {
+      navigate(postauthUrl);
+    }
+  }, [sessionID, location, postauthUrl, setupSession, navigate]);
 
   return (
     <GenericLoadingTemplate>

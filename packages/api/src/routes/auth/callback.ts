@@ -9,10 +9,7 @@ import { seeOther } from '@roleypoly/api/src/utils/response';
 import { AuthTokenResponse, StateSession } from '@roleypoly/types';
 
 const authFailure = (uiPublicURI: string, extra?: string) =>
-  seeOther(
-    uiPublicURI +
-      `/machinery/error?error_code=authFailure${extra ? `&extra=${extra}` : ''}`
-  );
+  seeOther(uiPublicURI + `/error/authFailure${extra ? `?extra=${extra}` : ''}`);
 
 export const authCallback: RoleypolyHandler = async (
   request: Request,
@@ -72,5 +69,5 @@ export const authCallback: RoleypolyHandler = async (
     return authFailure(config.uiPublicURI, 'session setup failure');
   }
 
-  return seeOther(bounceBaseUrl + 'machinery/new-session/' + session.sessionID);
+  return seeOther(bounceBaseUrl + 'machinery/new-session/#/' + session.sessionID);
 };

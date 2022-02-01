@@ -44,10 +44,7 @@ export const AppRouter = () => {
       <RouteWrapper component={ErrorPage} path="/error" />
       <RouteWrapper component={ErrorPage} path="/error/:identity" />
 
-      <RouteWrapper
-        component={MachineryNewSession}
-        path="/machinery/new-session/:sessionID"
-      />
+      <RouteWrapper component={MachineryNewSession} path="/machinery/new-session" />
       <RouteWrapper component={MachineryLogout} path="/machinery/logout" />
       <RouteWrapper component={MachineryBotJoin} path="/machinery/bot-join" />
       <RouteWrapper component={MachineryBotJoin} path="/machinery/bot-join/:serverID" />
