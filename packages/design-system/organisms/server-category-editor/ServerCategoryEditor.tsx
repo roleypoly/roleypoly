@@ -44,6 +44,13 @@ const defaultCategory: Omit<Omit<Category, 'id'>, 'position'> = {
 export const ServerCategoryEditor = (props: Props) => {
   const [reorderMode, setReorderMode] = React.useState(false);
 
+  const scrollToBottomDiv = React.useRef<HTMLDivElement>(null);
+  const scrollToBottom = () => {
+    if (scrollToBottomDiv.current) {
+      scrollToBottomDiv.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const unselectedRoles = React.useMemo(() => {
     const selectedRoles = flatten(props.guild.data.categories.map((c) => c.roles));
     return props.guild.roles.filter(
@@ -74,6 +81,7 @@ export const ServerCategoryEditor = (props: Props) => {
       position: categories.length,
     };
 
+    scrollToBottom();
     props.onChange([...categories, newCategory]);
   };
 
@@ -147,6 +155,7 @@ export const ServerCategoryEditor = (props: Props) => {
           </Text>
         </CategoryContainer>
       )}
+      <div ref={scrollToBottomDiv} />
     </div>
   );
 };
