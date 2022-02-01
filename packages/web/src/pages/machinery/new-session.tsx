@@ -6,7 +6,7 @@ import * as React from 'react';
 import { useSessionContext } from '../../contexts/session/SessionContext';
 import { Title } from '../../utils/metaTitle';
 
-const NewSession = (props: { sessionID: string }) => {
+const NewSession = () => {
   const { setupSession, sessionID } = useSessionContext();
   const [postauthUrl, setPostauthUrl] = React.useState('/servers');
   const navigate = useNavigate();
