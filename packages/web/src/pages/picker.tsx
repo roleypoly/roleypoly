@@ -7,6 +7,7 @@ import * as React from 'react';
 import { useAppShellProps } from '../contexts/app-shell/AppShellContext';
 import { useGuildContext } from '../contexts/guild/GuildContext';
 import { useRecentGuilds } from '../contexts/recent-guilds/RecentGuildsContext';
+import { useAuthedFetch } from '../contexts/session/AuthedFetchContext';
 import { useSessionContext } from '../contexts/session/SessionContext';
 import { Title } from '../utils/metaTitle';
 import { makeRoleTransactions } from '../utils/roleTransactions';
@@ -17,7 +18,8 @@ type PickerProps = {
 };
 
 const Picker = (props: PickerProps) => {
-  const { session, authedFetch, isAuthenticated } = useSessionContext();
+  const { session, isAuthenticated } = useSessionContext();
+  const { authedFetch } = useAuthedFetch();
   const { pushRecentGuild } = useRecentGuilds();
   const appShellProps = useAppShellProps();
   const { getFullGuild, uncacheGuild } = useGuildContext();
@@ -65,7 +67,7 @@ const Picker = (props: PickerProps) => {
       const guildSlug = session.guilds.find((guild) => guild.id === props.serverID);
 
       if (!guildSlug) {
-        console.error({ error: 'guold not in session, 404' });
+        console.error({ error: 'guild not in session, 404' });
         return <Redirect to="/error/404" replace />;
       }
 
@@ -94,8 +96,8 @@ const Picker = (props: PickerProps) => {
     };
 
     uncacheGuild(props.serverID);
-    const response = await authedFetch(`/update-roles/${props.serverID}`, {
-      method: 'PATCH',
+    const response = await authedFetch(`/guilds/${props.serverID}/roles`, {
+      method: 'PUT',
       body: JSON.stringify(updatePayload),
     });
     if (response.status === 200) {

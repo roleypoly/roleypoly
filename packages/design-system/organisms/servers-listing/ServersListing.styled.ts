@@ -26,7 +26,6 @@ export const CardContainer = styled.div`
 
 export const SectionHead = styled.div`
   ${text500}
-
   flex: 1 1 100%;
   padding: 0.6em;
   display: flex;

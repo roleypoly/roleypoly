@@ -6,7 +6,7 @@ import styled, { css, keyframes } from 'styled-components';
 
 export const DiscordBase = styled.div`
   background-color: ${palette.discord100};
-  border: solid 1px rgba(0, 0, 0, 0.15);
+  border: solid 1px rgb(0 0 0 / 15%);
   border-radius: 3px;
   padding: 10px;
   user-select: none;
@@ -54,7 +54,7 @@ export const DiscordRole = styled.div<{
     !props.isGood &&
     props.isRoleypoly &&
     css`
-      animation: ${isBadFlash} 0.5s 10s ease-in-out both;
+      animation: ${isBadFlash.getName()} 0.5s 10s ease-in-out both;
     `}
 `;
 
@@ -66,16 +66,13 @@ const bumpDown = css`
 
 export const Dont = styled(GoX)`
   ${bumpDown}
-
   color: ${palette.red400};
 `;
 export const Do = styled(GoCheck)`
   ${bumpDown}
-
   color: ${palette.green400};
 `;
 export const Why = styled(GoQuestion)`
   ${bumpDown}
-
   color: ${palette.discord400};
 `;

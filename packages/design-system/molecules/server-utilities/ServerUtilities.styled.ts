@@ -20,7 +20,7 @@ export const ClickaleBlock = styled.a`
 `;
 
 export const Title = styled.div`
-  ${text400};
+  ${text400}
 
   svg {
     color: ${palette.taupe500};
@@ -30,7 +30,7 @@ export const Title = styled.div`
 `;
 
 export const Description = styled.div`
-  ${text200};
+  ${text200}
 `;
 
 export const MainSide = styled.div``;

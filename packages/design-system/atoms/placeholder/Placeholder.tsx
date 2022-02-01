@@ -41,10 +41,10 @@ export const PlaceholderBox = styled.div<PlaceholderProps>`
 
 export const opacityInOut = keyframes`
   from {
-    opacity: 0.6;
+    opacity: 60%;
   } 
   to {
-    opacity: 0.3;
+    opacity: 30%;
   }
 `;
 

@@ -19,12 +19,12 @@ export const FooterWrapper = styled.div`
 `;
 
 export const HoverColor = styled.div`
-  opacity: 0.3;
+  opacity: 30%;
   filter: saturate(0);
   transition: all ${transitions.in2in}s ease-in-out;
 
   &:hover {
-    opacity: 1;
+    opacity: 100%;
     filter: none;
   }
 `;

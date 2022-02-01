@@ -24,7 +24,7 @@ export const ToggleSwitch = styled.div<{ state: boolean }>`
   width: 2.675rem;
   border-radius: 1.375rem;
   position: relative;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgb(0 0 0 / 10%);
   top: 0.23em;
   transition: background-color ${transitions.in2in}s ease-in-out;
   cursor: pointer;

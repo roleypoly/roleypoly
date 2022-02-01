@@ -15,7 +15,7 @@ export default {
 };
 
 const Swatch = styled.div`
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+  box-shadow: 1px 1px 2px rgb(0 0 0 / 25%);
   width: 250px;
   height: 100px;
   margin: 10px;

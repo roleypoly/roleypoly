@@ -21,13 +21,13 @@ const common = css`
   :focus {
     outline: none;
     border-color: ${palette.grey100};
-    box-shadow: 1px 0 3px rgba(0, 0, 0, 0.25);
+    box-shadow: 1px 0 3px rgb(0 0 0 / 25%);
   }
 
   [disabled],
   :disabled {
     cursor: not-allowed;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgb(255 255 255 / 75%);
     font-style: italic;
   }
 
@@ -41,7 +41,7 @@ const common = css`
 `;
 
 export const StyledTextInput = styled.input`
-  ${common};
+  ${common}
 `;
 
 type TextInputProps<T extends HTMLInputElement | HTMLTextAreaElement> =
@@ -87,8 +87,8 @@ export const TextInputWithIcon = (props: TextInputWithIconProps) => {
 };
 
 const StyledTextarea = styled.textarea`
-  ${common};
-  ${fontCSS};
+  ${common}
+  ${fontCSS}
 
   margin: 0.5em 0;
 `;

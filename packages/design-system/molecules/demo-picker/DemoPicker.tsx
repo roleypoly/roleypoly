@@ -19,11 +19,9 @@ const RoleWrap = styled.div`
 `;
 
 export const DemoPicker = () => {
-  const [selectedStates, setSelectedStates] = React.useState<
-    {
-      [key in RPCRole['id']]: boolean;
-    }
-  >(demoData.reduce((acc, role) => ({ ...acc, [role.id]: false }), {}));
+  const [selectedStates, setSelectedStates] = React.useState<{
+    [key in RPCRole['id']]: boolean;
+  }>(demoData.reduce((acc, role) => ({ ...acc, [role.id]: false }), {}));
 
   return (
     <Container>

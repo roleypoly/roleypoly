@@ -13,7 +13,7 @@ export const PopoverBase = styled.div<PopoverStyledProps>`
   position: absolute;
   background-color: ${palette.taupe100};
   padding: 5px;
-  border: 2px solid rgba(0, 0, 0, 0.15);
+  border: 2px solid rgb(0 0 0 / 15%);
   border-radius: 3px;
   z-index: 10;
   transition: opacity ${transitions.out2in}s ease-in,
@@ -24,7 +24,7 @@ export const PopoverBase = styled.div<PopoverStyledProps>`
     !props.active &&
     css`
       transform: translateY(-2vh);
-      opacity: 0;
+      opacity: 0%;
       pointer-events: none;
     `}
   ${onSmallScreen(
@@ -40,11 +40,11 @@ export const PopoverBase = styled.div<PopoverStyledProps>`
       z-index: 200;
       margin: 0 !important;
     `
-  )};
+  )}
 `;
 
 export const DefocusHandler = styled.div<PopoverStyledProps>`
-  background-color: rgba(0, 0, 0, 0.01);
+  background-color: rgb(0 0 0 / 1%);
   position: fixed;
   z-index: 0;
   top: 0;
@@ -82,7 +82,7 @@ export const PopoverHeadCloser = styled.div`
   )}
 
   &:hover {
-    background: rgba(0, 0, 0, 0.1);
+    background: rgb(0 0 0 / 10%);
   }
 `;
 

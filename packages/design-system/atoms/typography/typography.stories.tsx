@@ -87,7 +87,7 @@ const SpacingHead = styled.p`
 
 const SpacingSection = styled(Section)`
   max-width: 50vw;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid rgb(0 0 0 / 25%);
 `;
 
 export const Spacing = () => (

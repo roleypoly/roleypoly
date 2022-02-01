@@ -9,12 +9,19 @@ export type AuthTokenResponse = {
   scope: string;
 };
 
+export enum SessionFlags {
+  None = 0,
+  IsRoot = 1 << 0,
+  IsSupport = 1 << 1,
+}
+
 export type SessionData = {
   /** sessionID is a KSUID */
   sessionID: string;
   tokens: AuthTokenResponse;
   user: DiscordUser;
   guilds: GuildSlug[];
+  // flags: SessionFlags;
 };
 
 export type StateSession = {

@@ -4,6 +4,5 @@ node_modules
 storybook-static
 .next
 worker
-wrangler.toml
 .devdbs
 dist

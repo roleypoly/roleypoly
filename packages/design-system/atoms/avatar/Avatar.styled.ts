@@ -16,7 +16,7 @@ export const Container = styled.div<ContainerProps>`
   color: ${palette.grey100};
   position: relative;
   background-color: ${palette.grey500};
-  font-weight: bold;
+  font-weight: 700;
   text-align: center;
   line-height: 1;
   overflow: hidden;
@@ -24,7 +24,7 @@ export const Container = styled.div<ContainerProps>`
   ${(props) =>
     props.deliberatelyEmpty &&
     css`
-      border: 4px solid rgba(0, 0, 0, 0.25);
+      border: 4px solid rgb(0 0 0 / 25%);
       background-color: ${palette.taupe400};
       color: ${palette.taupe600};
     `}

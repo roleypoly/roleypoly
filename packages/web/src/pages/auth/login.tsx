@@ -15,13 +15,13 @@ const Login = (props: { path: string }) => {
   // If ?r is in query, then let's render the slug page
   // If not, redirect.
   const [guildSlug, setGuildSlug] = React.useState<GuildSlug | null>(null);
-  const [oauthLink, setOauthLink] = React.useState(`${apiUrl}/login-bounce`);
+  const [oauthLink, setOauthLink] = React.useState(`${apiUrl}/auth/bounce`);
 
   React.useEffect(() => {
     const url = new URL(window.location.href);
     const callbackHost = new URL('/', url);
     const redirectServerID = url.searchParams.get('r');
-    const redirectUrl = `${apiUrl}/login-bounce?cbh=${callbackHost.href}`;
+    const redirectUrl = `${apiUrl}/auth/bounce?cbh=${callbackHost.href}`;
     if (!redirectServerID) {
       if (isAuthenticated) {
         redirectTo('/servers');

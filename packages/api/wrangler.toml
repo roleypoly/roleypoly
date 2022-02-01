@@ -1,0 +1,29 @@
+# THIS DOES NOT WORK WITH WRANGLER BY DEFAULT.
+# BE EXTREMELY AWARE OF THIS CAVEAT.
+
+name = "api"
+type = "javascript"
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
+
+kv_namespaces = [
+  { binding = "KV_SESSIONS", id = "", preview_id = "" },
+  { binding = "KV_GUILDS", id = "", preview_id = "" },
+  { binding = "KV_GUILD_DATA", id = "", preview_id = "" },
+]
+
+[build]
+command = "yarn build:dev"
+[build.upload]
+format = "modules"
+dir = "dist"
+main = "index.mjs"
+
+[miniflare]
+host = "0.0.0.0"
+port = 6609
+watch = true
+env_path = "../../.env"
+kv_persist = true

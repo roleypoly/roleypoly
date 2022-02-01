@@ -10,7 +10,7 @@ const BotJoin = (props: { serverID: string; path: string }) => {
   }
 
   React.useEffect(() => {
-    window.location.href = `${apiUrl}/bot-join${params}`;
+    window.location.href = `${apiUrl}/auth/bot${params}`;
   }, [apiUrl, params]);
 
   return <GenericLoadingTemplate />;

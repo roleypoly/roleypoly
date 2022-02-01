@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 
 export const Base = styled.div`
   background-color: ${palette.discord100};
-  border: solid 1px rgba(0, 0, 0, 0.15);
+  border: solid 1px rgb(0 0 0 / 15%);
   border-radius: 3px;
   padding: 10px;
   user-select: none;
@@ -12,7 +12,7 @@ export const Base = styled.div`
 export const Timestamp = styled.span`
   padding: 0 5px;
   font-size: 0.7em;
-  opacity: 0.3;
+  opacity: 30%;
 `;
 
 export const TextParts = styled.span`
@@ -35,19 +35,19 @@ export const InputBox = styled.div`
 
 const lineBlink = keyframes`
     0% {
-        opacity: 1;
+        opacity: 100%;
     }
 
     40% {
-        opacity: 1;
+        opacity: 100%;
     }
 
     60% {
-        opacity: 0;
+        opacity: 0%;
     }
 
     100% {
-        opacity: 0;
+        opacity: 0%;
     }
 `;
 
