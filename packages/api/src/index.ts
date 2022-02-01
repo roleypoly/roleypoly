@@ -53,7 +53,7 @@ router.get('/', ((request: Request, { config }: Context) =>
     a: 'fox-based',
     web: 'application',
     please: 'be',
-    mindful: 'of',
+    aware: 'of',
     your: 'surroundings',
     warning__: '🦊',
     meta: config.uiPublicURI,
