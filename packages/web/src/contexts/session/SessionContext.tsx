@@ -31,6 +31,16 @@ const SessionContext = React.createContext<SessionContextT>({
   setupSession: () => {},
 });
 
+const debounce = (func: Function, timeout = 300) => {
+  let timer: any | undefined = undefined;
+  return (...args: any) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+};
+
 export const useSessionContext = () => React.useContext(SessionContext);
 
 export const SessionContextProvider = (props: { children: React.ReactNode }) => {
@@ -108,34 +118,36 @@ export const SessionContextProvider = (props: { children: React.ReactNode }) => 
 
       // If not, lets fetch it from the server
       setLock(true);
-      fetchSession(session.sessionID)
-        .then((sessionData) => {
-          if (sessionData) {
-            setSession({
-              ...session,
-              isAuthenticated: true,
-              session: {
-                user: sessionData.user,
-                guilds: sessionData.guilds,
-              },
-            });
-            saveSessionData({
-              sessionID: session.sessionID!,
-              session: {
-                user: sessionData.user,
-                guilds: sessionData.guilds,
-              },
-            });
-          } else {
+      debounce(async (sessionID: string) => {
+        fetchSession(sessionID)
+          .then((sessionData) => {
+            if (sessionData) {
+              setSession({
+                ...session,
+                isAuthenticated: true,
+                session: {
+                  user: sessionData.user,
+                  guilds: sessionData.guilds,
+                },
+              });
+              saveSessionData({
+                sessionID: session.sessionID!,
+                session: {
+                  user: sessionData.user,
+                  guilds: sessionData.guilds,
+                },
+              });
+            } else {
+              session.setupSession(null);
+              setLock(false);
+            }
+          })
+          .catch((e) => {
+            console.error(e);
             session.setupSession(null);
             setLock(false);
-          }
-        })
-        .catch((e) => {
-          console.error(e);
-          session.setupSession(null);
-          setLock(false);
-        });
+          });
+      }, 2000)(session.sessionID!);
     }
   }, [session, locked, setLock, fetch]);
 
