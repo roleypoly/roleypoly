@@ -7,7 +7,7 @@ import { useSessionContext } from '../../contexts/session/SessionContext';
 import { Title } from '../../utils/metaTitle';
 
 const NewSession = () => {
-  const { setupSession, sessionID } = useSessionContext();
+  const { setupSession, sessionID, isAuthenticated } = useSessionContext();
   const [postauthUrl, setPostauthUrl] = React.useState('/servers');
   const navigate = useNavigate();
   const location = useLocation();
@@ -32,10 +32,10 @@ const NewSession = () => {
       setupSession(sessionToken);
     }
 
-    if (sessionID) {
+    if (sessionID && isAuthenticated) {
       navigate(postauthUrl);
     }
-  }, [sessionID, location, postauthUrl, setupSession, navigate]);
+  }, [sessionID, location, postauthUrl, setupSession, navigate, isAuthenticated]);
 
   return (
     <GenericLoadingTemplate>
