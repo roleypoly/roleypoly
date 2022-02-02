@@ -191,6 +191,18 @@ describe('getGuildData', () => {
       await getGuildData(config, '123');
       expect(mockFetchLegacyServer).toHaveBeenCalledTimes(1);
     });
+
+    it('errors gracefully', async () => {
+      const [config] = configContext();
+
+      mockFetchLegacyServer.mockImplementationOnce(() => {
+        throw new Error('test');
+      });
+
+      await getGuildData(config, '123');
+      await getGuildData(config, '123');
+      expect(mockFetchLegacyServer).toHaveBeenCalledTimes(1);
+    });
   });
 });
 
