@@ -36,6 +36,7 @@ export const forbidden = () => json({ error: 'forbidden' }, { status: 403 });
 export const notFound = () => json({ error: 'not found' }, { status: 404 });
 export const serverError = (error: Error) => {
   console.error(error);
+  console.trace();
   return json({ error: 'internal server error' }, { status: 500 });
 };
 export const notImplemented = () => json({ error: 'not implemented' }, { status: 501 });

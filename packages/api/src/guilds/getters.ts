@@ -113,16 +113,21 @@ export const attemptLegacyImport = async (
   config: Config,
   id: string
 ): Promise<GuildData | null> => {
-  const legacyGuildData = await fetchLegacyServer(config, id);
-  if (!legacyGuildData) {
-    // Means there is no legacy data.
+  try {
+    const legacyGuildData = await fetchLegacyServer(config, id);
+    if (!legacyGuildData) {
+      // Means there is no legacy data.
+      return null;
+    }
+
+    const transformed = transformLegacyGuild(legacyGuildData);
+
+    await config.kv.guildData.put(id, transformed);
+    return transformed;
+  } catch (e) {
+    console.error('attemptLegacyImport errored:', e);
     return null;
   }
-
-  const transformed = transformLegacyGuild(legacyGuildData);
-
-  await config.kv.guildData.put(id, transformed);
-  return transformed;
 };
 
 export const getGuildMember = async (
