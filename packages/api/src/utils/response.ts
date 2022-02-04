@@ -17,7 +17,7 @@ export const corsHeaders = {
   'Access-Control-Max-Age': '86400',
 };
 
-export const noContent = () => new Response(null, { status: 204 });
+export const noContent = () => new Response(null, { status: 204, headers: corsHeaders });
 export const seeOther = (url: string) =>
   new Response(
     `<!doctype html>If you are not redirected soon, <a href="${url}">click here.</a>`,

@@ -13,27 +13,50 @@ export const verifyRequest = async (
   request: Request,
   interaction: InteractionRequest
 ): Promise<boolean> => {
-  const timestamp = request.headers.get('x-signature-timestamp');
-  const signature = request.headers.get('x-signature-ed25519');
+  try {
+    const timestamp = request.headers.get('x-signature-timestamp');
+    const signature = request.headers.get('x-signature-ed25519');
 
-  if (!timestamp || !signature) {
+    if (!timestamp || !signature) {
+      return false;
+    }
+
+    const key = await crypto.subtle.importKey(
+      'raw',
+      bufferizeHex(config.publicKey),
+      { name: 'NODE-ED25519', namedCurve: 'NODE-ED25519', public: true } as any,
+      false,
+      ['verify']
+    );
+
+    const verified = await crypto.subtle.verify(
+      'NODE-ED25519',
+      key,
+      bufferizeHex(signature),
+      bufferizeString(timestamp + JSON.stringify(interaction))
+    );
+
+    return verified;
+  } catch (e) {
     return false;
   }
+};
 
-  const key = await crypto.subtle.importKey(
-    'raw',
-    Buffer.from(config.publicKey, 'hex'),
-    { name: 'NODE-ED25519', namedCurve: 'NODE-ED25519', public: true } as any,
-    false,
-    ['verify']
-  );
+// Cloudflare Workers + SubtleCrypto has no idea what a Buffer.from() is.
+// What the fuck?
+const bufferizeHex = (input: string) => {
+  const buffer = new Uint8Array(input.length / 2);
 
-  return crypto.subtle.verify(
-    'NODE-ED25519',
-    key,
-    Buffer.from(signature, 'hex'),
-    Buffer.from(timestamp + JSON.stringify(interaction))
-  );
+  for (let i = 0; i < input.length; i += 2) {
+    buffer[i / 2] = parseInt(input.substring(i, i + 2), 16);
+  }
+
+  return buffer;
+};
+
+const bufferizeString = (input: string) => {
+  const encoder = new TextEncoder();
+  return encoder.encode(input);
 };
 
 export type InteractionHandler = ((
@@ -59,7 +82,7 @@ export const runAsync = async (
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        type: InteractionCallbackType.DEFERRED_UPDATE_MESSAGE,
+        type: InteractionCallbackType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
           flags: handler.ephemeral ? InteractionFlags.EPHEMERAL : 0,
           ...response.data,
@@ -82,7 +105,7 @@ export const runAsync = async (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          type: InteractionCallbackType.DEFERRED_UPDATE_MESSAGE,
+          type: InteractionCallbackType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
           data: {
             content: "I'm sorry, I'm having trouble processing this request.",
             flags: InteractionFlags.EPHEMERAL,

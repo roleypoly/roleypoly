@@ -10,10 +10,15 @@ export const helloWorld: InteractionHandler = (
   interaction: InteractionRequest,
   context: Context
 ): InteractionResponse => {
+  console.log({ interaction });
   return {
     type: InteractionCallbackType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {
-      content: `Hey there, ${interaction.member?.nick || interaction.user?.username}`,
+      content: `Hey there, ${
+        interaction.member?.nick ||
+        interaction.member?.user?.username ||
+        interaction.user?.username
+      }`,
     },
   };
 };

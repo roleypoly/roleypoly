@@ -30,14 +30,17 @@ export const handleInteraction: RoleypolyHandler = async (
   }
 
   if (!(await verifyRequest(context.config, request, interaction))) {
+    console.warn('interactions: invalid signature');
     return new Response('invalid request signature', { status: 401 });
   }
 
   if (interaction.type !== InteractionType.APPLICATION_COMMAND) {
     if (interaction.type === InteractionType.PING) {
+      console.info('interactions: ping');
       return json({ type: InteractionCallbackType.PONG });
     }
 
+    console.warn('interactions: not application command');
     return json({ err: 'not implemented' }, { status: 400 });
   }
 
