@@ -25,7 +25,7 @@ const Editor = (props: EditorProps) => {
   const { authedFetch } = useAuthedFetch();
   const { pushRecentGuild } = useRecentGuilds();
   const appShellProps = useAppShellProps();
-  const { getFullGuild, uncacheGuild } = useGuildContext();
+  const { getFullGuild, uncacheGuild, uncacheRemoteGuild } = useGuildContext();
 
   const [guild, setGuild] = React.useState<PresentableGuild | null | false>(null);
   const [pending, setPending] = React.useState(false);
@@ -52,8 +52,10 @@ const Editor = (props: EditorProps) => {
       setGuild(guild);
     };
 
-    fetchGuild();
-  }, [serverID, getFullGuild]);
+    if (guild === null) {
+      fetchGuild();
+    }
+  }, [serverID, getFullGuild, guild]);
 
   React.useCallback((serverID) => pushRecentGuild(serverID), [pushRecentGuild])(serverID);
 
@@ -105,10 +107,32 @@ const Editor = (props: EditorProps) => {
     setPending(false);
   };
 
+  const onRefreshCache = async () => {
+    if (
+      Number(sessionStorage.getItem('rp_editor_last_refresh')) >
+      Date.now() - 1000 * 60 * 2
+    ) {
+      console.error('Slow down there partner!');
+      return;
+    }
+
+    console.log('Refreshing cache');
+    uncacheGuild(serverID);
+    await uncacheRemoteGuild(serverID);
+    sessionStorage.setItem('rp_editor_last_pull', String(Date.now()));
+    sessionStorage.setItem('rp_editor_last_refresh', String(Date.now()));
+    setGuild(null);
+  };
+
   return (
     <>
       <Title title={`Editing ${guild.guild.name} - Roleypoly`} />
-      <EditorTemplate {...appShellProps} guild={guild} onGuildChange={onGuildChange} />
+      <EditorTemplate
+        {...appShellProps}
+        guild={guild}
+        onGuildChange={onGuildChange}
+        onRefreshCache={onRefreshCache}
+      />
     </>
   );
 };

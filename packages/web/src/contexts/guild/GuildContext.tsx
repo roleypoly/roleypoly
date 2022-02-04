@@ -19,12 +19,14 @@ type GuildContextT = {
   ) => Promise<PresentableGuild | null | false>;
   getGuildSlug: (id: string) => Promise<GuildSlug | null>;
   uncacheGuild: (id: string) => void;
+  uncacheRemoteGuild: (id: string) => Promise<void>;
 };
 
 export const GuildContext = React.createContext<GuildContextT>({
   getFullGuild: (id: string) => Promise.reject(new Error('Not implemented')),
   getGuildSlug: (id: string) => Promise.reject(new Error('Not implemented')),
-  uncacheGuild: (id: string) => {},
+  uncacheGuild: (id: string) => void 0,
+  uncacheRemoteGuild: (id: string) => Promise.resolve(void 0),
 });
 
 export const useGuildContext = () => React.useContext(GuildContext);
@@ -107,6 +109,9 @@ export const GuildProvider = (props: { children: React.ReactNode }) => {
     },
     uncacheGuild: (id: string) => {
       sessionStorage.removeItem(`guild-${id}`);
+    },
+    uncacheRemoteGuild: async (id: string) => {
+      await authedFetch(`/guilds/${id}/cache`, { method: 'DELETE' });
     },
   };
 

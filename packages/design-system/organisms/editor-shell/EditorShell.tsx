@@ -15,6 +15,7 @@ export type EditorShellProps = {
   onGuildChange?: (guild: PresentableGuild) => void;
   onCategoryChange?: (category: Category) => void;
   onMessageChange?: (message: PresentableGuild['data']['message']) => void;
+  onRefreshCache?: () => void;
 };
 
 export const EditorShell = (props: EditorShellProps) => {
@@ -69,7 +70,11 @@ export const EditorShell = (props: EditorShellProps) => {
           guild={guild.guild}
         />
         <Space />
-        <ServerCategoryEditor guild={guild} onChange={replaceCategories} />
+        <ServerCategoryEditor
+          guild={guild}
+          onChange={replaceCategories}
+          onRefreshCache={props.onRefreshCache}
+        />
         <LinedSpace />
         <ServerUtilities guildData={guild.data} />
       </Container>

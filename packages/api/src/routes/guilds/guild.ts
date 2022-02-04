@@ -12,7 +12,7 @@ export const guildsGuild: RoleypolyHandler = async (
   request: Request,
   context: Context
 ) => {
-  const { noCache } = getQuery(request);
+  const { __no_cache: noCache } = getQuery(request);
   const guild = await getGuild(context.config, context.params!.guildId!, !!noCache);
 
   if (!guild) {

@@ -15,7 +15,14 @@ import { flatten, sortBy } from 'lodash';
 import React from 'react';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { CgReorder } from 'react-icons/cg';
-import { GoArrowDown, GoArrowUp, GoCheck, GoGrabber, GoPlus } from 'react-icons/go';
+import {
+  GoArrowDown,
+  GoArrowUp,
+  GoCheck,
+  GoGrabber,
+  GoPlus,
+  GoSync,
+} from 'react-icons/go';
 import { ulid } from 'ulidx';
 import {
   CategoryActions,
@@ -26,6 +33,7 @@ import {
 type Props = {
   guild: PresentableGuild;
   onChange: (categories: PresentableGuild['data']['categories']) => void;
+  onRefreshCache?: () => void;
 };
 
 const resetOrder = (categories: Category[]) =>
@@ -125,6 +133,9 @@ export const ServerCategoryEditor = (props: Props) => {
         </Button>
         <Button color="muted" size="small" onClick={() => setReorderMode(true)}>
           Change Order <CgReorder />
+        </Button>
+        <Button color="muted" size="small" onClick={props.onRefreshCache}>
+          Refresh Roles <GoSync />
         </Button>
       </CategoryActions>
       {props.guild.data.categories.length > 0 ? (
