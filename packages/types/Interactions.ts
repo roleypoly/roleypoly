@@ -72,6 +72,11 @@ export type Embed = {
   timestamp?: string;
   title: string;
   color: number;
+  footer?: {
+    text: string;
+    icon_url?: string;
+    proxy_icon_url?: string;
+  };
   author?: {
     name: string;
     icon_url: string;
