@@ -119,7 +119,7 @@ export const mockUpdateCall = (
     AuthType.None,
     {
       body: JSON.stringify({
-        type: InteractionCallbackType.DEFERRED_UPDATE_MESSAGE,
+        type: InteractionCallbackType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
           flags: InteractionFlags.EPHEMERAL,
           ...data,

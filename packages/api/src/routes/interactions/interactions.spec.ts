@@ -24,7 +24,7 @@ it('responds with a simple hello-world!', async () => {
   });
   expect(mockDiscordFetch).toBeCalledWith(expect.any(String), '', AuthType.None, {
     body: JSON.stringify({
-      type: InteractionCallbackType.DEFERRED_UPDATE_MESSAGE,
+      type: InteractionCallbackType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
       data: {
         flags: InteractionFlags.EPHEMERAL,
         content: 'Hey there, test-user-nick',
