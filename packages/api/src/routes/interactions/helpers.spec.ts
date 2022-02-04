@@ -1,7 +1,7 @@
 import { InteractionRequest, InteractionType } from '@roleypoly/types';
 import nacl from 'tweetnacl';
 import { configContext } from '../../utils/testHelpers';
-import { verifyRequest } from './helpers';
+import { embedBuilder, verifyRequest } from './helpers';
 
 //
 // Q: Why tweetnacl when WebCrypto is available?
@@ -127,5 +127,53 @@ describe('verifyRequest', () => {
     });
 
     expect(await verifyRequest(context.config, request, body)).toBe(false);
+  });
+});
+
+describe('embedBuilder', () => {
+  it('builds embeds that discord approves of', () => {
+    const embeds = embedBuilder({
+      title: 'Test',
+      fields: [
+        {
+          name: 'Field 1',
+          value: 'role-1, role-2, role-3, role-4, role-5, '
+            .repeat(1024 / 30 - 15)
+            .replace(/, $/, ''),
+        },
+        {
+          name: 'Field 2',
+          value: 'role-1, role-2, role-3, role-4, role-5, '
+            .repeat(1024 / 30 + 4)
+            .replace(/, $/, ''),
+        },
+      ],
+      color: 0xff0000,
+    });
+
+    expect(embeds).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "color": 16711680,
+          "fields": Array [
+            Object {
+              "name": "Field 1",
+              "value": "role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5",
+            },
+            Object {
+              "name": "Field 2",
+              "value": "role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3",
+            },
+            Object {
+              "name": "Field 2 (continued)",
+              "value": "role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5, role-1, role-2, role-3, role-4, role-5",
+            },
+          ],
+          "title": "Test",
+        },
+      ]
+    `);
+    expect(embeds.length).toBe(1);
+    expect(embeds[0].fields.length).toBe(3);
   });
 });

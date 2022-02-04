@@ -61,7 +61,6 @@ export const handleInteraction: RoleypolyHandler = async (
       return json({
         type: InteractionCallbackType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
-          content: 'Figuring it out...',
           flags: handler.ephemeral ? InteractionFlags.EPHEMERAL : 0,
         },
       } as InteractionResponse);

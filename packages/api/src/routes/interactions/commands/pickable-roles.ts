@@ -5,6 +5,7 @@ import {
   getPickableRoles,
 } from '@roleypoly/api/src/guilds/getters';
 import {
+  embedBuilder,
   getName,
   InteractionHandler,
 } from '@roleypoly/api/src/routes/interactions/helpers';
@@ -112,7 +113,7 @@ export const pickableRoles: InteractionHandler = async (
   return {
     type: InteractionCallbackType.CHANNEL_MESSAGE_WITH_SOURCE,
     data: {
-      embeds: [embed],
+      embeds: embedBuilder(embed),
       components: [
         {
           type: 1,

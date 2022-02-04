@@ -1,7 +1,7 @@
 import { Config } from '@roleypoly/api/src/utils/config';
 import { Context } from '@roleypoly/api/src/utils/context';
 import { AuthType, discordFetch } from '@roleypoly/api/src/utils/discord';
-import { InteractionRequest, InteractionResponse } from '@roleypoly/types';
+import { Embed, InteractionRequest, InteractionResponse } from '@roleypoly/types';
 
 export const verifyRequest = async (
   config: Config,
@@ -116,4 +116,88 @@ export const getName = (interaction: InteractionRequest): string => {
     interaction.user?.username ||
     'friend'
   );
+};
+
+/**
+ * Take a single big embed and fit it into Discord limits
+ * per embed, 25 fields, and 1024 characters per field.
+ * so we'll make new embeds/fields as the content gets too long.
+ */
+export const embedBuilder = (embed: Embed): Embed[] => {
+  const embeds: Embed[] = [];
+
+  const titleCorrection = (title: string, withContinued?: boolean) => {
+    const suffix = withContinued ? '... (continued)' : '...';
+    const offsetTitle = title.length + suffix.length;
+    return title.length > 256 - offsetTitle
+      ? title.slice(0, 256 - offsetTitle) + suffix
+      : withContinued
+      ? `${title} (continued)`
+      : title;
+  };
+
+  let currentEmbed: Embed = {
+    color: embed.color,
+    title: embed.title,
+    fields: [],
+  };
+
+  let knownFieldTitles: string[] = [];
+
+  const commitField = (field: Embed['fields'][0]) => {
+    if (currentEmbed.fields.length === 25) {
+      embeds.push(currentEmbed);
+      currentEmbed = {
+        color: embed.color,
+        title: `${embed.title} (continued)`,
+        fields: [],
+      };
+    }
+
+    console.warn({ field });
+    const addContinued = knownFieldTitles.includes(field.name);
+
+    if (!addContinued) {
+      knownFieldTitles.push(field.name);
+    }
+
+    field.name = titleCorrection(`${field.name}`, addContinued);
+    console.warn({ field, knownFieldTitles });
+
+    currentEmbed.fields.push(field);
+  };
+
+  for (let field of embed.fields) {
+    if (field.value.length <= 1024) {
+      commitField(field);
+      continue;
+    }
+
+    const split = field.value.split(', '); // we know we'll be using , as a delimiter
+    let fieldValue: Embed['fields'][0]['value'] = '';
+    for (let part of split) {
+      if (fieldValue.length + part.length > 1024) {
+        commitField({
+          name: field.name,
+          value: fieldValue.replace(/, $/, ''),
+        });
+        fieldValue = '';
+      } else {
+        fieldValue += part + ', ';
+      }
+    }
+
+    if (fieldValue.length > 0) {
+      commitField({
+        name: field.name,
+        value: fieldValue.replace(/, $/, ''),
+      });
+    }
+  }
+
+  if (currentEmbed.fields.length > 0) {
+    embeds.push(currentEmbed);
+  }
+
+  return embeds;
 };
