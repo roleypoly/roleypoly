@@ -17,7 +17,7 @@
     "@cloudflare/workers-types": "^3.3.1",
     "@roleypoly/misc-utils": "*",
     "@roleypoly/types": "*",
-    "@types/node": "^17.0.13",
+    "@types/node": "^17.0.14",
     "esbuild": "^0.14.16",
     "itty-router": "^2.4.10",
     "jest-environment-miniflare": "^2.2.0",
