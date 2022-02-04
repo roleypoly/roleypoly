@@ -1,4 +1,6 @@
 import { helloWorld } from '@roleypoly/api/src/routes/interactions/commands/hello-world';
+import { pickableRoles } from '@roleypoly/api/src/routes/interactions/commands/pickable-roles';
+import { roleypoly } from '@roleypoly/api/src/routes/interactions/commands/roleypoly';
 import {
   InteractionHandler,
   runAsync,
@@ -18,6 +20,8 @@ import {
 
 const commands: Record<InteractionData['name'], InteractionHandler> = {
   'hello-world': helloWorld,
+  roleypoly: roleypoly,
+  'pickable-roles': pickableRoles,
 };
 
 export const handleInteraction: RoleypolyHandler = async (
@@ -57,6 +61,7 @@ export const handleInteraction: RoleypolyHandler = async (
       return json({
         type: InteractionCallbackType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
         data: {
+          content: 'Figuring it out...',
           flags: handler.ephemeral ? InteractionFlags.EPHEMERAL : 0,
         },
       } as InteractionResponse);

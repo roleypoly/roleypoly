@@ -10,6 +10,7 @@ import {
 import { fetchLegacyServer, transformLegacyGuild } from '@roleypoly/api/src/utils/legacy';
 import { evaluatePermission, permissions } from '@roleypoly/misc-utils/hasPermission';
 import {
+  Category,
   Features,
   Guild,
   GuildData,
@@ -198,4 +199,32 @@ const calculateRoleSafety = (role: Role | APIRole, highestBotRolePosition: numbe
   }
 
   return safety;
+};
+
+export const getPickableRoles = (
+  guildData: GuildData,
+  guild: Guild
+): { category: Category; roles: Role[] }[] => {
+  const pickableRoles: { category: Category; roles: Role[] }[] = [];
+
+  for (const category of guildData.categories) {
+    if (category.roles.length === 0 || category.hidden) {
+      continue;
+    }
+
+    const roles = category.roles
+      .map((roleID) => guild.roles.find((r) => r.id === roleID))
+      .filter((role) => role !== undefined && role.safety === RoleSafety.Safe) as Role[];
+
+    if (roles.length > 0) {
+      pickableRoles.push({
+        category,
+        roles,
+      });
+    }
+  }
+
+  console.log({ pickableRoles });
+
+  return pickableRoles;
 };

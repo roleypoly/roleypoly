@@ -1,12 +1,7 @@
 import { Config } from '@roleypoly/api/src/utils/config';
 import { Context } from '@roleypoly/api/src/utils/context';
 import { AuthType, discordFetch } from '@roleypoly/api/src/utils/discord';
-import {
-  InteractionCallbackType,
-  InteractionFlags,
-  InteractionRequest,
-  InteractionResponse,
-} from '@roleypoly/types';
+import { InteractionRequest, InteractionResponse } from '@roleypoly/types';
 
 export const verifyRequest = async (
   config: Config,
@@ -76,17 +71,19 @@ export const runAsync = async (
 
   try {
     const response = await handler(interaction, context);
+    if (!response) {
+      throw new Error('Interaction handler returned no response');
+    }
+
+    console.log({ response });
+
     await discordFetch(url, '', AuthType.None, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        type: InteractionCallbackType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
-        data: {
-          flags: handler.ephemeral ? InteractionFlags.EPHEMERAL : 0,
-          ...response.data,
-        },
+        ...response.data,
       }),
     });
   } catch (e) {
@@ -105,13 +102,18 @@ export const runAsync = async (
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          type: InteractionCallbackType.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE,
-          data: {
-            content: "I'm sorry, I'm having trouble processing this request.",
-            flags: InteractionFlags.EPHEMERAL,
-          },
-        } as InteractionResponse),
+          content: "I'm sorry, I'm having trouble processing this request.",
+        } as InteractionResponse['data']),
       });
     } catch (e) {}
   }
+};
+
+export const getName = (interaction: InteractionRequest): string => {
+  return (
+    interaction.member?.nick ||
+    interaction.member?.user?.username ||
+    interaction.user?.username ||
+    'friend'
+  );
 };
