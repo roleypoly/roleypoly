@@ -1,5 +1,7 @@
 import { helloWorld } from '@roleypoly/api/src/routes/interactions/commands/hello-world';
+import { pickRole } from '@roleypoly/api/src/routes/interactions/commands/pick-role';
 import { pickableRoles } from '@roleypoly/api/src/routes/interactions/commands/pickable-roles';
+import { removeRole } from '@roleypoly/api/src/routes/interactions/commands/remove-role';
 import { roleypoly } from '@roleypoly/api/src/routes/interactions/commands/roleypoly';
 import {
   InteractionHandler,
@@ -22,6 +24,8 @@ const commands: Record<InteractionData['name'], InteractionHandler> = {
   'hello-world': helloWorld,
   roleypoly: roleypoly,
   'pickable-roles': pickableRoles,
+  'pick-role': pickRole,
+  'remove-role': removeRole,
 };
 
 export const handleInteraction: RoleypolyHandler = async (

@@ -36,3 +36,26 @@ export const notImplemented: InteractionHandler = (): InteractionResponse => ({
     flags: InteractionFlags.EPHEMERAL,
   },
 });
+
+export const embedResponse = (
+  title: string,
+  description: string,
+  color?: number
+): InteractionResponse => ({
+  type: InteractionCallbackType.CHANNEL_MESSAGE_WITH_SOURCE,
+  data: {
+    embeds: [
+      {
+        color: color || 0x00ff00,
+        title,
+        description,
+      },
+    ],
+  },
+});
+
+export const embedPalette = {
+  success: 0x1d8227,
+  error: 0xf14343,
+  neutral: 0x2c2f33,
+};

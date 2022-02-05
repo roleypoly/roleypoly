@@ -9,6 +9,10 @@ import {
   getName,
   InteractionHandler,
 } from '@roleypoly/api/src/routes/interactions/helpers';
+import {
+  embedPalette,
+  embedResponse,
+} from '@roleypoly/api/src/routes/interactions/responses';
 import { Context } from '@roleypoly/api/src/utils/context';
 import {
   CategoryType,
@@ -24,20 +28,13 @@ export const pickableRoles: InteractionHandler = async (
   context: Context
 ): Promise<InteractionResponse> => {
   if (!interaction.guild_id) {
-    return {
-      type: InteractionCallbackType.CHANNEL_MESSAGE_WITH_SOURCE,
-      data: {
-        embeds: [
-          {
-            color: 0xff0000,
-            title: ':x: Error',
-            description: `:x: Hey ${getName(
-              interaction
-            )}. You need to use this command in a server, not in a DM.`,
-          },
-        ],
-      },
-    };
+    return embedResponse(
+      ':x: Error',
+      `Hey ${getName(
+        interaction
+      )}. You need to use this command in a server, not in a DM.`,
+      embedPalette.error
+    );
   }
 
   const [guildData, guild, member] = await Promise.all([
@@ -47,41 +44,26 @@ export const pickableRoles: InteractionHandler = async (
   ]);
 
   if (!guildData || !guild) {
-    return {
-      type: InteractionCallbackType.CHANNEL_MESSAGE_WITH_SOURCE,
-      data: {
-        embeds: [
-          {
-            color: 0xff0000,
-            title: ':x: Error',
-            description: `:x: Hey ${getName(
-              interaction
-            )}. Something's wrong with the server you're in. Try picking your roles at ${
-              context.config.uiPublicURI
-            }/s/${interaction.guild_id} instead.`,
-          },
-        ],
-      },
-    };
+    return embedResponse(
+      ':x: Error',
+      `Hey ${getName(
+        interaction
+      )}. Something's wrong with the server you're in. Try picking your roles at ${
+        context.config.uiPublicURI
+      }/s/${interaction.guild_id} instead.`,
+      embedPalette.error
+    );
   }
 
   const roles = getPickableRoles(guildData, guild);
   if (roles.length === 0) {
-    console.warn('/pickable-roles turned up empty?', { roles, guild, guildData });
-    return {
-      type: InteractionCallbackType.CHANNEL_MESSAGE_WITH_SOURCE,
-      data: {
-        embeds: [
-          {
-            color: 0xff0000,
-            title: ':fire: Error',
-            description: `Hey ${getName(
-              interaction
-            )}. This server might not be set up to use Roleypoly yet, as there are no roles to pick from.`,
-          },
-        ],
-      },
-    };
+    return embedResponse(
+      ':fire: Error',
+      `Hey ${getName(
+        interaction
+      )}. This server might not be set up to use Roleypoly yet, as there are no roles to pick from.`,
+      embedPalette.error
+    );
   }
 
   const makeBoldIfMemberHasRole = (role: Role, base: string): string => {
@@ -93,7 +75,7 @@ export const pickableRoles: InteractionHandler = async (
   };
 
   const embed: Embed = {
-    color: 0xab9b9a,
+    color: embedPalette.neutral,
     fields: roles.map(({ category, roles }) => {
       return {
         name: `${category.name}${

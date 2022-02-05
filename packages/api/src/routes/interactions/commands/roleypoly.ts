@@ -2,6 +2,7 @@ import {
   getName,
   InteractionHandler,
 } from '@roleypoly/api/src/routes/interactions/helpers';
+import { embedResponse } from '@roleypoly/api/src/routes/interactions/responses';
 import { Context } from '@roleypoly/api/src/utils/context';
 import {
   Embed,
@@ -15,14 +16,12 @@ export const roleypoly: InteractionHandler = (
   context: Context
 ): InteractionResponse => {
   if (!interaction.guild_id) {
-    return {
-      type: InteractionCallbackType.CHANNEL_MESSAGE_WITH_SOURCE,
-      data: {
-        content: `:x: Hey ${getName(
-          interaction
-        )}. You need to use this command in a server, not in a DM.`,
-      },
-    };
+    return embedResponse(
+      ':x: Error',
+      `Hey ${getName(
+        interaction
+      )}. You need to use this command in a server, not in a DM.`
+    );
   }
 
   return {
