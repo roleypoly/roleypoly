@@ -14,10 +14,9 @@ resource "discord-interactions_global_command" "pickable-roles" {
   description = "See the roles you can pick from"
 }
 
-resource "discord-interactions_guild_command" "pick-role" {
+resource "discord-interactions_global_command" "pick-role" {
   name        = "pick-role"
   description = "Pick a new role (see /pickable-roles for a full list)"
-  guild_id    = "386659935687147521"
 
   option {
     name        = "role"
@@ -27,10 +26,9 @@ resource "discord-interactions_guild_command" "pick-role" {
   }
 }
 
-resource "discord-interactions_guild_command" "remove-role" {
+resource "discord-interactions_global_command" "remove-role" {
   name        = "remove-role"
-  description = "Remove a role you already have"
-  guild_id    = "386659935687147521"
+  description = "Remove a role you already have (see /pickable-roles for a full list)"
 
   option {
     name        = "role"
