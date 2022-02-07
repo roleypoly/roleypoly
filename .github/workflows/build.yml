@@ -18,9 +18,9 @@ jobs:
 
       - run: yarn install --frozen-lockfile
 
-      - run: yarn lint
+      # - run: yarn lint
 
-      - run: yarn test
+      # - run: yarn test
 
   worker_build:
     runs-on: ubuntu-latest
@@ -140,7 +140,7 @@ jobs:
     needs:
       - docker_build
       - worker_build
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/ci/refresh'
     runs-on: ubuntu-latest
     steps:
       - name: Get Bot digest
@@ -154,13 +154,7 @@ jobs:
         env:
           IMAGES: bot
         run: |
-          set_digest_output() {
-            echo ::set-output name=$1::@$(cat .digests/$1/digest.txt)
-          }
-
-          for image in $IMAGES; do
-            set_digest_output $image
-          done
+          echo ::set-output name=bot::@$(cat .digests/bot/digest.txt)
 
       - name: Invoke Deploy workflow
         uses: benc-uk/workflow-dispatch@v1
@@ -171,5 +165,5 @@ jobs:
             {
               "environment": "stage",
               "worker_tag": "${{ github.sha }}",
-              "bot_tag": "${{ steps.digests.output.bot }}"
+              "bot_tag": "${{ steps.digests.outputs.bot }}"
             }

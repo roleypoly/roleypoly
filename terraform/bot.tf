@@ -107,4 +107,8 @@ resource "google_compute_instance" "vm" {
       "https://www.googleapis.com/auth/trace.append",
     ]
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
