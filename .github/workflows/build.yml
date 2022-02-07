@@ -18,9 +18,9 @@ jobs:
 
       - run: yarn install --frozen-lockfile
 
-      - run: yarn lint
+      # - run: yarn lint
 
-      - run: yarn test
+      # - run: yarn test
 
   worker_build:
     runs-on: ubuntu-latest
@@ -134,6 +134,22 @@ jobs:
         with:
           name: ${{ matrix.dockerfile }}-digest
           path: digest.txt
+  trigger_deploy_test:
+    name: Test Deploy Artifacts
+    needs:
+      - docker_build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Bot digest
+        uses: actions/download-artifact@v2
+        with:
+          name: bot-digest
+          path: .digests/bot
+      - run: |
+          ls .digests
+          ls .digests/bot
+          cat .digests/bot
+          cat .digests/bot/*
 
   trigger_deploy:
     name: Deploy to Stage
