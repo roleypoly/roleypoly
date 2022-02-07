@@ -16,7 +16,7 @@ COPY . .
 RUN cargo build --release --bin bot
 
 # We do not need the Rust toolchain to run the binary!
-FROM debian:slim AS runtime
+FROM debian:bullseye-slim AS runtime
 WORKDIR /app
 COPY --from=builder /app/target/release/bot /usr/local/bin/bot
 ENTRYPOINT ["/usr/local/bin/bot"]
