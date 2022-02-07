@@ -134,29 +134,13 @@ jobs:
         with:
           name: ${{ matrix.dockerfile }}-digest
           path: digest.txt
-  trigger_deploy_test:
-    name: Test Deploy Artifacts
-    needs:
-      - docker_build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get Bot digest
-        uses: actions/download-artifact@v2
-        with:
-          name: bot-digest
-          path: .digests/bot
-      - run: |
-          ls .digests
-          ls .digests/bot
-          cat .digests/bot
-          cat .digests/bot/*
 
   trigger_deploy:
     name: Deploy to Stage
     needs:
       - docker_build
       - worker_build
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/ci/refresh'
     runs-on: ubuntu-latest
     steps:
       - name: Get Bot digest
@@ -170,13 +154,7 @@ jobs:
         env:
           IMAGES: bot
         run: |
-          set_digest_output() {
-            echo ::set-output name=$1::@$(cat .digests/$1/digest.txt)
-          }
-
-          for image in $IMAGES; do
-            set_digest_output $image
-          done
+          echo ::set-output name=$1::@$(cat .digests/bot/digest.txt)
 
       - name: Invoke Deploy workflow
         uses: benc-uk/workflow-dispatch@v1
