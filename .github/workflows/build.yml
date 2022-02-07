@@ -165,5 +165,5 @@ jobs:
             {
               "environment": "stage",
               "worker_tag": "${{ github.sha }}",
-              "bot_tag": "${{ steps.digests.output.bot }}"
+              "bot_tag": "${{ steps.digests.outputs.bot }}"
             }
