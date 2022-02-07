@@ -13,10 +13,10 @@ COPY --from=planner /app/recipe.json recipe.json
 RUN cargo chef cook --release --recipe-path recipe.json
 # Build application
 COPY . .
-RUN cargo build --release --bin app
+RUN cargo build --release --bin bot
 
 # We do not need the Rust toolchain to run the binary!
 FROM gcr.io/distroless/base AS runtime
 WORKDIR /app
-COPY --from=builder /app/target/release/app /usr/local/bin
-ENTRYPOINT ["/usr/local/bin/app"]
+COPY --from=builder /app/target/release/bot /usr/local/bin
+ENTRYPOINT ["/usr/local/bin/bot"]
