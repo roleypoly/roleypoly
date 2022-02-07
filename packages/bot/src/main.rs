@@ -13,6 +13,7 @@ use serenity::{
         },
     },
     prelude::*,
+    client::bridge::gateway::GatewayIntents
 };
 
 
@@ -78,7 +79,9 @@ async fn main() {
     let ui_hostname = url::Url::parse(&ui_public_uri).unwrap().host_str().unwrap().to_string();
 
     let mut client =
-        Client::builder(&token).application_id(client_id).event_handler(Handler {
+        Client::builder(&token).application_id(client_id)
+        .intents(GatewayIntents::GUILD_MESSAGES)
+        .event_handler(Handler {
             ui_public_uri,
             ui_hostname,
         }).await.expect("Err creating client");
