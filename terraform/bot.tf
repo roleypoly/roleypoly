@@ -22,15 +22,31 @@ data "google_compute_subnetwork" "default_subnet" {
   region = local.botRegion
 }
 
-module "gce_container" {
-  source         = "github.com/terraform-google-modules/terraform-google-container-vm?ref=v2.0.0"
-  restart_policy = "Always"
+data "google_compute_default_service_account" "default_service_account" {
+}
+
+resource "random_pet" "name" {
+  keepers = {
+    region  = local.botRegion
+    envtag  = var.environment_tag
+    version = local.botTag
+  }
 }
 
 locals {
+  instance_name = "roleypoly-bot-${var.environment_tag}-${random_pet.name.id}"
+}
+
+module "gce_container" {
+  source  = "terraform-google-modules/container-vm/google"
+  version = ">=3.0.0"
+
+  // https://cloud.google.com/container-optimized-os/docs/release-notes/m93#cos-93-16623-102-5
+  cos_image_name = "cos-93-16623-102-5"
+
   container = {
-    image          = "ghcr.io/roleypoly/bot${local.botTag}"
-    restart_policy = "Always"
+    image = "ghcr.io/roleypoly/bot${local.botTag}"
+
     env = [
       {
         name  = "BOT_TOKEN",
@@ -47,25 +63,16 @@ locals {
     ]
   }
 
-  // generate container spec due to secret passing issues with terraform
-  specWithSecrets = {
-    spec = {
-      containers = [local.container]
-    }
-  }
-
-  containerMetadataWithSecrets = yamlencode(local.specWithSecrets)
-
-  vmName = "roleypoly-bot-${var.environment_tag}-${substr(md5(local.containerMetadataWithSecrets), 0, 8)}"
+  restart_policy = "Always"
 }
 
-resource "google_compute_instance" "bot" {
-  count = var.deploy_bot == true ? 1 : 0
+resource "google_compute_instance" "vm" {
+  count = var.deploy_bot ? 1 : 0
 
-  name                      = local.vmName
-  machine_type              = var.bot_instance_size
-  zone                      = data.google_compute_zones.gcp_zones.names[random_integer.zone_index.result]
-  allow_stopping_for_update = true
+  project      = var.gcp_project
+  name         = local.instance_name
+  machine_type = var.bot_instance_size
+  zone         = data.google_compute_zones.gcp_zones.names[random_integer.zone_index.result]
 
   boot_disk {
     initialize_params {
@@ -81,12 +88,22 @@ resource "google_compute_instance" "bot" {
   }
 
   metadata = {
-    gce-container-declaration = local.containerMetadataWithSecrets
-    image                     = local.container.image
-    environment               = var.environment_tag
+    gce-container-declaration = module.gce_container.metadata_value
+    google-logging-enabled    = "true"
+    google-monitoring-enabled = "true"
   }
 
   labels = {
     container-vm = module.gce_container.vm_container_label
+  }
+
+  service_account {
+    email = data.google_compute_default_service_account.default_service_account.email
+    scopes = [
+      "https://www.googleapis.com/auth/cloud-platform",
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring.write",
+      "https://www.googleapis.com/auth/trace.append",
+    ]
   }
 }

@@ -80,7 +80,7 @@ variable "gcp_project" {
 
 variable "gcp_region" {
   type    = string
-  default = "us-east4"
+  default = "us-central1" // low CO2 yeet
 }
 
 provider "google" {
