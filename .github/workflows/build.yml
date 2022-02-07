@@ -154,7 +154,7 @@ jobs:
         env:
           IMAGES: bot
         run: |
-          echo ::set-output name=$1::@$(cat .digests/bot/digest.txt)
+          echo ::set-output name=bot::@$(cat .digests/bot/digest.txt)
 
       - name: Invoke Deploy workflow
         uses: benc-uk/workflow-dispatch@v1
