@@ -23,7 +23,7 @@ data "google_compute_subnetwork" "default_subnet" {
 }
 
 module "gce_container" {
-  source         = "github.com/terraform-google-modules/terraform-google-container-vm?ref=v2.0.0"
+  source         = "github.com/terraform-google-modules/terraform-google-container-vm?ref=v3.0.0"
   restart_policy = "Always"
 }
 
