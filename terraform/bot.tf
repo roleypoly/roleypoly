@@ -74,6 +74,7 @@ resource "google_compute_instance" "vm" {
   machine_type = var.bot_instance_size
   zone         = data.google_compute_zones.gcp_zones.names[random_integer.zone_index.result]
 
+  allow_stopping_for_update = true
   boot_disk {
     initialize_params {
       image = module.gce_container.source_image
