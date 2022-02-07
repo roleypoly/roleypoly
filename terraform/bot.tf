@@ -62,9 +62,10 @@ locals {
 resource "google_compute_instance" "bot" {
   count = var.deploy_bot == true ? 1 : 0
 
-  name         = local.vmName
-  machine_type = var.bot_instance_size
-  zone         = data.google_compute_zones.gcp_zones.names[random_integer.zone_index.result]
+  name                      = local.vmName
+  machine_type              = var.bot_instance_size
+  zone                      = data.google_compute_zones.gcp_zones.names[random_integer.zone_index.result]
+  allow_stopping_for_update = true
 
   boot_disk {
     initialize_params {
