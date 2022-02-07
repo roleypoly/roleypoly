@@ -8,11 +8,6 @@ variable "environment_tag" {
   }
 }
 
-variable "ui_regions" {
-  type        = list(string)
-  description = "Cloud Run regions to deploy UI to"
-}
-
 variable "ui_tag" {
   type        = string
   description = ":tag or @sha265: of *-docker.pkg.dev/roleypoly/roleypoly/ui"
@@ -45,11 +40,6 @@ variable "bot_token" {
 variable "ui_public_uri" {
   type        = string
   description = "UI Public Base Path"
-}
-
-variable "ui_hostnames" {
-  type        = list(string)
-  description = "Hostnames to allow web UI requests from, e.g. roleypoly.com, web-prod.roleypoly.com"
 }
 
 variable "api_public_uri" {

@@ -57,5 +57,5 @@ export const embedResponse = (
 export const embedPalette = {
   success: 0x1d8227,
   error: 0xf14343,
-  neutral: 0x2c2f33,
+  neutral: 0x453e3d,
 };

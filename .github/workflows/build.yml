@@ -118,7 +118,7 @@ jobs:
         id: docker
         with:
           context: .
-          file: ./hack/dockerfiles/${{matrix.dockerfile}}.Dockerfile
+          file: ./packages/${{ matrix.dockerfile }}/Dockerfile
           push: true
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
