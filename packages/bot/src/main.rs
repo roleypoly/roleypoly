@@ -40,11 +40,13 @@ impl EventHandler for Handler {
             m.reference_message(&msg).allowed_mentions(|f| {
                 f.replied_user(false)
             });
+            
+            let guild_url = format!("{}/s/{}", self.ui_public_uri, msg.guild_id.unwrap().0);
 
             m.embed(|e| {
                 e.title(":beginner: Howdy, pick your roles here!");
                 e.description("Roleypoly will open in your browser.\n\nIf that's not cool with you, try the `/roleypoly` command!");
-                e.url(&self.ui_public_uri);
+                e.url(&guild_url);
                 e.color(0x453e3d);
                 e
             });
@@ -53,7 +55,7 @@ impl EventHandler for Handler {
                 c.create_action_row(|r| {
                     r.create_button(|b| {
                         b.style(ButtonStyle::Link);
-                        b.url(&self.ui_public_uri);
+                        b.url(&guild_url);
                         b.label(format!("Pick your roles on {}", self.ui_hostname));
                         b
                     });
