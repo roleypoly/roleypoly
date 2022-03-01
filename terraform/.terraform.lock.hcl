@@ -24,21 +24,21 @@ provider "registry.terraform.io/cloudflare/cloudflare" {
 }
 
 provider "registry.terraform.io/hashicorp/google" {
-  version     = "4.9.0"
-  constraints = ">= 3.74.0"
+  version     = "4.12.0"
+  constraints = ">= 3.53.0, >= 3.74.0, < 5.0.0"
   hashes = [
-    "h1:7NS3UTI4ItiaxTW5cEWlFMqezqwRgpKzElaHUnO32EA=",
-    "zh:10887917815293d6ad26cc3784c766de4dfa2fa6b2c8b994de4f4b7b3bc31653",
-    "zh:343037e5ec514ac02bfacc200acb648861b04ee9024bed5bf72d13583d10783d",
-    "zh:40eaf3e06e44e2278ba64fc161e96b1bd05508f599ce12e1f094a924839d34a6",
-    "zh:5178f1043fa24a38602833aed72db5023f4183833e1fdb78bb1584a05ff53030",
-    "zh:616889b78ee00ee69d749f7848d63246de200f17efeebfaaf28dbe3f49ec6362",
-    "zh:695f6de8659d17f65a3317b9810cdc1c12738648b1b87dcf7eca90ebc019d889",
-    "zh:6e98efe69bff66120cfd0911eea4d20f7b17c62eed909e12098e46efb8f86e5a",
-    "zh:78f6615113f8fd0fb28f7b58102c55db42e7251463650e0410ec2d6f8877141c",
-    "zh:8a2f45c2f7e4c4077b720d6b98d5ee26347e97b6d2ee12489cca14d42fef2f36",
-    "zh:db1a462b72047342d5b35587953a3db30a4af248100e1db9eddc0ebb4b7c9a07",
-    "zh:fa64449c0efa1340077c860003059762e735b4d2a376d9ece90c174ad8d238c0",
+    "h1:NQg9AYJOEt7zXmRyK6ArP3PGQmaUiJYJPvLyh4uEH7E=",
+    "zh:104c9b1a14a0631ced8072f4cce00ea8e9d063f13c5f8cce0f0d9a1ad64230a1",
+    "zh:14bc7b8ba2f522e512b6a1405db443e89a0d7cb3e27edea3630fe5c6c71e9f71",
+    "zh:1d53032ccaac3b6452a8a91e6f68a022ad0a26affa70702a2cfa0346f4c3f2d3",
+    "zh:39184ecf86c42610e88a35edc5031535445e0224e2a11356ca0afa6bf9eba2e5",
+    "zh:46653430022ad1a154faac1b7c36308f421c5c7209e04dcda4fdf5c2019b5a90",
+    "zh:4c3c74d909b1d1ace7d57ec99e4c347c30b025588570d5382ca4140acb97df0e",
+    "zh:844e9d0e1f33c7b0ce08e34df9a3123f11169c8d02299d3a6d9bbae73482ebbc",
+    "zh:953758276c990efba630f3769616b9bb3d73e7fc7d2c385b2996d975f26b05ea",
+    "zh:afacd04e2ff3ac17cf998e9cfe28eed7cb2bc3ec2577e1e8d0053965aaddb8ac",
+    "zh:c7d18591d9c1b3ce812587e320509d3318cfcfb00758482a96b4699f947794b1",
+    "zh:c94bf6e4c746874da9bf69915966933ad29908be9eb1b0e0e5ea80c7a9202a6c",
   ]
 }
 
