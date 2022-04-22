@@ -41,7 +41,7 @@
     "@types/enzyme": "^3.10.11",
     "@types/lodash": "^4.14.178",
     "@types/node": "^17.0.13",
-    "@types/react": "^17.0.38",
+    "@types/react": "^18.0.6",
     "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-custom-scrollbars": "^4.0.10",
     "@types/react-dom": "^17.0.11",
