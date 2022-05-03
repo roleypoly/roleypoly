@@ -24,21 +24,21 @@ provider "registry.terraform.io/cloudflare/cloudflare" {
 }
 
 provider "registry.terraform.io/hashicorp/google" {
-  version     = "4.9.0"
-  constraints = ">= 3.74.0"
+  version     = "4.20.0"
+  constraints = ">= 3.53.0, >= 3.74.0, < 5.0.0"
   hashes = [
-    "h1:7NS3UTI4ItiaxTW5cEWlFMqezqwRgpKzElaHUnO32EA=",
-    "zh:10887917815293d6ad26cc3784c766de4dfa2fa6b2c8b994de4f4b7b3bc31653",
-    "zh:343037e5ec514ac02bfacc200acb648861b04ee9024bed5bf72d13583d10783d",
-    "zh:40eaf3e06e44e2278ba64fc161e96b1bd05508f599ce12e1f094a924839d34a6",
-    "zh:5178f1043fa24a38602833aed72db5023f4183833e1fdb78bb1584a05ff53030",
-    "zh:616889b78ee00ee69d749f7848d63246de200f17efeebfaaf28dbe3f49ec6362",
-    "zh:695f6de8659d17f65a3317b9810cdc1c12738648b1b87dcf7eca90ebc019d889",
-    "zh:6e98efe69bff66120cfd0911eea4d20f7b17c62eed909e12098e46efb8f86e5a",
-    "zh:78f6615113f8fd0fb28f7b58102c55db42e7251463650e0410ec2d6f8877141c",
-    "zh:8a2f45c2f7e4c4077b720d6b98d5ee26347e97b6d2ee12489cca14d42fef2f36",
-    "zh:db1a462b72047342d5b35587953a3db30a4af248100e1db9eddc0ebb4b7c9a07",
-    "zh:fa64449c0efa1340077c860003059762e735b4d2a376d9ece90c174ad8d238c0",
+    "h1:CrNR/pzPm6Z4NQzyb3rlU79RQ+NRXJ3xgrhy1ap4JiM=",
+    "zh:0ccae031531ee3d412681b93f2f6941e0e2c43c294d0ea7851a027aa99a32c8a",
+    "zh:1a84e894bf56aa4a7a663a198fd0576cf5a37407e65d2b46bf0c351eb626f7eb",
+    "zh:1c3708268482ad172b08adfc98aa11df5d4cd663d6be4b0ce4bb12c997c5bd49",
+    "zh:2075cb237b3eb90aaae669e4fe41507ce29ed4a4d349fa35f260995f9a73d393",
+    "zh:3ef464693ab8a743e230d0271006b942dc30090640c85efb1c6dfc807837c31f",
+    "zh:62d12548d136a96beded5300cd029e21bf7b89a063aa97422198309d4a7e4c55",
+    "zh:68eefedb6abd2da3fa068abcc9abd5798ff4cce73ff07cdb41a2ccd372e9cb52",
+    "zh:7d5d5e5e8d46a99423ba075064d875903189561fe0658e76c7b305d0c81a1e53",
+    "zh:80f9ccbf7307bc4343ae46defb3cbd572d92490013c16b02deccdb76a606c425",
+    "zh:a9664dc8e1f8a077bd6424afa62334e34fe250c425aa63fa22aaf1cf4a0f6499",
+    "zh:e14be25176dd3b1437107b010e6020f95f3da55be3b0d7c34245fe7a2c630e2e",
   ]
 }
 
