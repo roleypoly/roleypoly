@@ -19,9 +19,10 @@ export const UserPopover = (props: UserPopoverProps) => {
   const subtitleText = React.useMemo(() => {
     const texts = [
       '✊ Black Lives Matter.',
-      'Trans Rights!',
+      'Trans Rights are Human Rights',
       'Stop AAPI Hate.',
       "Get vaccinated, it's free!",
+      'Imagine having bodily autonomy',
     ];
 
     return texts[Math.floor(Math.random() * texts.length)];
@@ -46,7 +47,7 @@ export const UserPopover = (props: UserPopoverProps) => {
         </Link>
       </NavAction>
       <NavAction>
-        <Link href="https://discord.com/PWQUVsd">
+        <Link href="https://discord.gg/PWQUVsd">
           Get help on Discord <FaDiscord />
         </Link>
       </NavAction>
