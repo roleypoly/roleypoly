@@ -4,9 +4,8 @@ import {
   MainSide,
   Title,
 } from '@roleypoly/design-system/molecules/server-utilities/ServerUtilities.styled';
-import { hasFeature } from '@roleypoly/misc-utils/hasFeature';
-import { Features, GuildData } from '@roleypoly/types';
-import { GoArchive, GoChevronRight, GoReport, GoShield } from 'react-icons/go';
+import { GuildData } from '@roleypoly/types';
+import { GoChevronRight } from 'react-icons/go';
 
 type Props = {
   guildData: GuildData;
@@ -30,7 +29,7 @@ const Utility = (props: {
 
 export const ServerUtilities = (props: Props) => (
   <div>
-    {hasFeature(props.guildData.features, Features.AccessControl) && (
+    {/* {hasFeature(props.guildData.features, Features.AccessControl) && (
       <Utility
         title={
           <>
@@ -65,6 +64,6 @@ export const ServerUtilities = (props: Props) => (
         description="Export or delete all of your Roleypoly data."
         link={`/s/${props.guildData.id}/edit/data`}
       />
-    )}
+    )} */}
   </div>
 );
