@@ -9,7 +9,7 @@ describe('GET /auth/bounce', () => {
     });
     expect(response.status).toBe(303);
     expect(response.headers.get('Location')).toContain(
-      'https://discord.com/api/oauth2/authorize?client_id=test123&response_type=code&scope=identify%20guilds&prompt=none&redirect_uri=http%3A%2F%2Ftest.local%2Fauth%2Fcallback&state='
+      'https://discord.com/api/oauth2/authorize?client_id=test123&response_type=code&scope=identify%20guilds&redirect_uri=http%3A%2F%2Ftest.local%2Fauth%2Fcallback&state='
     );
   });
 
