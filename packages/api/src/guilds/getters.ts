@@ -7,7 +7,6 @@ import {
   discordFetch,
   getHighestRole,
 } from '@roleypoly/api/src/utils/discord';
-import { fetchLegacyServer, transformLegacyGuild } from '@roleypoly/api/src/utils/legacy';
 import { evaluatePermission, permissions } from '@roleypoly/misc-utils/hasPermission';
 import {
   Category,
@@ -96,27 +95,6 @@ export const getGuildData = async (config: Config, id: string): Promise<GuildDat
     ...empty,
     ...guildData,
   };
-};
-
-export const attemptLegacyImport = async (
-  config: Config,
-  id: string
-): Promise<GuildData | null> => {
-  try {
-    const legacyGuildData = await fetchLegacyServer(config, id);
-    if (!legacyGuildData) {
-      // Means there is no legacy data.
-      return null;
-    }
-
-    const transformed = transformLegacyGuild(legacyGuildData);
-
-    await config.kv.guildData.put(id, transformed);
-    return transformed;
-  } catch (e) {
-    console.error('attemptLegacyImport errored:', e);
-    return null;
-  }
 };
 
 export const getGuildMember = async (
