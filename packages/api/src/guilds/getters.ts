@@ -88,18 +88,6 @@ export const getGuildData = async (config: Config, id: string): Promise<GuildDat
   };
 
   if (!guildData) {
-    // It's rare for no guild data to exist while also having a guild.
-    // It's either an actually new guild... or could be imported.
-    // Let's attempt the import...
-    const legacyData = await attemptLegacyImport(config, id);
-    if (legacyData) {
-      return {
-        ...empty,
-        ...legacyData,
-      };
-    }
-
-    // So we don't try again, let's set the data.
     await config.kv.guildData.put(id, empty);
     return empty;
   }
