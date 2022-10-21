@@ -3,6 +3,8 @@ import { GenericLoadingTemplate } from '@roleypoly/design-system/templates/gener
 import * as React from 'react';
 import AuthLogin from '../pages/auth/login';
 import ErrorPage from '../pages/error';
+import PrivacyPage from '../pages/help/privacy';
+import TermsPage from '../pages/help/terms';
 import LandingPage from '../pages/landing';
 import PickerPage from '../pages/picker';
 
@@ -54,6 +56,8 @@ export const AppRouter = () => {
       <RouteWrapper component={DevToolsSessionDebug} path="/x/dev-tools/session-debug" />
 
       <RouteWrapper component={WhyNoRoles} path="/help/why-no-roles" />
+      <RouteWrapper component={TermsPage} path="/help/terms" />
+      <RouteWrapper component={PrivacyPage} path="/help/privacy" />
 
       <RouteWrapper component={ErrorPage} default identity={404} />
     </Router>
