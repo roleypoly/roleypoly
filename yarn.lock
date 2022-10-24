@@ -2262,6 +2262,14 @@
     core-js "^3.8.2"
     global "^4.4.0"
 
+"@storybook/client-logger@6.5.13":
+  version "6.5.13"
+  resolved "https://registry.yarnpkg.com/@storybook/client-logger/-/client-logger-6.5.13.tgz#83f332dd9bb4ff1696d16b0cc24561df90905264"
+  integrity sha512-F2SMW3LWFGXLm2ENTwTitrLWJgmMXRf3CWQXdN2EbkNCIBHy5Zcbt+91K4OX8e2e5h9gjGfrdYbyYDYOoUCEfA==
+  dependencies:
+    core-js "^3.8.2"
+    global "^4.4.0"
+
 "@storybook/components@6.4.17":
   version "6.4.17"
   resolved "https://registry.yarnpkg.com/@storybook/components/-/components-6.4.17.tgz#5be383682d9538c35c96463723cb17740f105fb6"
@@ -2653,7 +2661,7 @@
     ts-dedent "^2.0.0"
     util-deprecate "^1.0.2"
 
-"@storybook/theming@6.4.17", "@storybook/theming@^6.4.17":
+"@storybook/theming@6.4.17":
   version "6.4.17"
   resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-6.4.17.tgz#f0a03d2d3239638ac171e97a8f089ee2656a8287"
   integrity sha512-7+U72/VdhoMb00q1URMzdTW3OYHJogro2i2hScgKR+ndL4/dtSmetJ/1z9PuoFxLxHgdLKcwMAV0fZAjEYlhCA==
@@ -2670,6 +2678,16 @@
     polished "^4.0.5"
     resolve-from "^5.0.0"
     ts-dedent "^2.0.0"
+
+"@storybook/theming@^6.5.13":
+  version "6.5.13"
+  resolved "https://registry.yarnpkg.com/@storybook/theming/-/theming-6.5.13.tgz#3f905eb9f72ddc28d096384290999057987f3083"
+  integrity sha512-oif5NGFAUQhizo50r+ctw2hZNLWV4dPHai+L/gFvbaSeRBeHSNkIcMoZ2FlrO566HdGZTDutYXcR+xus8rI28g==
+  dependencies:
+    "@storybook/client-logger" "6.5.13"
+    core-js "^3.8.2"
+    memoizerific "^1.11.3"
+    regenerator-runtime "^0.13.7"
 
 "@storybook/ui@6.4.17":
   version "6.4.17"
