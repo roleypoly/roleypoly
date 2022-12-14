@@ -18,7 +18,7 @@
     "@roleypoly/misc-utils": "*",
     "@roleypoly/types": "*",
     "@types/node": "^17.0.13",
-    "esbuild": "^0.14.16",
+    "esbuild": "^0.16.6",
     "itty-router": "^2.4.10",
     "jest-environment-miniflare": "^2.2.0",
     "lodash": "^4.17.21",
