@@ -85,7 +85,7 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - uses: actions/cache@v2.1.6
+      - uses: actions/cache@v3.2.2
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
