@@ -2,10 +2,10 @@ import { Popover } from '@roleypoly/design-system/atoms/popover';
 import { Role } from '@roleypoly/design-system/atoms/role';
 import { RoleSearch } from '@roleypoly/design-system/molecules/role-search';
 import { Role as RoleT } from '@roleypoly/types';
-import { sortBy, uniq } from 'lodash';
 import React from 'react';
 import { GoPlus } from 'react-icons/go';
 import { AddRoleButton, EditableRoleListStyled } from './EditableRoleList.styled';
+import { sortByReverse } from '@roleypoly/misc-utils/sortBy';
 
 type Props = {
   roles: RoleT[];
@@ -36,7 +36,7 @@ export const EditableRoleList = (props: Props) => {
     <EditableRoleListStyled>
       {props.selectedRoles.length !== 0 ? (
         <>
-          {sortBy(
+          {sortByReverse(
             props.roles.filter((r) => props.selectedRoles.includes(r.id)),
             'position'
           ).map((role) => (

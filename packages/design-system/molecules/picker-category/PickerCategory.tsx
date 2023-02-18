@@ -1,6 +1,6 @@
 import { Role } from '@roleypoly/design-system/atoms/role';
 import { AmbientLarge, LargeText } from '@roleypoly/design-system/atoms/typography';
-import { sortBy } from '@roleypoly/misc-utils/sortBy';
+import { sortByReverse } from '@roleypoly/misc-utils/sortBy';
 import { Category as RPCCategory, Role as RPCRole, RoleSafety } from '@roleypoly/types';
 import * as React from 'react';
 import ReactTooltip from 'react-tooltip';
@@ -47,7 +47,7 @@ export const PickerCategory = (props: CategoryProps) => (
       )}
     </Head>
     <Category>
-      {sortBy(props.roles, 'position').map((role, idx) => (
+      {sortByReverse(props.roles, 'position').map((role, idx) => (
         <Container key={idx}>
           <Role
             role={role}
