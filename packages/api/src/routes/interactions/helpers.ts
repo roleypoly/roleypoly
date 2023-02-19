@@ -13,7 +13,6 @@ export const verifyRequest = async (
     const signature = request.headers.get('x-signature-ed25519');
 
     if (!timestamp || !signature) {
-      console.error("interactions: missing signature headers", { timestamp, signature });
       return false;
     }
 
@@ -32,13 +31,8 @@ export const verifyRequest = async (
       bufferizeString(timestamp + JSON.stringify(interaction))
     );
 
-    if (!verified) {
-      console.error("interactions: signature verification failed", { timestamp, signature });
-    }
-
     return verified;
   } catch (e) {
-    console.error("interactions: signature verification failed", e);
     return false;
   }
 };
