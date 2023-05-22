@@ -41,6 +41,7 @@
     "test:misc-utils": "yarn workspace @roleypoly/misc-utils run test",
     "test:web": "yarn workspace @roleypoly/web run test"
   },
+  "dependencies": {},
   "devDependencies": {
     "@stylelint/postcss-css-in-js": "^0.37.2",
     "husky": "^7.0.4",

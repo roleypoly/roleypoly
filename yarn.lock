@@ -5041,9 +5041,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001286, caniuse-lite@^1.0.30001297, caniuse-lite@^1.0.30001299:
-  version "1.0.30001303"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001303.tgz#9b168e4f43ccfc372b86f4bc5a551d9b909c95c9"
-  integrity sha512-/Mqc1oESndUNszJP0kx0UaQU9kEv9nNtJ7Kn8AdA0mNnH8eR1cj0kG+NbNuC1Wq/b21eA8prhKRA3bbkjONegQ==
+  version "1.0.30001488"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001488.tgz"
+  integrity sha512-NORIQuuL4xGpIy6iCCQGN4iFjlBXtfKWIenlUuyZJumLRIindLb7wXM+GO8erEhb7vXfcnf4BAg2PrSDN5TNLQ==
 
 capital-case@^1.0.4:
   version "1.0.4"
@@ -14838,10 +14838,10 @@ uglify-js@^3.1.4:
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.15.0.tgz#2d6a689d94783cab43975721977a13c2afec28f1"
   integrity sha512-x+xdeDWq7FiORDvyIJ0q/waWd4PhjBNOm5dQUOq2AKC0IEjxOS66Ha9tctiVDGcRQuh69K7fgU5oRuTK4cysSg==
 
-ulid-workers@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/ulid-workers/-/ulid-workers-1.1.0.tgz#f8812eac5b3c80353fad06b988215b65062a714c"
-  integrity sha512-noAmHMKQPfsfq1YRR7nje0TgzLTyQDZpvJ61FPEsSTQnHPr7BL3uIfR1nojF2tgDuCuOSFV6QnKJA1v1m3Auig==
+ulid-workers@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ulid-workers/-/ulid-workers-2.1.0.tgz#d837f963208dfedecde75f743448ec4c39d4b7e4"
+  integrity sha512-D4+5fwPt5FEoGdMQtx5YwRHUZ4SDWSypraDZiXT3Y8U7T0C6h99dXhpWJQScNckoVRU+zi+BDuoBKHAffrn9vg==
 
 ulidx@^0.3.0:
   version "0.3.0"
