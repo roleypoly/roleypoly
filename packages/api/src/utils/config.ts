@@ -71,7 +71,7 @@ export const parseEnvironment = (env: Environment): Config => {
     retention: {
       session: 60 * 60 * 6, // 6 hours
       sessionState: 60 * 5, // 5 minutes
-      guild: 60 * 60 * 2, // 2 hours
+      guild: 60 * 15, // 15 minutes
       member: 60 * 5, // 5 minutes
     },
   };
