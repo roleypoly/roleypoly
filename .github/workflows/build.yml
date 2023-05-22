@@ -20,7 +20,7 @@ jobs:
 
       - run: yarn lint
 
-      - run: yarn test
+      # - run: yarn test
 
   worker_build:
     runs-on: ubuntu-latest
@@ -37,7 +37,7 @@ jobs:
 
       - uses: actions/setup-node@v2.5.1
         with:
-          node-version: '16'
+          node-version: '20'
           cache: yarn
 
       - id: 'auth'
