@@ -75,7 +75,6 @@ jobs:
   trigger_deploy:
     name: Deploy to Stage
     needs:
-      - docker_build
       - worker_build
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
