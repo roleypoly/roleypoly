@@ -90,11 +90,11 @@ export const RolePicker = (props: RolePickerProps) => {
                   selectedRoles={selectedRoles.filter((roleId) =>
                     category.roles.includes(roleId)
                   )}
-                  roles={(
+                  roles={
                     category.roles
                       .map((role) => props.roles.find((r) => r.id === role))
                       .filter((r) => r !== undefined) as Role[]
-                  ).sort((a, b) => b.position - a.position)}
+                  }
                   onChange={handleChange(category)}
                   wikiMode={false}
                   type={category.type === CategoryType.Single ? 'single' : 'multi'}
