@@ -1,8 +1,9 @@
 import { Popover } from '@roleypoly/design-system/atoms/popover';
 import { Role } from '@roleypoly/design-system/atoms/role';
 import { RoleSearch } from '@roleypoly/design-system/molecules/role-search';
+import { sortBy } from '@roleypoly/misc-utils/sortBy';
 import { Role as RoleT } from '@roleypoly/types';
-import { sortBy, uniq } from 'lodash';
+import { uniq } from 'lodash';
 import React from 'react';
 import { GoPlus } from 'react-icons/go';
 import { AddRoleButton, EditableRoleListStyled } from './EditableRoleList.styled';
@@ -38,7 +39,9 @@ export const EditableRoleList = (props: Props) => {
         <>
           {sortBy(
             props.roles.filter((r) => props.selectedRoles.includes(r.id)),
-            'position'
+            'position',
+            undefined,
+            true
           ).map((role) => (
             <Role
               key={role.id}
