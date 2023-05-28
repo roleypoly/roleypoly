@@ -47,7 +47,7 @@ export const PickerCategory = (props: CategoryProps) => (
       )}
     </Head>
     <Category>
-      {sortBy(props.roles, 'position').map((role, idx) => (
+      {sortBy(props.roles, 'position', undefined, true).map((role, idx) => (
         <Container key={idx}>
           <Role
             role={role}
