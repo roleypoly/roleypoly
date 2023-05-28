@@ -58,24 +58,6 @@ variable "root_users" {
   description = "Root users to use for role elevation calculations"
 }
 
-variable "deploy_bot" {
-  type        = bool
-  default     = false
-  description = "Bot is an optional piece of the system. It's only typically deployed in prod."
-}
-
-variable "bot_instance_size" {
-  type        = string
-  default     = "f1-micro"
-  description = "Google Compute Engine VM size"
-}
-
-variable "bot_tag" {
-  type        = string
-  default     = ""
-  description = ":tag or @sha265: of ghcr.io/roleypoly/bot"
-}
-
 variable "worker_tag" {
   type        = string
   default     = ""

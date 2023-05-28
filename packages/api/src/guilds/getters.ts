@@ -47,15 +47,18 @@ export const getGuild = async (
             .filter((x) => x !== undefined) as APIRole[]
         )?.position || -1;
 
-      const roles = guildRaw.roles.map<Role>((role) => ({
-        id: role.id,
-        name: role.name,
-        color: role.color,
-        managed: role.managed,
-        position: role.position,
-        permissions: role.permissions,
-        safety: calculateRoleSafety(role, highestRolePosition),
-      }));
+      const roles = guildRaw.roles
+        .map<Role>((role) => ({
+          id: role.id,
+          name: role.name,
+          color: role.color,
+          managed: role.managed,
+          position: role.position,
+          permissions: role.permissions,
+          safety: calculateRoleSafety(role, highestRolePosition),
+        }))
+        // sort so that highest is first
+        .sort((a, b) => b.position - a.position);
 
       const guild: Guild & OwnRoleInfo = {
         id,

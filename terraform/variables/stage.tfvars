@@ -1,5 +1,5 @@
 environment_tag        = "stage"
-deploy_bot             = true
+deploy_bot             = false
 bot_instance_size      = "e2-micro"
 ui_public_uri          = "https://stage.roleypoly.com"
 api_public_uri         = "https://api-stage.roleypoly.com"

@@ -1,5 +1,5 @@
 environment_tag        = "prod"
-deploy_bot             = true
+deploy_bot             = false
 bot_instance_size      = "e2-small"
 ui_public_uri          = "https://roleypoly.com"
 api_public_uri         = "https://api-prod.roleypoly.com"

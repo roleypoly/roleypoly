@@ -1,7 +1,0 @@
-{
-  "name": "@roleypoly/bot",
-  "version": "0.0.1",
-  "scripts": {
-    "start": "cargo run"
-  }
-}
