@@ -13,7 +13,9 @@ export const UserAvatarGroup = (props: Props) => (
     <Collapse preventCollapse={props.preventCollapse || false}>
       <GroupText>
         {props.user.username}
-        <Discriminator>#{props.user.discriminator}</Discriminator>
+        {props.user.discriminator && props.user.discriminator !== '0' && (
+          <Discriminator>#{props.user.discriminator}</Discriminator>
+        )}
       </GroupText>
       &nbsp;
     </Collapse>
