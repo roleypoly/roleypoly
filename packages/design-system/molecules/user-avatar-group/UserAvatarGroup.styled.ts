@@ -20,10 +20,11 @@ export const Group = styled.div`
 export const Discriminator = styled.span`
   color: ${palette.taupe500};
   font-size: 75%;
-  padding: 0 5px;
+  padding-left: 5px;
 `;
 
 export const GroupText = styled.span`
   position: relative;
   top: -2px;
+  padding-right: 5px;
 `;
